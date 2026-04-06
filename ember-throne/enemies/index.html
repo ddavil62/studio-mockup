@@ -63,6 +63,33 @@
       border-color: var(--accent-gold);
     }
     .dir-grid button.empty { visibility: hidden; }
+    .anim-controls {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: center;
+    }
+    .anim-btn {
+      padding: 2px 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.65rem;
+      transition: all 0.15s;
+    }
+    .anim-btn:hover, .anim-btn.active {
+      background: #c85050;
+      color: #fff;
+      border-color: #c85050;
+    }
+    .anim-btn.active-static {
+      background: var(--accent-gold);
+      color: var(--bg-primary);
+      border-color: var(--accent-gold);
+    }
     .enemy-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -386,16 +413,44 @@
       });
     });
 
-    // ── 스프라이트 뷰어 ──
-    const DIRECTIONS = ['south','south-west','west','north-west','north','north-east','east','south-east'];
+    // ── 애니메이션 정의 ──
+    const ANIMS = [
+      { id: 'idle', label: 'Idle', folder: 'breathing-idle', frames: 4 },
+      { id: 'walk', label: 'Walk', folder: 'walk', frames: 6 },
+      { id: 'punch', label: 'Punch', folder: 'cross-punch', frames: 6 },
+      { id: 'fireball', label: 'Magic', folder: 'fireball', frames: 6 },
+      { id: 'hit', label: 'Hit', folder: 'taking-punch', frames: 6 },
+      { id: 'death', label: 'Death', folder: 'falling-back-death', frames: 7 },
+    ];
 
+    // ── 스프라이트 뷰어 + 애니메이션 ──
     document.querySelectorAll('.sprite-area[data-enemy]').forEach(area => {
       const charName = area.dataset.char;
       const canvas = area.querySelector('canvas');
       const ctx = canvas.getContext('2d');
       const scale = 2;
+      let currentDir = 'south';
+      let animInterval = null;
+      let currentAnim = null;
 
-      function loadDir(dir) {
+      // 애니메이션 컨트롤 삽입
+      const animDiv = document.createElement('div');
+      animDiv.className = 'anim-controls';
+      const staticBtn = document.createElement('button');
+      staticBtn.className = 'anim-btn active-static';
+      staticBtn.textContent = 'Static';
+      staticBtn.dataset.anim = 'static';
+      animDiv.appendChild(staticBtn);
+      ANIMS.forEach(a => {
+        const b = document.createElement('button');
+        b.className = 'anim-btn';
+        b.textContent = a.label;
+        b.dataset.anim = a.id;
+        animDiv.appendChild(b);
+      });
+      area.appendChild(animDiv);
+
+      function drawImage(src) {
         const img = new Image();
         img.onload = () => {
           canvas.width = img.width * scale;
@@ -408,22 +463,84 @@
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.fillStyle = '#666';
           ctx.font = '12px monospace';
-          ctx.fillText('Not found', 10, canvas.height / 2);
+          ctx.fillText('N/A', 10, canvas.height / 2);
         };
-        img.src = `../assets/sprites/enemies/${charName}/rotations/${dir}.png`;
+        img.src = src;
       }
+
+      function showStatic() {
+        stopAnim();
+        currentAnim = null;
+        drawImage(`../assets/sprites/enemies/${charName}/rotations/${currentDir}.png`);
+        animDiv.querySelectorAll('.anim-btn').forEach(b => {
+          b.classList.remove('active', 'active-static');
+        });
+        staticBtn.classList.add('active-static');
+      }
+
+      function stopAnim() {
+        if (animInterval) { clearInterval(animInterval); animInterval = null; }
+      }
+
+      function playAnim(animDef) {
+        stopAnim();
+        currentAnim = animDef;
+        let frame = 0;
+        const base = `../assets/sprites/enemies/${charName}/animations/${animDef.folder}/${currentDir}`;
+        // preload
+        const imgs = [];
+        let loaded = 0;
+        for (let i = 0; i < animDef.frames; i++) {
+          const img = new Image();
+          img.src = `${base}/frame_${String(i).padStart(3, '0')}.png`;
+          img.onload = () => { loaded++; if (loaded === animDef.frames) startLoop(); };
+          img.onerror = () => { loaded++; };
+          imgs.push(img);
+        }
+        function startLoop() {
+          drawFrame(0);
+          animInterval = setInterval(() => {
+            frame = (frame + 1) % animDef.frames;
+            drawFrame(frame);
+          }, 150);
+        }
+        function drawFrame(f) {
+          const img = imgs[f];
+          if (!img || !img.complete || !img.naturalWidth) return;
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
+          ctx.imageSmoothingEnabled = false;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+        animDiv.querySelectorAll('.anim-btn').forEach(b => {
+          b.classList.remove('active', 'active-static');
+        });
+        animDiv.querySelector(`[data-anim="${animDef.id}"]`).classList.add('active');
+      }
+
+      // 애니메이션 버튼 이벤트
+      animDiv.querySelectorAll('.anim-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.dataset.anim === 'static') { showStatic(); return; }
+          const def = ANIMS.find(a => a.id === btn.dataset.anim);
+          if (def) playAnim(def);
+        });
+      });
 
       // 방향 버튼
       area.querySelectorAll('.dir-grid button[data-dir]').forEach(btn => {
         btn.addEventListener('click', () => {
           area.querySelectorAll('.dir-grid button').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          loadDir(btn.dataset.dir);
+          currentDir = btn.dataset.dir;
+          if (currentAnim) playAnim(currentAnim);
+          else showStatic();
         });
       });
 
       // 기본 south 로드
-      loadDir('south');
+      showStatic();
     });
   </script>
 </body>
