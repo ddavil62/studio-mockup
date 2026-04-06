@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ember Throne - Skills & VFX</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .cutin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .cutin-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-align: center;
+    }
+    .cutin-preview {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cutin-preview .speedlines {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+    }
+    .cutin-preview .theme-color {
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+    }
+    .cutin-name { font-weight: 600; font-size: 0.85rem; }
+    .cutin-skill { font-size: 0.75rem; color: var(--text-secondary); }
+
+    .vfx-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .vfx-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .vfx-canvas-wrap {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #080810;
+      position: relative;
+    }
+    .vfx-canvas-wrap canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .vfx-info { padding: 12px; }
+    .vfx-info h4 { font-size: 0.9rem; margin-bottom: 4px; }
+    .vfx-info .desc { font-size: 0.8rem; color: var(--text-secondary); }
+    .vfx-play-btn {
+      position: absolute;
+      bottom: 8px; right: 8px;
+      background: rgba(212,168,67,0.9);
+      border: none;
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      color: #000;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .motion-table td { vertical-align: top; }
+    .motion-id { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan); }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Ember Throne</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Ember Throne</a> / Skills & VFX
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../characters/index.html">Characters</a>
+    <a href="index.html" class="active">Skills & VFX</a>
+    <a href="../maps/index.html">Maps</a>
+    <a href="../ui/index.html">UI Mockup</a>
+    <div class="section-title">Sections</div>
+    <a href="#cutin">Cut-in System</a>
+    <a href="#vfx-preview">VFX Preview</a>
+    <a href="#skill-list">Full Skill List</a>
+    <a href="#motion-types">Motion Types</a>
+    <a href="#effect-types">Effect Types</a>
+  </nav>
+
+  <main class="content">
+    <h2>Skills & VFX</h2>
+    <p class="text-muted mb-16">88개 액티브 스킬 + 6개 공용 행동. 4등급 연출 체계 (S/A/B/C)</p>
+
+    <!-- ── 등급 요약 ── -->
+    <div style="display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap">
+      <div class="badge badge-s" style="padding:6px 16px;font-size:0.85rem">S급 궁극기: 11</div>
+      <div class="badge badge-a" style="padding:6px 16px;font-size:0.85rem">A급 상급: 24</div>
+      <div class="badge badge-b" style="padding:6px 16px;font-size:0.85rem">B급 일반: 41</div>
+      <div class="badge badge-c" style="padding:6px 16px;font-size:0.85rem">C급 기본: 12</div>
+    </div>
+
+    <!-- ── 컷인 시스템 ── -->
+    <div id="cutin" class="section">
+      <h3 style="margin-bottom:4px">Cut-in System (궁극기 연출)</h3>
+      <p class="text-muted mb-16" style="font-size:0.85rem">S급 스킬 사용 시 발동. 512x768 세로형 반신 일러스트 + 집중선 + 스킬명 텍스트.</p>
+
+      <div class="cutin-grid">
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#d4a843,#e85d3a)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">카엘</div>
+          <div class="cutin-skill">새벽의 검 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">붉은 금색 / 방사형 금빛 집중선</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#fff,#d4a843)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">세리아</div>
+          <div class="cutin-skill">사도의 축복 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">순백+금 / 수직 하강 빛줄기</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#e85d3a,#888)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">리넨</div>
+          <div class="cutin-skill">계승자의 의지 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">주황+잿빛 / 소용돌이형 화염</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#2d8a4e,#4ae88a)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">로크</div>
+          <div class="cutin-skill">수호자의 일제 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">숲 녹색 / 대각선 화살 궤적</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#9a6aff,#ff6ab0)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">나엘</div>
+          <div class="cutin-skill">유대의 공명 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">연보라+핑크 / 파동형 동심원</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#1a2a5a,#4a9eff)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">그리드</div>
+          <div class="cutin-skill">부친의 맹세 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">짙은 남색+번개 / 직선 돌진</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#6a2aff,#fff)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">드라나</div>
+          <div class="cutin-skill">렌도르의 유산 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">보라+백색 / 마법진 회전</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#8a8a9a,#d4a843)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">볼드</div>
+          <div class="cutin-skill">최후의 방벽 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">강철+황금 / 파편 방사형</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#0a1a3a,#1a2a5a)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">이렌</div>
+          <div class="cutin-skill">총지휘 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">다크 네이비 / 수평 스피드라인</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#8a1a2a,#ff4a6a)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">헤이즐</div>
+          <div class="cutin-skill">해방의 깃발 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">진홍 / 수직 충격파</div>
+        </div>
+        <div class="cutin-card">
+          <div class="cutin-preview">
+            <div class="theme-color" style="background:linear-gradient(135deg,#e8e8e8,#e85d3a)"></div>
+            <span class="text-muted" style="font-size:0.75rem;z-index:1">미제작</span>
+          </div>
+          <div class="cutin-name">엘미라</div>
+          <div class="cutin-skill">불꽃 의식 <span class="badge badge-s">S</span></div>
+          <div class="text-muted" style="font-size:0.7rem">백금+화염 / 원형 빛 폭발</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── VFX 프리뷰 ── -->
+    <div id="vfx-preview" class="section" style="margin-top:36px">
+      <h3 style="margin-bottom:4px">VFX Preview</h3>
+      <p class="text-muted mb-16" style="font-size:0.85rem">주요 이펙트 타입의 Canvas 시뮬레이션. 클릭하여 재생.</p>
+
+      <div class="vfx-grid">
+        <div class="vfx-card">
+          <div class="vfx-canvas-wrap">
+            <canvas id="vfx-fire-burst" width="448" height="252"></canvas>
+            <button class="vfx-play-btn" onclick="playVFX('fire-burst')">&#9654;</button>
+          </div>
+          <div class="vfx-info">
+            <h4>FX_FIRE_BURST <span class="badge badge-a">A</span></h4>
+            <div class="desc">화염 폭발. 화염 마법, 궁극기에 사용. 파티클+스프라이트 하이브리드.</div>
+          </div>
+        </div>
+        <div class="vfx-card">
+          <div class="vfx-canvas-wrap">
+            <canvas id="vfx-slash-cross" width="448" height="252"></canvas>
+            <button class="vfx-play-btn" onclick="playVFX('slash-cross')">&#9654;</button>
+          </div>
+          <div class="vfx-info">
+            <h4>FX_SLASH_CROSS <span class="badge badge-a">A</span></h4>
+            <div class="desc">십자 참격파. 서약의 칼날 등에 사용. 스프라이트 기반.</div>
+          </div>
+        </div>
+        <div class="vfx-card">
+          <div class="vfx-canvas-wrap">
+            <canvas id="vfx-light-pillar" width="448" height="252"></canvas>
+            <button class="vfx-play-btn" onclick="playVFX('light-pillar')">&#9654;</button>
+          </div>
+          <div class="vfx-info">
+            <h4>FX_LIGHT_PILLAR <span class="badge badge-b">B</span></h4>
+            <div class="desc">빛 기둥. 치유/버프/부활에 사용. 파티클 상승형.</div>
+          </div>
+        </div>
+        <div class="vfx-card">
+          <div class="vfx-canvas-wrap">
+            <canvas id="vfx-arrow-rain" width="448" height="252"></canvas>
+            <button class="vfx-play-btn" onclick="playVFX('arrow-rain')">&#9654;</button>
+          </div>
+          <div class="vfx-info">
+            <h4>FX_ARROW_RAIN <span class="badge badge-s">S</span></h4>
+            <div class="desc">화살비. 수호자의 일제 궁극기. 파티클 기반 범위 공격.</div>
+          </div>
+        </div>
+        <div class="vfx-card">
+          <div class="vfx-canvas-wrap">
+            <canvas id="vfx-ice-storm" width="448" height="252"></canvas>
+            <button class="vfx-play-btn" onclick="playVFX('ice-storm')">&#9654;</button>
+          </div>
+          <div class="vfx-info">
+            <h4>FX_ICE_STORM <span class="badge badge-a">A</span></h4>
+            <div class="desc">얼음 폭풍. 블리자드에 사용. 파티클+스프라이트.</div>
+          </div>
+        </div>
+        <div class="vfx-card">
+          <div class="vfx-canvas-wrap">
+            <canvas id="vfx-screen-shake" width="448" height="252"></canvas>
+            <button class="vfx-play-btn" onclick="playVFX('screen-shake')">&#9654;</button>
+          </div>
+          <div class="vfx-info">
+            <h4>FX_SCREEN_SHAKE <span class="badge badge-a">A</span></h4>
+            <div class="desc">화면 흔들림. 강한 히트, 궁극기, 보스 스킬에 사용.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 전체 스킬 목록 ── -->
+    <div id="skill-list" class="section" style="margin-top:36px">
+      <h3 style="margin-bottom:12px">Full Skill List (88 Active Skills)</h3>
+
+      <div class="filter-bar" id="grade-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="S">S급</button>
+        <button class="filter-btn" data-filter="A">A급</button>
+        <button class="filter-btn" data-filter="B">B급</button>
+        <button class="filter-btn" data-filter="C">C급</button>
+      </div>
+
+      <table class="data-table" id="all-skills-table">
+        <thead>
+          <tr><th>캐릭터</th><th>스킬명</th><th>등급</th><th>타입</th><th>시전 모션</th><th>이펙트</th><th>카메라</th></tr>
+        </thead>
+        <tbody id="skills-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- ── 모션 타입 레퍼런스 ── -->
+    <div id="motion-types" class="section" style="margin-top:36px">
+      <h3 style="margin-bottom:12px">Motion Types (17종)</h3>
+      <table class="data-table motion-table">
+        <thead><tr><th>모션 ID</th><th>설명</th><th>프레임</th><th>사용 예</th></tr></thead>
+        <tbody>
+          <tr><td class="motion-id">MELEE_SLASH</td><td>검/도끼 수평 베기</td><td>6</td><td>기본 공격, 강타</td></tr>
+          <tr><td class="motion-id">MELEE_THRUST</td><td>찌르기/돌진</td><td>6</td><td>돌파, 급소 찌르기</td></tr>
+          <tr><td class="motion-id">MELEE_OVERHEAD</td><td>두손 내려치기</td><td>8</td><td>단죄의 일격</td></tr>
+          <tr><td class="motion-id">MELEE_SPIN</td><td>회전 공격</td><td>8</td><td>해적의 호령</td></tr>
+          <tr><td class="motion-id">RANGED_SHOOT</td><td>활 발사</td><td>6</td><td>기본 사격</td></tr>
+          <tr><td class="motion-id">RANGED_VOLLEY</td><td>연사/다발 발사</td><td>8</td><td>수호자의 일제</td></tr>
+          <tr><td class="motion-id">MAGIC_CAST</td><td>한손 시전</td><td>6</td><td>일반 마법</td></tr>
+          <tr><td class="motion-id">MAGIC_CHANNEL</td><td>양손 집중 시전</td><td>8</td><td>아케인 스톰</td></tr>
+          <tr><td class="motion-id">HEAL_PRAY</td><td>기도 자세</td><td>6</td><td>치유, 해제</td></tr>
+          <tr><td class="motion-id">HEAL_SING</td><td>양팔 벌려 노래</td><td>8</td><td>생명의 노래</td></tr>
+          <tr><td class="motion-id">BUFF_SHOUT</td><td>외침/포효</td><td>4</td><td>결의의 외침</td></tr>
+          <tr><td class="motion-id">GUARD_BRACE</td><td>방패 정면</td><td>4</td><td>철벽 방어</td></tr>
+          <tr><td class="motion-id">ITEM_USE</td><td>아이템 사용</td><td>4</td><td>아이템</td></tr>
+          <tr><td class="motion-id">DAGGER_BACKSTAB</td><td>은밀 접근+찌르기</td><td>8</td><td>비열한 한방</td></tr>
+          <tr><td class="motion-id">CHARGE_RUSH</td><td>돌진 이동+공격</td><td>10</td><td>폭풍 돌격</td></tr>
+          <tr><td class="motion-id">SUMMON</td><td>소환 제스처</td><td>6</td><td>지하조직 지원</td></tr>
+          <tr><td class="motion-id">ULTIMATE_SPECIAL</td><td>궁극기 전용</td><td>10~14</td><td>S급 전용</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── 이펙트 타입 ── -->
+    <div id="effect-types" class="section" style="margin-top:36px">
+      <h3 style="margin-bottom:12px">Effect Types (33종)</h3>
+      <table class="data-table">
+        <thead><tr><th>이펙트 ID</th><th>설명</th><th>렌더링</th><th>사용 예</th></tr></thead>
+        <tbody>
+          <tr><td class="motion-id">FX_SLASH_SINGLE</td><td>단일 참격파</td><td>스프라이트</td><td>강타</td></tr>
+          <tr><td class="motion-id">FX_SLASH_CROSS</td><td>십자 참격파</td><td>스프라이트</td><td>서약의 칼날</td></tr>
+          <tr><td class="motion-id">FX_FIRE_BURST</td><td>화염 폭발</td><td>파티클+스프라이트</td><td>화염 마법</td></tr>
+          <tr><td class="motion-id">FX_FIRE_COLUMN</td><td>화염 기둥</td><td>파티클(수직)</td><td>계승자의 의지</td></tr>
+          <tr><td class="motion-id">FX_FIRE_WAVE</td><td>화염 파동</td><td>파티클(확산)</td><td>불꽃 공명</td></tr>
+          <tr><td class="motion-id">FX_ICE_CRYSTAL</td><td>얼음 결정 폭발</td><td>스프라이트+파티클</td><td>빙결 마법</td></tr>
+          <tr><td class="motion-id">FX_THUNDER_BOLT</td><td>번개 낙뢰</td><td>스프라이트(깜빡임)</td><td>뇌 마법</td></tr>
+          <tr><td class="motion-id">FX_LIGHT_PILLAR</td><td>빛 기둥</td><td>파티클(상승)</td><td>치유, 축복</td></tr>
+          <tr><td class="motion-id">FX_LIGHT_WAVE</td><td>빛 파동</td><td>파티클(확산)</td><td>범위 치유</td></tr>
+          <tr><td class="motion-id">FX_ARROW_RAIN</td><td>화살비</td><td>파티클</td><td>수호자의 일제</td></tr>
+          <tr><td class="motion-id">FX_HOLY_FIRE</td><td>신성+화염 복합</td><td>파티클(백금+주황)</td><td>신성한 화염</td></tr>
+          <tr><td class="motion-id">FX_SONG_NOTE</td><td>음표 이펙트</td><td>파티클(부유)</td><td>생명의 노래</td></tr>
+          <tr><td class="motion-id">FX_SCREEN_FLASH</td><td>화면 전체 플래시</td><td>셰이더/오버레이</td><td>궁극기 히트</td></tr>
+          <tr><td class="motion-id">FX_SCREEN_SHAKE</td><td>화면 흔들림</td><td>카메라 셰이크</td><td>강한 히트</td></tr>
+          <tr><td class="motion-id">FX_POISON_CLOUD</td><td>독 안개</td><td>파티클(녹색)</td><td>독화살</td></tr>
+          <tr><td class="motion-id">FX_BUFF_AURA</td><td>버프 오라</td><td>파티클(반복)</td><td>각종 버프</td></tr>
+          <tr><td class="motion-id">FX_RESURRECT</td><td>부활 빛폭발</td><td>파티클+플래시</td><td>부활의 기도</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="../../shared/app.js"></script>
+  <script>
+    // ── 전체 스킬 데이터 ──
+    const allSkills = [
+      // 카엘
+      { char:'카엘', name:'강타', grade:'B', type:'물리', motion:'MELEE_OVERHEAD', fx:'FX_SLASH_SINGLE', cam:'미세 셰이크' },
+      { char:'카엘', name:'수호의 일격', grade:'B', type:'물리', motion:'MELEE_SLASH', fx:'FX_SLASH_SINGLE + FX_SHIELD_GLOW', cam:'—' },
+      { char:'카엘', name:'돌파', grade:'A', type:'물리', motion:'MELEE_THRUST', fx:'FX_SLASH_LINE', cam:'줌인→줌아웃' },
+      { char:'카엘', name:'결의의 외침', grade:'B', type:'버프', motion:'BUFF_SHOUT', fx:'FX_BUFF_AURA', cam:'—' },
+      { char:'카엘', name:'서약의 칼날', grade:'A', type:'물리', motion:'MELEE_SPIN', fx:'FX_SLASH_CROSS', cam:'셰이크' },
+      { char:'카엘', name:'불굴의 맹세', grade:'B', type:'버프', motion:'BUFF_SHOUT', fx:'FX_BUFF_AURA', cam:'—' },
+      { char:'카엘', name:'이르헨의 기억', grade:'A', type:'물리', motion:'MELEE_OVERHEAD', fx:'FX_SCREEN_FLASH', cam:'줌인' },
+      { char:'카엘', name:'새벽의 검', grade:'S', type:'물리', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_FIRE_BURST', cam:'컷인 시퀀스' },
+      // 세리아
+      { char:'세리아', name:'치유의 빛', grade:'B', type:'치유', motion:'HEAL_PRAY', fx:'FX_LIGHT_PILLAR', cam:'—' },
+      { char:'세리아', name:'정화', grade:'B', type:'치유', motion:'HEAL_PRAY', fx:'FX_LIGHT_PILLAR(약)', cam:'—' },
+      { char:'세리아', name:'빛의 화살', grade:'B', type:'마법', motion:'MAGIC_CAST', fx:'FX_LIGHT_ARROW', cam:'—' },
+      { char:'세리아', name:'보호의 기도', grade:'B', type:'버프', motion:'HEAL_PRAY', fx:'FX_BUFF_AURA', cam:'—' },
+      { char:'세리아', name:'생명의 불꽃', grade:'A', type:'치유', motion:'MAGIC_CHANNEL', fx:'FX_HOLY_FIRE', cam:'—' },
+      { char:'세리아', name:'신성한 화염', grade:'A', type:'마법', motion:'MAGIC_CHANNEL', fx:'FX_HOLY_FIRE', cam:'미세 셰이크' },
+      { char:'세리아', name:'부활의 기도', grade:'A', type:'치유', motion:'HEAL_PRAY', fx:'FX_RESURRECT', cam:'줌인' },
+      { char:'세리아', name:'사도의 축복', grade:'S', type:'버프', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_LIGHT_WAVE', cam:'컷인 시퀀스' },
+      // 리넨
+      { char:'리넨', name:'속임수', grade:'C', type:'유틸', motion:'ITEM_USE', fx:'FX_DEBUFF_CRACK', cam:'—' },
+      { char:'리넨', name:'불꽃 튀김', grade:'B', type:'마법', motion:'MAGIC_CAST', fx:'FX_FIRE_BURST(소)', cam:'—' },
+      { char:'리넨', name:'연막', grade:'B', type:'유틸', motion:'ITEM_USE', fx:'FX_SMOKE_BOMB', cam:'—' },
+      { char:'리넨', name:'급소 찌르기', grade:'B', type:'물리', motion:'DAGGER_BACKSTAB', fx:'FX_SLASH_SINGLE', cam:'—' },
+      { char:'리넨', name:'시원화의 불길', grade:'A', type:'마법', motion:'MAGIC_CHANNEL', fx:'FX_FIRE_BURST', cam:'미세 셰이크' },
+      { char:'리넨', name:'결계의 빛', grade:'B', type:'서포트', motion:'MAGIC_CAST', fx:'FX_TERRAIN_CHANGE', cam:'—' },
+      { char:'리넨', name:'불꽃 공명', grade:'A', type:'마법', motion:'MAGIC_CHANNEL', fx:'FX_FIRE_WAVE', cam:'줌인→줌아웃' },
+      { char:'리넨', name:'계승자의 의지', grade:'S', type:'마법', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_FIRE_COLUMN', cam:'컷인 시퀀스' },
+      // 로크
+      { char:'로크', name:'정밀 사격', grade:'B', type:'물리', motion:'RANGED_SHOOT', fx:'FX_ARROW_SINGLE', cam:'—' },
+      { char:'로크', name:'독화살', grade:'B', type:'물리', motion:'RANGED_SHOOT', fx:'FX_ARROW_SINGLE(녹)', cam:'—' },
+      { char:'로크', name:'견제 사격', grade:'B', type:'물리', motion:'RANGED_SHOOT', fx:'FX_ARROW_SINGLE', cam:'—' },
+      { char:'로크', name:'연사', grade:'A', type:'물리', motion:'RANGED_SHOOT x2', fx:'FX_COMBO_HIT', cam:'—' },
+      { char:'로크', name:'숲의 부름', grade:'B', type:'유틸', motion:'MAGIC_CAST', fx:'FX_TERRAIN_CHANGE', cam:'—' },
+      { char:'로크', name:'피나의 빛', grade:'A', type:'특수', motion:'RANGED_SHOOT', fx:'FX_LIGHT_ARROW', cam:'줌인' },
+      { char:'로크', name:'관통 사격', grade:'A', type:'물리', motion:'RANGED_SHOOT', fx:'FX_ARROW_SINGLE(관통)', cam:'—' },
+      { char:'로크', name:'수호자의 일제', grade:'S', type:'물리', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_ARROW_RAIN', cam:'컷인 시퀀스' },
+      // 나엘
+      { char:'나엘', name:'응급 치료', grade:'B', type:'치유', motion:'HEAL_PRAY', fx:'FX_HEAL_SPARKLE', cam:'—' },
+      { char:'나엘', name:'광역 치유', grade:'B', type:'치유', motion:'HEAL_PRAY', fx:'FX_LIGHT_WAVE', cam:'—' },
+      { char:'나엘', name:'공감', grade:'B', type:'치유', motion:'HEAL_PRAY', fx:'FX_HEAL_SPARKLE + FX_DARK_MIST', cam:'—' },
+      { char:'나엘', name:'독무 뿌리기', grade:'B', type:'디버프', motion:'MAGIC_CAST', fx:'FX_POISON_CLOUD', cam:'—' },
+      { char:'나엘', name:'생명의 노래', grade:'A', type:'치유', motion:'HEAL_SING', fx:'FX_SONG_NOTE', cam:'—' },
+      { char:'나엘', name:'보호의 선율', grade:'A', type:'버프', motion:'HEAL_SING', fx:'FX_SONG_NOTE + FX_BUFF_AURA', cam:'—' },
+      { char:'나엘', name:'해독의 노래', grade:'B', type:'치유', motion:'HEAL_SING', fx:'FX_SONG_NOTE', cam:'—' },
+      { char:'나엘', name:'유대의 공명', grade:'S', type:'치유', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_LIGHT_WAVE', cam:'컷인 시퀀스' },
+      // 그리드
+      { char:'그리드', name:'비열한 한방', grade:'B', type:'물리', motion:'DAGGER_BACKSTAB', fx:'FX_SLASH_SINGLE', cam:'—' },
+      { char:'그리드', name:'권총 사격', grade:'B', type:'물리', motion:'RANGED_SHOOT', fx:'FX_GUNSHOT', cam:'—' },
+      { char:'그리드', name:'강탈', grade:'B', type:'물리', motion:'MELEE_SLASH', fx:'FX_SLASH_SINGLE + 골드', cam:'—' },
+      { char:'그리드', name:'훈연탄', grade:'B', type:'유틸', motion:'ITEM_USE', fx:'FX_SMOKE_BOMB', cam:'—' },
+      { char:'그리드', name:'해적의 호령', grade:'A', type:'물리', motion:'MELEE_SPIN', fx:'FX_SLASH_SINGLE x2', cam:'미세 셰이크' },
+      { char:'그리드', name:'연환격', grade:'A', type:'물리', motion:'DAGGER_BACKSTAB x3', fx:'FX_COMBO_HIT', cam:'—' },
+      { char:'그리드', name:'폭풍 돌격', grade:'A', type:'물리', motion:'CHARGE_RUSH', fx:'FX_SLASH_LINE', cam:'줌인→줌아웃' },
+      { char:'그리드', name:'부친의 맹세', grade:'S', type:'물리', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_SCREEN_FLASH', cam:'컷인 시퀀스' },
+      // 드라나
+      { char:'드라나', name:'아이스 랜스', grade:'B', type:'마법(빙)', motion:'MAGIC_CAST', fx:'FX_ICE_CRYSTAL', cam:'—' },
+      { char:'드라나', name:'썬더볼트', grade:'B', type:'마법(뇌)', motion:'MAGIC_CAST', fx:'FX_THUNDER_BOLT', cam:'—' },
+      { char:'드라나', name:'분석', grade:'C', type:'유틸', motion:'MAGIC_CAST', fx:'FX_DEBUFF_CRACK', cam:'—' },
+      { char:'드라나', name:'윈드 커터', grade:'B', type:'마법(풍)', motion:'MAGIC_CAST', fx:'FX_WIND_BLADE', cam:'—' },
+      { char:'드라나', name:'블리자드', grade:'A', type:'마법(빙)', motion:'MAGIC_CHANNEL', fx:'FX_ICE_STORM', cam:'미세 셰이크' },
+      { char:'드라나', name:'봉인술', grade:'A', type:'디버프', motion:'MAGIC_CHANNEL', fx:'FX_SEAL_RUNE', cam:'—' },
+      { char:'드라나', name:'아케인 스톰', grade:'A', type:'마법(복합)', motion:'MAGIC_CHANNEL', fx:'FX_ARCANE_STORM', cam:'셰이크' },
+      { char:'드라나', name:'렌도르의 유산', grade:'S', type:'마법(복합)', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_SEAL_RUNE + FX_ARCANE_STORM', cam:'컷인 시퀀스' },
+      // 볼드
+      { char:'볼드', name:'방패 강타', grade:'B', type:'물리', motion:'MELEE_SLASH', fx:'FX_SLASH_SINGLE', cam:'—' },
+      { char:'볼드', name:'도발', grade:'B', type:'유틸', motion:'BUFF_SHOUT', fx:'FX_DEBUFF_CRACK', cam:'—' },
+      { char:'볼드', name:'철벽 방어', grade:'B', type:'방어', motion:'GUARD_BRACE', fx:'FX_SHIELD_GLOW', cam:'—' },
+      { char:'볼드', name:'돌진', grade:'B', type:'물리', motion:'CHARGE_RUSH', fx:'FX_SLASH_SINGLE', cam:'—' },
+      { char:'볼드', name:'에리스의 방패', grade:'A', type:'서포트', motion:'GUARD_BRACE', fx:'FX_SHIELD_GLOW', cam:'—' },
+      { char:'볼드', name:'대지의 분노', grade:'A', type:'물리', motion:'MELEE_OVERHEAD', fx:'FX_SCREEN_SHAKE', cam:'셰이크' },
+      { char:'볼드', name:'절대 방어', grade:'A', type:'방어', motion:'GUARD_BRACE', fx:'FX_SHIELD_GLOW(강)', cam:'—' },
+      { char:'볼드', name:'최후의 방벽', grade:'S', type:'특수', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_SHIELD_GLOW + FX_SCREEN_FLASH', cam:'컷인 시퀀스' },
+      // 이렌
+      { char:'이렌', name:'급소 파악', grade:'B', type:'디버프', motion:'MAGIC_CAST', fx:'FX_DEBUFF_CRACK', cam:'—' },
+      { char:'이렌', name:'암기 투척', grade:'B', type:'물리', motion:'RANGED_SHOOT', fx:'FX_ARROW_SINGLE', cam:'—' },
+      { char:'이렌', name:'독침', grade:'B', type:'물리', motion:'RANGED_SHOOT', fx:'FX_POISON_CLOUD', cam:'—' },
+      { char:'이렌', name:'연쇄 함정', grade:'B', type:'유틸', motion:'ITEM_USE', fx:'FX_TRAP_SET', cam:'—' },
+      { char:'이렌', name:'지하조직 지원', grade:'A', type:'특수', motion:'SUMMON', fx:'FX_SUMMON_PORTAL', cam:'—' },
+      { char:'이렌', name:'약점 간파', grade:'A', type:'디버프', motion:'MAGIC_CAST', fx:'FX_DEBUFF_CRACK(강)', cam:'—' },
+      { char:'이렌', name:'그림자 습격', grade:'A', type:'물리', motion:'DAGGER_BACKSTAB', fx:'FX_SLASH_SINGLE(대)', cam:'줌인' },
+      { char:'이렌', name:'총지휘', grade:'S', type:'버프', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_BUFF_AURA(전체)', cam:'컷인 시퀀스' },
+      // 헤이즐
+      { char:'헤이즐', name:'참격', grade:'B', type:'물리', motion:'MELEE_SPIN', fx:'FX_SLASH_LINE', cam:'—' },
+      { char:'헤이즐', name:'지휘', grade:'B', type:'버프', motion:'BUFF_SHOUT', fx:'FX_BUFF_AURA', cam:'—' },
+      { char:'헤이즐', name:'위압', grade:'B', type:'디버프', motion:'BUFF_SHOUT', fx:'FX_DEBUFF_CRACK', cam:'—' },
+      { char:'헤이즐', name:'강타', grade:'B', type:'물리', motion:'MELEE_OVERHEAD', fx:'FX_SLASH_SINGLE(강)', cam:'—' },
+      { char:'헤이즐', name:'총공격 명령', grade:'A', type:'버프', motion:'BUFF_SHOUT', fx:'FX_BUFF_AURA(전체)', cam:'—' },
+      { char:'헤이즐', name:'대검 선풍', grade:'A', type:'물리', motion:'MELEE_SPIN', fx:'FX_SLASH_CROSS', cam:'셰이크' },
+      { char:'헤이즐', name:'단죄의 일격', grade:'A', type:'물리', motion:'MELEE_OVERHEAD', fx:'FX_SCREEN_FLASH', cam:'줌인' },
+      { char:'헤이즐', name:'해방의 깃발', grade:'S', type:'버프', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_BUFF_AURA(전체)+FX_SCREEN_FLASH', cam:'컷인 시퀀스' },
+      // 시르
+      { char:'시르', name:'재의 창격', grade:'B', type:'물리', motion:'MELEE_THRUST', fx:'FX_ASH_DECAY', cam:'—' },
+      { char:'시르', name:'재화', grade:'B', type:'디버프', motion:'MAGIC_CAST', fx:'FX_ASH_DECAY', cam:'—' },
+      { char:'시르', name:'관통 찌르기', grade:'A', type:'물리', motion:'MELEE_THRUST', fx:'FX_SLASH_LINE', cam:'—' },
+      { char:'시르', name:'잿빛 방벽', grade:'B', type:'방어', motion:'GUARD_BRACE', fx:'FX_SHIELD_GLOW + FX_ASH_DECAY', cam:'—' },
+      { char:'시르', name:'귀환자의 맹세', grade:'A', type:'물리+마법', motion:'MELEE_SPIN', fx:'FX_SLASH_CROSS + FX_ASH_DECAY', cam:'셰이크' },
+      { char:'시르', name:'재의 폭풍', grade:'A', type:'마법(재)', motion:'MAGIC_CHANNEL', fx:'FX_ASH_DECAY(대)', cam:'미세 셰이크' },
+      { char:'시르', name:'백년의 기억', grade:'A', type:'물리', motion:'MELEE_OVERHEAD', fx:'FX_SCREEN_FLASH', cam:'줌인' },
+      { char:'시르', name:'순환의 창', grade:'S', type:'특수', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_FIRE_BURST + FX_ASH_DECAY', cam:'컷인 시퀀스' },
+      // 엘미라
+      { char:'엘미라', name:'대사제의 치유', grade:'B', type:'치유', motion:'HEAL_PRAY', fx:'FX_LIGHT_PILLAR', cam:'—' },
+      { char:'엘미라', name:'성스러운 빛', grade:'B', type:'마법(빛)', motion:'MAGIC_CAST', fx:'FX_LIGHT_ARROW', cam:'—' },
+      { char:'엘미라', name:'대사제의 기도', grade:'A', type:'치유', motion:'HEAL_PRAY', fx:'FX_LIGHT_WAVE', cam:'—' },
+      { char:'엘미라', name:'신성한 심판', grade:'A', type:'마법(빛)', motion:'MAGIC_CHANNEL', fx:'FX_HOLY_FIRE', cam:'미세 셰이크' },
+      { char:'엘미라', name:'시원화의 축복', grade:'A', type:'서포트', motion:'HEAL_PRAY', fx:'FX_SHIELD_GLOW(빛)', cam:'줌인' },
+      { char:'엘미라', name:'정화의 불꽃', grade:'A', type:'마법(화+빛)', motion:'MAGIC_CHANNEL', fx:'FX_HOLY_FIRE(강)', cam:'줌인→줌아웃' },
+      { char:'엘미라', name:'생명의 원천', grade:'A', type:'치유', motion:'HEAL_PRAY', fx:'FX_LIGHT_WAVE(전체)', cam:'—' },
+      { char:'엘미라', name:'불꽃 의식', grade:'S', type:'특수', motion:'ULTIMATE_SPECIAL', fx:'컷인 → FX_HOLY_FIRE + FX_SCREEN_FLASH', cam:'컷인 시퀀스' },
+    ];
+
+    // 테이블 렌더링
+    const tbody = document.getElementById('skills-tbody');
+    function renderSkills(filter) {
+      tbody.innerHTML = allSkills
+        .filter(s => filter.includes('all') || filter.includes(s.grade))
+        .map(s => `<tr data-grade="${s.grade}">
+          <td>${s.char}</td>
+          <td class="skill-name" style="color:var(--grade-${s.grade.toLowerCase()})">${s.name}</td>
+          <td><span class="badge badge-${s.grade.toLowerCase()}">${s.grade}</span></td>
+          <td>${s.type}</td>
+          <td style="font-family:var(--font-mono);font-size:0.75rem">${s.motion}</td>
+          <td style="font-size:0.8rem">${s.fx}</td>
+          <td style="font-size:0.8rem">${s.cam}</td>
+        </tr>`).join('');
+    }
+    renderSkills(['all']);
+
+    App.initFilters('#grade-filter', renderSkills);
+    App.initTabs();
+
+    // ── VFX Canvas 시뮬레이션 ──
+    const vfxAnimations = {};
+
+    function playVFX(type) {
+      if (vfxAnimations[type]) return;
+      const canvas = document.getElementById(`vfx-${type}`);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let frame = 0;
+      const maxFrames = 60;
+      vfxAnimations[type] = true;
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const t = frame / maxFrames;
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+
+        switch(type) {
+          case 'fire-burst':
+            for (let i = 0; i < 20; i++) {
+              const angle = (i / 20) * Math.PI * 2 + frame * 0.05;
+              const r = t * 100 * (1 + Math.sin(i * 1.3) * 0.3);
+              const x = cx + Math.cos(angle) * r;
+              const y = cy + Math.sin(angle) * r;
+              const size = (1 - t) * 15 + 3;
+              ctx.fillStyle = `rgba(${232 + Math.random()*23}, ${50 + Math.random()*80}, ${10 + Math.random()*20}, ${(1-t)*0.8})`;
+              ctx.beginPath();
+              ctx.arc(x, y, size, 0, Math.PI*2);
+              ctx.fill();
+            }
+            // 중앙 광원
+            const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,40*(1-t));
+            grad.addColorStop(0, `rgba(255,200,50,${(1-t)*0.9})`);
+            grad.addColorStop(1, 'rgba(255,100,0,0)');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(cx,cy,60*(1-t*0.5),0,Math.PI*2);
+            ctx.fill();
+            break;
+
+          case 'slash-cross':
+            ctx.strokeStyle = `rgba(200,220,255,${(1-t)*0.9})`;
+            ctx.lineWidth = 4 * (1-t) + 1;
+            ctx.shadowColor = '#4a9eff';
+            ctx.shadowBlur = 20 * (1-t);
+            const len = t * 120;
+            // 가로
+            ctx.beginPath();
+            ctx.moveTo(cx - len, cy);
+            ctx.lineTo(cx + len, cy);
+            ctx.stroke();
+            // 세로
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - len);
+            ctx.lineTo(cx, cy + len);
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+            break;
+
+          case 'light-pillar':
+            for (let i = 0; i < 30; i++) {
+              const x = cx + (Math.random() - 0.5) * 40;
+              const y = canvas.height - (t * canvas.height * 1.2) + Math.random() * 30 + i * 5;
+              const alpha = (1 - t) * 0.7;
+              ctx.fillStyle = `rgba(220,200,255,${alpha})`;
+              ctx.fillRect(x, y, 2, 8);
+            }
+            const pg = ctx.createLinearGradient(cx-20, 0, cx+20, 0);
+            pg.addColorStop(0, 'rgba(180,150,255,0)');
+            pg.addColorStop(0.5, `rgba(220,200,255,${(1-t)*0.4})`);
+            pg.addColorStop(1, 'rgba(180,150,255,0)');
+            ctx.fillStyle = pg;
+            ctx.fillRect(cx-30, 0, 60, canvas.height);
+            break;
+
+          case 'arrow-rain':
+            for (let i = 0; i < 15; i++) {
+              const startX = (i / 15) * canvas.width + Math.sin(i) * 20;
+              const delay = i * 0.05;
+              const arrowT = Math.max(0, Math.min(1, (t - delay) * 2));
+              if (arrowT <= 0) continue;
+              const x = startX;
+              const y = -20 + arrowT * (canvas.height + 40);
+              ctx.strokeStyle = `rgba(180,160,120,${(1-arrowT)*0.8})`;
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.moveTo(x, y);
+              ctx.lineTo(x - 3, y - 20);
+              ctx.stroke();
+              if (arrowT > 0.9) {
+                ctx.fillStyle = `rgba(255,200,100,${(1-arrowT)*3})`;
+                ctx.beginPath();
+                ctx.arc(x, canvas.height - 20, 5, 0, Math.PI*2);
+                ctx.fill();
+              }
+            }
+            break;
+
+          case 'ice-storm':
+            for (let i = 0; i < 25; i++) {
+              const angle = (i / 25) * Math.PI * 2 + frame * 0.08;
+              const r = 30 + Math.sin(frame * 0.1 + i) * 40 * t;
+              const x = cx + Math.cos(angle) * r;
+              const y = cy + Math.sin(angle) * r * 0.6;
+              const size = 3 + Math.random() * 4;
+              ctx.fillStyle = `rgba(150,200,255,${(1-t*0.5)*0.7})`;
+              ctx.save();
+              ctx.translate(x, y);
+              ctx.rotate(angle);
+              ctx.fillRect(-size/2, -size/2, size, size);
+              ctx.restore();
+            }
+            // 중앙 냉기
+            const ig = ctx.createRadialGradient(cx,cy,0,cx,cy,80);
+            ig.addColorStop(0, `rgba(150,200,255,${(1-t)*0.3})`);
+            ig.addColorStop(1, 'rgba(100,150,255,0)');
+            ctx.fillStyle = ig;
+            ctx.beginPath();
+            ctx.arc(cx,cy,100,0,Math.PI*2);
+            ctx.fill();
+            break;
+
+          case 'screen-shake':
+            const shakeX = (1-t) * (Math.random() - 0.5) * 20;
+            const shakeY = (1-t) * (Math.random() - 0.5) * 20;
+            ctx.save();
+            ctx.translate(shakeX, shakeY);
+            // 배경 격자 (흔들림 시각화)
+            ctx.strokeStyle = 'rgba(100,100,120,0.3)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < canvas.width; x += 32) {
+              ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += 32) {
+              ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke();
+            }
+            // 충격파
+            ctx.strokeStyle = `rgba(255,150,50,${(1-t)*0.6})`;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(cx, cy, t * 150, 0, Math.PI*2);
+            ctx.stroke();
+            ctx.restore();
+            break;
+        }
+
+        frame++;
+        if (frame <= maxFrames) {
+          requestAnimationFrame(animate);
+        } else {
+          delete vfxAnimations[type];
+        }
+      }
+      animate();
+    }
+
+    // 초기 재생 (페이지 로드 시 한 번)
+    setTimeout(() => playVFX('fire-burst'), 300);
+  </script>
+</body>
+</html>

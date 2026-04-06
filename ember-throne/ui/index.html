@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ember Throne - UI Mockup</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .ui-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+    .ui-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .ui-preview {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      position: relative;
+    }
+    .ui-preview .wireframe {
+      position: absolute;
+      border: 1px dashed rgba(212,168,67,0.3);
+      border-radius: 4px;
+    }
+    .ui-info { padding: 16px; }
+    .ui-info h4 { margin-bottom: 4px; }
+    .ui-info .desc { font-size: 0.8rem; color: var(--text-secondary); }
+    .ui-info .status { font-size: 0.75rem; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Ember Throne</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Ember Throne</a> / UI Mockup
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../characters/index.html">Characters</a>
+    <a href="../skills/index.html">Skills & VFX</a>
+    <a href="../maps/index.html">Maps</a>
+    <a href="index.html" class="active">UI Mockup</a>
+  </nav>
+
+  <main class="content">
+    <h2>UI Mockup</h2>
+    <p class="text-muted mb-16">게임 UI 레이아웃 와이어프레임. NinePatchRect 에셋 미제작.</p>
+
+    <div class="ui-grid">
+      <div class="ui-card">
+        <div class="ui-preview">
+          <div class="wireframe" style="top:35%;left:25%;width:50%;height:12%;display:flex;align-items:center;justify-content:center;color:var(--accent-gold);font-size:0.8rem">New Game</div>
+          <div class="wireframe" style="top:50%;left:25%;width:50%;height:12%;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:0.8rem">Continue</div>
+          <div class="wireframe" style="top:65%;left:25%;width:50%;height:12%;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:0.8rem">Settings</div>
+          <div style="position:absolute;top:12%;left:50%;transform:translateX(-50%);font-size:1.2rem;color:var(--accent-ember);font-weight:700">EMBER THRONE</div>
+        </div>
+        <div class="ui-info">
+          <h4>Main Menu</h4>
+          <div class="desc">타이틀 로고 + 메뉴 버튼 3종. 배경: 엠버 왕좌 일러스트.</div>
+          <div class="status"><span class="badge badge-wip">basic scene exists</span></div>
+        </div>
+      </div>
+
+      <div class="ui-card">
+        <div class="ui-preview">
+          <div class="wireframe" style="top:5%;left:2%;width:20%;height:8%;display:flex;align-items:center;padding-left:4px;color:var(--accent-green);font-size:0.65rem">HP ████░░</div>
+          <div class="wireframe" style="top:14%;left:2%;width:15%;height:6%;display:flex;align-items:center;padding-left:4px;color:var(--accent-blue);font-size:0.65rem">MP ███░░░</div>
+          <div class="wireframe" style="bottom:5%;left:2%;width:70%;height:15%;display:flex;align-items:center;gap:4px;padding:4px">
+            <div style="width:16%;height:80%;border:1px dashed var(--accent-gold);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:var(--text-muted)">Skill1</div>
+            <div style="width:16%;height:80%;border:1px dashed var(--accent-gold);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:var(--text-muted)">Skill2</div>
+            <div style="width:16%;height:80%;border:1px dashed var(--accent-gold);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:var(--text-muted)">Skill3</div>
+            <div style="width:16%;height:80%;border:1px dashed var(--accent-gold);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:var(--text-muted)">Move</div>
+            <div style="width:16%;height:80%;border:1px dashed var(--accent-gold);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:var(--text-muted)">Wait</div>
+          </div>
+          <div class="wireframe" style="top:5%;right:2%;width:12%;height:8%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:var(--text-muted)">Turn 3</div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:0.7rem;color:var(--text-muted)">Battle Grid</div>
+        </div>
+        <div class="ui-info">
+          <h4>Battle HUD</h4>
+          <div class="desc">유닛 HP/MP, 스킬 슬롯 6개, 턴 카운터, 행동 순서 표시.</div>
+          <div class="status"><span class="badge badge-empty">not started</span></div>
+        </div>
+      </div>
+
+      <div class="ui-card">
+        <div class="ui-preview">
+          <div class="wireframe" style="top:10%;left:10%;width:80%;height:75%;padding:8px">
+            <div style="color:var(--text-muted);font-size:0.6rem;margin-bottom:4px">Skill Select (max 6)</div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px">
+              <div style="padding:4px;border:1px dashed var(--accent-purple);border-radius:3px;font-size:0.55rem;color:var(--text-secondary)">강타 B</div>
+              <div style="padding:4px;border:1px dashed var(--accent-purple);border-radius:3px;font-size:0.55rem;color:var(--text-secondary)">돌파 A</div>
+              <div style="padding:4px;border:1px dashed var(--accent-purple);border-radius:3px;font-size:0.55rem;color:var(--text-secondary)">결의의 외침 B</div>
+              <div style="padding:4px;border:1px dashed var(--grade-s);border-radius:3px;font-size:0.55rem;color:var(--grade-s)">새벽의 검 S</div>
+            </div>
+          </div>
+        </div>
+        <div class="ui-info">
+          <h4>Skill Select</h4>
+          <div class="desc">전투 전 스킬 장착 화면. 최대 8개 중 6개 선택.</div>
+          <div class="status"><span class="badge badge-empty">not started</span></div>
+        </div>
+      </div>
+
+      <div class="ui-card">
+        <div class="ui-preview">
+          <div style="color:var(--text-muted);font-size:0.8rem">대화창 UI — 미제작</div>
+          <div class="wireframe" style="bottom:5%;left:5%;width:90%;height:30%;padding:8px">
+            <div style="display:flex;gap:8px;height:100%">
+              <div style="width:60px;height:60px;border:1px dashed var(--accent-gold);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:var(--text-muted);flex-shrink:0">초상화</div>
+              <div style="flex:1"><div style="color:var(--accent-gold);font-size:0.65rem;margin-bottom:2px">카엘</div><div style="color:var(--text-secondary);font-size:0.6rem">대사 텍스트가 여기에 표시됩니다...</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ui-info">
+          <h4>Dialogue</h4>
+          <div class="desc">캐릭터 초상화 + 이름 + 대사. 선택지 분기 지원.</div>
+          <div class="status"><span class="badge badge-empty">not started</span></div>
+        </div>
+      </div>
+
+      <div class="ui-card">
+        <div class="ui-preview"><div style="color:var(--text-muted);font-size:0.8rem">인벤토리 — 미제작</div></div>
+        <div class="ui-info">
+          <h4>Inventory / Equipment</h4>
+          <div class="desc">장비 3슬롯 (무기/방어구/악세서리), 아이템 목록, 스탯 비교.</div>
+          <div class="status"><span class="badge badge-empty">not started</span></div>
+        </div>
+      </div>
+
+      <div class="ui-card">
+        <div class="ui-preview"><div style="color:var(--text-muted);font-size:0.8rem">월드맵 — 미제작</div></div>
+        <div class="ui-info">
+          <h4>World Map</h4>
+          <div class="desc">6개 지역 노드맵. 이동 경로, 이벤트 마커, 상점.</div>
+          <div class="status"><span class="badge badge-empty">not started</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../../shared/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ember Throne - Maps</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .map-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .map-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .map-preview {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      white-space: pre;
+      line-height: 1.2;
+      overflow: hidden;
+      padding: 8px;
+    }
+    .map-card h4 { font-size: 0.9rem; margin-bottom: 4px; }
+    .map-card .meta { font-size: 0.75rem; color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Ember Throne</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Ember Throne</a> / Maps
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../characters/index.html">Characters</a>
+    <a href="../skills/index.html">Skills & VFX</a>
+    <a href="index.html" class="active">Maps</a>
+    <a href="../ui/index.html">UI Mockup</a>
+  </nav>
+
+  <main class="content">
+    <h2>Battle Maps</h2>
+    <p class="text-muted mb-16">35개 전투 (28 필수 + 7 선택). 타일셋 미제작.</p>
+
+    <div class="filter-bar" id="act-filter">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="1">Act 1</button>
+      <button class="filter-btn" data-filter="2">Act 2</button>
+      <button class="filter-btn" data-filter="3">Act 3</button>
+      <button class="filter-btn" data-filter="4">Act 4</button>
+    </div>
+
+    <div class="map-grid" id="maps-container">
+      <!-- JS로 렌더링 -->
+    </div>
+  </main>
+
+  <script src="../../shared/app.js"></script>
+  <script>
+    const maps = [
+      { id:'1-1', name:'이르헨 마을 습격', act:1, size:'10x8', type:'필수', terrain:'마을+초원' },
+      { id:'1-2', name:'벨마르 가도', act:1, size:'12x8', type:'필수', terrain:'가도+숲' },
+      { id:'1-3', name:'가도 매복전', act:1, size:'10x10', type:'필수', terrain:'숲+언덕' },
+      { id:'1-4', name:'세리아 합류전', act:1, size:'10x8', type:'필수', terrain:'가도' },
+      { id:'1-5', name:'벨마르 항구', act:1, size:'12x10', type:'필수', terrain:'항구+시가지' },
+      { id:'1-6', name:'벨마르 뒷골목', act:1, size:'8x8', type:'필수', terrain:'시가지' },
+      { id:'1-7', name:'벨마르 탈출', act:1, size:'14x10', type:'필수', terrain:'항구' },
+      { id:'1-R1', name:'가도 유랑 몬스터', act:1, size:'10x8', type:'선택', terrain:'초원' },
+      { id:'2-1', name:'실바렌 숲 입구', act:2, size:'12x10', type:'필수', terrain:'숲' },
+      { id:'2-2', name:'실바렌 깊은 숲', act:2, size:'12x12', type:'필수', terrain:'밀림' },
+      { id:'2-3', name:'결계석 수호전', act:2, size:'10x10', type:'필수', terrain:'고대 유적' },
+      { id:'2-4', name:'실바렌 야영 습격', act:2, size:'10x8', type:'필수', terrain:'숲+야영지' },
+      { id:'2-5', name:'숲의 시련', act:2, size:'14x12', type:'필수', terrain:'고대 숲' },
+      { id:'2-6', name:'크로우펠 산길 입구', act:2, size:'10x10', type:'필수', terrain:'산지' },
+      { id:'2-7', name:'산길 함정', act:2, size:'12x10', type:'필수', terrain:'산길+동굴' },
+      { id:'2-8', name:'크로우펠 외곽', act:2, size:'12x12', type:'필수', terrain:'초원+성벽' },
+      { id:'2-9', name:'크로우펠 합류전', act:2, size:'10x10', type:'필수', terrain:'시가지' },
+      { id:'2-10', name:'크로우펠 방어전', act:2, size:'14x12', type:'필수', terrain:'성벽' },
+      { id:'2-R1', name:'실바렌 순찰', act:2, size:'10x10', type:'선택', terrain:'숲' },
+      { id:'2-R2', name:'산길 도적단', act:2, size:'10x8', type:'선택', terrain:'산지' },
+      { id:'3-1', name:'왕도 아스칼론 잠입', act:3, size:'12x12', type:'필수', terrain:'지하도' },
+      { id:'3-4', name:'대성당 전투', act:3, size:'14x14', type:'필수', terrain:'성당 내부' },
+      { id:'3-7', name:'왕도 탈출전', act:3, size:'16x12', type:'필수', terrain:'시가지+성벽' },
+      { id:'3-11', name:'결계석 순례', act:3, size:'12x12', type:'필수', terrain:'고대 유적' },
+      { id:'3-12', name:'크로우펠 반란', act:3, size:'14x12', type:'필수', terrain:'요새' },
+      { id:'3-14', name:'재의 바다 입구', act:3, size:'16x14', type:'필수', terrain:'황무지' },
+      { id:'3-15', name:'재의 바다 심연', act:3, size:'14x14', type:'필수', terrain:'재의 바다' },
+      { id:'3-R1', name:'왕도 경비병', act:3, size:'10x10', type:'선택', terrain:'왕도' },
+      { id:'3-R2', name:'재의 유랑자', act:3, size:'12x10', type:'선택', terrain:'황무지' },
+      { id:'4-1', name:'왕도 진격', act:4, size:'16x14', type:'필수', terrain:'왕도 거리' },
+      { id:'4-3', name:'근위대 결전', act:4, size:'14x14', type:'필수', terrain:'왕궁 외곽' },
+      { id:'4-5', name:'옥좌의 간 앞', act:4, size:'14x12', type:'필수', terrain:'왕궁 내부' },
+      { id:'4-7', name:'불씨 제전장', act:4, size:'16x16', type:'필수', terrain:'제전 광장' },
+      { id:'4-8', name:'최종전: 시원화', act:4, size:'20x16', type:'필수', terrain:'시원화 제단' },
+      { id:'4-R1', name:'왕도 잔적', act:4, size:'12x10', type:'선택', terrain:'왕도' },
+    ];
+
+    function renderMaps(filter) {
+      const container = document.getElementById('maps-container');
+      container.innerHTML = maps
+        .filter(m => filter.includes('all') || filter.includes(String(m.act)))
+        .map(m => `
+          <div class="map-card" data-act="${m.act}">
+            <div class="map-preview">타일셋 미제작\n\n${m.size} grid\n${m.terrain}</div>
+            <h4>${m.id} ${m.name}</h4>
+            <div class="meta">
+              <span class="badge ${m.type === '필수' ? 'badge-ready' : 'badge-wip'}">${m.type}</span>
+              ${m.size} | ${m.terrain}
+            </div>
+          </div>
+        `).join('');
+    }
+
+    renderMaps(['all']);
+    App.initFilters('#act-filter', renderMaps);
+  </script>
+</body>
+</html>

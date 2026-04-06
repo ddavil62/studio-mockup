@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ember Throne - Mockup</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .overview-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: all 0.2s;
+    }
+    .overview-card:hover {
+      border-color: var(--accent-ember);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+    .overview-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .overview-card .count { font-size: 2rem; font-weight: 700; color: var(--accent-ember); }
+    .overview-card .detail { font-size: 0.8rem; color: var(--text-secondary); margin-top: 8px; }
+    .status-list { margin-top: 24px; }
+    .status-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-dot.ready { background: var(--accent-green); }
+    .status-dot.wip { background: var(--accent-gold); }
+    .status-dot.empty { background: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Ember Throne</h1>
+    <div class="breadcrumb">
+      <a href="../index.html">Studio</a> / Ember Throne
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="index.html" class="active">Overview</a>
+    <a href="characters/index.html">Characters</a>
+    <a href="skills/index.html">Skills & VFX</a>
+    <a href="maps/index.html">Maps</a>
+    <a href="ui/index.html">UI Mockup</a>
+  </nav>
+
+  <main class="content">
+    <h2 style="margin-bottom: 4px;">Project Overview</h2>
+    <p class="text-muted" style="font-size: 0.85rem;">정통 판타지 택티컬 RPG | Godot 4.6.2 | Steam PC</p>
+
+    <div class="overview-grid">
+      <a href="characters/index.html" class="overview-card">
+        <h3>Characters</h3>
+        <div class="count">12</div>
+        <div class="detail">
+          컨셉아트 12/12 완료<br>
+          스프라이트 2/12 완료<br>
+          초상화 0/12
+        </div>
+      </a>
+      <a href="skills/index.html" class="overview-card">
+        <h3>Skills & VFX</h3>
+        <div class="count">88</div>
+        <div class="detail">
+          S급 11 / A급 24 / B급 41 / C급 12<br>
+          컷인 일러스트 0/11
+        </div>
+      </a>
+      <a href="maps/index.html" class="overview-card">
+        <h3>Battle Maps</h3>
+        <div class="count">35</div>
+        <div class="detail">
+          필수 28 + 선택 7<br>
+          타일셋 0개 제작
+        </div>
+      </a>
+      <a href="ui/index.html" class="overview-card">
+        <h3>UI</h3>
+        <div class="count">6</div>
+        <div class="detail">
+          메인메뉴 / 배틀HUD / 스킬선택<br>
+          인벤토리 / 대화창 / 월드맵
+        </div>
+      </a>
+    </div>
+
+    <div class="section" style="margin-top: 36px;">
+      <h3 style="margin-bottom: 12px;">Asset Pipeline Status</h3>
+      <div class="status-list">
+        <div class="status-item"><div class="status-dot ready"></div> 컨셉아트 (38장) — SD Forge 생성 완료</div>
+        <div class="status-item"><div class="status-dot wip"></div> 픽셀 스프라이트 — Kael, Seria 완료 (2/12)</div>
+        <div class="status-item"><div class="status-dot empty"></div> 캐릭터 초상화 (256x256) — 미착수</div>
+        <div class="status-item"><div class="status-dot empty"></div> 컷인 일러스트 (512x768) — 미착수</div>
+        <div class="status-item"><div class="status-dot empty"></div> 맵 타일셋 (32x32) — 미착수</div>
+        <div class="status-item"><div class="status-dot empty"></div> UI 에셋 (NinePatch) — 미착수</div>
+        <div class="status-item"><div class="status-dot empty"></div> BGM / SFX — 미착수</div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

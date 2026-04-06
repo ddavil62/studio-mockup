@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ember Throne - Characters</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .char-detail {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .char-art-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .char-art-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+    .char-art-box img {
+      width: 100%;
+      display: block;
+      image-rendering: auto;
+    }
+    .char-art-box .art-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.7);
+      padding: 4px 8px;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+    .char-art-placeholder {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .sprite-area {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+    .sprite-area canvas {
+      image-rendering: pixelated;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .dir-grid {
+      display: inline-grid;
+      grid-template-columns: repeat(3, 40px);
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .dir-grid button {
+      width: 40px; height: 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.65rem;
+      transition: all 0.15s;
+    }
+    .dir-grid button:hover, .dir-grid button.active {
+      background: var(--accent-gold);
+      color: var(--bg-primary);
+      border-color: var(--accent-gold);
+    }
+    .dir-grid button.empty { visibility: hidden; }
+    .char-info h3 { margin-bottom: 4px; }
+    .char-info .role { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 12px; }
+    .class-chain {
+      font-size: 0.85rem;
+      padding: 8px 12px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+    }
+    .class-chain .arrow { color: var(--accent-gold); margin: 0 8px; }
+    .skill-table { margin-top: 16px; }
+    .skill-table .skill-name { font-weight: 600; }
+    .join-info {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(232,93,58,0.1);
+      border: 1px solid rgba(232,93,58,0.3);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: var(--accent-ember);
+      margin-bottom: 12px;
+    }
+    @media (max-width: 768px) {
+      .char-detail { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Ember Throne</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Ember Throne</a> / Characters
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="index.html" class="active">Characters</a>
+    <a href="../skills/index.html">Skills & VFX</a>
+    <a href="../maps/index.html">Maps</a>
+    <a href="../ui/index.html">UI Mockup</a>
+    <div class="section-title">Characters</div>
+    <a href="#kael">Kael</a>
+    <a href="#seria">Seria</a>
+    <a href="#linen">Linen</a>
+    <a href="#grid">Grid</a>
+    <a href="#roc">Roc</a>
+    <a href="#nael">Nael</a>
+    <a href="#drana">Drana</a>
+    <a href="#voldt">Voldt</a>
+    <a href="#irene">Irene</a>
+    <a href="#hazel">Hazel</a>
+    <a href="#cyr">Cyr</a>
+    <a href="#elmira">Elmira</a>
+  </nav>
+
+  <main class="content">
+    <div class="section-title-bar">
+      <h2>Characters (12)</h2>
+    </div>
+
+    <div class="filter-bar" id="role-filter">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="melee">Melee</button>
+      <button class="filter-btn" data-filter="ranged">Ranged</button>
+      <button class="filter-btn" data-filter="magic">Magic</button>
+      <button class="filter-btn" data-filter="healer">Healer</button>
+      <button class="filter-btn" data-filter="tank">Tank</button>
+      <button class="filter-btn" data-filter="support">Support</button>
+    </div>
+
+    <!-- ── 카엘 ── -->
+    <div id="kael" class="char-section section" data-roles="melee">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/kael_v2.png" alt="Kael concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area" data-char="kael">
+            <canvas id="sprite-kael" width="192" height="192"></canvas>
+            <div class="dir-grid">
+              <button data-dir="north-west">NW</button>
+              <button data-dir="north">N</button>
+              <button data-dir="north-east">NE</button>
+              <button data-dir="west">W</button>
+              <button class="empty"></button>
+              <button data-dir="east">E</button>
+              <button data-dir="south-west">SW</button>
+              <button data-dir="south" class="active">S</button>
+              <button data-dir="south-east">SE</button>
+            </div>
+            <div class="text-muted mt-8" style="font-size:0.7rem">48x48 pixel sprite, 8-dir</div>
+          </div>
+          <div class="char-art-box">
+            <div class="char-art-placeholder" style="height:120px">Portrait (256x256) — 미제작</div>
+          </div>
+          <div class="char-art-box">
+            <div class="char-art-placeholder" style="height:120px">Cut-in (512x768) — 미제작</div>
+          </div>
+        </div>
+        <div class="char-info">
+          <h3>카엘 <span class="text-muted" style="font-weight:400">(Kael)</span></h3>
+          <div class="role">근접 밸런스형 딜러 / 서브 탱커 — 주인공, 고정 출격</div>
+          <div class="join-info">합류: 1-1 (게임 시작) | Lv1</div>
+          <div class="class-chain">
+            탈영기사 (Forsaken Knight) <span class="arrow">→</span> 서약검사 (Oathblade)
+            <span class="text-muted" style="font-size:0.75rem"> — 전직: 3-7</span>
+          </div>
+          <div class="stat-bar-group" id="stats-kael"></div>
+          <div class="tabs" style="margin-top:16px">
+            <button class="tab-btn active" data-tab="kael-skills-pre">전직 전</button>
+            <button class="tab-btn" data-tab="kael-skills-post">전직 후</button>
+            <button class="tab-btn" data-tab="kael-passive">패시브</button>
+          </div>
+          <div id="kael-skills-pre" class="tab-content active">
+            <table class="data-table skill-table">
+              <thead><tr><th>스킬</th><th>Lv</th><th>타입</th><th>MP</th><th>사거리</th><th>범위</th><th>배율</th></tr></thead>
+              <tbody>
+                <tr><td class="skill-name">강타</td><td>1</td><td>물리</td><td>5</td><td>1</td><td>단일</td><td>1.5x</td></tr>
+                <tr><td class="skill-name">수호의 일격</td><td>4</td><td>물리</td><td>8</td><td>1</td><td>단일</td><td>1.3x</td></tr>
+                <tr><td class="skill-name">돌파</td><td>8</td><td>물리</td><td>10</td><td>1</td><td>직선 2칸</td><td>1.8x</td></tr>
+                <tr><td class="skill-name">결의의 외침</td><td>12</td><td>버프</td><td>6</td><td>0</td><td>자신+인접</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="kael-skills-post" class="tab-content">
+            <table class="data-table skill-table">
+              <thead><tr><th>스킬</th><th>Lv</th><th>타입</th><th>MP</th><th>사거리</th><th>범위</th><th>배율</th></tr></thead>
+              <tbody>
+                <tr><td class="skill-name">서약의 칼날</td><td>전직</td><td>물리</td><td>12</td><td>1</td><td>십자</td><td>2.2x</td></tr>
+                <tr><td class="skill-name">불굴의 맹세</td><td>16</td><td>버프</td><td>10</td><td>1</td><td>아군 1인</td><td>—</td></tr>
+                <tr><td class="skill-name">이르헨의 기억</td><td>20</td><td>물리</td><td>18</td><td>1</td><td>단일</td><td>3.0x</td></tr>
+                <tr><td class="skill-name" style="color:var(--grade-s)">새벽의 검 [S]</td><td>25</td><td>물리</td><td>30</td><td>1</td><td>3x3</td><td>2.5x</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="kael-passive" class="tab-content">
+            <table class="data-table skill-table">
+              <thead><tr><th>스킬</th><th>해금</th><th>효과</th></tr></thead>
+              <tbody>
+                <tr><td class="skill-name">탈영기사의 긍지</td><td>초기</td><td>인접 아군 피격 시 받는 피해 -10%</td></tr>
+                <tr><td class="skill-name">서약의 유대</td><td>전직</td><td>"불굴의 맹세" 대상 전투불능 위기 시 1회 대신 받음</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 세리아 ── -->
+    <div id="seria" class="char-section section" data-roles="healer magic">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/seria_v2.png" alt="Seria concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area" data-char="seria">
+            <canvas id="sprite-seria" width="192" height="192"></canvas>
+            <div class="dir-grid">
+              <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+              <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+              <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+            </div>
+            <div class="text-muted mt-8" style="font-size:0.7rem">48x48 pixel sprite, 8-dir</div>
+          </div>
+          <div class="char-art-box"><div class="char-art-placeholder" style="height:120px">Portrait — 미제작</div></div>
+          <div class="char-art-box"><div class="char-art-placeholder" style="height:120px">Cut-in — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>세리아 <span class="text-muted" style="font-weight:400">(Seria)</span></h3>
+          <div class="role">힐러 / 서포터 → 전직 후 공격 마법 겸용</div>
+          <div class="join-info">합류: 1-4 (가도에서 합류) | Lv1</div>
+          <div class="class-chain">이단사제 (Exiled Cleric) <span class="arrow">→</span> 불꽃의 사도 (Ember Apostle) <span class="text-muted" style="font-size:0.75rem"> — 전직: 3-4</span></div>
+          <div class="stat-bar-group" id="stats-seria"></div>
+          <div class="tabs" style="margin-top:16px">
+            <button class="tab-btn active" data-tab="seria-skills-pre">전직 전</button>
+            <button class="tab-btn" data-tab="seria-skills-post">전직 후</button>
+          </div>
+          <div id="seria-skills-pre" class="tab-content active">
+            <table class="data-table skill-table"><thead><tr><th>스킬</th><th>Lv</th><th>타입</th><th>MP</th><th>사거리</th><th>범위</th><th>배율</th></tr></thead><tbody>
+              <tr><td class="skill-name">치유의 빛</td><td>1</td><td>치유</td><td>6</td><td>1~2</td><td>단일</td><td>MATK*1.5</td></tr>
+              <tr><td class="skill-name">정화</td><td>3</td><td>치유</td><td>4</td><td>1</td><td>단일</td><td>—</td></tr>
+              <tr><td class="skill-name">빛의 화살</td><td>6</td><td>마법</td><td>8</td><td>1~3</td><td>단일</td><td>1.5x</td></tr>
+              <tr><td class="skill-name">보호의 기도</td><td>10</td><td>버프</td><td>8</td><td>1~2</td><td>단일</td><td>—</td></tr>
+            </tbody></table>
+          </div>
+          <div id="seria-skills-post" class="tab-content">
+            <table class="data-table skill-table"><thead><tr><th>스킬</th><th>Lv</th><th>타입</th><th>MP</th><th>사거리</th><th>범위</th><th>배율</th></tr></thead><tbody>
+              <tr><td class="skill-name">생명의 불꽃</td><td>전직</td><td>치유</td><td>14</td><td>1~2</td><td>십자</td><td>MATK*1.0</td></tr>
+              <tr><td class="skill-name">신성한 화염</td><td>16</td><td>마법</td><td>15</td><td>1~3</td><td>3x3</td><td>2.0x</td></tr>
+              <tr><td class="skill-name">부활의 기도</td><td>20</td><td>치유</td><td>25</td><td>1</td><td>단일</td><td>—</td></tr>
+              <tr><td class="skill-name" style="color:var(--grade-s)">사도의 축복 [S]</td><td>24</td><td>버프</td><td>20</td><td>0</td><td>전체</td><td>—</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 리넨 ── -->
+    <div id="linen" class="char-section section" data-roles="magic support">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/linen_v2.png" alt="Linen concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+          <div class="char-art-box"><div class="char-art-placeholder" style="height:120px">Portrait — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>리넨 <span class="text-muted" style="font-weight:400">(Linen)</span></h3>
+          <div class="role">유틸리티/잡기술 → 전직 후 마법 딜러/서포터로 극적 전환</div>
+          <div class="join-info">합류: 1-6 (벨마르 뒷골목) | Lv2~3</div>
+          <div class="class-chain">방랑자 (Wanderer) <span class="arrow">→</span> 불씨의 계승자 (Ember Heir) <span class="text-muted" style="font-size:0.75rem"> — 전직: 3-6</span></div>
+          <div class="stat-bar-group" id="stats-linen"></div>
+          <div class="tabs" style="margin-top:16px">
+            <button class="tab-btn active" data-tab="linen-pre">전직 전</button>
+            <button class="tab-btn" data-tab="linen-post">전직 후</button>
+          </div>
+          <div id="linen-pre" class="tab-content active">
+            <table class="data-table skill-table"><thead><tr><th>스킬</th><th>Lv</th><th>타입</th><th>MP</th><th>사거리</th><th>범위</th><th>배율</th></tr></thead><tbody>
+              <tr><td class="skill-name">속임수</td><td>1</td><td>유틸</td><td>3</td><td>1</td><td>단일</td><td>—</td></tr>
+              <tr><td class="skill-name">불꽃 튀김</td><td>3</td><td>마법</td><td>5</td><td>1~2</td><td>단일</td><td>1.3x</td></tr>
+              <tr><td class="skill-name">연막</td><td>7</td><td>유틸</td><td>6</td><td>1</td><td>3x3</td><td>—</td></tr>
+              <tr><td class="skill-name">급소 찌르기</td><td>10</td><td>물리</td><td>8</td><td>1</td><td>단일</td><td>1.8x</td></tr>
+            </tbody></table>
+          </div>
+          <div id="linen-post" class="tab-content">
+            <table class="data-table skill-table"><thead><tr><th>스킬</th><th>Lv</th><th>타입</th><th>MP</th><th>사거리</th><th>범위</th><th>배율</th></tr></thead><tbody>
+              <tr><td class="skill-name">시원화의 불길</td><td>전직</td><td>마법</td><td>14</td><td>1~3</td><td>3x3</td><td>2.2x</td></tr>
+              <tr><td class="skill-name">결계의 빛</td><td>18</td><td>서포트</td><td>12</td><td>1~2</td><td>단일</td><td>—</td></tr>
+              <tr><td class="skill-name">불꽃 공명</td><td>22</td><td>마법</td><td>20</td><td>1~3</td><td>직선 4칸</td><td>2.8x</td></tr>
+              <tr><td class="skill-name" style="color:var(--grade-s)">계승자의 의지 [S]</td><td>26</td><td>마법</td><td>35</td><td>1~3</td><td>5x5</td><td>3.0x</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 그리드 ── -->
+    <div id="grid" class="char-section section" data-roles="melee">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/grid_v2.png" alt="Grid concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>그리드 <span class="text-muted" style="font-weight:400">(Grid)</span></h3>
+          <div class="role">근접 고속 딜러 / 유틸리티. SPD 최고, 유리대포</div>
+          <div class="join-info">합류: 1-5 (벨마르 항구) | Lv2</div>
+          <div class="class-chain">밀수업자 (Smuggler) <span class="arrow">→</span> 폭풍해적 (Storm Corsair) <span class="text-muted" style="font-size:0.75rem"> — 전직: 3-12</span></div>
+          <div class="stat-bar-group" id="stats-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 로크 ── -->
+    <div id="roc" class="char-section section" data-roles="ranged">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/roc_v2.png" alt="Roc concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>로크 <span class="text-muted" style="font-weight:400">(Roc)</span></h3>
+          <div class="role">원거리 물리 딜러. 유일한 궁수, 사거리 최장</div>
+          <div class="join-info">합류: 2-1 (실바렌 숲) | Lv5~6</div>
+          <div class="class-chain">숲의 사냥꾼 (Forest Ranger) <span class="arrow">→</span> 실바렌의 수호자 (Silvaren Warden) <span class="text-muted" style="font-size:0.75rem"> — 전직: 3-11</span></div>
+          <div class="stat-bar-group" id="stats-roc"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 나엘 ── -->
+    <div id="nael" class="char-section section" data-roles="healer support">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/nael_v2.png" alt="Nael concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>나엘 <span class="text-muted" style="font-weight:400">(Nael)</span></h3>
+          <div class="role">범위 치유 특화 힐러 / 디버퍼</div>
+          <div class="join-info">합류: 2-1 (실바렌 숲, 로크와 함께) | Lv5~6</div>
+          <div class="class-chain">군의관 (Field Medic) <span class="arrow">→</span> 생명의 노래 (Lifesinger) <span class="text-muted" style="font-size:0.75rem"> — 전직: 3-15</span></div>
+          <div class="stat-bar-group" id="stats-nael"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 드라나 ── -->
+    <div id="drana" class="char-section section" data-roles="magic">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/drana_v2.png" alt="Drana concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>드라나 <span class="text-muted" style="font-weight:400">(Drana)</span></h3>
+          <div class="role">극 마법 딜러. MATK 최고, HP/DEF 최저. 다원소 마법</div>
+          <div class="join-info">합류: 2-9 (크로우펠 산길) | Lv9~10</div>
+          <div class="class-chain">학원 마법사 (Academy Mage) <span class="arrow">→</span> 진리의 탐구자 (Arcane Seeker) <span class="text-muted" style="font-size:0.75rem"> — 전직: 4-4</span></div>
+          <div class="stat-bar-group" id="stats-drana"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 볼드 ── -->
+    <div id="voldt" class="char-section section" data-roles="tank">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/voldt_v2.png" alt="Voldt concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>볼드 <span class="text-muted" style="font-weight:400">(Voldt)</span></h3>
+          <div class="role">절대 탱커. HP/DEF 최고, 도발+방어로 파티 보호</div>
+          <div class="join-info">합류: 2-10 (크로우펠) | Lv10~11</div>
+          <div class="class-chain">탈주 근위대장 (Rogue Guardian) <span class="arrow">→</span> 수호의 방벽 (Ironwall) <span class="text-muted" style="font-size:0.75rem"> — 전직: 4-3</span></div>
+          <div class="stat-bar-group" id="stats-voldt"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 이렌 ── -->
+    <div id="irene" class="char-section section" data-roles="support">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/irene_v2.png" alt="Irene concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>이렌 <span class="text-muted" style="font-weight:400">(Irene)</span></h3>
+          <div class="role">서포터 / 디버퍼 / 유틸리티. 높은 SPD, 적 약화 특화</div>
+          <div class="join-info">합류: 3-1 (왕도 아스칼론 잠입) | Lv12~13</div>
+          <div class="class-chain">재투성이 수장 (Ashen Leader) <span class="arrow">→</span> 그림자 지휘관 (Shadow Commander) <span class="text-muted" style="font-size:0.75rem"> — 전직: 4-2</span></div>
+          <div class="stat-bar-group" id="stats-irene"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 헤이즐 ── -->
+    <div id="hazel" class="char-section section" data-roles="melee support">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/hazel_v2.png" alt="Hazel concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>헤이즐 <span class="text-muted" style="font-weight:400">(Hazel)</span></h3>
+          <div class="role">물리 딜러 / 광역 버퍼. ATK 최고, 지휘 계열 버프</div>
+          <div class="join-info">합류: 3-12 (크로우펠, 명령 거부 후) | Lv18~19 — 합류 시 전직 완료</div>
+          <div class="class-chain">이반 장군 (Defected General) <span class="arrow">→</span> 자유군 원수 (Liberator Marshal) <span class="text-muted" style="font-size:0.75rem"> — 전직: 3-12 (합류 즉시)</span></div>
+          <div class="stat-bar-group" id="stats-hazel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 시르 ── -->
+    <div id="cyr" class="char-section section" data-roles="melee support">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/cyr_v6.png" alt="Cyr concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v6)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>시르 <span class="text-muted" style="font-weight:400">(Cyr)</span></h3>
+          <div class="role">창 사용 중거리 딜러 / 재화 디버퍼. 물리+마법 하이브리드</div>
+          <div class="join-info">합류: 3-14 (재의 바다 입구) | Lv18~19</div>
+          <div class="class-chain">재의 귀환자 (Ashen Returnee) <span class="arrow">→</span> 회귀의 창기사 (Dusk Lancer) <span class="text-muted" style="font-size:0.75rem"> — 전직: 4-1</span></div>
+          <div class="stat-bar-group" id="stats-cyr"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 엘미라 ── -->
+    <div id="elmira" class="char-section section" data-roles="healer magic">
+      <div class="char-detail">
+        <div class="char-art-stack">
+          <div class="char-art-box">
+            <img src="../assets/concepts/elmira_v2.png" alt="Elmira concept" onerror="this.parentElement.innerHTML='<div class=char-art-placeholder>Concept art not loaded</div>'">
+            <div class="art-label">Concept Art (v2)</div>
+          </div>
+          <div class="sprite-area"><div class="char-art-placeholder" style="height:160px">Sprite — 미제작</div></div>
+        </div>
+        <div class="char-info">
+          <h3>엘미라 <span class="text-muted" style="font-weight:400">(Elmira)</span></h3>
+          <div class="role">최상위 힐러 / 마법 딜러. 세리아 완전 상위호환, 극후반 합류</div>
+          <div class="join-info">합류: 4-5 (칼드릭 3세 사망 후) | Lv25 (고정) — 전직 없음</div>
+          <div class="class-chain">시원화 대사제 (Primordial High Priestess) <span class="text-muted" style="font-size:0.75rem"> — 전직 없음, 최종 클래스</span></div>
+          <div class="stat-bar-group" id="stats-elmira"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../../shared/app.js"></script>
+  <script>
+    // ── 캐릭터 스탯 데이터 (Lv1) ──
+    const characters = {
+      kael:   { HP:25, MP:8,  ATK:8,  DEF:7,  MATK:3,  MDEF:4, SPD:6,  MOV:4 },
+      seria:  { HP:19, MP:16, ATK:4,  DEF:4,  MATK:9,  MDEF:8, SPD:5,  MOV:3 },
+      linen:  { HP:20, MP:10, ATK:6,  DEF:4,  MATK:5,  MDEF:5, SPD:9,  MOV:4 },
+      grid:   { HP:20, MP:6,  ATK:8,  DEF:4,  MATK:2,  MDEF:3, SPD:10, MOV:5 },
+      roc:    { HP:22, MP:7,  ATK:9,  DEF:5,  MATK:2,  MDEF:4, SPD:9,  MOV:5 },
+      nael:   { HP:22, MP:14, ATK:4,  DEF:6,  MATK:7,  MDEF:6, SPD:6,  MOV:4 },
+      drana:  { HP:18, MP:18, ATK:4,  DEF:3,  MATK:10, MDEF:5, SPD:5,  MOV:3 },
+      voldt:  { HP:32, MP:5,  ATK:7,  DEF:10, MATK:2,  MDEF:5, SPD:4,  MOV:3 },
+      irene:  { HP:21, MP:10, ATK:7,  DEF:5,  MATK:4,  MDEF:5, SPD:9,  MOV:4 },
+      hazel:  { HP:28, MP:7,  ATK:11, DEF:8,  MATK:2,  MDEF:4, SPD:5,  MOV:4 },
+      cyr:    { HP:24, MP:9,  ATK:9,  DEF:6,  MATK:5,  MDEF:6, SPD:7,  MOV:4 },
+      elmira: { HP:22, MP:18, ATK:4,  DEF:5,  MATK:10, MDEF:8, SPD:6,  MOV:3 },
+    };
+
+    const maxStats = { HP:35, MP:20, ATK:12, DEF:10, MATK:10, MDEF:10, SPD:10, MOV:5 };
+
+    // 스탯 바 렌더링
+    Object.entries(characters).forEach(([id, stats]) => {
+      const el = document.getElementById(`stats-${id}`);
+      if (el) el.innerHTML = App.renderStatBars(stats, maxStats);
+    });
+
+    // 탭 초기화
+    App.initTabs();
+
+    // 필터
+    App.initFilters('#role-filter', (active) => {
+      document.querySelectorAll('.char-section').forEach(sec => {
+        if (active.includes('all')) {
+          sec.style.display = '';
+        } else {
+          const roles = sec.dataset.roles?.split(' ') || [];
+          sec.style.display = active.some(f => roles.includes(f)) ? '' : 'none';
+        }
+      });
+    });
+
+    // ── 스프라이트 뷰어 (Kael, Seria) ──
+    const spriteChars = ['kael', 'seria'];
+    const directions = ['south','south-west','west','north-west','north','north-east','east','south-east'];
+
+    spriteChars.forEach(charId => {
+      const canvas = document.getElementById(`sprite-${charId}`);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+
+      const images = {};
+      let loaded = 0;
+      const dirMap = {
+        'south': 'south', 'south-west': 'south-west', 'west': 'west',
+        'north-west': 'north-west', 'north': 'north', 'north-east': 'north-east',
+        'east': 'east', 'south-east': 'south-east'
+      };
+
+      Object.entries(dirMap).forEach(([key, file]) => {
+        const img = new Image();
+        img.onload = () => {
+          images[key] = img;
+          loaded++;
+          if (loaded === 1) drawSprite(key);
+        };
+        img.src = `../assets/sprites/${charId}/rotations/${file}.png`;
+      });
+
+      function drawSprite(dir) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.imageSmoothingEnabled = false;
+        if (images[dir]) {
+          ctx.drawImage(images[dir], 0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      // 자동 회전
+      let autoIdx = 0;
+      const area = canvas.closest('.sprite-area');
+      const btns = area?.querySelectorAll('.dir-grid button[data-dir]');
+
+      const interval = setInterval(() => {
+        const dir = directions[autoIdx % directions.length];
+        drawSprite(dir);
+        btns?.forEach(b => b.classList.toggle('active', b.dataset.dir === dir));
+        autoIdx++;
+      }, 400);
+
+      // 수동 클릭
+      btns?.forEach(btn => {
+        btn.addEventListener('click', () => {
+          clearInterval(interval);
+          const dir = btn.dataset.dir;
+          drawSprite(dir);
+          btns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lazy Slime Studio - Mockup</title>
+  <link rel="stylesheet" href="shared/style.css">
+  <style>
+    .hero {
+      text-align: center;
+      padding: 80px 24px 40px;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+    }
+    .hero p { color: var(--text-secondary); }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .project-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-3px);
+      text-decoration: none;
+    }
+    .project-card h2 { font-size: 1.3rem; margin-bottom: 8px; }
+    .project-card .desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 12px; }
+    .project-card .meta { font-size: 0.8rem; color: var(--text-muted); }
+    .project-card .meta span { margin-right: 16px; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Lazy Slime Studio</h1>
+    <p>Asset Mockup & Preview</p>
+  </div>
+
+  <div class="project-grid">
+    <a href="ember-throne/index.html" class="project-card">
+      <h2 style="color: var(--accent-ember);">Ember Throne</h2>
+      <div class="desc">정통 판타지 택티컬 RPG. 12인의 캐릭터, 88개 스킬, 35개 전투맵.</div>
+      <div class="meta">
+        <span>Godot 4.6.2</span>
+        <span>Steam PC</span>
+        <span>기획 완료 / 에셋 진행중</span>
+      </div>
+    </a>
+
+    <div class="project-card" style="opacity: 0.4; cursor: default;">
+      <h2 style="color: var(--accent-cyan);">NEON EXODUS</h2>
+      <div class="desc">사이버펑크 뱀서라이크 서바이벌</div>
+      <div class="meta"><span>준비중</span></div>
+    </div>
+
+    <div class="project-card" style="opacity: 0.4; cursor: default;">
+      <h2 style="color: var(--accent-blue);">Contrail</h2>
+      <div class="desc">항공사 경영 시뮬레이션</div>
+      <div class="meta"><span>준비중</span></div>
+    </div>
+  </div>
+</body>
+</html>
