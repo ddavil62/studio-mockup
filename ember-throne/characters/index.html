@@ -101,8 +101,34 @@
       color: var(--accent-ember);
       margin-bottom: 12px;
     }
+    .anim-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .anim-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px;
+      text-align: center;
+    }
+    .anim-card img {
+      image-rendering: pixelated;
+      width: 100%;
+      max-width: 160px;
+      display: block;
+      margin: 0 auto;
+    }
+    .anim-card .anim-label {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
     @media (max-width: 768px) {
       .char-detail { grid-template-columns: 1fr; }
+      .anim-gallery { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -683,6 +709,44 @@
           btn.classList.add('active');
         });
       });
+    });
+
+    // ── 애니메이션 GIF 갤러리 ──
+    const animTypes = [
+      { id: 'walk', label: 'Walk' },
+      { id: 'breathing-idle', label: 'Idle' },
+      { id: 'cross-punch', label: 'Attack' },
+      { id: 'fireball', label: 'Spell' },
+      { id: 'taking-punch', label: 'Hit' },
+      { id: 'falling-back-death', label: 'Death' },
+    ];
+
+    spriteChars.forEach(charId => {
+      const section = document.getElementById(charId);
+      if (!section) return;
+      const charDetail = section.querySelector('.char-detail');
+      if (!charDetail) return;
+
+      const gallery = document.createElement('div');
+      gallery.className = 'anim-gallery';
+      gallery.style.gridColumn = '1 / -1';
+
+      animTypes.forEach(anim => {
+        const card = document.createElement('div');
+        card.className = 'anim-card';
+        const img = document.createElement('img');
+        img.src = `../assets/sprites/${charId}/${anim.id}_south.gif`;
+        img.alt = `${charId} ${anim.label}`;
+        img.loading = 'lazy';
+        const label = document.createElement('div');
+        label.className = 'anim-label';
+        label.textContent = anim.label;
+        card.appendChild(img);
+        card.appendChild(label);
+        gallery.appendChild(card);
+      });
+
+      charDetail.appendChild(gallery);
     });
   </script>
 </body>
