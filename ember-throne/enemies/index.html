@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ember Throne - Enemies</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .enemy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .enemy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .enemy-card:hover { border-color: var(--accent-gold); }
+    .enemy-card h3 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+    }
+    .enemy-card .enemy-role {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+    .sprite-area {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-align: center;
+    }
+    .sprite-area canvas {
+      image-rendering: pixelated;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .dir-grid {
+      display: inline-grid;
+      grid-template-columns: repeat(3, 32px);
+      gap: 3px;
+      margin-top: 6px;
+    }
+    .dir-grid button {
+      width: 32px; height: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.6rem;
+      transition: all 0.15s;
+    }
+    .dir-grid button:hover, .dir-grid button.active {
+      background: var(--accent-gold);
+      color: var(--bg-primary);
+      border-color: var(--accent-gold);
+    }
+    .dir-grid button.empty { visibility: hidden; }
+    .enemy-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      margin-top: 8px;
+      font-size: 0.75rem;
+    }
+    .enemy-stats .stat {
+      background: var(--bg-secondary);
+      padding: 3px 6px;
+      border-radius: 3px;
+      text-align: center;
+    }
+    .enemy-stats .stat-label { color: var(--text-muted); }
+    .enemy-stats .stat-val { color: var(--accent-gold); font-weight: 600; }
+    .size-badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      margin-left: 6px;
+    }
+    .size-48 { background: rgba(100,180,100,0.15); color: #6ab46a; }
+    .size-64 { background: rgba(200,150,50,0.15); color: #c89632; }
+    .size-80 { background: rgba(200,80,80,0.15); color: #c85050; }
+    .faction-title {
+      font-size: 1.2rem;
+      margin: 24px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .faction-title .faction-icon { margin-right: 8px; }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Ember Throne</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Ember Throne</a> / Enemies
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../characters/index.html">Characters</a>
+    <a href="index.html" class="active">Enemies</a>
+    <a href="../skills/index.html">Skills & VFX</a>
+    <a href="../maps/index.html">Maps</a>
+    <a href="../ui/index.html">UI Mockup</a>
+    <a href="../story/index.html">Story & Script</a>
+    <div class="section-title">Factions</div>
+    <a href="#kingdom">Kingdom Forces (8)</a>
+    <a href="#ash-beasts">Ash Beasts (6)</a>
+    <a href="#bosses">Bosses (3)</a>
+  </nav>
+
+  <main class="content">
+    <div class="section-title-bar">
+      <h2>Enemies (17)</h2>
+    </div>
+
+    <div class="filter-bar" id="faction-filter">
+      <button class="filter-btn active" data-filter="all">All (17)</button>
+      <button class="filter-btn" data-filter="kingdom">Kingdom (8)</button>
+      <button class="filter-btn" data-filter="ash">Ash Beasts (6)</button>
+      <button class="filter-btn" data-filter="boss">Bosses (3)</button>
+    </div>
+
+    <!-- ── 왕국 징발대 ── -->
+    <h3 id="kingdom" class="faction-title">Kingdom Conscription Forces</h3>
+    <div class="enemy-grid">
+
+      <div class="enemy-card section" data-faction="kingdom">
+        <h3>징발 보병 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Conscript Footsoldier / Melee</div>
+        <div class="sprite-area" data-char="conscript_footsoldier" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="kingdom">
+        <h3>징발 창병 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Conscript Spearman / Melee</div>
+        <div class="sprite-area" data-char="conscript_spearman" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="kingdom">
+        <h3>징발 궁수 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Conscript Archer / Ranged</div>
+        <div class="sprite-area" data-char="conscript_archer" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="kingdom">
+        <h3>징발 기병 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Conscript Cavalry / Melee</div>
+        <div class="sprite-area" data-char="conscript_cavalry" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="kingdom">
+        <h3>왕국 마법사 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Kingdom Mage / Magic</div>
+        <div class="sprite-area" data-char="kingdom_mage" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="kingdom">
+        <h3>비밀경찰 요원 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Secret Police Agent / Melee</div>
+        <div class="sprite-area" data-char="secret_police_agent" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="kingdom">
+        <h3>비밀경찰 대장 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Secret Police Commander / Melee</div>
+        <div class="sprite-area" data-char="secret_police_commander" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="kingdom">
+        <h3>아네트 부관 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Anette Lieutenant / Magic</div>
+        <div class="sprite-area" data-char="anette_lieutenant" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── 재의 짐승 ── -->
+    <h3 id="ash-beasts" class="faction-title">Ash Beasts</h3>
+    <div class="enemy-grid">
+
+      <div class="enemy-card section" data-faction="ash">
+        <h3>재늑대 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Ash Wolf / Melee</div>
+        <div class="sprite-area" data-char="ash_wolf" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="ash">
+        <h3>재독수리 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Ash Eagle / Ranged</div>
+        <div class="sprite-area" data-char="ash_eagle" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="ash">
+        <h3>재거인 <span class="size-badge size-64">64px</span></h3>
+        <div class="enemy-role">Ash Giant / Tank</div>
+        <div class="sprite-area" data-char="ash_giant" data-enemy="true">
+          <canvas width="184" height="184"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="ash">
+        <h3>재마안 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Ash Mage Eye / Magic</div>
+        <div class="sprite-area" data-char="ash_mage_eye" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="ash">
+        <h3>재기생체 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Ash Parasite / Support</div>
+        <div class="sprite-area" data-char="ash_parasite" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="ash">
+        <h3>재화염 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Ash Flame / Magic</div>
+        <div class="sprite-area" data-char="ash_flame" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── 보스 ── -->
+    <h3 id="bosses" class="faction-title">Bosses</h3>
+    <div class="enemy-grid">
+
+      <div class="enemy-card section" data-faction="boss">
+        <h3>루시드 <span class="size-badge size-48">48px</span></h3>
+        <div class="enemy-role">Lucid / Act 1 Boss — Kingdom General</div>
+        <div class="sprite-area" data-char="boss_lucid" data-enemy="true">
+          <canvas width="136" height="136"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="boss">
+        <h3>재의 대군주 <span class="size-badge size-80">80px</span></h3>
+        <div class="enemy-role">Ash Warlord / Act 2 Boss — Ash Beast Leader</div>
+        <div class="sprite-area" data-char="boss_ash_warlord" data-enemy="true">
+          <canvas width="224" height="224"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="enemy-card section" data-faction="boss">
+        <h3>타락한 모건 <span class="size-badge size-64">64px</span></h3>
+        <div class="enemy-role">Corrupted Morgan / Act 3 Boss — Fallen Paladin</div>
+        <div class="sprite-area" data-char="boss_corrupted_morgan" data-enemy="true">
+          <canvas width="184" height="184"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    // ── 필터 ──
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.enemy-card').forEach(card => {
+          card.style.display = (f === 'all' || card.dataset.faction === f) ? '' : 'none';
+        });
+      });
+    });
+
+    // ── 스프라이트 뷰어 ──
+    const DIRECTIONS = ['south','south-west','west','north-west','north','north-east','east','south-east'];
+
+    document.querySelectorAll('.sprite-area[data-enemy]').forEach(area => {
+      const charName = area.dataset.char;
+      const canvas = area.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      const scale = 2;
+
+      function loadDir(dir) {
+        const img = new Image();
+        img.onload = () => {
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
+          ctx.imageSmoothingEnabled = false;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.onerror = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#666';
+          ctx.font = '12px monospace';
+          ctx.fillText('Not found', 10, canvas.height / 2);
+        };
+        img.src = `../assets/sprites/enemies/${charName}/rotations/${dir}.png`;
+      }
+
+      // 방향 버튼
+      area.querySelectorAll('.dir-grid button[data-dir]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          area.querySelectorAll('.dir-grid button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          loadDir(btn.dataset.dir);
+        });
+      });
+
+      // 기본 south 로드
+      loadDir('south');
+    });
+  </script>
+</body>
+</html>
