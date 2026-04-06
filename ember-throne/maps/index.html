@@ -3,9 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ember Throne - Maps</title>
+  <title>Ember Throne - Maps & Tiles</title>
   <link rel="stylesheet" href="../../shared/style.css">
   <style>
+    .section-header { margin-top: 32px; margin-bottom: 12px; }
+    .section-header h3 { margin-bottom: 4px; }
+    .section-header .count { font-size: 0.8rem; color: var(--text-secondary); }
+
+    /* 타일 그리드 */
+    .tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; margin-bottom: 24px; }
+    .tile-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 6px;
+      text-align: center;
+    }
+    .tile-item img { width: 100%; image-rendering: pixelated; display: block; margin: 0 auto 4px; }
+    .tile-item .label { font-size: 0.65rem; color: var(--text-secondary); word-break: break-all; }
+
+    /* 타일셋 그리드 */
+    .tileset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .tileset-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+    }
+    .tileset-card img { width: 100%; image-rendering: pixelated; border-radius: var(--radius); margin-bottom: 6px; }
+    .tileset-card h4 { font-size: 0.85rem; margin-bottom: 2px; }
+    .tileset-card .meta { font-size: 0.7rem; color: var(--text-secondary); }
+
+    /* 프랍 그리드 */
+    .prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; margin-bottom: 24px; }
+    .prop-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px;
+      text-align: center;
+    }
+    .prop-item img {
+      max-width: 64px; max-height: 80px;
+      image-rendering: pixelated;
+      display: block; margin: 0 auto 4px;
+    }
+    .prop-item .label { font-size: 0.65rem; color: var(--text-secondary); }
+
+    /* 전투맵 그리드 */
     .map-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
     .map-card {
       background: var(--bg-card);
@@ -14,31 +59,41 @@
       padding: 16px;
     }
     .map-preview {
-      width: 100%;
-      aspect-ratio: 16/10;
+      width: 100%; aspect-ratio: 16/10;
       background: var(--bg-secondary);
       border-radius: var(--radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin-bottom: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--text-muted);
-      white-space: pre;
-      line-height: 1.2;
-      overflow: hidden;
-      padding: 8px;
+      font-size: 0.6rem; color: var(--text-muted);
+      overflow: hidden; padding: 4px;
+      gap: 2px; flex-wrap: wrap;
     }
+    .map-preview img { height: 100%; image-rendering: pixelated; border-radius: 2px; }
     .map-card h4 { font-size: 0.9rem; margin-bottom: 4px; }
     .map-card .meta { font-size: 0.75rem; color: var(--text-secondary); }
+
+    .region-label {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .region-irhen { background: #2d5a1e33; color: #6abf4b; }
+    .region-belmar { background: #1e3a5a33; color: #4ba5bf; }
+    .region-silvaren { background: #1e5a3a33; color: #4bbf8a; }
+    .region-harben { background: #5a4a1e33; color: #bfa54b; }
+    .region-crowfel { background: #5a2e1e33; color: #bf6b4b; }
+    .region-ascalon { background: #4a1e5a33; color: #a54bbf; }
+    .region-ashen { background: #3a3a3a33; color: #999; }
   </style>
 </head>
 <body>
   <header class="page-header">
     <h1>Ember Throne</h1>
     <div class="breadcrumb">
-      <a href="../../index.html">Studio</a> / <a href="../index.html">Ember Throne</a> / Maps
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Ember Throne</a> / Maps & Tiles
     </div>
   </header>
 
@@ -47,15 +102,67 @@
     <a href="../index.html">Overview</a>
     <a href="../characters/index.html">Characters</a>
     <a href="../skills/index.html">Skills & VFX</a>
-    <a href="index.html" class="active">Maps</a>
+    <a href="index.html" class="active">Maps & Tiles</a>
     <a href="../ui/index.html">UI Mockup</a>
     <a href="../story/index.html">Story & Script</a>
   </nav>
 
   <main class="content">
-    <h2>Battle Maps</h2>
-    <p class="text-muted mb-16">35개 전투 (28 필수 + 7 선택). 타일셋 미제작.</p>
+    <!-- 베이스 타일 -->
+    <div class="section-header">
+      <h2>Base Tiles</h2>
+      <span class="count">24종 (32x32px, square top-down)</span>
+    </div>
+    <div class="tile-grid" id="base-tiles"></div>
 
+    <!-- 지역별 타일셋 -->
+    <div class="section-header">
+      <h2>Region Tilesets</h2>
+      <span class="count">18세트 (Wang tileset, 16~23타일/세트)</span>
+    </div>
+
+    <div class="filter-bar" id="region-filter">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="irhen">이르헨</button>
+      <button class="filter-btn" data-filter="belmar">벨마르</button>
+      <button class="filter-btn" data-filter="silvaren">실바렌</button>
+      <button class="filter-btn" data-filter="harben">하르벤</button>
+      <button class="filter-btn" data-filter="crowfel">크로우펠</button>
+      <button class="filter-btn" data-filter="ascalon">아스칼론</button>
+      <button class="filter-btn" data-filter="ashen-sea">재의 바다</button>
+    </div>
+    <div class="tileset-grid" id="tilesets"></div>
+
+    <!-- 프랍/오브젝트 -->
+    <div class="section-header">
+      <h2>Props & Objects</h2>
+      <span class="count">40종 (공통 10 + 지역별 30)</span>
+    </div>
+    <div class="filter-bar" id="prop-filter">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="common">공통</button>
+      <button class="filter-btn" data-filter="irhen">이르헨</button>
+      <button class="filter-btn" data-filter="belmar">벨마르</button>
+      <button class="filter-btn" data-filter="silvaren">실바렌</button>
+      <button class="filter-btn" data-filter="harben">하르벤</button>
+      <button class="filter-btn" data-filter="crowfel">크로우펠</button>
+      <button class="filter-btn" data-filter="ascalon">아스칼론</button>
+      <button class="filter-btn" data-filter="ashen-sea">재의 바다</button>
+    </div>
+    <div class="prop-grid" id="props"></div>
+
+    <!-- 특수 타일 -->
+    <div class="section-header">
+      <h2>Special Tiles</h2>
+      <span class="count">10종 (게임플레이 기능 오브젝트)</span>
+    </div>
+    <div class="prop-grid" id="special-tiles"></div>
+
+    <!-- 전투맵 목록 -->
+    <div class="section-header">
+      <h2>Battle Maps</h2>
+      <span class="count">35개 전투 (28 필수 + 7 선택)</span>
+    </div>
     <div class="filter-bar" id="act-filter">
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="1">Act 1</button>
@@ -63,14 +170,183 @@
       <button class="filter-btn" data-filter="3">Act 3</button>
       <button class="filter-btn" data-filter="4">Act 4</button>
     </div>
-
-    <div class="map-grid" id="maps-container">
-      <!-- JS로 렌더링 -->
-    </div>
+    <div class="map-grid" id="maps-container"></div>
   </main>
 
   <script src="../../shared/app.js"></script>
   <script>
+    // ── 베이스 타일 데이터 ──
+    const baseTiles = [
+      'grass_plain_a','grass_flowers','grass_dirt','grass_pebbles',
+      'forest_moss','forest_leaves',
+      'rocky_light','rocky_dark','gravel','rocky_moss',
+      'sand_dry','sand_wet',
+      'cobblestone_clean','cobblestone_worn',
+      'palace_carpet','palace_plain',
+      'dungeon_dry','dungeon_wet',
+      'wheat_golden','wheat_withered',
+      'ashen_cracked','ashen_mist',
+      'wall_clean','wall_cracked'
+    ];
+
+    document.getElementById('base-tiles').innerHTML = baseTiles.map(t => `
+      <div class="tile-item">
+        <img src="../assets/tiles/base/${t}.png" alt="${t}">
+        <div class="label">${t.replace(/_/g,' ')}</div>
+      </div>
+    `).join('');
+
+    // ── 타일셋 데이터 ──
+    const tilesets = [
+      { id:'IRH-01', region:'irhen', label:'이르헨', lower:'평지', upper:'가도', desc:'마을 주변, 가도' },
+      { id:'IRH-02', region:'irhen', label:'이르헨', lower:'평지', upper:'폐허', desc:'이르헨 폐허(3막)' },
+      { id:'IRH-03', region:'irhen', label:'이르헨', lower:'평지', upper:'재의 땅', desc:'재의 땅 경계' },
+      { id:'BEL-01', region:'belmar', label:'벨마르', lower:'깊은 물', upper:'얕은 물', desc:'항구 수역' },
+      { id:'BEL-02', region:'belmar', label:'벨마르', lower:'얕은 물', upper:'모래', desc:'해안가, 부두' },
+      { id:'BEL-03', region:'belmar', label:'벨마르', lower:'모래', upper:'석재 바닥', desc:'항구→도시' },
+      { id:'BEL-04', region:'belmar', label:'벨마르', lower:'석재 바닥', upper:'건물 바닥', desc:'도시 골목' },
+      { id:'SIL-01', region:'silvaren', label:'실바렌', lower:'평지', upper:'숲', desc:'숲 입구' },
+      { id:'SIL-02', region:'silvaren', label:'실바렌', lower:'숲 바닥', upper:'울창한 숲', desc:'숲 깊숙이' },
+      { id:'SIL-03', region:'silvaren', label:'실바렌', lower:'숲 바닥', upper:'개울', desc:'숲+물 지형' },
+      { id:'HAR-01', region:'harben', label:'하르벤', lower:'평지', upper:'곡식밭', desc:'곡창 지대' },
+      { id:'HAR-02', region:'harben', label:'하르벤', lower:'곡식밭', upper:'농로', desc:'농경지 내 길' },
+      { id:'CRO-01', region:'crowfel', label:'크로우펠', lower:'평지', upper:'바위', desc:'산기슭' },
+      { id:'CRO-02', region:'crowfel', label:'크로우펠', lower:'바위', upper:'절벽', desc:'산악 병목' },
+      { id:'ASC-01', region:'ascalon', label:'아스칼론', lower:'석재', upper:'왕궁 바닥', desc:'왕도→왕궁' },
+      { id:'ASC-02', region:'ascalon', label:'아스칼론', lower:'왕궁', upper:'던전', desc:'던전 전이' },
+      { id:'ASC-03', region:'ascalon', label:'아스칼론', lower:'석재', upper:'성벽 기단', desc:'공성전 맵' },
+      { id:'ASH-01', region:'ashen-sea', label:'재의 바다', lower:'재의 땅', upper:'균열 재의 땅', desc:'재의 바다 내부' },
+      { id:'ASH-02', region:'ashen-sea', label:'재의 바다', lower:'재의 땅', upper:'결계석 지반', desc:'결계석 주변' },
+    ];
+
+    function renderTilesets(filter) {
+      document.getElementById('tilesets').innerHTML = tilesets
+        .filter(t => filter.includes('all') || filter.includes(t.region))
+        .map(t => `
+          <div class="tileset-card">
+            <span class="region-label region-${t.region}">${t.label}</span>
+            <img src="../assets/tilesets/${t.region}/${t.id}.png" alt="${t.id}" loading="lazy">
+            <h4>${t.id}</h4>
+            <div class="meta">${t.lower} → ${t.upper} | ${t.desc}</div>
+          </div>
+        `).join('');
+    }
+    renderTilesets(['all']);
+
+    // ── 프랍 데이터 ──
+    const props = [
+      { id:'P01', name:'활엽수 (소)', region:'common' },
+      { id:'P02', name:'활엽수 (대)', region:'common' },
+      { id:'P03', name:'침엽수', region:'common' },
+      { id:'P04', name:'바위 (소)', region:'common' },
+      { id:'P05', name:'바위 (중)', region:'common' },
+      { id:'P06', name:'바위 (대)', region:'common' },
+      { id:'P07', name:'관목 (소)', region:'common' },
+      { id:'P08', name:'관목 (대)', region:'common' },
+      { id:'P09', name:'야생화', region:'common' },
+      { id:'P10', name:'통나무', region:'common' },
+      { id:'P11', name:'농가', region:'irhen', file:'P11_farmhouse' },
+      { id:'P12', name:'우물', region:'irhen', file:'P12_well' },
+      { id:'P13', name:'울타리', region:'irhen', file:'P13_fence' },
+      { id:'P14', name:'마을 광장', region:'irhen', file:'P14_village_square' },
+      { id:'P15', name:'부두', region:'belmar', file:'P15_dock' },
+      { id:'P16', name:'화물 상자', region:'belmar', file:'P16_crate' },
+      { id:'P17', name:'밧줄/닻', region:'belmar', file:'P17_rope_anchor' },
+      { id:'P18', name:'가로등', region:'belmar', file:'P18_lantern' },
+      { id:'P19', name:'상점', region:'belmar', file:'P19_shop' },
+      { id:'P20', name:'주거', region:'belmar', file:'P20_house' },
+      { id:'P21', name:'거대 고목', region:'silvaren', file:'P21_ancient_tree' },
+      { id:'P22', name:'버섯 군락', region:'silvaren', file:'P22_mushroom' },
+      { id:'P23', name:'나무 뿌리', region:'silvaren', file:'P23_roots' },
+      { id:'P24', name:'결계석 기둥', region:'silvaren', file:'P24_ward_pillar' },
+      { id:'P25', name:'건초더미', region:'harben', file:'P25_hay_bale' },
+      { id:'P26', name:'풍차', region:'harben', file:'P26_windmill' },
+      { id:'P27', name:'농수레', region:'harben', file:'P27_farm_cart' },
+      { id:'P28', name:'군사 텐트', region:'crowfel', file:'P28_tent' },
+      { id:'P29', name:'바리케이드', region:'crowfel', file:'P29_barricade' },
+      { id:'P30', name:'무기 거치대', region:'crowfel', file:'P30_weapon_rack' },
+      { id:'P31', name:'감시탑', region:'crowfel', file:'P31_watchtower' },
+      { id:'P32', name:'성벽', region:'ascalon', file:'P32_castle_wall' },
+      { id:'P33', name:'왕궁 기둥', region:'ascalon', file:'P33_palace_pillar' },
+      { id:'P34', name:'깃발', region:'ascalon', file:'P34_banner' },
+      { id:'P35', name:'철문', region:'ascalon', file:'P35_iron_gate' },
+      { id:'P36', name:'왕좌', region:'ascalon', file:'P36_ember_throne' },
+      { id:'P37', name:'잿빛 나무', region:'ashen-sea', file:'P37_dead_tree' },
+      { id:'P38', name:'재의 결정', region:'ashen-sea', file:'P38_ash_crystal' },
+      { id:'P39', name:'균열', region:'ashen-sea', file:'P39_fissure' },
+      { id:'P40', name:'재의 안개', region:'ashen-sea', file:'P40_mist' },
+    ];
+
+    const commonFileMap = {
+      'P01':'P01_tree_small','P02':'P02_tree_large','P03':'P03_pine',
+      'P04':'P04_rock_small','P05':'P05_rock_medium','P06':'P06_rock_large',
+      'P07':'P07_bush_small','P08':'P08_bush_large','P09':'P09_wildflower','P10':'P10_fallen_log'
+    };
+
+    function getPropPath(p) {
+      const f = p.file || commonFileMap[p.id] || p.id;
+      return `../assets/props/${p.region}/${f}.png`;
+    }
+
+    function renderProps(filter) {
+      document.getElementById('props').innerHTML = props
+        .filter(p => filter.includes('all') || filter.includes(p.region))
+        .map(p => `
+          <div class="prop-item">
+            <img src="${getPropPath(p)}" alt="${p.name}" loading="lazy">
+            <div class="label">${p.id} ${p.name}</div>
+          </div>
+        `).join('');
+    }
+    renderProps(['all']);
+
+    // ── 특수 타일 데이터 ──
+    const specials = [
+      { id:'S01', name:'결계석 (활성)', file:'S01_ward_stone_active', func:'인접 HP 5% 회복' },
+      { id:'S02', name:'결계석 (비활성)', file:'S02_ward_stone_inactive', func:'이벤트 전 상태' },
+      { id:'S03', name:'제단', file:'S03_altar', func:'인접 MATK +10%' },
+      { id:'S04', name:'함정 (숨김)', file:'S04_trap_hidden', func:'첫 진입 시 HP 10%' },
+      { id:'S05', name:'함정 (발동)', file:'S05_trap_triggered', func:'발동 후 시각' },
+      { id:'S06', name:'성문 (온전)', file:'S06_gate_intact', func:'HP 3000, 파괴 가능' },
+      { id:'S07', name:'성문 (파괴)', file:'S07_gate_broken', func:'파괴 후 평지' },
+      { id:'S08', name:'다리 (온전)', file:'S08_bridge_intact', func:'이동 비용 1' },
+      { id:'S09', name:'다리 (파괴)', file:'S09_bridge_broken', func:'진입 불가' },
+      { id:'S10', name:'엠버 왕좌', file:'S10_ember_throne', func:'의식 위치' },
+    ];
+
+    document.getElementById('special-tiles').innerHTML = specials.map(s => `
+      <div class="prop-item">
+        <img src="../assets/props/special/${s.file}.png" alt="${s.name}" loading="lazy">
+        <div class="label">${s.id} ${s.name}</div>
+        <div class="label" style="color:var(--text-muted);font-style:italic">${s.func}</div>
+      </div>
+    `).join('');
+
+    // ── 전투맵 데이터 ──
+    const regionTilesetMap = {
+      '이르헨':'irhen','마을':'irhen','가도':'irhen','초원':'irhen',
+      '벨마르':'belmar','항구':'belmar','시가지':'belmar',
+      '실바렌':'silvaren','숲':'silvaren','밀림':'silvaren','고대 숲':'silvaren',
+      '하르벤':'harben','곡창':'harben',
+      '크로우펠':'crowfel','산지':'crowfel','산길':'crowfel','요새':'crowfel','성벽':'crowfel',
+      '아스칼론':'ascalon','왕도':'ascalon','왕궁':'ascalon','지하도':'ascalon','성당':'ascalon','던전':'ascalon',
+      '재의 바다':'ashen-sea','황무지':'ashen-sea','재의':'ashen-sea',
+      '고대 유적':'silvaren','야영지':'silvaren',
+      '제전':'ascalon','시원화':'ascalon',
+    };
+
+    function getMapRegion(terrain) {
+      for (const [key, region] of Object.entries(regionTilesetMap)) {
+        if (terrain.includes(key)) return region;
+      }
+      return null;
+    }
+
+    function getFirstTileset(region) {
+      const t = tilesets.find(t => t.region === region);
+      return t ? `../assets/tilesets/${t.region}/${t.id}.png` : null;
+    }
+
     const maps = [
       { id:'1-1', name:'이르헨 마을 습격', act:1, size:'10x8', type:'필수', terrain:'마을+초원' },
       { id:'1-2', name:'벨마르 가도', act:1, size:'12x8', type:'필수', terrain:'가도+숲' },
@@ -110,23 +386,47 @@
     ];
 
     function renderMaps(filter) {
-      const container = document.getElementById('maps-container');
-      container.innerHTML = maps
+      document.getElementById('maps-container').innerHTML = maps
         .filter(m => filter.includes('all') || filter.includes(String(m.act)))
-        .map(m => `
-          <div class="map-card" data-act="${m.act}">
-            <div class="map-preview">타일셋 미제작\n\n${m.size} grid\n${m.terrain}</div>
-            <h4>${m.id} ${m.name}</h4>
-            <div class="meta">
-              <span class="badge ${m.type === '필수' ? 'badge-ready' : 'badge-wip'}">${m.type}</span>
-              ${m.size} | ${m.terrain}
+        .map(m => {
+          const region = getMapRegion(m.terrain);
+          const tilesetImg = region ? getFirstTileset(region) : null;
+          const preview = tilesetImg
+            ? `<img src="${tilesetImg}" alt="tileset preview">`
+            : `<span style="font-family:var(--font-mono);font-size:0.6rem;white-space:pre">${m.size} grid\n${m.terrain}</span>`;
+          return `
+            <div class="map-card" data-act="${m.act}">
+              <div class="map-preview">${preview}</div>
+              <h4>${m.id} ${m.name}</h4>
+              <div class="meta">
+                <span class="badge ${m.type === '필수' ? 'badge-ready' : 'badge-wip'}">${m.type}</span>
+                ${m.size} | ${m.terrain}
+              </div>
             </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
     }
-
     renderMaps(['all']);
-    App.initFilters('#act-filter', renderMaps);
+
+    // ── 필터 초기화 ──
+    if (typeof App !== 'undefined' && App.initFilters) {
+      App.initFilters('#region-filter', renderTilesets);
+      App.initFilters('#prop-filter', renderProps);
+      App.initFilters('#act-filter', renderMaps);
+    } else {
+      document.querySelectorAll('.filter-bar').forEach(bar => {
+        bar.addEventListener('click', e => {
+          if (!e.target.matches('.filter-btn')) return;
+          bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          const filter = [e.target.dataset.filter];
+          const id = bar.id;
+          if (id === 'region-filter') renderTilesets(filter);
+          else if (id === 'prop-filter') renderProps(filter);
+          else if (id === 'act-filter') renderMaps(filter);
+        });
+      });
+    }
   </script>
 </body>
 </html>
