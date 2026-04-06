@@ -126,6 +126,56 @@
       color: var(--text-secondary);
       margin-top: 4px;
     }
+    .portrait-gallery {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .portrait-gallery img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 832/1216;
+      object-fit: cover;
+    }
+    .portrait-emotions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 8px;
+      background: rgba(0,0,0,0.3);
+    }
+    .portrait-emotions button {
+      padding: 2px 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.65rem;
+      transition: all 0.15s;
+    }
+    .portrait-emotions button:hover, .portrait-emotions button.active {
+      background: var(--accent-gold);
+      color: var(--bg-primary);
+      border-color: var(--accent-gold);
+    }
+    .cutin-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .cutin-box img {
+      width: 100%;
+      display: block;
+    }
+    .cutin-box .art-label {
+      padding: 4px 8px;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      background: rgba(0,0,0,0.5);
+    }
     @media (max-width: 768px) {
       .char-detail { grid-template-columns: 1fr; }
       .anim-gallery { grid-template-columns: repeat(2, 1fr); }
@@ -201,11 +251,20 @@
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">80x80 pixel sprite v2 (pro), 8-dir</div>
           </div>
-          <div class="char-art-box">
-            <div class="char-art-placeholder" style="height:120px">Portrait (256x256) — 미제작</div>
+          <div class="portrait-gallery">
+            <img id="kael-portrait" src="../assets/portraits/kael_neutral.png" alt="Kael portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('kael','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('kael','sad',this)">sad</button>
+              <button onclick="switchPortrait('kael','angry',this)">angry</button>
+              <button onclick="switchPortrait('kael','determined',this)">determined</button>
+              <button onclick="switchPortrait('kael','worried',this)">worried</button>
+              <button onclick="switchPortrait('kael','smile',this)">smile</button>
+            </div>
           </div>
-          <div class="char-art-box">
-            <div class="char-art-placeholder" style="height:120px">Cut-in (512x768) — 미제작</div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/kael_cutin.png" alt="Kael cut-in">
+            <div class="art-label">Cut-in Illustration</div>
           </div>
         </div>
         <div class="char-info">
@@ -274,8 +333,21 @@
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">80x80 pixel sprite v2 (pro), 8-dir</div>
           </div>
-          <div class="char-art-box"><div class="char-art-placeholder" style="height:120px">Portrait — 미제작</div></div>
-          <div class="char-art-box"><div class="char-art-placeholder" style="height:120px">Cut-in — 미제작</div></div>
+          <div class="portrait-gallery">
+            <img id="seria-portrait" src="../assets/portraits/seria_neutral.png" alt="Seria portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('seria','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('seria','cold',this)">cold</button>
+              <button onclick="switchPortrait('seria','sad',this)">sad</button>
+              <button onclick="switchPortrait('seria','tender',this)">tender</button>
+              <button onclick="switchPortrait('seria','shocked',this)">shocked</button>
+              <button onclick="switchPortrait('seria','smile',this)">smile</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/seria_cutin.png" alt="Seria cut-in">
+            <div class="art-label">Cut-in Illustration</div>
+          </div>
         </div>
         <div class="char-info">
           <h3>세리아 <span class="text-muted" style="font-weight:400">(Seria)</span></h3>
@@ -324,7 +396,21 @@
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
           </div>
-          <div class="char-art-box"><div class="char-art-placeholder" style="height:120px">Portrait — 미제작</div></div>
+          <div class="portrait-gallery">
+            <img id="linen-portrait" src="../assets/portraits/linen_neutral.png" alt="Linen portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('linen','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('linen','confused',this)">confused</button>
+              <button onclick="switchPortrait('linen','scared',this)">scared</button>
+              <button onclick="switchPortrait('linen','sad',this)">sad</button>
+              <button onclick="switchPortrait('linen','determined',this)">determined</button>
+              <button onclick="switchPortrait('linen','gentle_smile',this)">gentle_smile</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/linen_cutin.png" alt="Linen cut-in">
+            <div class="art-label">Cut-in Illustration</div>
+          </div>
         </div>
         <div class="char-info">
           <h3>리넨 <span class="text-muted" style="font-weight:400">(Linen)</span></h3>
@@ -373,6 +459,19 @@
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
           </div>
+          <div class="portrait-gallery">
+            <img id="grid-portrait" src="../assets/portraits/grid_neutral.png" alt="Grid portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('grid','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('grid','smirk',this)">smirk</button>
+              <button onclick="switchPortrait('grid','serious',this)">serious</button>
+              <button onclick="switchPortrait('grid','tender',this)">tender</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/grid_cutin.png" alt="Grid cut-in">
+            <div class="art-label">Cut-in Illustration</div>
+          </div>
         </div>
         <div class="char-info">
           <h3>그리드 <span class="text-muted" style="font-weight:400">(Grid)</span></h3>
@@ -400,6 +499,20 @@
               <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
+          </div>
+          <div class="portrait-gallery">
+            <img id="roc-portrait" src="../assets/portraits/roc_neutral.png" alt="Roc portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('roc','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('roc','angry',this)">angry</button>
+              <button onclick="switchPortrait('roc','grief',this)">grief</button>
+              <button onclick="switchPortrait('roc','determined',this)">determined</button>
+              <button onclick="switchPortrait('roc','hostile',this)">hostile</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/roc_cutin.png" alt="Roc cut-in">
+            <div class="art-label">Cut-in Illustration</div>
           </div>
         </div>
         <div class="char-info">
@@ -429,6 +542,20 @@
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
           </div>
+          <div class="portrait-gallery">
+            <img id="nael-portrait" src="../assets/portraits/nael_neutral.png" alt="Nael portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('nael','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('nael','warm_smile',this)">warm_smile</button>
+              <button onclick="switchPortrait('nael','worried',this)">worried</button>
+              <button onclick="switchPortrait('nael','sad',this)">sad</button>
+              <button onclick="switchPortrait('nael','loving',this)">loving</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/nael_cutin.png" alt="Nael cut-in">
+            <div class="art-label">Cut-in Illustration</div>
+          </div>
         </div>
         <div class="char-info">
           <h3>나엘 <span class="text-muted" style="font-weight:400">(Nael)</span></h3>
@@ -456,6 +583,20 @@
               <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
+          </div>
+          <div class="portrait-gallery">
+            <img id="drana-portrait" src="../assets/portraits/drana_neutral.png" alt="Drana portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('drana','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('drana','analytical',this)">analytical</button>
+              <button onclick="switchPortrait('drana','shocked',this)">shocked</button>
+              <button onclick="switchPortrait('drana','angry',this)">angry</button>
+              <button onclick="switchPortrait('drana','grief',this)">grief</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/drana_cutin.png" alt="Drana cut-in">
+            <div class="art-label">Cut-in Illustration</div>
           </div>
         </div>
         <div class="char-info">
@@ -485,6 +626,20 @@
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
           </div>
+          <div class="portrait-gallery">
+            <img id="voldt-portrait" src="../assets/portraits/voldt_neutral.png" alt="Voldt portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('voldt','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('voldt','kind_smile',this)">kind_smile</button>
+              <button onclick="switchPortrait('voldt','sad',this)">sad</button>
+              <button onclick="switchPortrait('voldt','determined',this)">determined</button>
+              <button onclick="switchPortrait('voldt','anguished',this)">anguished</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/voldt_cutin.png" alt="Voldt cut-in">
+            <div class="art-label">Cut-in Illustration</div>
+          </div>
         </div>
         <div class="char-info">
           <h3>볼드 <span class="text-muted" style="font-weight:400">(Voldt)</span></h3>
@@ -512,6 +667,19 @@
               <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
+          </div>
+          <div class="portrait-gallery">
+            <img id="irene-portrait" src="../assets/portraits/irene_neutral.png" alt="Irene portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('irene','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('irene','cold',this)">cold</button>
+              <button onclick="switchPortrait('irene','determined',this)">determined</button>
+              <button onclick="switchPortrait('irene','rare_smile',this)">rare_smile</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/irene_cutin.png" alt="Irene cut-in">
+            <div class="art-label">Cut-in Illustration</div>
           </div>
         </div>
         <div class="char-info">
@@ -541,6 +709,19 @@
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
           </div>
+          <div class="portrait-gallery">
+            <img id="hazel-portrait" src="../assets/portraits/hazel_neutral.png" alt="Hazel portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('hazel','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('hazel','stern',this)">stern</button>
+              <button onclick="switchPortrait('hazel','conflicted',this)">conflicted</button>
+              <button onclick="switchPortrait('hazel','determined',this)">determined</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/hazel_cutin.png" alt="Hazel cut-in">
+            <div class="art-label">Cut-in Illustration</div>
+          </div>
         </div>
         <div class="char-info">
           <h3>헤이즐 <span class="text-muted" style="font-weight:400">(Hazel)</span></h3>
@@ -568,6 +749,15 @@
               <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
+          </div>
+          <div class="portrait-gallery">
+            <img id="cyr-portrait" src="../assets/portraits/cyr_neutral.png" alt="Cyr portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('cyr','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('cyr','serene',this)">serene</button>
+              <button onclick="switchPortrait('cyr','melancholy',this)">melancholy</button>
+              <button onclick="switchPortrait('cyr','slight_smile',this)">slight_smile</button>
+            </div>
           </div>
         </div>
         <div class="char-info">
@@ -597,6 +787,19 @@
             </div>
             <div class="text-muted mt-8" style="font-size:0.7rem">68x68 pixel sprite, 8-dir</div>
           </div>
+          <div class="portrait-gallery">
+            <img id="elmira-portrait" src="../assets/portraits/elmira_neutral.png" alt="Elmira portrait">
+            <div class="portrait-emotions">
+              <button class="active" onclick="switchPortrait('elmira','neutral',this)">neutral</button>
+              <button onclick="switchPortrait('elmira','dignified',this)">dignified</button>
+              <button onclick="switchPortrait('elmira','vulnerable',this)">vulnerable</button>
+              <button onclick="switchPortrait('elmira','kind',this)">kind</button>
+            </div>
+          </div>
+          <div class="cutin-box">
+            <img src="../assets/portraits/cutins/elmira_cutin.png" alt="Elmira cut-in">
+            <div class="art-label">Cut-in Illustration</div>
+          </div>
         </div>
         <div class="char-info">
           <h3>엘미라 <span class="text-muted" style="font-weight:400">(Elmira)</span></h3>
@@ -610,6 +813,16 @@
 
   </main>
 
+  <script>
+  /** 초상화 감정 전환 */
+  function switchPortrait(charName, emotion, btn) {
+    const img = document.getElementById(charName + '-portrait');
+    if (img) img.src = '../assets/portraits/' + charName + '_' + emotion + '.png';
+    const parent = btn.parentElement;
+    parent.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  </script>
   <script src="../../shared/app.js"></script>
   <script>
     // ── 캐릭터 스탯 데이터 (Lv1) ──
