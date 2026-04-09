@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - Tilesets</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .tileset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .tileset-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .tileset-card:hover { border-color: #ff6b35; }
+    .tileset-card h3 { margin: 0 0 4px; font-size: 1.1rem; }
+    .tileset-card .tileset-desc { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 14px; }
+    .tileset-preview {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-align: center;
+    }
+    .tileset-preview img {
+      image-rendering: pixelated;
+      max-width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .tileset-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    .meta-tag {
+      background: var(--bg-secondary);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #ff6b35;">Kitchen Chaos</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Kitchen Chaos</a> / Tilesets
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../enemies/index.html">Enemies</a>
+    <a href="../towers/index.html">Towers</a>
+    <a href="../chefs/index.html">Chefs</a>
+    <a href="index.html" class="active">Tilesets</a>
+    <a href="../ingredients/index.html">Ingredients</a>
+  </nav>
+
+  <main class="content">
+    <h2>Tilesets (4)</h2>
+    <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 20px;">32x32 Wang Tiling / 16 tiles per set / low top-down view</p>
+
+    <div class="tileset-grid">
+      <div class="tileset-card">
+        <h3>1장: 파스타 필드</h3>
+        <div class="tileset-desc">잔디 + 코블스톤 경로, 파스타 테마</div>
+        <div class="tileset-preview">
+          <img src="../assets/tilesets/pasta_field.png" alt="Pasta Field Tileset" style="width: 256px;">
+        </div>
+        <div class="tileset-meta">
+          <span class="meta-tag">32x32</span>
+          <span class="meta-tag">16 tiles</span>
+          <span class="meta-tag">Wang Tiling</span>
+        </div>
+      </div>
+
+      <div class="tileset-card">
+        <h3>2장: 동양 대나무</h3>
+        <div class="tileset-desc">대나무 숲 + 돌길, 동양 테마</div>
+        <div class="tileset-preview">
+          <img src="../assets/tilesets/oriental_bamboo.png" alt="Oriental Bamboo Tileset" style="width: 256px;">
+        </div>
+        <div class="tileset-meta">
+          <span class="meta-tag">32x32</span>
+          <span class="meta-tag">16 tiles</span>
+          <span class="meta-tag">Wang Tiling</span>
+        </div>
+      </div>
+
+      <div class="tileset-card">
+        <h3>3장: 씨푸드 해변</h3>
+        <div class="tileset-desc">모래사장 + 나무판, 해변 테마</div>
+        <div class="tileset-preview">
+          <img src="../assets/tilesets/seafood_beach.png" alt="Seafood Beach Tileset" style="width: 256px;">
+        </div>
+        <div class="tileset-meta">
+          <span class="meta-tag">32x32</span>
+          <span class="meta-tag">16 tiles</span>
+          <span class="meta-tag">Wang Tiling</span>
+        </div>
+      </div>
+
+      <div class="tileset-card">
+        <h3>4장: 화산 용암</h3>
+        <div class="tileset-desc">화산암 + 화산재 경로, 용암 테마</div>
+        <div class="tileset-preview">
+          <img src="../assets/tilesets/volcano_lava.png" alt="Volcano Lava Tileset" style="width: 256px;">
+        </div>
+        <div class="tileset-meta">
+          <span class="meta-tag">32x32</span>
+          <span class="meta-tag">16 tiles</span>
+          <span class="meta-tag">Wang Tiling</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

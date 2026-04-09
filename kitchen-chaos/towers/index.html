@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - Towers</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .tower-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .tower-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .tower-card:hover { border-color: #ff6b35; }
+    .tower-card h3 { margin: 0 0 4px; font-size: 1rem; }
+    .tower-card .tower-role { color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 12px; }
+    .sprite-area {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-align: center;
+    }
+    .sprite-area canvas {
+      image-rendering: pixelated;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .dir-row {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      margin-top: 6px;
+    }
+    .dir-row button {
+      width: 40px; height: 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.65rem;
+      transition: all 0.15s;
+    }
+    .dir-row button:hover, .dir-row button.active {
+      background: #ff6b35;
+      color: var(--bg-primary);
+      border-color: #ff6b35;
+    }
+    .tower-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      margin-top: 10px;
+      font-size: 0.75rem;
+    }
+    .tower-stats .stat {
+      background: var(--bg-secondary);
+      padding: 3px 6px;
+      border-radius: 3px;
+      text-align: center;
+    }
+    .stat-label { color: var(--text-muted); }
+    .stat-val { color: #ff6b35; font-weight: 600; }
+    .category-badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      margin-left: 6px;
+    }
+    .cat-attack { background: rgba(255,75,75,0.15); color: #ff4b4b; }
+    .cat-support { background: rgba(75,200,75,0.15); color: #4bc84b; }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #ff6b35;">Kitchen Chaos</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Kitchen Chaos</a> / Towers
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../enemies/index.html">Enemies</a>
+    <a href="index.html" class="active">Towers</a>
+    <a href="../chefs/index.html">Chefs</a>
+    <a href="../tilesets/index.html">Tilesets</a>
+    <a href="../ingredients/index.html">Ingredients</a>
+  </nav>
+
+  <main class="content">
+    <h2>Towers (6)</h2>
+    <div class="tower-grid" id="tower-grid"></div>
+  </main>
+
+  <script>
+    const TOWERS = [
+      { id: 'pan', name: '프라이팬', role: 'Frying Pan / Basic Attack', cat: 'attack', cost: 30, dmg: 25, range: 100 },
+      { id: 'salt', name: '소금 분사기', role: 'Salt Sprayer / Slow', cat: 'attack', cost: 55, dmg: 12, range: 120 },
+      { id: 'grill', name: '화염 그릴', role: 'Flame Grill / Burn DoT', cat: 'attack', cost: 90, dmg: 18, range: 90 },
+      { id: 'delivery', name: '배달 로봇', role: 'Delivery Bot / Collector', cat: 'support', cost: 45, dmg: 0, range: 110 },
+      { id: 'freezer', name: '냉동고', role: 'Freezer / Freeze', cat: 'attack', cost: 70, dmg: 8, range: 100 },
+      { id: 'soup_pot', name: '수프 솥', role: 'Soup Pot / Buff Aura', cat: 'support', cost: 60, dmg: 0, range: 120 },
+    ];
+
+    const grid = document.getElementById('tower-grid');
+    TOWERS.forEach(t => {
+      const catClass = t.cat === 'attack' ? 'cat-attack' : 'cat-support';
+      const catLabel = t.cat === 'attack' ? 'Attack' : 'Support';
+      grid.insertAdjacentHTML('beforeend', `
+        <div class="tower-card">
+          <h3>${t.name} <span class="category-badge ${catClass}">${catLabel}</span></h3>
+          <div class="tower-role">${t.role}</div>
+          <div class="sprite-area" data-char="${t.id}">
+            <canvas width="144" height="144"></canvas>
+            <div class="dir-row">
+              <button data-dir="west">W</button>
+              <button data-dir="south" class="active">S</button>
+              <button data-dir="north">N</button>
+              <button data-dir="east">E</button>
+            </div>
+          </div>
+          <div class="tower-stats">
+            <div class="stat"><div class="stat-label">Cost</div><div class="stat-val">${t.cost}</div></div>
+            <div class="stat"><div class="stat-label">DMG</div><div class="stat-val">${t.dmg}</div></div>
+            <div class="stat"><div class="stat-label">Range</div><div class="stat-val">${t.range}</div></div>
+          </div>
+        </div>`);
+    });
+
+    document.querySelectorAll('.sprite-area').forEach(area => {
+      const charName = area.dataset.char;
+      const canvas = area.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      let currentDir = 'south';
+
+      function draw() {
+        const img = new Image();
+        img.onload = () => {
+          canvas.width = img.width * 3;
+          canvas.height = img.height * 3;
+          ctx.imageSmoothingEnabled = false;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.onerror = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#666';
+          ctx.font = '12px monospace';
+          ctx.fillText('N/A', 10, canvas.height / 2);
+        };
+        img.src = `../assets/towers/${charName}/rotations/${currentDir}.png`;
+      }
+
+      area.querySelectorAll('.dir-row button[data-dir]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          area.querySelectorAll('.dir-row button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentDir = btn.dataset.dir;
+          draw();
+        });
+      });
+
+      draw();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - Enemies</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .enemy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .enemy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .enemy-card:hover { border-color: #ff6b35; }
+    .enemy-card h3 { margin: 0 0 4px; font-size: 1rem; }
+    .enemy-card .enemy-role {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+    .sprite-area {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-align: center;
+    }
+    .sprite-area canvas {
+      image-rendering: pixelated;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .dir-grid {
+      display: inline-grid;
+      grid-template-columns: repeat(3, 32px);
+      gap: 3px;
+      margin-top: 6px;
+    }
+    .dir-grid button {
+      width: 32px; height: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.6rem;
+      transition: all 0.15s;
+    }
+    .dir-grid button:hover, .dir-grid button.active {
+      background: #ff6b35;
+      color: var(--bg-primary);
+      border-color: #ff6b35;
+    }
+    .dir-grid button.empty { visibility: hidden; }
+    .anim-controls {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: center;
+    }
+    .anim-btn {
+      padding: 2px 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.65rem;
+      transition: all 0.15s;
+    }
+    .anim-btn:hover, .anim-btn.active {
+      background: #ff6b35;
+      color: #fff;
+      border-color: #ff6b35;
+    }
+    .anim-btn.active-static {
+      background: var(--accent-gold);
+      color: var(--bg-primary);
+      border-color: var(--accent-gold);
+    }
+    .size-badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      margin-left: 6px;
+    }
+    .size-32 { background: rgba(100,180,100,0.15); color: #6ab46a; }
+    .size-48 { background: rgba(200,150,50,0.15); color: #c89632; }
+    .chapter-title {
+      font-size: 1.2rem;
+      margin: 24px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #ff6b35;">Kitchen Chaos</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Kitchen Chaos</a> / Enemies
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="index.html" class="active">Enemies</a>
+    <a href="../towers/index.html">Towers</a>
+    <a href="../chefs/index.html">Chefs</a>
+    <a href="../tilesets/index.html">Tilesets</a>
+    <a href="../ingredients/index.html">Ingredients</a>
+    <div class="section-title">Sections</div>
+    <a href="#ch1">1장 파스타 (5)</a>
+    <a href="#ch2">2장 동양 (3)</a>
+    <a href="#ch3">3장 씨푸드 (3)</a>
+    <a href="#ch4">4장 화산 (5)</a>
+    <a href="#bosses">Bosses (4)</a>
+  </nav>
+
+  <main class="content">
+    <div class="section-title-bar">
+      <h2>Enemies (20)</h2>
+    </div>
+
+    <div class="filter-bar" id="faction-filter">
+      <button class="filter-btn active" data-filter="all">All (20)</button>
+      <button class="filter-btn" data-filter="ch1">1장 (5)</button>
+      <button class="filter-btn" data-filter="ch2">2장 (3)</button>
+      <button class="filter-btn" data-filter="ch3">3장 (3)</button>
+      <button class="filter-btn" data-filter="ch4">4장 (5)</button>
+      <button class="filter-btn" data-filter="boss">Bosses (4)</button>
+    </div>
+
+    <!-- 1장 파스타 필드 -->
+    <h3 id="ch1" class="chapter-title">1장: 파스타 필드</h3>
+    <div class="enemy-grid" id="grid-ch1"></div>
+
+    <!-- 2장 동양의 맛 -->
+    <h3 id="ch2" class="chapter-title">2장: 동양의 맛</h3>
+    <div class="enemy-grid" id="grid-ch2"></div>
+
+    <!-- 3장 씨푸드 항구 -->
+    <h3 id="ch3" class="chapter-title">3장: 씨푸드 항구</h3>
+    <div class="enemy-grid" id="grid-ch3"></div>
+
+    <!-- 4장 화산 BBQ -->
+    <h3 id="ch4" class="chapter-title">4장: 화산 BBQ</h3>
+    <div class="enemy-grid" id="grid-ch4"></div>
+
+    <!-- 보스 -->
+    <h3 id="bosses" class="chapter-title">Bosses</h3>
+    <div class="enemy-grid" id="grid-boss"></div>
+  </main>
+
+  <script>
+    const ENEMIES = [
+      { id: 'carrot_goblin', name: '당근 고블린', role: 'Carrot Goblin / Basic', ch: 'ch1', type: 'enemies', size: 32 },
+      { id: 'meat_ogre', name: '고기 오우거', role: 'Meat Ogre / Tank', ch: 'ch1', type: 'enemies', size: 32 },
+      { id: 'octopus_mage', name: '오징어 마법사', role: 'Octopus Mage / Magic', ch: 'ch1', type: 'enemies', size: 32 },
+      { id: 'chili_demon', name: '고추 악마', role: 'Chili Demon / AOE', ch: 'ch1', type: 'enemies', size: 32 },
+      { id: 'cheese_golem', name: '치즈 골렘', role: 'Cheese Golem / Regen', ch: 'ch1', type: 'enemies', size: 32 },
+      { id: 'flour_ghost', name: '밀가루 유령', role: 'Flour Ghost / Invisible', ch: 'ch2', type: 'enemies', size: 32 },
+      { id: 'egg_sprite', name: '달걀 스프라이트', role: 'Egg Sprite / Speed', ch: 'ch2', type: 'enemies', size: 32 },
+      { id: 'rice_slime', name: '쌀 슬라임', role: 'Rice Slime / Split', ch: 'ch2', type: 'enemies', size: 32 },
+      { id: 'fish_knight', name: '생선 기사', role: 'Fish Knight / Armor', ch: 'ch3', type: 'enemies', size: 32 },
+      { id: 'mushroom_scout', name: '버섯 정찰병', role: 'Mushroom Scout / Spore', ch: 'ch3', type: 'enemies', size: 32 },
+      { id: 'cheese_rat', name: '치즈 쥐', role: 'Cheese Rat / Swarm', ch: 'ch3', type: 'enemies', size: 32 },
+      { id: 'shrimp_samurai', name: '새우 사무라이', role: 'Shrimp Samurai / Counter', ch: 'ch3', type: 'enemies', size: 32 },
+      { id: 'tomato_bomber', name: '토마토 폭탄병', role: 'Tomato Bomber / Explode', ch: 'ch3', type: 'enemies', size: 32 },
+      { id: 'butter_ghost', name: '버터 유령', role: 'Butter Ghost / Slippery', ch: 'ch3', type: 'enemies', size: 32 },
+      { id: 'sugar_fairy', name: '설탕 요정', role: 'Sugar Fairy / Death Debuff', ch: 'ch4', type: 'enemies', size: 32 },
+      { id: 'milk_phantom', name: '밀크 팬텀', role: 'Milk Phantom / Coagulate', ch: 'ch4', type: 'enemies', size: 32 },
+    ];
+
+    const BOSSES = [
+      { id: 'pasta_boss', name: '파스타 드래곤', role: 'Pasta Boss / 1장 보스', ch: 'boss', type: 'bosses', size: 48 },
+      { id: 'dragon_ramen', name: '드래곤 라멘', role: 'Dragon Ramen / 2장 보스', ch: 'boss', type: 'bosses', size: 48 },
+      { id: 'seafood_kraken', name: '씨푸드 크라켄', role: 'Seafood Kraken / 3장 보스', ch: 'boss', type: 'bosses', size: 48 },
+      { id: 'lava_dessert_golem', name: '용암 디저트 골렘', role: 'Lava Dessert Golem / 4장 보스', ch: 'boss', type: 'bosses', size: 48 },
+    ];
+
+    const ALL = [...ENEMIES, ...BOSSES];
+
+    function createCard(e) {
+      const sizeClass = e.size <= 32 ? 'size-32' : 'size-48';
+      const canvasSize = e.size <= 32 ? 128 : 192;
+      return `
+        <div class="enemy-card section" data-ch="${e.ch}">
+          <h3>${e.name} <span class="size-badge ${sizeClass}">${e.size}px</span></h3>
+          <div class="enemy-role">${e.role}</div>
+          <div class="sprite-area" data-char="${e.id}" data-type="${e.type}">
+            <canvas width="${canvasSize}" height="${canvasSize}"></canvas>
+            <div class="dir-grid">
+              <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+              <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+              <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // 그리드 채우기
+    const grids = { ch1: 'grid-ch1', ch2: 'grid-ch2', ch3: 'grid-ch3', ch4: 'grid-ch4', boss: 'grid-boss' };
+    ALL.forEach(e => {
+      const g = document.getElementById(grids[e.ch]);
+      if (g) g.insertAdjacentHTML('beforeend', createCard(e));
+    });
+
+    // 필터
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.enemy-card').forEach(card => {
+          card.style.display = (f === 'all' || card.dataset.ch === f) ? '' : 'none';
+        });
+        document.querySelectorAll('.chapter-title').forEach(h => {
+          if (f === 'all') { h.style.display = ''; return; }
+          h.style.display = h.id === f || (f === 'boss' && h.id === 'bosses') ? '' : 'none';
+        });
+      });
+    });
+
+    // 스프라이트 뷰어 + 애니메이션
+    document.querySelectorAll('.sprite-area').forEach(area => {
+      const charName = area.dataset.char;
+      const charType = area.dataset.type;
+      const canvas = area.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      const scale = charType === 'bosses' ? 2 : 3;
+      let currentDir = 'south';
+      let animInterval = null;
+      let currentAnim = null;
+
+      // 애니메이션 컨트롤
+      const animDiv = document.createElement('div');
+      animDiv.className = 'anim-controls';
+      const staticBtn = document.createElement('button');
+      staticBtn.className = 'anim-btn active-static';
+      staticBtn.textContent = 'Static';
+      staticBtn.dataset.anim = 'static';
+      animDiv.appendChild(staticBtn);
+      const walkBtn = document.createElement('button');
+      walkBtn.className = 'anim-btn';
+      walkBtn.textContent = 'Walk';
+      walkBtn.dataset.anim = 'walk';
+      animDiv.appendChild(walkBtn);
+      area.appendChild(animDiv);
+
+      function drawImage(src) {
+        const img = new Image();
+        img.onload = () => {
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
+          ctx.imageSmoothingEnabled = false;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.onerror = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#666';
+          ctx.font = '12px monospace';
+          ctx.fillText('N/A', 10, canvas.height / 2);
+        };
+        img.src = src;
+      }
+
+      function showStatic() {
+        stopAnim();
+        currentAnim = null;
+        drawImage(`../assets/${charType}/${charName}/rotations/${currentDir}.png`);
+        animDiv.querySelectorAll('.anim-btn').forEach(b => b.classList.remove('active', 'active-static'));
+        staticBtn.classList.add('active-static');
+      }
+
+      function stopAnim() {
+        if (animInterval) { clearInterval(animInterval); animInterval = null; }
+      }
+
+      function playWalk() {
+        stopAnim();
+        currentAnim = 'walk';
+        // walking 폴더명 찾기 — 첫 번째 walking-* 폴더
+        const base = `../assets/${charType}/${charName}/animations`;
+        // 이미지 로딩 시도 (walking-* 폴더명을 모르므로 메타데이터에서 유추)
+        let frame = 0;
+        const maxFrames = 6;
+        const imgs = [];
+        let loaded = 0;
+        let walkFolder = '';
+
+        // 메타데이터에서 실제 폴더명 탐색 (fallback: 직접 시도)
+        fetch(`../assets/${charType}/${charName}/metadata.json`)
+          .then(r => r.json())
+          .then(meta => {
+            const anims = meta.frames?.animations || {};
+            const walkKey = Object.keys(anims).find(k => k.startsWith('walking'));
+            if (!walkKey) { showStatic(); return; }
+            walkFolder = walkKey;
+            const dirFrames = anims[walkKey][currentDir] || anims[walkKey]['south'] || [];
+            dirFrames.forEach((path, i) => {
+              const img = new Image();
+              img.src = `../assets/${charType}/${charName}/${path}`;
+              img.onload = () => { loaded++; if (loaded === dirFrames.length) startLoop(dirFrames.length); };
+              img.onerror = () => { loaded++; };
+              imgs.push(img);
+            });
+          })
+          .catch(() => showStatic());
+
+        function startLoop(total) {
+          drawFrame(0);
+          animInterval = setInterval(() => {
+            frame = (frame + 1) % total;
+            drawFrame(frame);
+          }, 150);
+        }
+
+        function drawFrame(f) {
+          const img = imgs[f];
+          if (!img || !img.complete || !img.naturalWidth) return;
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
+          ctx.imageSmoothingEnabled = false;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+
+        animDiv.querySelectorAll('.anim-btn').forEach(b => b.classList.remove('active', 'active-static'));
+        walkBtn.classList.add('active');
+      }
+
+      // 이벤트
+      staticBtn.addEventListener('click', showStatic);
+      walkBtn.addEventListener('click', playWalk);
+
+      area.querySelectorAll('.dir-grid button[data-dir]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          area.querySelectorAll('.dir-grid button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentDir = btn.dataset.dir;
+          if (currentAnim === 'walk') playWalk();
+          else showStatic();
+        });
+      });
+
+      showStatic();
+    });
+  </script>
+</body>
+</html>

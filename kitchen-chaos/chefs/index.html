@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - Chefs</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .chef-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .chef-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .chef-card:hover { border-color: #ff6b35; }
+    .chef-card h3 { margin: 0 0 4px; font-size: 1.1rem; }
+    .chef-card .chef-desc { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 14px; }
+    .sprite-area {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+    .sprite-area canvas {
+      image-rendering: pixelated;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .dir-grid {
+      display: inline-grid;
+      grid-template-columns: repeat(3, 32px);
+      gap: 3px;
+      margin-top: 8px;
+    }
+    .dir-grid button {
+      width: 32px; height: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.6rem;
+      transition: all 0.15s;
+    }
+    .dir-grid button:hover, .dir-grid button.active {
+      background: #ff6b35;
+      color: var(--bg-primary);
+      border-color: #ff6b35;
+    }
+    .dir-grid button.empty { visibility: hidden; }
+    .skill-list {
+      margin-top: 12px;
+      font-size: 0.8rem;
+    }
+    .skill-list .skill-item {
+      background: var(--bg-secondary);
+      padding: 6px 10px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+    .skill-name { color: #ff6b35; font-weight: 600; }
+    .skill-desc { color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #ff6b35;">Kitchen Chaos</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Kitchen Chaos</a> / Chefs
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../enemies/index.html">Enemies</a>
+    <a href="../towers/index.html">Towers</a>
+    <a href="index.html" class="active">Chefs</a>
+    <a href="../tilesets/index.html">Tilesets</a>
+    <a href="../ingredients/index.html">Ingredients</a>
+  </nav>
+
+  <main class="content">
+    <h2>Chefs (3)</h2>
+    <div class="chef-grid">
+
+      <div class="chef-card">
+        <h3>Petit Chef</h3>
+        <div class="chef-desc">꼬마 셰프 / 만능형. 모든 요리 시간 -10%</div>
+        <div class="sprite-area" data-char="petit_chef">
+          <canvas width="192" height="192"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">TD: 재료 자석</span> — <span class="skill-desc">수집 범위 +30%</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 특급 서비스</span> — <span class="skill-desc">전 고객 인내심 리셋 (90s CD)</span></div>
+        </div>
+      </div>
+
+      <div class="chef-card">
+        <h3>Flame Chef</h3>
+        <div class="chef-desc">불꽃 요리사 / 공격형. 타워 공격력 +15%</div>
+        <div class="sprite-area" data-char="flame_chef">
+          <canvas width="192" height="192"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">TD: 화염 분출</span> — <span class="skill-desc">범위 화상 피해</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 화염 조리</span> — <span class="skill-desc">대기 요리 즉시 완성 (120s CD)</span></div>
+        </div>
+      </div>
+
+      <div class="chef-card">
+        <h3>Ice Chef</h3>
+        <div class="chef-desc">얼음 요리장 / 방어형. 적 이동속도 -10%</div>
+        <div class="sprite-area" data-char="ice_chef">
+          <canvas width="192" height="192"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">TD: 냉기 폭풍</span> — <span class="skill-desc">범위 빙결 2초</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 시간 동결</span> — <span class="skill-desc">인내심 타이머 10초 정지 (150s CD)</span></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.sprite-area').forEach(area => {
+      const charName = area.dataset.char;
+      const canvas = area.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      let currentDir = 'south';
+
+      function draw() {
+        const img = new Image();
+        img.onload = () => {
+          canvas.width = img.width * 2;
+          canvas.height = img.height * 2;
+          ctx.imageSmoothingEnabled = false;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.onerror = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#666';
+          ctx.font = '12px monospace';
+          ctx.fillText('N/A', 10, canvas.height / 2);
+        };
+        img.src = `../assets/chefs/${charName}/rotations/${currentDir}.png`;
+      }
+
+      area.querySelectorAll('.dir-grid button[data-dir]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          area.querySelectorAll('.dir-grid button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentDir = btn.dataset.dir;
+          draw();
+        });
+      });
+
+      draw();
+    });
+  </script>
+</body>
+</html>

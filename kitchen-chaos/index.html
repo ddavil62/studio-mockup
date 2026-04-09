@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - Mockup</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .overview-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: all 0.2s;
+    }
+    .overview-card:hover {
+      border-color: #ff6b35;
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+    .overview-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .overview-card .count { font-size: 2rem; font-weight: 700; color: #ff6b35; }
+    .overview-card .detail { font-size: 0.8rem; color: var(--text-secondary); margin-top: 8px; }
+    .status-list { margin-top: 24px; }
+    .status-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-dot.ready { background: var(--accent-green); }
+    .status-dot.wip { background: var(--accent-gold); }
+    .status-dot.empty { background: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #ff6b35;">Kitchen Chaos</h1>
+    <div class="breadcrumb">
+      <a href="../index.html">Studio</a> / Kitchen Chaos
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="index.html" class="active">Overview</a>
+    <a href="enemies/index.html">Enemies</a>
+    <a href="towers/index.html">Towers</a>
+    <a href="chefs/index.html">Chefs</a>
+    <a href="tilesets/index.html">Tilesets</a>
+    <a href="ingredients/index.html">Ingredients</a>
+  </nav>
+
+  <main class="content">
+    <h2 style="margin-bottom: 4px;">Project Overview</h2>
+    <p class="text-muted" style="font-size: 0.85rem;">TD + Restaurant Tycoon Hybrid | Phaser.js 3 | Mobile 360x640</p>
+
+    <div class="overview-grid">
+      <a href="enemies/index.html" class="overview-card">
+        <h3>Enemies</h3>
+        <div class="count">20</div>
+        <div class="detail">
+          1장 5 / 2장 3 / 3장 3 / 4장 5<br>
+          일반 16종 + 보스 4종<br>
+          8방향 + walk 애니메이션
+        </div>
+      </a>
+      <a href="towers/index.html" class="overview-card">
+        <h3>Towers</h3>
+        <div class="count">6</div>
+        <div class="detail">
+          프라이팬 / 소금분사기 / 화염그릴<br>
+          배달로봇 / 냉동고 / 수프솥<br>
+          4방향 스프라이트
+        </div>
+      </a>
+      <a href="chefs/index.html" class="overview-card">
+        <h3>Chefs</h3>
+        <div class="count">3</div>
+        <div class="detail">
+          꼬마 셰프 (Petit)<br>
+          불꽃 요리사 (Flame)<br>
+          얼음 요리장 (Ice)
+        </div>
+      </a>
+      <a href="tilesets/index.html" class="overview-card">
+        <h3>Tilesets</h3>
+        <div class="count">4</div>
+        <div class="detail">
+          파스타 들판 / 동양 대나무<br>
+          씨푸드 해변 / 화산 용암<br>
+          32x32 Wang Tiling
+        </div>
+      </a>
+      <a href="ingredients/index.html" class="overview-card">
+        <h3>Ingredients</h3>
+        <div class="count">15</div>
+        <div class="detail">
+          당근/고기/오징어/고추/치즈<br>
+          밀가루/달걀/쌀/생선/버섯<br>
+          새우/토마토/버터/설탕/우유
+        </div>
+      </a>
+    </div>
+
+    <div class="section" style="margin-top: 36px;">
+      <h3 style="margin-bottom: 12px;">Asset Pipeline Status</h3>
+      <div class="status-list">
+        <div class="status-item"><div class="status-dot ready"></div> 적 스프라이트 (16종 일반) — PixelLab 32px chibi 8방향</div>
+        <div class="status-item"><div class="status-dot ready"></div> 보스 스프라이트 (4종) — PixelLab 48px pro 8방향</div>
+        <div class="status-item"><div class="status-dot ready"></div> 타워 스프라이트 (6종) — PixelLab 48px side 4방향</div>
+        <div class="status-item"><div class="status-dot ready"></div> 셰프 스프라이트 (3종) — PixelLab 48px pro 8방향</div>
+        <div class="status-item"><div class="status-dot ready"></div> Walk 애니메이션 (적+보스 20종) — 8방향 6프레임</div>
+        <div class="status-item"><div class="status-dot ready"></div> 타일셋 (4테마) — 32x32 Wang Tiling 16타일</div>
+        <div class="status-item"><div class="status-dot ready"></div> 재료 아이콘 (15종) — 32x32 이소메트릭</div>
+        <div class="status-item"><div class="status-dot empty"></div> UI 프레임 에셋 — 미착수</div>
+        <div class="status-item"><div class="status-dot empty"></div> BGM / SFX — 미착수</div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
