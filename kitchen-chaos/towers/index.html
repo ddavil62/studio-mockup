@@ -25,34 +25,15 @@
       background: var(--bg-secondary);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 12px;
+      padding: 16px;
       text-align: center;
     }
-    .sprite-area canvas {
+    .sprite-area img {
       image-rendering: pixelated;
+      width: 144px;
+      height: 144px;
       border: 1px solid var(--border);
       border-radius: 4px;
-    }
-    .dir-row {
-      display: flex;
-      gap: 4px;
-      justify-content: center;
-      margin-top: 6px;
-    }
-    .dir-row button {
-      width: 40px; height: 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      font-size: 0.65rem;
-      transition: all 0.15s;
-    }
-    .dir-row button:hover, .dir-row button.active {
-      background: #ff6b35;
-      color: var(--bg-primary);
-      border-color: #ff6b35;
     }
     .tower-stats {
       display: grid;
@@ -100,6 +81,7 @@
 
   <main class="content">
     <h2>Towers (6)</h2>
+    <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 20px;">48x48 pixel art map objects / side view / kitchen equipment style</p>
     <div class="tower-grid" id="tower-grid"></div>
   </main>
 
@@ -121,14 +103,8 @@
         <div class="tower-card">
           <h3>${t.name} <span class="category-badge ${catClass}">${catLabel}</span></h3>
           <div class="tower-role">${t.role}</div>
-          <div class="sprite-area" data-char="${t.id}">
-            <canvas width="144" height="144"></canvas>
-            <div class="dir-row">
-              <button data-dir="west">W</button>
-              <button data-dir="south" class="active">S</button>
-              <button data-dir="north">N</button>
-              <button data-dir="east">E</button>
-            </div>
+          <div class="sprite-area">
+            <img src="../assets/towers/${t.id}/tower.png" alt="${t.name}">
           </div>
           <div class="tower-stats">
             <div class="stat"><div class="stat-label">Cost</div><div class="stat-val">${t.cost}</div></div>
@@ -136,42 +112,6 @@
             <div class="stat"><div class="stat-label">Range</div><div class="stat-val">${t.range}</div></div>
           </div>
         </div>`);
-    });
-
-    document.querySelectorAll('.sprite-area').forEach(area => {
-      const charName = area.dataset.char;
-      const canvas = area.querySelector('canvas');
-      const ctx = canvas.getContext('2d');
-      let currentDir = 'south';
-
-      function draw() {
-        const img = new Image();
-        img.onload = () => {
-          canvas.width = img.width * 3;
-          canvas.height = img.height * 3;
-          ctx.imageSmoothingEnabled = false;
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        };
-        img.onerror = () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.fillStyle = '#666';
-          ctx.font = '12px monospace';
-          ctx.fillText('N/A', 10, canvas.height / 2);
-        };
-        img.src = `../assets/towers/${charName}/rotations/${currentDir}.png`;
-      }
-
-      area.querySelectorAll('.dir-row button[data-dir]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          area.querySelectorAll('.dir-row button').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentDir = btn.dataset.dir;
-          draw();
-        });
-      });
-
-      draw();
     });
   </script>
 </body>
