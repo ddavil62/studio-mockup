@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "c8bb1e3f-6226-4b8d-9cb2-b6d4416143ed",
+    "name": "Dragon Ramen",
+    "prompt": "fierce dragon made of ramen noodles and broth, steaming hot, chopstick horns, nori seaweed armor, boiling broth breath, menacing Japanese food dragon boss",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-09T11:29:41.220985+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-dcd66668": {
+        "east": [
+          "animations/walking-dcd66668/east/frame_000.png",
+          "animations/walking-dcd66668/east/frame_001.png",
+          "animations/walking-dcd66668/east/frame_002.png",
+          "animations/walking-dcd66668/east/frame_003.png",
+          "animations/walking-dcd66668/east/frame_004.png",
+          "animations/walking-dcd66668/east/frame_005.png"
+        ],
+        "south-west": [
+          "animations/walking-dcd66668/south-west/frame_000.png",
+          "animations/walking-dcd66668/south-west/frame_001.png",
+          "animations/walking-dcd66668/south-west/frame_002.png",
+          "animations/walking-dcd66668/south-west/frame_003.png",
+          "animations/walking-dcd66668/south-west/frame_004.png",
+          "animations/walking-dcd66668/south-west/frame_005.png"
+        ],
+        "west": [
+          "animations/walking-dcd66668/west/frame_000.png",
+          "animations/walking-dcd66668/west/frame_001.png",
+          "animations/walking-dcd66668/west/frame_002.png",
+          "animations/walking-dcd66668/west/frame_003.png",
+          "animations/walking-dcd66668/west/frame_004.png",
+          "animations/walking-dcd66668/west/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-dcd66668/south-east/frame_000.png",
+          "animations/walking-dcd66668/south-east/frame_001.png",
+          "animations/walking-dcd66668/south-east/frame_002.png",
+          "animations/walking-dcd66668/south-east/frame_003.png",
+          "animations/walking-dcd66668/south-east/frame_004.png",
+          "animations/walking-dcd66668/south-east/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-dcd66668/north-west/frame_000.png",
+          "animations/walking-dcd66668/north-west/frame_001.png",
+          "animations/walking-dcd66668/north-west/frame_002.png",
+          "animations/walking-dcd66668/north-west/frame_003.png",
+          "animations/walking-dcd66668/north-west/frame_004.png",
+          "animations/walking-dcd66668/north-west/frame_005.png"
+        ],
+        "south": [
+          "animations/walking-dcd66668/south/frame_000.png",
+          "animations/walking-dcd66668/south/frame_001.png",
+          "animations/walking-dcd66668/south/frame_002.png",
+          "animations/walking-dcd66668/south/frame_003.png",
+          "animations/walking-dcd66668/south/frame_004.png",
+          "animations/walking-dcd66668/south/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-dcd66668/north/frame_000.png",
+          "animations/walking-dcd66668/north/frame_001.png",
+          "animations/walking-dcd66668/north/frame_002.png",
+          "animations/walking-dcd66668/north/frame_003.png",
+          "animations/walking-dcd66668/north/frame_004.png",
+          "animations/walking-dcd66668/north/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-dcd66668/north-east/frame_000.png",
+          "animations/walking-dcd66668/north-east/frame_001.png",
+          "animations/walking-dcd66668/north-east/frame_002.png",
+          "animations/walking-dcd66668/north-east/frame_003.png",
+          "animations/walking-dcd66668/north-east/frame_004.png",
+          "animations/walking-dcd66668/north-east/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-09T11:49:50.656328"
+}

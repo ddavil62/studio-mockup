@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "2a35b108-251c-4250-b99a-f7848f4253e3",
+    "name": "Cheese Golem",
+    "prompt": "big yellow cheese golem, blocky body made of cheese with holes, heavy and slow, fantasy RPG enemy",
+    "size": {
+      "width": 48,
+      "height": 48
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-09T11:10:39.944032+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-e8ab7eac": {
+        "south-west": [
+          "animations/walking-e8ab7eac/south-west/frame_000.png",
+          "animations/walking-e8ab7eac/south-west/frame_001.png",
+          "animations/walking-e8ab7eac/south-west/frame_002.png",
+          "animations/walking-e8ab7eac/south-west/frame_003.png",
+          "animations/walking-e8ab7eac/south-west/frame_004.png",
+          "animations/walking-e8ab7eac/south-west/frame_005.png"
+        ],
+        "west": [
+          "animations/walking-e8ab7eac/west/frame_000.png",
+          "animations/walking-e8ab7eac/west/frame_001.png",
+          "animations/walking-e8ab7eac/west/frame_002.png",
+          "animations/walking-e8ab7eac/west/frame_003.png",
+          "animations/walking-e8ab7eac/west/frame_004.png",
+          "animations/walking-e8ab7eac/west/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-e8ab7eac/north-west/frame_000.png",
+          "animations/walking-e8ab7eac/north-west/frame_001.png",
+          "animations/walking-e8ab7eac/north-west/frame_002.png",
+          "animations/walking-e8ab7eac/north-west/frame_003.png",
+          "animations/walking-e8ab7eac/north-west/frame_004.png",
+          "animations/walking-e8ab7eac/north-west/frame_005.png"
+        ],
+        "east": [
+          "animations/walking-e8ab7eac/east/frame_000.png",
+          "animations/walking-e8ab7eac/east/frame_001.png",
+          "animations/walking-e8ab7eac/east/frame_002.png",
+          "animations/walking-e8ab7eac/east/frame_003.png",
+          "animations/walking-e8ab7eac/east/frame_004.png",
+          "animations/walking-e8ab7eac/east/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-e8ab7eac/north/frame_000.png",
+          "animations/walking-e8ab7eac/north/frame_001.png",
+          "animations/walking-e8ab7eac/north/frame_002.png",
+          "animations/walking-e8ab7eac/north/frame_003.png",
+          "animations/walking-e8ab7eac/north/frame_004.png",
+          "animations/walking-e8ab7eac/north/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-e8ab7eac/north-east/frame_000.png",
+          "animations/walking-e8ab7eac/north-east/frame_001.png",
+          "animations/walking-e8ab7eac/north-east/frame_002.png",
+          "animations/walking-e8ab7eac/north-east/frame_003.png",
+          "animations/walking-e8ab7eac/north-east/frame_004.png",
+          "animations/walking-e8ab7eac/north-east/frame_005.png"
+        ],
+        "south": [
+          "animations/walking-e8ab7eac/south/frame_000.png",
+          "animations/walking-e8ab7eac/south/frame_001.png",
+          "animations/walking-e8ab7eac/south/frame_002.png",
+          "animations/walking-e8ab7eac/south/frame_003.png",
+          "animations/walking-e8ab7eac/south/frame_004.png",
+          "animations/walking-e8ab7eac/south/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-e8ab7eac/south-east/frame_000.png",
+          "animations/walking-e8ab7eac/south-east/frame_001.png",
+          "animations/walking-e8ab7eac/south-east/frame_002.png",
+          "animations/walking-e8ab7eac/south-east/frame_003.png",
+          "animations/walking-e8ab7eac/south-east/frame_004.png",
+          "animations/walking-e8ab7eac/south-east/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-09T11:49:12.044594"
+}

@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "8439bb1e-0373-47a7-8211-0a8aa5c56045",
+    "name": "Mushroom Scout",
+    "prompt": "small brown mushroom scout, spotted cap hat, sneaky pose, scout outfit, fantasy RPG enemy",
+    "size": {
+      "width": 48,
+      "height": 48
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-09T11:11:02.615559+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-5e4378eb": {
+        "south-east": [
+          "animations/walking-5e4378eb/south-east/frame_000.png",
+          "animations/walking-5e4378eb/south-east/frame_001.png",
+          "animations/walking-5e4378eb/south-east/frame_002.png",
+          "animations/walking-5e4378eb/south-east/frame_003.png",
+          "animations/walking-5e4378eb/south-east/frame_004.png",
+          "animations/walking-5e4378eb/south-east/frame_005.png"
+        ],
+        "west": [
+          "animations/walking-5e4378eb/west/frame_000.png",
+          "animations/walking-5e4378eb/west/frame_001.png",
+          "animations/walking-5e4378eb/west/frame_002.png",
+          "animations/walking-5e4378eb/west/frame_003.png",
+          "animations/walking-5e4378eb/west/frame_004.png",
+          "animations/walking-5e4378eb/west/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-5e4378eb/north-west/frame_000.png",
+          "animations/walking-5e4378eb/north-west/frame_001.png",
+          "animations/walking-5e4378eb/north-west/frame_002.png",
+          "animations/walking-5e4378eb/north-west/frame_003.png",
+          "animations/walking-5e4378eb/north-west/frame_004.png",
+          "animations/walking-5e4378eb/north-west/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-5e4378eb/north/frame_000.png",
+          "animations/walking-5e4378eb/north/frame_001.png",
+          "animations/walking-5e4378eb/north/frame_002.png",
+          "animations/walking-5e4378eb/north/frame_003.png",
+          "animations/walking-5e4378eb/north/frame_004.png",
+          "animations/walking-5e4378eb/north/frame_005.png"
+        ],
+        "south": [
+          "animations/walking-5e4378eb/south/frame_000.png",
+          "animations/walking-5e4378eb/south/frame_001.png",
+          "animations/walking-5e4378eb/south/frame_002.png",
+          "animations/walking-5e4378eb/south/frame_003.png",
+          "animations/walking-5e4378eb/south/frame_004.png",
+          "animations/walking-5e4378eb/south/frame_005.png"
+        ],
+        "east": [
+          "animations/walking-5e4378eb/east/frame_000.png",
+          "animations/walking-5e4378eb/east/frame_001.png",
+          "animations/walking-5e4378eb/east/frame_002.png",
+          "animations/walking-5e4378eb/east/frame_003.png",
+          "animations/walking-5e4378eb/east/frame_004.png",
+          "animations/walking-5e4378eb/east/frame_005.png"
+        ],
+        "south-west": [
+          "animations/walking-5e4378eb/south-west/frame_000.png",
+          "animations/walking-5e4378eb/south-west/frame_001.png",
+          "animations/walking-5e4378eb/south-west/frame_002.png",
+          "animations/walking-5e4378eb/south-west/frame_003.png",
+          "animations/walking-5e4378eb/south-west/frame_004.png",
+          "animations/walking-5e4378eb/south-west/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-5e4378eb/north-east/frame_000.png",
+          "animations/walking-5e4378eb/north-east/frame_001.png",
+          "animations/walking-5e4378eb/north-east/frame_002.png",
+          "animations/walking-5e4378eb/north-east/frame_003.png",
+          "animations/walking-5e4378eb/north-east/frame_004.png",
+          "animations/walking-5e4378eb/north-east/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-09T11:48:57.176396"
+}

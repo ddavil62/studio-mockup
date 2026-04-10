@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "c366c4fd-45f9-4340-942e-469ed2d62cad",
+    "name": "Sugar Fairy",
+    "prompt": "tiny fairy made of crystallized sugar, sparkling translucent wings, pink and white color scheme, cute magical creature, holding a sugar wand",
+    "size": {
+      "width": 48,
+      "height": 48
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-09T11:12:59.84355+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-83b51e9e": {
+        "south-west": [
+          "animations/walking-83b51e9e/south-west/frame_000.png",
+          "animations/walking-83b51e9e/south-west/frame_001.png",
+          "animations/walking-83b51e9e/south-west/frame_002.png",
+          "animations/walking-83b51e9e/south-west/frame_003.png",
+          "animations/walking-83b51e9e/south-west/frame_004.png",
+          "animations/walking-83b51e9e/south-west/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-83b51e9e/south-east/frame_000.png",
+          "animations/walking-83b51e9e/south-east/frame_001.png",
+          "animations/walking-83b51e9e/south-east/frame_002.png",
+          "animations/walking-83b51e9e/south-east/frame_003.png",
+          "animations/walking-83b51e9e/south-east/frame_004.png",
+          "animations/walking-83b51e9e/south-east/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-83b51e9e/north/frame_000.png",
+          "animations/walking-83b51e9e/north/frame_001.png",
+          "animations/walking-83b51e9e/north/frame_002.png",
+          "animations/walking-83b51e9e/north/frame_003.png",
+          "animations/walking-83b51e9e/north/frame_004.png",
+          "animations/walking-83b51e9e/north/frame_005.png"
+        ],
+        "west": [
+          "animations/walking-83b51e9e/west/frame_000.png",
+          "animations/walking-83b51e9e/west/frame_001.png",
+          "animations/walking-83b51e9e/west/frame_002.png",
+          "animations/walking-83b51e9e/west/frame_003.png",
+          "animations/walking-83b51e9e/west/frame_004.png",
+          "animations/walking-83b51e9e/west/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-83b51e9e/north-east/frame_000.png",
+          "animations/walking-83b51e9e/north-east/frame_001.png",
+          "animations/walking-83b51e9e/north-east/frame_002.png",
+          "animations/walking-83b51e9e/north-east/frame_003.png",
+          "animations/walking-83b51e9e/north-east/frame_004.png",
+          "animations/walking-83b51e9e/north-east/frame_005.png"
+        ],
+        "south": [
+          "animations/walking-83b51e9e/south/frame_000.png",
+          "animations/walking-83b51e9e/south/frame_001.png",
+          "animations/walking-83b51e9e/south/frame_002.png",
+          "animations/walking-83b51e9e/south/frame_003.png",
+          "animations/walking-83b51e9e/south/frame_004.png",
+          "animations/walking-83b51e9e/south/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-83b51e9e/north-west/frame_000.png",
+          "animations/walking-83b51e9e/north-west/frame_001.png",
+          "animations/walking-83b51e9e/north-west/frame_002.png",
+          "animations/walking-83b51e9e/north-west/frame_003.png",
+          "animations/walking-83b51e9e/north-west/frame_004.png",
+          "animations/walking-83b51e9e/north-west/frame_005.png"
+        ],
+        "east": [
+          "animations/walking-83b51e9e/east/frame_000.png",
+          "animations/walking-83b51e9e/east/frame_001.png",
+          "animations/walking-83b51e9e/east/frame_002.png",
+          "animations/walking-83b51e9e/east/frame_003.png",
+          "animations/walking-83b51e9e/east/frame_004.png",
+          "animations/walking-83b51e9e/east/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-09T11:48:52.240443"
+}

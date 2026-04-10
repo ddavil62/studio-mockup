@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "1345b61b-e3be-40ae-9870-5af771e12944",
+    "name": "Octopus Mage",
+    "prompt": "purple octopus wizard monster, holding magic staff, tentacle arms, glowing eyes, fantasy RPG enemy",
+    "size": {
+      "width": 48,
+      "height": 48
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-09T11:10:35.269908+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-c62120db": {
+        "south": [
+          "animations/walking-c62120db/south/frame_000.png",
+          "animations/walking-c62120db/south/frame_001.png",
+          "animations/walking-c62120db/south/frame_002.png",
+          "animations/walking-c62120db/south/frame_003.png",
+          "animations/walking-c62120db/south/frame_004.png",
+          "animations/walking-c62120db/south/frame_005.png"
+        ],
+        "east": [
+          "animations/walking-c62120db/east/frame_000.png",
+          "animations/walking-c62120db/east/frame_001.png",
+          "animations/walking-c62120db/east/frame_002.png",
+          "animations/walking-c62120db/east/frame_003.png",
+          "animations/walking-c62120db/east/frame_004.png",
+          "animations/walking-c62120db/east/frame_005.png"
+        ],
+        "west": [
+          "animations/walking-c62120db/west/frame_000.png",
+          "animations/walking-c62120db/west/frame_001.png",
+          "animations/walking-c62120db/west/frame_002.png",
+          "animations/walking-c62120db/west/frame_003.png",
+          "animations/walking-c62120db/west/frame_004.png",
+          "animations/walking-c62120db/west/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-c62120db/north/frame_000.png",
+          "animations/walking-c62120db/north/frame_001.png",
+          "animations/walking-c62120db/north/frame_002.png",
+          "animations/walking-c62120db/north/frame_003.png",
+          "animations/walking-c62120db/north/frame_004.png",
+          "animations/walking-c62120db/north/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-c62120db/south-east/frame_000.png",
+          "animations/walking-c62120db/south-east/frame_001.png",
+          "animations/walking-c62120db/south-east/frame_002.png",
+          "animations/walking-c62120db/south-east/frame_003.png",
+          "animations/walking-c62120db/south-east/frame_004.png",
+          "animations/walking-c62120db/south-east/frame_005.png"
+        ],
+        "south-west": [
+          "animations/walking-c62120db/south-west/frame_000.png",
+          "animations/walking-c62120db/south-west/frame_001.png",
+          "animations/walking-c62120db/south-west/frame_002.png",
+          "animations/walking-c62120db/south-west/frame_003.png",
+          "animations/walking-c62120db/south-west/frame_004.png",
+          "animations/walking-c62120db/south-west/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-c62120db/north-east/frame_000.png",
+          "animations/walking-c62120db/north-east/frame_001.png",
+          "animations/walking-c62120db/north-east/frame_002.png",
+          "animations/walking-c62120db/north-east/frame_003.png",
+          "animations/walking-c62120db/north-east/frame_004.png",
+          "animations/walking-c62120db/north-east/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-c62120db/north-west/frame_000.png",
+          "animations/walking-c62120db/north-west/frame_001.png",
+          "animations/walking-c62120db/north-west/frame_002.png",
+          "animations/walking-c62120db/north-west/frame_003.png",
+          "animations/walking-c62120db/north-west/frame_004.png",
+          "animations/walking-c62120db/north-west/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-09T11:49:42.023097"
+}

@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "3a6f9202-d5ce-4dab-9d2b-dd89b7a68a44",
+    "name": "Lava Dessert Golem",
+    "prompt": "massive golem made of volcanic lava cake and molten chocolate, magma cracks glowing orange, whipped cream volcanic eruption on head, dessert lava boss",
+    "size": {
+      "width": 88,
+      "height": 88
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-09T11:30:25.647154+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-5514895b": {
+        "south": [
+          "animations/walking-5514895b/south/frame_000.png",
+          "animations/walking-5514895b/south/frame_001.png",
+          "animations/walking-5514895b/south/frame_002.png",
+          "animations/walking-5514895b/south/frame_003.png",
+          "animations/walking-5514895b/south/frame_004.png",
+          "animations/walking-5514895b/south/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-5514895b/north/frame_000.png",
+          "animations/walking-5514895b/north/frame_001.png",
+          "animations/walking-5514895b/north/frame_002.png",
+          "animations/walking-5514895b/north/frame_003.png",
+          "animations/walking-5514895b/north/frame_004.png",
+          "animations/walking-5514895b/north/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-5514895b/north-east/frame_000.png",
+          "animations/walking-5514895b/north-east/frame_001.png",
+          "animations/walking-5514895b/north-east/frame_002.png",
+          "animations/walking-5514895b/north-east/frame_003.png",
+          "animations/walking-5514895b/north-east/frame_004.png",
+          "animations/walking-5514895b/north-east/frame_005.png"
+        ],
+        "south-west": [
+          "animations/walking-5514895b/south-west/frame_000.png",
+          "animations/walking-5514895b/south-west/frame_001.png",
+          "animations/walking-5514895b/south-west/frame_002.png",
+          "animations/walking-5514895b/south-west/frame_003.png",
+          "animations/walking-5514895b/south-west/frame_004.png",
+          "animations/walking-5514895b/south-west/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-5514895b/north-west/frame_000.png",
+          "animations/walking-5514895b/north-west/frame_001.png",
+          "animations/walking-5514895b/north-west/frame_002.png",
+          "animations/walking-5514895b/north-west/frame_003.png",
+          "animations/walking-5514895b/north-west/frame_004.png",
+          "animations/walking-5514895b/north-west/frame_005.png"
+        ],
+        "east": [
+          "animations/walking-5514895b/east/frame_000.png",
+          "animations/walking-5514895b/east/frame_001.png",
+          "animations/walking-5514895b/east/frame_002.png",
+          "animations/walking-5514895b/east/frame_003.png",
+          "animations/walking-5514895b/east/frame_004.png",
+          "animations/walking-5514895b/east/frame_005.png"
+        ],
+        "west": [
+          "animations/walking-5514895b/west/frame_000.png",
+          "animations/walking-5514895b/west/frame_001.png",
+          "animations/walking-5514895b/west/frame_002.png",
+          "animations/walking-5514895b/west/frame_003.png",
+          "animations/walking-5514895b/west/frame_004.png",
+          "animations/walking-5514895b/west/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-5514895b/south-east/frame_000.png",
+          "animations/walking-5514895b/south-east/frame_001.png",
+          "animations/walking-5514895b/south-east/frame_002.png",
+          "animations/walking-5514895b/south-east/frame_003.png",
+          "animations/walking-5514895b/south-east/frame_004.png",
+          "animations/walking-5514895b/south-east/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-09T11:49:45.695809"
+}

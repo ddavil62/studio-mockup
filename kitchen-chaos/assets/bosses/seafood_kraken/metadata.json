@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "eff49e68-59e1-4e43-8c91-2b0d0f73761b",
+    "name": "Seafood Kraken",
+    "prompt": "giant kraken made of seafood, octopus tentacles with shrimp claws, crab shell armor, seaweed crown, deep sea monster boss with fish scales",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-09T11:30:24.133928+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-f85ec5ca": {
+        "west": [
+          "animations/walking-f85ec5ca/west/frame_000.png",
+          "animations/walking-f85ec5ca/west/frame_001.png",
+          "animations/walking-f85ec5ca/west/frame_002.png",
+          "animations/walking-f85ec5ca/west/frame_003.png",
+          "animations/walking-f85ec5ca/west/frame_004.png",
+          "animations/walking-f85ec5ca/west/frame_005.png"
+        ],
+        "east": [
+          "animations/walking-f85ec5ca/east/frame_000.png",
+          "animations/walking-f85ec5ca/east/frame_001.png",
+          "animations/walking-f85ec5ca/east/frame_002.png",
+          "animations/walking-f85ec5ca/east/frame_003.png",
+          "animations/walking-f85ec5ca/east/frame_004.png",
+          "animations/walking-f85ec5ca/east/frame_005.png"
+        ],
+        "south": [
+          "animations/walking-f85ec5ca/south/frame_000.png",
+          "animations/walking-f85ec5ca/south/frame_001.png",
+          "animations/walking-f85ec5ca/south/frame_002.png",
+          "animations/walking-f85ec5ca/south/frame_003.png",
+          "animations/walking-f85ec5ca/south/frame_004.png",
+          "animations/walking-f85ec5ca/south/frame_005.png"
+        ],
+        "south-west": [
+          "animations/walking-f85ec5ca/south-west/frame_000.png",
+          "animations/walking-f85ec5ca/south-west/frame_001.png",
+          "animations/walking-f85ec5ca/south-west/frame_002.png",
+          "animations/walking-f85ec5ca/south-west/frame_003.png",
+          "animations/walking-f85ec5ca/south-west/frame_004.png",
+          "animations/walking-f85ec5ca/south-west/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-f85ec5ca/north/frame_000.png",
+          "animations/walking-f85ec5ca/north/frame_001.png",
+          "animations/walking-f85ec5ca/north/frame_002.png",
+          "animations/walking-f85ec5ca/north/frame_003.png",
+          "animations/walking-f85ec5ca/north/frame_004.png",
+          "animations/walking-f85ec5ca/north/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-f85ec5ca/north-east/frame_000.png",
+          "animations/walking-f85ec5ca/north-east/frame_001.png",
+          "animations/walking-f85ec5ca/north-east/frame_002.png",
+          "animations/walking-f85ec5ca/north-east/frame_003.png",
+          "animations/walking-f85ec5ca/north-east/frame_004.png",
+          "animations/walking-f85ec5ca/north-east/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-f85ec5ca/south-east/frame_000.png",
+          "animations/walking-f85ec5ca/south-east/frame_001.png",
+          "animations/walking-f85ec5ca/south-east/frame_002.png",
+          "animations/walking-f85ec5ca/south-east/frame_003.png",
+          "animations/walking-f85ec5ca/south-east/frame_004.png",
+          "animations/walking-f85ec5ca/south-east/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-f85ec5ca/north-west/frame_000.png",
+          "animations/walking-f85ec5ca/north-west/frame_001.png",
+          "animations/walking-f85ec5ca/north-west/frame_002.png",
+          "animations/walking-f85ec5ca/north-west/frame_003.png",
+          "animations/walking-f85ec5ca/north-west/frame_004.png",
+          "animations/walking-f85ec5ca/north-west/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-09T11:49:55.641886"
+}

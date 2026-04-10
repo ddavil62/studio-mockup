@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "686691d4-4922-4cbb-b1b3-a21d2616c269",
+    "name": "Meat Ogre",
+    "prompt": "big muscular meat ogre monster, red-brown body, bone club weapon, fierce expression, fantasy RPG enemy",
+    "size": {
+      "width": 48,
+      "height": 48
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-09T11:10:33.388168+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-dff9d5bc": {
+        "south": [
+          "animations/walking-dff9d5bc/south/frame_000.png",
+          "animations/walking-dff9d5bc/south/frame_001.png",
+          "animations/walking-dff9d5bc/south/frame_002.png",
+          "animations/walking-dff9d5bc/south/frame_003.png",
+          "animations/walking-dff9d5bc/south/frame_004.png",
+          "animations/walking-dff9d5bc/south/frame_005.png"
+        ],
+        "east": [
+          "animations/walking-dff9d5bc/east/frame_000.png",
+          "animations/walking-dff9d5bc/east/frame_001.png",
+          "animations/walking-dff9d5bc/east/frame_002.png",
+          "animations/walking-dff9d5bc/east/frame_003.png",
+          "animations/walking-dff9d5bc/east/frame_004.png",
+          "animations/walking-dff9d5bc/east/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-dff9d5bc/north-east/frame_000.png",
+          "animations/walking-dff9d5bc/north-east/frame_001.png",
+          "animations/walking-dff9d5bc/north-east/frame_002.png",
+          "animations/walking-dff9d5bc/north-east/frame_003.png",
+          "animations/walking-dff9d5bc/north-east/frame_004.png",
+          "animations/walking-dff9d5bc/north-east/frame_005.png"
+        ],
+        "south-west": [
+          "animations/walking-dff9d5bc/south-west/frame_000.png",
+          "animations/walking-dff9d5bc/south-west/frame_001.png",
+          "animations/walking-dff9d5bc/south-west/frame_002.png",
+          "animations/walking-dff9d5bc/south-west/frame_003.png",
+          "animations/walking-dff9d5bc/south-west/frame_004.png",
+          "animations/walking-dff9d5bc/south-west/frame_005.png"
+        ],
+        "west": [
+          "animations/walking-dff9d5bc/west/frame_000.png",
+          "animations/walking-dff9d5bc/west/frame_001.png",
+          "animations/walking-dff9d5bc/west/frame_002.png",
+          "animations/walking-dff9d5bc/west/frame_003.png",
+          "animations/walking-dff9d5bc/west/frame_004.png",
+          "animations/walking-dff9d5bc/west/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-dff9d5bc/south-east/frame_000.png",
+          "animations/walking-dff9d5bc/south-east/frame_001.png",
+          "animations/walking-dff9d5bc/south-east/frame_002.png",
+          "animations/walking-dff9d5bc/south-east/frame_003.png",
+          "animations/walking-dff9d5bc/south-east/frame_004.png",
+          "animations/walking-dff9d5bc/south-east/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-dff9d5bc/north/frame_000.png",
+          "animations/walking-dff9d5bc/north/frame_001.png",
+          "animations/walking-dff9d5bc/north/frame_002.png",
+          "animations/walking-dff9d5bc/north/frame_003.png",
+          "animations/walking-dff9d5bc/north/frame_004.png",
+          "animations/walking-dff9d5bc/north/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-dff9d5bc/north-west/frame_000.png",
+          "animations/walking-dff9d5bc/north-west/frame_001.png",
+          "animations/walking-dff9d5bc/north-west/frame_002.png",
+          "animations/walking-dff9d5bc/north-west/frame_003.png",
+          "animations/walking-dff9d5bc/north-west/frame_004.png",
+          "animations/walking-dff9d5bc/north-west/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-09T11:49:28.294034"
+}
