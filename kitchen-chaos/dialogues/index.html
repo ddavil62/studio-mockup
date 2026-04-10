@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - Dialogue Scripts</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .chapter-section { margin-bottom: 36px; }
+    .chapter-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px; padding-bottom: 8px;
+      border-bottom: 2px solid #ff6b35;
+    }
+    .chapter-header h3 { font-size: 1.2rem; color: #ff6b35; }
+    .chapter-badge {
+      background: #ff6b35; color: #0a0a0f;
+      padding: 2px 10px; border-radius: 12px;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .dialogue-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .dialogue-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+    }
+    .dialogue-header:hover { background: var(--bg-card-hover); }
+    .dialogue-id { font-family: var(--font-mono); font-size: 0.85rem; color: #ff6b35; }
+    .dialogue-meta { font-size: 0.75rem; color: var(--text-muted); }
+    .dialogue-trigger {
+      font-size: 0.7rem; color: var(--accent-blue);
+      background: rgba(74,158,255,0.1); padding: 2px 8px;
+      border-radius: 8px; margin-left: 8px;
+    }
+    .dialogue-body { padding: 16px; display: none; }
+    .dialogue-body.open { display: block; }
+    .dialogue-line {
+      display: flex; gap: 12px; padding: 8px 0;
+      border-bottom: 1px solid rgba(42,42,62,0.5);
+      font-size: 0.85rem; line-height: 1.5;
+    }
+    .dialogue-line:last-child { border-bottom: none; }
+    .line-portrait {
+      flex-shrink: 0; width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+    }
+    .line-content { flex: 1; }
+    .line-speaker {
+      font-weight: 600; font-size: 0.8rem;
+      margin-bottom: 2px;
+    }
+    .line-speaker.mimi { color: #ff8899; }
+    .line-speaker.poco { color: #ffaa33; }
+    .line-speaker.rin { color: #ff4444; }
+    .line-speaker.mage { color: #cc88ff; }
+    .line-speaker.narrator { color: #cccccc; font-style: italic; }
+    .line-speaker.unknown { color: #888; }
+    .line-text { color: var(--text-primary); }
+    .line-text.narrator-text { font-style: italic; color: var(--text-secondary); }
+    .stats-bar {
+      display: flex; gap: 24px; padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 24px;
+    }
+    .stat-item { text-align: center; }
+    .stat-value { font-size: 1.8rem; font-weight: 700; color: #ff6b35; }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); }
+    .expand-all {
+      background: none; border: 1px solid var(--border);
+      color: var(--text-secondary); padding: 6px 16px;
+      border-radius: 8px; cursor: pointer; font-size: 0.8rem;
+    }
+    .expand-all:hover { border-color: #ff6b35; color: #ff6b35; }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #ff6b35;">Dialogue Scripts</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Kitchen Chaos</a> / Dialogues
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../enemies/index.html">Enemies</a>
+    <a href="../towers/index.html">Towers</a>
+    <a href="../chefs/index.html">Chefs</a>
+    <a href="../tilesets/index.html">Tilesets</a>
+    <a href="../ingredients/index.html">Ingredients</a>
+    <a href="../portraits/index.html">Characters</a>
+    <a href="index.html" class="active">Dialogues</a>
+  </nav>
+
+  <main class="content">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <p class="text-muted" style="font-size: 0.85rem;">Phase 15 | 26 Scripts | 4 Characters + Narrator</p>
+      <button class="expand-all" onclick="toggleAll()">Expand All</button>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-value">26</div><div class="stat-label">Scripts</div></div>
+      <div class="stat-item"><div class="stat-value">6</div><div class="stat-label">Chapters</div></div>
+      <div class="stat-item"><div class="stat-value">220</div><div class="stat-label">Lines</div></div>
+      <div class="stat-item"><div class="stat-value">4</div><div class="stat-label">Characters</div></div>
+    </div>
+
+    <div id="dialogues-container"></div>
+  </main>
+
+  <script>
+    const CHARACTERS = {
+      mimi: { nameKo: '미미', portrait: '\u{1F467}', color: '#ff8899', cls: 'mimi' },
+      poco: { nameKo: '포코', portrait: '\u{1F431}', color: '#ffaa33', cls: 'poco' },
+      rin:  { nameKo: '린',   portrait: '\u{1F525}', color: '#ff4444', cls: 'rin' },
+      mage: { nameKo: '메이지', portrait: '\u{1F9C1}', color: '#cc88ff', cls: 'mage' },
+      narrator: { nameKo: '', portrait: '', color: '#cccccc', cls: 'narrator' },
+    };
+
+    function getSpeakerClass(speaker) {
+      if (speaker === 'narrator') return 'narrator';
+      if (speaker === '미미') return 'mimi';
+      if (speaker === '포코') return 'poco';
+      if (speaker === '린') return 'rin';
+      if (speaker === '메이지') return 'mage';
+      return 'unknown';
+    }
+
+    const CHAPTERS = [
+      {
+        title: 'Prologue & System',
+        badge: 'SYSTEM',
+        scripts: [
+          { id: 'intro_welcome', trigger: 'worldmap_enter', desc: '첫 접속: 식당 도착 + 포코 만남 + 식란 설명', lines: 16 },
+          { id: 'stage_first_clear', trigger: 'result_clear', desc: '일반 스테이지 첫 클리어', lines: 8 },
+          { id: 'merchant_first_meet', trigger: 'merchant_enter', desc: '첫 행상인 방문', lines: 8 },
+          { id: 'poco_discount_fail', trigger: 'merchant_enter', desc: '포코에게 할인 요청', lines: 9 },
+          { id: 'stage_boss_warning', trigger: 'gathering_enter', desc: '보스 스테이지 경고', lines: 8 },
+          { id: 'after_first_loss', trigger: 'result_failed', desc: '첫 패배 위로', lines: 9 },
+        ]
+      },
+      {
+        title: '1장 - 파스타 레스토랑',
+        badge: 'CH.1',
+        scripts: [
+          { id: 'chapter1_start', trigger: 'chain(intro)', desc: '첫 식란 정화 출발', lines: 7 },
+          { id: 'chapter1_clear', trigger: 'result_clear 1-6', desc: '파스타 보스 격파', lines: 7 },
+        ]
+      },
+      {
+        title: '2장 - 동양 요리 식당',
+        badge: 'CH.2',
+        scripts: [
+          { id: 'chapter2_intro', trigger: 'worldmap_enter', desc: '린 첫 등장, 라이벌 선언', lines: 9 },
+          { id: 'rin_first_meet', trigger: 'result_clear 2-1', desc: '린의 첫 인정', lines: 9 },
+          { id: 'chapter2_clear', trigger: 'result_clear 2-3', desc: '스시 쇼군 격파, 린 라이벌 인정', lines: 8 },
+        ]
+      },
+      {
+        title: '3장 - 씨푸드 바',
+        badge: 'CH.3',
+        scripts: [
+          { id: 'mage_introduction', trigger: 'worldmap_enter', desc: '메이지 첫 등장, 식란 연구', lines: 11 },
+          { id: 'mage_research_hint', trigger: 'worldmap_enter', desc: '메이지 연구 진행 공유', lines: 8 },
+          { id: 'chapter3_rin_joins', trigger: 'result_clear 3-3', desc: '린 동료 합류', lines: 11 },
+          { id: 'chapter3_clear', trigger: 'result_clear 3-6', desc: '크라켄 격파, 삼각측량 시작', lines: 9 },
+        ]
+      },
+      {
+        title: '4장 - 화산 BBQ',
+        badge: 'CH.4',
+        scripts: [
+          { id: 'chapter4_intro', trigger: 'worldmap_enter', desc: '화산 지대 진입, 미력 농도 3배', lines: 8 },
+          { id: 'poco_side_4', trigger: 'merchant_enter', desc: 'BBQ 메뉴 판촉 코미디', lines: 6 },
+          { id: 'chapter4_mage_joins', trigger: 'result_clear 4-3', desc: '메이지 현장 합류, 3인 팀 완성', lines: 10 },
+          { id: 'chapter4_clear', trigger: 'result_clear 4-6', desc: '라바 골렘 격파, 인공 증폭 장치 발견', lines: 9 },
+        ]
+      },
+      {
+        title: '5장 - 마법사 디저트 카페',
+        badge: 'CH.5',
+        scripts: [
+          { id: 'chapter5_intro', trigger: 'worldmap_enter', desc: '디저트 카페 진입, 포코 납치 복선', lines: 7 },
+          { id: 'rin_side_5', trigger: 'result_clear 5-3', desc: '린-미미 진심 대화, 우정 심화', lines: 7 },
+          { id: 'chapter5_clear', trigger: 'result_clear 5-6', desc: '파티시에 격파, 포코 구출, 퀴진 갓 등장', lines: 10 },
+        ]
+      },
+      {
+        title: '6장 - 그랑 가스트로노미',
+        badge: 'CH.6',
+        scripts: [
+          { id: 'chapter6_intro', trigger: 'worldmap_enter', desc: '최종 결전 진입', lines: 7 },
+          { id: 'team_side_6', trigger: 'result_clear 6-2', desc: '팀 각오 한 마디', lines: 8 },
+          { id: 'chapter6_final_battle', trigger: 'gathering_enter 6-3', desc: '퀴진 갓 등장, 봉인 내막', lines: 9 },
+          { id: 'chapter6_ending', trigger: 'result_clear 6-3', desc: '식란 종결, 엔딩', lines: 11 },
+        ]
+      },
+    ];
+
+    const container = document.getElementById('dialogues-container');
+    let totalLines = 0;
+
+    CHAPTERS.forEach(ch => {
+      const section = document.createElement('div');
+      section.className = 'chapter-section';
+      section.innerHTML = `<div class="chapter-header"><h3>${ch.title}</h3><span class="chapter-badge">${ch.badge}</span></div>`;
+
+      ch.scripts.forEach(s => {
+        totalLines += s.lines;
+        const card = document.createElement('div');
+        card.className = 'dialogue-card';
+        card.innerHTML = `
+          <div class="dialogue-header" onclick="this.nextElementSibling.classList.toggle('open')">
+            <div>
+              <span class="dialogue-id">${s.id}</span>
+              <span class="dialogue-trigger">${s.trigger}</span>
+            </div>
+            <span class="dialogue-meta">${s.lines} lines &mdash; ${s.desc}</span>
+          </div>
+          <div class="dialogue-body" data-id="${s.id}">
+            <em style="color:var(--text-muted);font-size:0.8rem;">Loading...</em>
+          </div>`;
+        section.appendChild(card);
+      });
+      container.appendChild(section);
+    });
+
+    // Load actual dialogue data from dialogueData.js
+    async function loadDialogues() {
+      try {
+        const resp = await fetch('../../../kitchen-chaos/js/data/dialogueData.js');
+        const text = await resp.text();
+        // Parse dialogues from JS module (simplified extraction)
+        parseAndRender(text);
+      } catch(e) {
+        // Fallback: render from embedded data
+        renderFromEmbedded();
+      }
+    }
+
+    function renderFromEmbedded() {
+      document.querySelectorAll('.dialogue-body').forEach(body => {
+        body.innerHTML = '<em style="color:var(--text-muted);font-size:0.8rem;">Open dialogueData.js to view full scripts</em>';
+      });
+    }
+
+    // Embed actual dialogue lines directly for offline preview
+    const DIALOGUE_DATA = {
+      intro_welcome: [
+        { s: '미미', p: '\u{1F467}', t: '여기가... 할머니가 남겨주신 식당이라고?' },
+        { s: '미미', p: '\u{1F467}', t: '완전 폐허잖아! 거미줄이 메뉴판보다 많아!' },
+        { s: 'narrator', p: '', t: '그날 밤, 식당 주변의 공기가 이상하게 떨리기 시작했다.' },
+        { s: '미미', p: '\u{1F467}', t: '뭐, 뭐야?! 저 당근이... 움직이는 건가?!' },
+        { s: '미미', p: '\u{1F467}', t: '당근이 칼을 들고 있어!! 당근이!! 칼을!!!' },
+        { s: '???', p: '\u{1F431}', t: '조용히 해, 꼬맹이! 식란이 시작됐어!' },
+        { s: '포코', p: '\u{1F431}', t: '나는 포코. 네 할머니의 오랜 협력자지.' },
+        { s: '포코', p: '\u{1F431}', t: '식란... 음식의 미력이 폭주해서 재료가 괴물로 변하는 현상이야.' },
+        { s: '미미', p: '\u{1F467}', t: '미력? 식란? 무슨 소리야 대체?!' },
+        { s: '포코', p: '\u{1F431}', t: '네 할머니는 미력사였어. 조리 도구로 폭주한 식재료를 정화하는 비밀 요리사.' },
+        { s: '포코', p: '\u{1F431}', t: '그리고 너도 그 혈통이야. 이 프라이팬 잡아봐.' },
+        { s: 'narrator', p: '', t: '낡은 프라이팬이 미미의 손에서 은은하게 빛나기 시작했다.' },
+        { s: '미미', p: '\u{1F467}', t: '뭐야 이거... 따뜻해... 그리고 왠지 기분이 좋은데?' },
+        { s: '포코', p: '\u{1F431}', t: '역시! 미력사의 피는 못 속이는군!' },
+        { s: '포코', p: '\u{1F431}', t: '자, 이제부터 낮에는 식당 운영, 밤에는 식란 정화! 바쁘겠다~' },
+        { s: '미미', p: '\u{1F467}', t: '잠깐, 나 아직 동의 안 했는데?!' },
+        { s: '포코', p: '\u{1F431}', t: '아 참, 내 도구들도 좀 사줘. 정화에 꼭 필요하거든. 할인은 없어!' },
+      ],
+      chapter1_start: [
+        { s: '미미', p: '\u{1F467}', t: '좋아, 첫 번째 식란 정화다! 긴장되지만 할 수 있어!' },
+        { s: '포코', p: '\u{1F431}', t: '그 자신감 좋은데... 일단 당근들이 몇 마리나 오는지 알고 가자.' },
+        { s: '미미', p: '\u{1F467}', t: '몇 마리?! 당근이 떼거리로 오는 거야?!' },
+        { s: '포코', p: '\u{1F431}', t: '식란은 규모가 클수록 많이 오지. 오늘은... 음, 좀 많다.' },
+        { s: '미미', p: '\u{1F467}', t: '됐어! 프라이팬 꽉 잡고 간다!' },
+        { s: '포코', p: '\u{1F431}', t: '아 참, 그 프라이팬 지금 업그레이드하면 20% 할인인데\u2014' },
+        { s: '미미', p: '\u{1F467}', t: '나중에!!' },
+      ],
+      chapter1_clear: [
+        { s: '미미', p: '\u{1F467}', t: '휴우... 1장 식란 전부 정화 완료! 파스타 보스도 해치웠어!' },
+        { s: '포코', p: '\u{1F431}', t: '파스타 보스가 꽤 질겼는데? 면발이 칼날처럼 날아오더만.' },
+        { s: '미미', p: '\u{1F467}', t: '솔직히 면발에 맞을 뻔 했어... 탄력이 장난 아니었다고!' },
+        { s: '포코', p: '\u{1F431}', t: '하지만 정화된 파스타 면은 최고급이야! 오늘 메뉴에 올려봐.' },
+        { s: '미미', p: '\u{1F467}', t: '방금 나한테 달려들던 녀석을 요리에 쓰라고?' },
+        { s: '포코', p: '\u{1F431}', t: '그게 미력사의 길이지~ 정화해서 쓰는 거야. 에코 라이프!' },
+        { s: 'narrator', p: '', t: '1장 클리어. 미미의 미력사 수련은 이제 막 시작되었을 뿐이다.' },
+      ],
+      chapter2_intro: [
+        { s: '미미', p: '\u{1F467}', t: '2장이라... 동양 요리 구역? 여긴 좀 다른 분위기네.' },
+        { s: 'narrator', p: '', t: '그때, 식당 맞은편에서 불꽃이 솟아올랐다.' },
+        { s: '???', p: '\u{1F525}', t: '거기! 이 구역 식란은 내가 맡았으니까 빠져!' },
+        { s: '미미', p: '\u{1F467}', t: '누, 누구야?! 왜 프라이팬에서 불이 나와?!' },
+        { s: '린', p: '\u{1F525}', t: '린이야. 불꽃의 미력사. 너 같은 초보한테 이 구역은 무리라고.' },
+        { s: '포코', p: '\u{1F431}', t: '(속삭임) 저 아이... 유명한 불꽃 미력사 가문의 후계자야.' },
+        { s: '미미', p: '\u{1F467}', t: '초보?! 나도 파스타 보스를 혼자 정화했다고!' },
+        { s: '린', p: '\u{1F525}', t: '파스타 하나로? 하, 흥미롭네. 그럼 증명해 봐!' },
+        { s: '포코', p: '\u{1F431}', t: '아이고... 둘 다 불이야 불. 프라이팬 태우지 말고...' },
+      ],
+      chapter2_clear: [
+        { s: '미미', p: '\u{1F467}', t: '스시 쇼군 해치웠다! 동양 식란 정화 완료!' },
+        { s: '포코', p: '\u{1F431}', t: '정화된 스시 재료... 특상급이야! 오늘 메뉴에 올려!' },
+        { s: '린', p: '\u{1F525}', t: '(나타나며) ...그 보스를 혼자 정화했다고?' },
+        { s: '미미', p: '\u{1F467}', t: '보고 있었으면 도와줄 것이지!' },
+        { s: '린', p: '\u{1F525}', t: '도울 필요가 없었으니까. 하지만... 인정해. 넌 생각보다 강해.' },
+        { s: '미미', p: '\u{1F467}', t: '방금... 칭찬했어?' },
+        { s: '린', p: '\u{1F525}', t: '착각이야! 다음엔 내가 먼저 정화한다!' },
+        { s: 'narrator', p: '', t: '한편, 해변가 연구소에서 누군가 미력 데이터를 기록하고 있었다...' },
+      ],
+      chapter3_clear: [
+        { s: '미미', p: '\u{1F467}', t: '크라켄 정화 완료! 다리가 너무 많아서 힘들었어!' },
+        { s: '린', p: '\u{1F525}', t: '마지막 결정타는 내 화염이었지. 감사는 안 해도 돼.' },
+        { s: '포코', p: '\u{1F431}', t: '둘 다 잘했어~ 정화된 해산물이 이렇게 많다니... 씨푸드 뷔페 하자!' },
+        { s: '메이지', p: '\u{1F9C1}', t: '(등장) 잠깐, 중요한 발견이 있어요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '크라켄의 미력 잔여물을 분석했는데, 삼각측량이 가능해졌어요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '식란의 미력이 수렴하는 좌표가... 대략 남서쪽 화산 지대예요.' },
+        { s: '린', p: '\u{1F525}', t: '화산? ...거기가 미력 근원이라는 거야?' },
+        { s: '메이지', p: '\u{1F9C1}', t: '아직 가설이에요. 하지만 갈수록 확실해지고 있어요.' },
+        { s: 'narrator', p: '', t: '식란의 실체가 서서히 드러나기 시작했다.' },
+      ],
+      chapter4_intro: [
+        { s: 'narrator', p: '', t: '화산 지대. 대기 중 미력 농도가 급격히 상승했다.' },
+        { s: '미미', p: '\u{1F467}', t: '여기... 공기가 달라. 매콤하면서 뜨거운 느낌?' },
+        { s: '메이지', p: '\u{1F9C1}', t: '미력 농도가 이전 구역의 3배예요. 근원지가 가까워지고 있어요.' },
+        { s: '린', p: '\u{1F525}', t: '불꽃 미력사인 나도 이 정도 열기는 좀 부담인데...' },
+        { s: '포코', p: '\u{1F431}', t: '화산 지대 식재료는 정화하면 최고급 BBQ 재료야! 기대돼!' },
+        { s: '미미', p: '\u{1F467}', t: '포코, 지금 상황 파악 좀...' },
+        { s: '포코', p: '\u{1F431}', t: '뭐? 위기와 기회는 한 끗 차이야!' },
+        { s: '린', p: '\u{1F525}', t: '...저 고양이는 정말 대단해. 다른 의미로.' },
+      ],
+      chapter4_mage_joins: [
+        { s: '메이지', p: '\u{1F9C1}', t: '미미 씨, 잠깐 기다려 주세요!' },
+        { s: '미미', p: '\u{1F467}', t: '메이지? 여기까지 직접 온 거야?' },
+        { s: '메이지', p: '\u{1F9C1}', t: '연구실에서 데이터만 보는 건 한계가 있어요. 현장에서 직접 확인해야 해요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '그리고... 저도 디저트 미력사이거든요. 전투도 할 수 있어요.' },
+        { s: '린', p: '\u{1F525}', t: '연구원이 전투를? ...말은 쉽지.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '(디저트 도구를 꺼내며) 보여드릴까요?' },
+        { s: 'narrator', p: '', t: '메이지의 도구에서 차가운 미력이 흘러나왔다. 달콤하면서도 날카로운.' },
+        { s: '린', p: '\u{1F525}', t: '...인정. 꽤 하잖아.' },
+        { s: '포코', p: '\u{1F431}', t: '우와! 3인 팀 결성! 이 기념으로 도구 3+1 세트 할인\u2014' },
+        { s: '미미', p: '\u{1F467}', t: '분위기 좀 살려줘, 포코!!' },
+      ],
+      chapter4_clear: [
+        { s: '미미', p: '\u{1F467}', t: '라바 디저트 골렘... 정화 완료! 엄청 뜨거웠어!' },
+        { s: '메이지', p: '\u{1F9C1}', t: '잠깐, 골렘 내부에서 뭔가 발견했어요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '이건... 인공 미력 증폭 장치예요. 자연 식란이 아니에요!' },
+        { s: '린', p: '\u{1F525}', t: '뭐?! 누군가 일부러 식란을 일으킨다는 거야?' },
+        { s: '미미', p: '\u{1F467}', t: '그럼 지금까지 우리가 싸운 식란이 전부...' },
+        { s: '메이지', p: '\u{1F9C1}', t: '누군가가 의도적으로 미력을 증폭시키고 있어요. 이 장치가 증거예요.' },
+        { s: '포코', p: '\u{1F431}', t: '...나도 알고 있었어. 네 할머니도 이 정체를 쫓다가 멈췄지.' },
+        { s: '미미', p: '\u{1F467}', t: '포코?! 알고 있었다고?! 왜 말 안 했어!' },
+        { s: 'narrator', p: '', t: '식란의 이면에 감춰진 진실이 모습을 드러내기 시작했다.' },
+      ],
+      chapter5_intro: [
+        { s: 'narrator', p: '', t: '마법사 디저트 카페. 달콤한 미력이 역겹게 폭주한 공간.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '여기가 미력 근원지에 가장 가까운 지점이에요.' },
+        { s: '미미', p: '\u{1F467}', t: '공기가... 달콤한데 무거워. 머리가 어지러워.' },
+        { s: '린', p: '\u{1F525}', t: '집중해. 여기서 방심하면 위험해.' },
+        { s: '미미', p: '\u{1F467}', t: '어라? 포코는? 분명 같이 왔는데...' },
+        { s: '린', p: '\u{1F525}', t: '...사라졌어? 그 고양이가?' },
+        { s: '메이지', p: '\u{1F9C1}', t: '미력 반응이 급변했어요. 포코 씨에게 무슨 일이...!' },
+      ],
+      rin_side_5: [
+        { s: '린', p: '\u{1F525}', t: '...미미. 잠깐 얘기 좀 하자.' },
+        { s: '미미', p: '\u{1F467}', t: '린? 무슨 일이야? 린이 먼저 말 거는 건 처음인데.' },
+        { s: '린', p: '\u{1F525}', t: '왜 포기 안 하는 거야? 포코도 사라졌고, 식란은 갈수록 강해지는데.' },
+        { s: '미미', p: '\u{1F467}', t: '할머니가 여기서 포기 안 했으니까. 나도 이 식당을 지킬 거야.' },
+        { s: '린', p: '\u{1F525}', t: '...나도 비슷해. 우리 가문이 못 끝낸 싸움이 있거든.' },
+        { s: '미미', p: '\u{1F467}', t: '그래서 여기까지 온 거구나. 린도 지키고 싶은 게 있는 거지?' },
+        { s: '린', p: '\u{1F525}', t: '(고개를 돌리며) ...오해하지 마. 전략적 판단이야.' },
+      ],
+      chapter5_clear: [
+        { s: '미미', p: '\u{1F467}', t: '마스터 파티시에 정화 완료! ...포코! 어디 있어?!' },
+        { s: 'narrator', p: '', t: '무너진 파티시에 뒤편에서 포코가 비틀거리며 나타났다.' },
+        { s: '포코', p: '\u{1F431}', t: '으으... 여기야, 여기...' },
+        { s: '미미', p: '\u{1F467}', t: '포코! 괜찮아?! 누가 납치한 거야!' },
+        { s: '포코', p: '\u{1F431}', t: "그 놈... 자신을 '퀴진 갓'이라고 했어. 요리의 신이라고." },
+        { s: '린', p: '\u{1F525}', t: '퀴진 갓? 요리의 신?' },
+        { s: '메이지', p: '\u{1F9C1}', t: '전설에만 나오던... 수백 년 전 미력사들이 봉인한 존재!' },
+        { s: '포코', p: '\u{1F431}', t: '봉인이 풀리고 있어. 식란은 그놈이 부활하려고 일으킨 거야.' },
+        { s: '미미', p: '\u{1F467}', t: '그 퀴진 갓이 할머니도...?' },
+        { s: '포코', p: '\u{1F431}', t: '(고개를 끄덕이며) ...네 할머니의 미완성 싸움이야. 끝내야 해.' },
+      ],
+      chapter6_intro: [
+        { s: 'narrator', p: '', t: '그랑 가스트로노미. 세상에서 가장 고귀한 요리의 전당이 식란에 잠식되었다.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '미력 농도 최고치... 이 안에 퀴진 갓이 있어요.' },
+        { s: '린', p: '\u{1F525}', t: '여기가 끝이야. 다 정리하자.' },
+        { s: '포코', p: '\u{1F431}', t: '이건 내가 갚아야 할 빚이기도 해. 네 할머니한테.' },
+        { s: '미미', p: '\u{1F467}', t: '할머니의 프라이팬이... 전보다 더 뜨겁게 빛나고 있어.' },
+        { s: '미미', p: '\u{1F467}', t: '(도구를 꽉 쥐며) 가자. 끝내러.' },
+        { s: 'narrator', p: '', t: '미력사 미미와 동료들의 최종 결전이 시작된다.' },
+      ],
+      team_side_6: [
+        { s: '린', p: '\u{1F525}', t: '이 다음이 마지막이야. 각오는 됐어?' },
+        { s: '미미', p: '\u{1F467}', t: '당연하지. 여기까지 왔잖아.' },
+        { s: '린', p: '\u{1F525}', t: '지면 죽는다. 이기면... 같이 밥이나 먹자.' },
+        { s: '미미', p: '\u{1F467}', t: '린이 밥 같이 먹자고 하다니... 진짜 최종전이긴 하네.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '승률 계산은 패스할게요. 데이터보다 경험이 중요한 순간이니까.' },
+        { s: '포코', p: '\u{1F431}', t: '이기면 파티 비용은 내가 낸다. 도구 판촉은 내일부터 쉬고!' },
+        { s: '미미', p: '\u{1F467}', t: '포코가 돈을 쓰겠다니... 진짜 진심이구나.' },
+        { s: '포코', p: '\u{1F431}', t: '이 정도는 해야지! ...단, 파티 음식 재료비는 별도야.' },
+      ],
+      chapter6_final_battle: [
+        { s: 'narrator', p: '', t: "거대한 미력의 소용돌이 속에서 '무언가'가 깨어난다." },
+        { s: '퀴진 갓', p: '', t: '수백 년이다... 드디어 이 봉인에서 벗어난다.' },
+        { s: '미미', p: '\u{1F467}', t: '당신이 퀴진 갓?! 식란을 일으킨 거야?!' },
+        { s: '퀴진 갓', p: '', t: '요리의 미력은 신인 내 것이다. 너희 인간이 감히 요리를 즐기다니.' },
+        { s: '미미', p: '\u{1F467}', t: '요리는 모두의 거야! 누군가를 위해 만드는 거라고!' },
+        { s: '포코', p: '\u{1F431}', t: '저놈이... 네 할머니도 막으려 했던 존재야!' },
+        { s: '린', p: '\u{1F525}', t: '말은 나중에! 먼저 정화한다!' },
+        { s: '메이지', p: '\u{1F9C1}', t: '전원 미력 집중! 지금이에요!' },
+        { s: 'narrator', p: '', t: '최후의 식란 정화가 시작된다.' },
+      ],
+      chapter6_ending: [
+        { s: 'narrator', p: '', t: '퀴진 갓이 정화되었다. 세상의 식란이 모두 잠잠해졌다.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '미력 농도가 정상으로 돌아왔어요. 식란 근원이 소멸했습니다.' },
+        { s: '린', p: '\u{1F525}', t: '...해냈어. 진짜로. (작게 웃으며)' },
+        { s: '린', p: '\u{1F525}', t: '잘했어. 오해하지 마, 칭찬 아냐.' },
+        { s: '포코', p: '\u{1F431}', t: '완전 칭찬이잖아!' },
+        { s: '포코', p: '\u{1F431}', t: '(눈물) 드디어... 네 할머니가 못 끝낸 걸 네가 해냈어, 미미.' },
+        { s: '미미', p: '\u{1F467}', t: '울지 마, 포코! 나도 울잖아!' },
+        { s: '메이지', p: '\u{1F9C1}', t: '이 연구 결과로 세계 최초의 식란 해명 논문을 쓸 수 있겠어요. 감사합니다.' },
+        { s: '미미', p: '\u{1F467}', t: '고마워, 모두. 혼자였으면 절대 못 했어.' },
+        { s: '미미', p: '\u{1F467}', t: '할머니, 식당 지켰어. 앞으로도 여기서, 계속 지킬게.' },
+        { s: 'narrator', p: '', t: '식란이 사라진 세상. 하지만 미미의 식당에는 오늘도 손님이 찾아온다. 맛있는 요리와 함께.' },
+      ],
+      stage_first_clear: [
+        { s: '미미', p: '\u{1F467}', t: '해냈다! 식란 정화 완료!' },
+        { s: '포코', p: '\u{1F431}', t: '오호, 초보 미력사 치고는 솜씨가 있는데?' },
+        { s: '미미', p: '\u{1F467}', t: '초보라고 하지 마! 원래 요리학교 수석이었다고!' },
+        { s: '포코', p: '\u{1F431}', t: '요리 실력이랑 식란 정화는 좀 다른데... 뭐, 결과가 좋으니까.' },
+        { s: '포코', p: '\u{1F431}', t: '정화된 재료들 봐. 전부 싱싱해! 내일 영업에 쓰면 되겠다.' },
+        { s: '미미', p: '\u{1F467}', t: '밤새 싸우고 낮에 요리라니... 이게 할머니의 일상이었구나.' },
+        { s: '포코', p: '\u{1F431}', t: '할머니 식당... 어쩌면 진짜 되살릴 수 있을지도?' },
+        { s: '미미', p: '\u{1F467}', t: '당연하지! 기다려, 할머니. 이 식당, 내가 지킬게!' },
+      ],
+      merchant_first_meet: [
+        { s: '포코', p: '\u{1F431}', t: '야호~ 영업은 잘 됐어? 싱싱한 정화 도구 들고 왔다!' },
+        { s: '미미', p: '\u{1F467}', t: '포코! 이 프라이팬 왜 이렇게 비싸? 정화 도구라며!' },
+        { s: '포코', p: '\u{1F431}', t: '미력이 깃든 도구는 원래 비싼 거야. 장인의 손맛이 들어갔거든!' },
+        { s: '포코', p: '\u{1F431}', t: '게다가 이 프라이팬으로 폭주한 양파를 패면... 아, 정화하면!' },
+        { s: '포코', p: '\u{1F431}', t: '싱싱한 양파가 되어 돌아온다고! 거의 자급자족 아닌가?' },
+        { s: '미미', p: '\u{1F467}', t: '패면... 이라고 할 뻔 했지?' },
+        { s: '포코', p: '\u{1F431}', t: '정화라니까! 고급스러운 정화!' },
+        { s: '미미', p: '\u{1F467}', t: '...결국 프라이팬으로 때리는 거잖아.' },
+      ],
+      poco_discount_fail: [
+        { s: '미미', p: '\u{1F467}', t: '포코~ 이번에는 좀 깎아줘. 단골이잖아!' },
+        { s: '포코', p: '\u{1F431}', t: '단골? 두 번 온 걸로 단골이라고?' },
+        { s: '미미', p: '\u{1F467}', t: '두 번이면 충분하지! VIP 대우 해줘!' },
+        { s: '포코', p: '\u{1F431}', t: '내 VIP 기준은 최소 100회 구매야. 아직 98회 남았어.' },
+        { s: '미미', p: '\u{1F467}', t: '그건 평생 할인 안 해주겠다는 소리잖아!!' },
+        { s: '포코', p: '\u{1F431}', t: '에이~ 그래도 맛있는 정보는 공짜로 줄게.' },
+        { s: '포코', p: '\u{1F431}', t: '도구 레벨을 올리면 정화 효율이 훨씬 좋아진다는 거!' },
+        { s: '미미', p: '\u{1F467}', t: '그건 이미 알아!! 업그레이드 비용이나 깎아줘!!' },
+        { s: '포코', p: '\u{1F431}', t: '하하... 다음에 또 와~' },
+      ],
+      stage_boss_warning: [
+        { s: '포코', p: '\u{1F431}', t: '잠깐! 이 구역에서 엄청난 미력이 느껴져...' },
+        { s: '미미', p: '\u{1F467}', t: '엄청난 미력? 보스급 식란이라는 거야?' },
+        { s: '포코', p: '\u{1F431}', t: '맞아. 보스급 식재료는 일반 녀석들과 차원이 다르거든.' },
+        { s: '포코', p: '\u{1F431}', t: '체력도 높고, 특수 능력도 있어. 도구 배치를 신중하게 해야 해.' },
+        { s: '미미', p: '\u{1F467}', t: '알겠어! 프라이팬 최대 화력으로 간다!' },
+        { s: '포코', p: '\u{1F431}', t: '무작정 화력만으론 안 돼! 다양한 도구를 조합해 봐.' },
+        { s: '포코', p: '\u{1F431}', t: '...참, 보스전 전용 프리미엄 도구 세트가 지금 할인\u2014' },
+        { s: '미미', p: '\u{1F467}', t: '싸울 때도 장사 얘기야?!' },
+      ],
+      after_first_loss: [
+        { s: '미미', p: '\u{1F467}', t: '으으... 재료를 못 모았어. 영업도 못 하고...' },
+        { s: '포코', p: '\u{1F431}', t: '괜찮아, 괜찮아. 첫술에 배부를 순 없는 법이야.' },
+        { s: '미미', p: '\u{1F467}', t: '할머니는 이런 적 없었겠지...' },
+        { s: '포코', p: '\u{1F431}', t: '무슨 소리! 네 할머니도 처음엔 매일 실패했어.' },
+        { s: '포코', p: '\u{1F431}', t: '한번은 당근 한 마리한테 쫓겨서 식당 지붕까지 도망간 적도 있다고.' },
+        { s: '미미', p: '\u{1F467}', t: '정말?! 할머니가?!' },
+        { s: '포코', p: '\u{1F431}', t: '진짜야. 그래도 포기 안 했으니까 이 식당이 있는 거지.' },
+        { s: '미미', p: '\u{1F467}', t: '...그래. 나도 포기 안 해! 다시 해보자!' },
+        { s: '포코', p: '\u{1F431}', t: '그 정신이야! 도구 보강도 생각해 보고~ 특별 세일은 안 하지만!' },
+      ],
+      rin_first_meet: [
+        { s: '린', p: '\u{1F525}', t: '...인정할 건 인정해야지. 솜씨가 있네, 초보.' },
+        { s: '미미', p: '\u{1F467}', t: '또 초보? 방금 스테이지 클리어한 사람한테?' },
+        { s: '린', p: '\u{1F525}', t: '한 번 클리어한 걸로 자만하면 안 돼. 식란은 점점 강해지니까.' },
+        { s: '미미', p: '\u{1F467}', t: '...너도 식란이랑 싸우는 거야?' },
+        { s: '린', p: '\u{1F525}', t: '당연하지. 우리 가문은 대대로 화염 정화를 담당했어.' },
+        { s: '린', p: '\u{1F525}', t: '다음엔 내가 먼저 정화한다. 기다려 봐!' },
+        { s: '미미', p: '\u{1F467}', t: '뭐야 저 사람... 라이벌 선언이야?' },
+        { s: '포코', p: '\u{1F431}', t: '경쟁은 좋은 거야~ 참, 불꽃 미력사용 도구도 있는데\u2014' },
+        { s: '미미', p: '\u{1F467}', t: '지금은 영업 얘기 좀 하지 마!!' },
+      ],
+      mage_introduction: [
+        { s: '미미', p: '\u{1F467}', t: '3장은 씨푸드 바? 바다 냄새가 나네...' },
+        { s: 'narrator', p: '', t: '해변가 연구소에서 안경을 쓴 소녀가 나타났다.' },
+        { s: '???', p: '\u{1F9C1}', t: '혹시... 미력 반응이 감지되는 분이신가요?' },
+        { s: '미미', p: '\u{1F467}', t: '네? 미력 반응이요?' },
+        { s: '메이지', p: '\u{1F9C1}', t: '아, 실례. 저는 메이지. 식란 현상을 학술적으로 연구하고 있어요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '이 해변에서 비정상적인 미력 농도가 측정되었는데... 흥미롭군요.' },
+        { s: '포코', p: '\u{1F431}', t: '연구원이라... 식란의 원인을 조사 중인 거야?' },
+        { s: '메이지', p: '\u{1F9C1}', t: '네. 식란은 자연현상이 아닐 수도 있어요. 미력의 근원지가 있을 거예요.' },
+        { s: '미미', p: '\u{1F467}', t: '자연현상이 아니라고? 그럼 누가 일부러...?' },
+        { s: '메이지', p: '\u{1F9C1}', t: '아직 확실하진 않아요. 하지만 데이터는 거짓말을 하지 않죠.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '정화 과정에서 수집되는 미력 잔여물... 혹시 모아줄 수 있나요?' },
+        { s: '미미', p: '\u{1F467}', t: '잘 모르겠지만, 도움이 된다면 당연하지!' },
+      ],
+      mage_research_hint: [
+        { s: '메이지', p: '\u{1F9C1}', t: '미미 씨, 잠깐 들러주셨네요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '연구 진행 상황을 공유하고 싶었어요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '식란 발생 패턴을 분석한 결과, 흥미로운 점을 발견했어요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '식란이 갈수록 강해지는 건 자연 순환이 아닌 것 같아요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '미력 농도가 특정 지점을 중심으로 동심원 형태로 퍼지고 있거든요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '누군가, 혹은 무언가가 미력을 의도적으로 증폭시키고 있을 가능성이...' },
+        { s: '메이지', p: '\u{1F9C1}', t: '아직 가설 단계이지만, 정화를 계속하면서 데이터를 더 모아야 해요.' },
+        { s: '메이지', p: '\u{1F9C1}', t: '미미 씨의 정화 활동이 큰 도움이 되고 있어요. 감사합니다.' },
+      ],
+      chapter3_rin_joins: [
+        { s: '린', p: '\u{1F525}', t: '...또 만났네, 초보.' },
+        { s: '미미', p: '\u{1F467}', t: '아직도 초보라고 불러? 여기까지 온 실력을 봐!' },
+        { s: '린', p: '\u{1F525}', t: '솔직히... 인정해. 네 성장 속도는 비정상적이야.' },
+        { s: '포코', p: '\u{1F431}', t: '오호~ 린이 칭찬을 하다니! 이건 역사적인 순간이야.' },
+        { s: '린', p: '\u{1F525}', t: '시끄러, 장사꾼! ...이 구역 식란이 심상치 않아.' },
+        { s: '린', p: '\u{1F525}', t: '혼자서는 무리야. 같이 정화하자.' },
+        { s: '미미', p: '\u{1F467}', t: '린이... 동료로 함께하겠다는 거야?' },
+        { s: '린', p: '\u{1F525}', t: '오해하지 마! 이건 효율적인 전략적 협력이야.' },
+        { s: '포코', p: '\u{1F431}', t: '츤데레는 빼고 말해~ 환영해, 린!' },
+        { s: '린', p: '\u{1F525}', t: '츤데레가 아니라고!!' },
+        { s: '미미', p: '\u{1F467}', t: '하하! 환영해, 린! 같이 힘내자!' },
+      ],
+      poco_side_4: [
+        { s: '포코', p: '\u{1F431}', t: '화산 지역 재료가 정화되면 질이 최고야! BBQ 메뉴 추가해 봐!' },
+        { s: '미미', p: '\u{1F467}', t: '지금 식당 하나도 바쁜데 BBQ까지?!' },
+        { s: '포코', p: '\u{1F431}', t: '그러니까 화력 좋은 도구가 필요한 거지~ 마그마 강화 프라이팬 어때?' },
+        { s: '미미', p: '\u{1F467}', t: '마그마 강화?! 그거 안전한 거야?!' },
+        { s: '포코', p: '\u{1F431}', t: '미력사 전용이니까 괜찮아! 일반인이 쓰면... 음, 좀 위험하지.' },
+        { s: '미미', p: '\u{1F467}', t: '그건 안 괜찮은 거잖아!! 다음에 봐, 포코!' },
+      ],
+    };
+
+    // Render all dialogues
+    document.querySelectorAll('.dialogue-body').forEach(body => {
+      const id = body.dataset.id;
+      const lines = DIALOGUE_DATA[id];
+      if (!lines) { body.innerHTML = '<em style="color:var(--text-muted);">No data</em>'; return; }
+      body.innerHTML = lines.map(l => {
+        const cls = getSpeakerClass(l.s);
+        const isNarrator = l.s === 'narrator';
+        return `<div class="dialogue-line">
+          <div class="line-portrait">${l.p || (isNarrator ? '\u{1F4DC}' : '')}</div>
+          <div class="line-content">
+            ${!isNarrator ? `<div class="line-speaker ${cls}">${l.s}</div>` : ''}
+            <div class="line-text ${isNarrator ? 'narrator-text' : ''}">${l.t}</div>
+          </div>
+        </div>`;
+      }).join('');
+    });
+
+    let allExpanded = false;
+    function toggleAll() {
+      allExpanded = !allExpanded;
+      document.querySelectorAll('.dialogue-body').forEach(b => {
+        b.classList.toggle('open', allExpanded);
+      });
+      document.querySelector('.expand-all').textContent = allExpanded ? 'Collapse All' : 'Expand All';
+    }
+  </script>
+</body>
+</html>
