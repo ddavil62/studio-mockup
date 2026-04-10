@@ -85,6 +85,26 @@
       border-radius: 8px; cursor: pointer; font-size: 0.8rem;
     }
     .expand-all:hover { border-color: #ff6b35; color: #ff6b35; }
+    .sub-group-title {
+      font-size: 0.85rem; color: var(--text-secondary);
+      margin: 12px 0 8px 4px; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .sub-group-title::before {
+      content: ''; display: inline-block;
+      width: 4px; height: 14px; border-radius: 2px;
+      background: #ff6b35;
+    }
+    .choice-row {
+      display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap;
+    }
+    .choice-btn {
+      background: rgba(255,107,53,0.12);
+      border: 1px solid rgba(255,107,53,0.4);
+      color: #ff6b35; padding: 4px 12px;
+      border-radius: 8px; font-size: 0.78rem;
+      cursor: default;
+    }
   </style>
 </head>
 <body>
@@ -109,14 +129,14 @@
 
   <main class="content">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-      <p class="text-muted" style="font-size: 0.85rem;">Phase 15 | 26 Scripts | 4 Characters + Narrator</p>
+      <p class="text-muted" style="font-size: 0.85rem;">Phase 16 | 32 Scripts | 4 Characters + Narrator</p>
       <button class="expand-all" onclick="toggleAll()">Expand All</button>
     </div>
 
     <div class="stats-bar">
-      <div class="stat-item"><div class="stat-value">26</div><div class="stat-label">Scripts</div></div>
-      <div class="stat-item"><div class="stat-value">6</div><div class="stat-label">Chapters</div></div>
-      <div class="stat-item"><div class="stat-value">220</div><div class="stat-label">Lines</div></div>
+      <div class="stat-item"><div class="stat-value">32</div><div class="stat-label">Scripts</div></div>
+      <div class="stat-item"><div class="stat-value">7</div><div class="stat-label">Chapters</div></div>
+      <div class="stat-item"><div class="stat-value">250</div><div class="stat-label">Lines</div></div>
       <div class="stat-item"><div class="stat-value">4</div><div class="stat-label">Characters</div></div>
     </div>
 
@@ -210,33 +230,77 @@
           { id: 'chapter6_ending', trigger: 'result_clear 6-3', desc: '식란 종결, 엔딩', lines: 11 },
         ]
       },
+      {
+        title: 'Phase 16: 인게임 통합',
+        badge: 'P.16',
+        subGroups: [
+          {
+            label: '튜토리얼',
+            scripts: [
+              { id: 'tutorial_tool_placed_dialogue', trigger: 'tool_placed (tutorial)', desc: '튜토리얼: 도구 배치 완료', lines: 5 },
+              { id: 'tutorial_first_serve_dialogue', trigger: 'first_serve (tutorial)', desc: '튜토리얼: 첫 서빙 완료', lines: 4 },
+            ]
+          },
+          {
+            label: '영업 이벤트',
+            scripts: [
+              { id: 'event_happy_hour_dialogue', trigger: 'event_trigger', desc: '이벤트: 해피아워', lines: 5 },
+              { id: 'event_food_review_dialogue', trigger: 'event_trigger', desc: '이벤트: 미식 평론가', lines: 4 },
+              { id: 'event_kitchen_accident_dialogue', trigger: 'event_trigger', desc: '이벤트: 주방 사고', lines: 4 },
+            ]
+          },
+          {
+            label: '선택지',
+            scripts: [
+              { id: 'choice_sample_merchant', trigger: 'merchant_enter', desc: '선택지 샘플: 할인 요청', lines: 8 },
+            ]
+          },
+        ]
+      },
     ];
 
     const container = document.getElementById('dialogues-container');
     let totalLines = 0;
+
+    function createCard(s) {
+      const card = document.createElement('div');
+      card.className = 'dialogue-card';
+      card.innerHTML = `
+        <div class="dialogue-header" onclick="this.nextElementSibling.classList.toggle('open')">
+          <div>
+            <span class="dialogue-id">${s.id}</span>
+            <span class="dialogue-trigger">${s.trigger}</span>
+          </div>
+          <span class="dialogue-meta">${s.lines} lines &mdash; ${s.desc}</span>
+        </div>
+        <div class="dialogue-body" data-id="${s.id}">
+          <em style="color:var(--text-muted);font-size:0.8rem;">Loading...</em>
+        </div>`;
+      return card;
+    }
 
     CHAPTERS.forEach(ch => {
       const section = document.createElement('div');
       section.className = 'chapter-section';
       section.innerHTML = `<div class="chapter-header"><h3>${ch.title}</h3><span class="chapter-badge">${ch.badge}</span></div>`;
 
-      ch.scripts.forEach(s => {
-        totalLines += s.lines;
-        const card = document.createElement('div');
-        card.className = 'dialogue-card';
-        card.innerHTML = `
-          <div class="dialogue-header" onclick="this.nextElementSibling.classList.toggle('open')">
-            <div>
-              <span class="dialogue-id">${s.id}</span>
-              <span class="dialogue-trigger">${s.trigger}</span>
-            </div>
-            <span class="dialogue-meta">${s.lines} lines &mdash; ${s.desc}</span>
-          </div>
-          <div class="dialogue-body" data-id="${s.id}">
-            <em style="color:var(--text-muted);font-size:0.8rem;">Loading...</em>
-          </div>`;
-        section.appendChild(card);
-      });
+      if (ch.subGroups) {
+        ch.subGroups.forEach(sg => {
+          const label = document.createElement('div');
+          label.className = 'sub-group-title';
+          label.textContent = sg.label;
+          section.appendChild(label);
+          sg.scripts.forEach(s => {
+            totalLines += s.lines;
+            section.appendChild(createCard(s));
+          });
+        });
+      } else {
+        ch.scripts.forEach(s => {
+          totalLines += s.lines;
+          section.appendChild(createCard(s));
+        });
+      }
       container.appendChild(section);
     });
 
@@ -544,6 +608,49 @@
         { s: '포코', p: '\u{1F431}', t: '미력사 전용이니까 괜찮아! 일반인이 쓰면... 음, 좀 위험하지.' },
         { s: '미미', p: '\u{1F467}', t: '그건 안 괜찮은 거잖아!! 다음에 봐, 포코!' },
       ],
+      // ── Phase 16 ──
+      tutorial_tool_placed_dialogue: [
+        { s: '포코', p: '\u{1F431}', t: '오, 배치 감각이 있는데? 할머니의 피는 속일 수 없군!' },
+        { s: '포코', p: '\u{1F431}', t: '도구는 경로 옆에 놓아야 효과적이야. 잘 기억해 둬!' },
+        { s: '미미', p: '\u{1F467}', t: '이렇게 하면 식재료들을 정화할 수 있는 거지?' },
+        { s: '포코', p: '\u{1F431}', t: '맞아! 녀석들이 경로를 따라 오면 도구가 알아서 정화해 줄 거야.' },
+        { s: '포코', p: '\u{1F431}', t: '자, 이제 웨이브 시작 버튼을 눌러봐! 식란이 온다!' },
+      ],
+      tutorial_first_serve_dialogue: [
+        { s: '미미', p: '\u{1F467}', t: '첫 번째 서빙 완료! 손님이 맛있게 먹고 있어!' },
+        { s: '포코', p: '\u{1F431}', t: '잘했어! 정화한 재료로 만든 요리는 역시 다르다니까~' },
+        { s: '미미', p: '\u{1F467}', t: '이제 좀 식당 분위기가 나는 것 같아!' },
+        { s: '포코', p: '\u{1F431}', t: '이 페이스를 유지해! 시간이 끝나기 전에 최대한 서빙하는 거야.' },
+      ],
+      event_happy_hour_dialogue: [
+        { s: '미미', p: '\u{1F467}', t: '갑자기 손님이 몰려오고 있어?! 무슨 일이야!' },
+        { s: '포코', p: '\u{1F431}', t: '해피아워야! 어디선가 소문이 난 모양이군~' },
+        { s: '미미', p: '\u{1F467}', t: '소문?! 아직 개업한 지 얼마 안 됐는데!' },
+        { s: '포코', p: '\u{1F431}', t: '미력사가 만든 요리는 소문이 빠르거든. 자, 빨리 조리 시작!' },
+        { s: '미미', p: '\u{1F467}', t: '알겠어! 최대한 빨리 서빙할게!' },
+      ],
+      event_food_review_dialogue: [
+        { s: '미미', p: '\u{1F467}', t: '저, 저 사람... 미식 평론가 같아! 메모하면서 먹고 있어!' },
+        { s: '포코', p: '\u{1F431}', t: '오호~ 맛집 리뷰어가 왔군! 이건 대박 기회야!' },
+        { s: '포코', p: '\u{1F431}', t: '서빙 5명 분량을 완벽하게 해내면 좋은 평가를 받을 수 있어.' },
+        { s: '미미', p: '\u{1F467}', t: '긴장되지만... 할머니 식당의 명예를 위해! 최선을 다할게!' },
+      ],
+      event_kitchen_accident_dialogue: [
+        { s: '미미', p: '\u{1F467}', t: '으악! 조리대에서 불이?! 어떡해!' },
+        { s: '포코', p: '\u{1F431}', t: '침착해! 주방 사고는 가끔 일어나는 거야!' },
+        { s: '포코', p: '\u{1F431}', t: '조리 슬롯 하나를 잠깐 못 쓰게 되겠지만, 다른 슬롯으로 버텨!' },
+        { s: '미미', p: '\u{1F467}', t: '알겠어! 하나 없어도 해낼 수 있어! 아마도!' },
+      ],
+      choice_sample_merchant: [
+        { s: '포코', p: '\u{1F431}', t: '이번에 새 정화 도구 세트가 들어왔는데~ 관심 있어?' },
+        { s: '미미', p: '\u{1F467}', t: '음... 어떻게 할까?', choices: ['할인해 달라고 하기', '그냥 구경만 할게'] },
+        { s: '미미', p: '\u{1F467}', t: '포코~ 단골인데 좀 깎아줘! 제발~!' },
+        { s: '포코', p: '\u{1F431}', t: '에이~ 또 할인? 미력사 도구는 원가가 비싸다니까!' },
+        { s: '포코', p: '\u{1F431}', t: '대신 다음에 특별한 거 하나 서비스로 줄게. 약속!' },
+        { s: '미미', p: '\u{1F467}', t: '오늘은 구경만 할게~ 눈이 즐거우니까!' },
+        { s: '포코', p: '\u{1F431}', t: '구경만?! 만지면 사야 한다고! ...농담이야, 농담!' },
+        { s: '포코', p: '\u{1F431}', t: '다음에 또 와~ 맛있는 도구 많이 준비해 둘게!' },
+      ],
     };
 
     // Render all dialogues
@@ -554,11 +661,15 @@
       body.innerHTML = lines.map(l => {
         const cls = getSpeakerClass(l.s);
         const isNarrator = l.s === 'narrator';
+        const choicesHtml = l.choices
+          ? `<div class="choice-row">${l.choices.map(c => `<span class="choice-btn">${c}</span>`).join('')}</div>`
+          : '';
         return `<div class="dialogue-line">
           <div class="line-portrait">${l.p || (isNarrator ? '\u{1F4DC}' : '')}</div>
           <div class="line-content">
             ${!isNarrator ? `<div class="line-speaker ${cls}">${l.s}</div>` : ''}
             <div class="line-text ${isNarrator ? 'narrator-text' : ''}">${l.t}</div>
+            ${choicesHtml}
           </div>
         </div>`;
       }).join('');
