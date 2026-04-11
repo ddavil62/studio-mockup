@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>착석 방식 비교 A/B/C</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1a1a2e; color: #eee; font-family: sans-serif; padding: 20px; }
+  h1 { text-align: center; font-size: 15px; color: #f0c040; margin-bottom: 4px; }
+  p.sub { text-align: center; font-size: 10px; color: #888; margin-bottom: 20px; }
+
+  .compare-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .panel {
+    background: #252540;
+    border-radius: 10px;
+    padding: 14px;
+    width: 220px;
+    text-align: center;
+  }
+  .panel .badge {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    line-height: 32px;
+    margin-bottom: 6px;
+  }
+  .badge-a { background: #2a7a2a; color: #aff; }
+  .badge-b { background: #7a4a00; color: #ffd86e; }
+  .badge-c { background: #3a2a7a; color: #c9aaff; }
+  .panel h3 { font-size: 12px; margin-bottom: 2px; }
+  .panel .desc { font-size: 10px; color: #888; margin-bottom: 4px; min-height: 28px; }
+  .panel canvas {
+    display: block;
+    margin: 0 auto 6px;
+    image-rendering: pixelated;
+    border: 1px solid #333;
+    border-radius: 4px;
+  }
+  .pros { font-size: 9px; color: #6f6; text-align: left; margin-bottom: 3px; }
+  .cons { font-size: 9px; color: #f66; text-align: left; }
+  .pros li, .cons li { margin-left: 14px; margin-bottom: 1px; }
+</style>
+</head>
+<body>
+<h1>테이블 착석 방식 비교 A / B / C</h1>
+<p class="sub">각 방식의 시각적 결과 비교 — 2026-04-11</p>
+
+<div class="compare-row">
+
+  <!-- A: Composite Sprite -->
+  <div class="panel">
+    <div class="badge badge-a">A</div>
+    <h3>컴포짓 스프라이트</h3>
+    <p class="desc">테이블+손님을 아이소메트릭 뷰로 하나의 PNG에 합성</p>
+    <canvas id="cvA" width="192" height="192"></canvas>
+    <ul class="pros"><li>뷰 완전 일치</li><li>구현 단순</li><li>품질 높음</li></ul>
+    <ul class="cons"><li>손님종 × 테이블레벨 조합 필요</li><li>리액션 애니 어려움</li></ul>
+  </div>
+
+  <!-- B: High Top-Down Character -->
+  <div class="panel">
+    <div class="badge badge-b">B</div>
+    <h3>High Top-Down 캐릭터</h3>
+    <p class="desc">캐릭터를 테이블과 같은 각도로 생성 (정수리 시점)</p>
+    <canvas id="cvB" width="192" height="192"></canvas>
+    <ul class="pros"><li>뷰 각도 일치</li><li>depth split 필요 없음</li></ul>
+    <ul class="cons"><li>캐릭터 표정/감정 표현 어려움</li><li>이동 애니가 어색</li></ul>
+  </div>
+
+  <!-- C: Low Top-Down + 뷰 미스매치 허용 -->
+  <div class="panel">
+    <div class="badge badge-c">C</div>
+    <h3>정면 캐릭터 + 테이블 앞에 배치</h3>
+    <p class="desc">캐릭터를 테이블 앞(south)에 놓고 상체가 테이블 위로 겹치게</p>
+    <canvas id="cvC" width="192" height="192"></canvas>
+    <ul class="pros"><li>캐릭터 표정 선명</li><li>애니 자유도 높음</li><li>구현 빠름</li></ul>
+    <ul class="cons"><li>뷰 미스매치</li><li>스타듀밸리 스타일 (비현실적)</li></ul>
+  </div>
+
+</div>
+
+<script>
+const IMGS = {};
+let loaded = 0;
+const NEEDED = 4; // occupied, normal, table, hightd
+
+function loadImg(key, src, onload) {
+  const img = new Image();
+  img.onload = () => { IMGS[key] = img; loaded++; onload && onload(); tryDraw(); };
+  img.onerror = () => { IMGS[key] = null; loaded++; tryDraw(); };
+  img.src = src;
+}
+
+loadImg('occupied',  '../service/table_lv0_occupied.png');
+loadImg('table0',    '../service/table_lv0.png');
+loadImg('normal',    '../service/customer_normal.png');
+loadImg('hightd',    '../service/customer_hightd.png');  // B용 (생성 중)
+
+function tryDraw() {
+  if (loaded >= NEEDED) {
+    drawA();
+    drawB();
+    drawC();
+  }
+}
+
+// ── A: Composite ──
+function drawA() {
+  const cv = document.getElementById('cvA');
+  const ctx = cv.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctx.fillStyle = '#c8a87a';
+  ctx.fillRect(0, 0, 192, 192);
+  // 격자
+  ctx.strokeStyle = 'rgba(0,0,0,0.07)'; ctx.lineWidth = 0.5;
+  for (let y = 0; y < 192; y += 14) for (let x = 0; x < 192; x += 14) ctx.strokeRect(x, y, 14, 14);
+  // composite 스프라이트 (2배 스케일)
+  const img = IMGS['occupied'];
+  if (img) {
+    const S = 3.5;
+    const W = img.naturalWidth * S, H = img.naturalHeight * S;
+    ctx.drawImage(img, (192 - W) / 2, (192 - H) / 2 + 10, W, H);
+  } else {
+    ctx.fillStyle = '#555'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('table_lv0_occupied.png', 96, 96);
+    ctx.fillText('로드 실패', 96, 110);
+  }
+}
+
+// ── B: High Top-Down ──
+function drawB() {
+  const cv = document.getElementById('cvB');
+  const ctx = cv.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctx.fillStyle = '#c8a87a';
+  ctx.fillRect(0, 0, 192, 192);
+  ctx.strokeStyle = 'rgba(0,0,0,0.07)'; ctx.lineWidth = 0.5;
+  for (let y = 0; y < 192; y += 14) for (let x = 0; x < 192; x += 14) ctx.strokeRect(x, y, 14, 14);
+
+  const tbl = IMGS['table0'];
+  if (!tbl) return;
+  const TW = 130, TH = 102;
+  const tx = (192 - TW) / 2, ty = (192 - TH) / 2 + 16;
+  ctx.drawImage(tbl, tx, ty, TW, TH);
+
+  const htd = IMGS['hightd'];
+  if (htd) {
+    // high top-down 캐릭터: 테이블 위에 배치
+    const CW = htd.naturalWidth  * 2.5;
+    const CH = htd.naturalHeight * 2.5;
+    // 테이블 상단 중앙 근처 배치
+    ctx.drawImage(htd, (192 - CW) / 2, ty + TH * 0.08, CW, CH);
+  } else {
+    // 플레이스홀더: 머리(원)
+    ctx.fillStyle = '#a0522d';
+    ctx.beginPath(); ctx.arc(96, ty + TH * 0.22, 14, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#f5deb3';
+    ctx.beginPath(); ctx.arc(96, ty + TH * 0.2, 12, 0, Math.PI * 2); ctx.fill();
+    // 라벨
+    ctx.fillStyle = '#f0c040';
+    ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('생성 중...', 96, ty + TH * 0.22 + 24);
+  }
+}
+
+// ── C: 정면 캐릭터 + 테이블 앞에 배치 ──
+function drawC() {
+  const cv = document.getElementById('cvC');
+  const ctx = cv.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctx.fillStyle = '#c8a87a';
+  ctx.fillRect(0, 0, 192, 192);
+  ctx.strokeStyle = 'rgba(0,0,0,0.07)'; ctx.lineWidth = 0.5;
+  for (let y = 0; y < 192; y += 14) for (let x = 0; x < 192; x += 14) ctx.strokeRect(x, y, 14, 14);
+
+  const tbl  = IMGS['table0'];
+  const cust = IMGS['normal'];
+  if (!tbl) return;
+
+  const TW = 130, TH = 102;
+  const cx = 96, cy = 160;
+  const tx = cx - TW / 2, ty = cy - TH;
+
+  // 1. 테이블 전체 (먼저)
+  ctx.drawImage(tbl, tx, ty, TW, TH);
+
+  // 2. 캐릭터: 테이블 앞쪽에 배치, 상체가 테이블 위로 올라오도록
+  if (cust) {
+    const CW = cust.naturalWidth  * 2.2;
+    const CH = cust.naturalHeight * 2.2;
+    // 캐릭터 허리를 테이블 앞 edge Y에 맞춤
+    const tableNearEdgeY = ty + TH * 0.78;  // 테이블 앞면 상단
+    const waistFrac = 0.52;   // 허리 = 위에서 52%
+    const custTopY  = tableNearEdgeY - CH * waistFrac;
+    ctx.drawImage(cust, cx - CW / 2, custTopY, CW, CH);
+  }
+}
+
+// 캐릭터 hightd 로드 재시도 (생성 중이므로 30초마다)
+function recheckHightd() {
+  if (IMGS['hightd']) return; // 이미 로드됨
+  const img = new Image();
+  img.onload = () => { IMGS['hightd'] = img; drawB(); };
+  img.onerror = () => { setTimeout(recheckHightd, 30000); };
+  img.src = '../service/customer_hightd.png?' + Date.now();
+}
+setTimeout(recheckHightd, 30000);
+
+// 즉시 그리기 시도 (로딩 중이어도)
+setTimeout(() => { drawA(); drawB(); drawC(); }, 200);
+</script>
+</body>
+</html>
