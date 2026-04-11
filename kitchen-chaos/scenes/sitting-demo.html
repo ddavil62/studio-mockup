@@ -60,16 +60,12 @@
 <!-- 스프라이트 원본 미리보기 -->
 <div class="sprites">
   <div class="sprite-box">
-    <img class="sprite-preview" src="../service/customer_normal.png" width="64" height="64" alt="서있는 손님">
-    <p>서있는 손님<br>(기존)</p>
+    <img class="sprite-preview" id="tablePreview" src="../service/table_lv0.png" width="64" height="64" alt="빈 테이블">
+    <p id="tablePreviewLabel">table_lv0<br>(빈 테이블)</p>
   </div>
   <div class="sprite-box">
-    <img class="sprite-preview" src="../service/customer_sitting.png" width="64" height="64" id="sittingPreview" alt="앉은 손님">
-    <p>앉은 손님<br>(신규)</p>
-  </div>
-  <div class="sprite-box" id="tablePreviewBox">
-    <img class="sprite-preview" id="tablePreview" src="../service/table_lv0.png" width="64" height="64" alt="테이블">
-    <p id="tablePreviewLabel">table_lv0</p>
+    <img class="sprite-preview" id="occupiedPreview" src="../service/table_lv0_occupied.png" width="64" height="64" alt="손님 있는 테이블">
+    <p id="occupiedPreviewLabel">table_lv0_occupied<br>(손님 있음)</p>
   </div>
 </div>
 
@@ -77,9 +73,8 @@
 const IMGS = {};
 let sitting = false;
 let level = 0;
-let mode = 'depth'; // 'depth' | 'simple'
 let loaded = 0;
-const TOTAL = 7;
+const TOTAL = 10; // table0~4 + occupied0~4
 
 function loadImg(key, src) {
   const img = new Image();
@@ -89,8 +84,7 @@ function loadImg(key, src) {
 }
 
 for (let i = 0; i <= 4; i++) loadImg(`table${i}`, `../service/table_lv${i}.png`);
-loadImg('standing', '../service/customer_normal.png');
-loadImg('sitting',  '../service/customer_sitting.png');
+for (let i = 0; i <= 4; i++) loadImg(`occupied${i}`, `../service/table_lv${i}_occupied.png`);
 
 // ─── 아이소메트릭 레이아웃 상수 (실제 게임과 동일) ───
 const SISO_COLS   = 4;
@@ -157,7 +151,7 @@ function drawMain() {
   drawFloor(ctx, 360, 280);
 
   const tbl = IMGS[`table${level}`];
-  const cst = sitting ? IMGS['sitting'] : null;
+  const cst = sitting ? IMGS[`occupied${level}`] : null;
 
   // 깊이순 정렬: row 오름차순, 같은 row는 col 오름차순
   const cells = [];
@@ -179,7 +173,7 @@ function drawZoom() {
   drawFloor(ctx, 180, 200);
 
   const tbl = IMGS[`table${level}`];
-  const cst = sitting ? IMGS['sitting'] : null;
+  const cst = sitting ? IMGS[`occupied${level}`] : null;
 
   // 중앙 1개 테이블, 2배 확대
   ctx.save();
@@ -207,14 +201,9 @@ function setLevel(lv) {
     if (i < 5) b.classList.toggle('active', i === lv);
   });
   document.getElementById('tablePreview').src = `../service/table_lv${lv}.png`;
-  document.getElementById('tablePreviewLabel').textContent = `table_lv${lv}`;
-  drawAll();
-}
-
-function setMode(m) {
-  mode = m;
-  document.getElementById('btnDepthSplit').classList.toggle('active', m === 'depth');
-  document.getElementById('btnSimple').classList.toggle('active', m === 'simple');
+  document.getElementById('tablePreviewLabel').textContent = `table_lv${lv}\n(빈 테이블)`;
+  document.getElementById('occupiedPreview').src = `../service/table_lv${lv}_occupied.png`;
+  document.getElementById('occupiedPreviewLabel').textContent = `table_lv${lv}_occupied\n(손님 있음)`;
   drawAll();
 }
 
