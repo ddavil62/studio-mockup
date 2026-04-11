@@ -39,10 +39,6 @@
   <button class="opt-btn" onclick="setLevel(2)">Lv2</button>
   <button class="opt-btn" onclick="setLevel(3)">Lv3</button>
   <button class="opt-btn" onclick="setLevel(4)">Lv4</button>
-  &nbsp;
-  <span style="font-size:12px; color:#888;">정렬:</span>
-  <button class="opt-btn active" id="btnDepthSplit" onclick="setMode('depth')">깊이분할</button>
-  <button class="opt-btn" id="btnSimple" onclick="setMode('simple')">단순배치</button>
 </div>
 
 <div class="main">
@@ -127,9 +123,8 @@ function drawFloor(ctx, w, h) {
 }
 
 // ─── 테이블 1개 그리기 ───
-// mode: 'depth'=깊이분할, 'simple'=단순배치
-// sitting: 손님 이미지 (없으면 null)
-function drawOneTable(ctx, cx, cy, tblImg, custImg, drawMode) {
+// custImg: customer_sitting.png (person+table 합성 high top-down 스프라이트)
+function drawOneTable(ctx, cx, cy, tblImg, custImg) {
   const TW = TABLE_DW, TH = TABLE_DH;
 
   if (!custImg) {
@@ -138,36 +133,14 @@ function drawOneTable(ctx, cx, cy, tblImg, custImg, drawMode) {
     return;
   }
 
-  const CW = custImg.width  * 1.2;
-  const CH = custImg.height * 1.2;
-
-  if (drawMode === 'depth') {
-    // 1) 테이블 상단(뒤쪽) 클리핑
-    const splitY = cy - TH * 0.5; // 테이블 중간 높이 기준 분할
-    ctx.save();
-    ctx.beginPath(); ctx.rect(0, 0, 9999, splitY); ctx.clip();
-    if (tblImg) ctx.drawImage(tblImg, cx - TW/2, cy - TH, TW, TH);
-    ctx.restore();
-
-    // 2) 손님 (앉은 자세) — 테이블 중앙에 위치
-    const custCY = splitY + CH * 0.6;
-    ctx.drawImage(custImg, cx - CW/2, custCY - CH, CW, CH);
-
-    // 3) 테이블 하단(앞쪽) — 손님 하반신 덮기
-    ctx.save();
-    ctx.beginPath(); ctx.rect(0, splitY, 9999, 9999); ctx.clip();
-    if (tblImg) ctx.drawImage(tblImg, cx - TW/2, cy - TH, TW, TH);
-    ctx.restore();
-
-  } else {
-    // simple: 테이블 전체 → 손님 위에 배치
-    if (tblImg) ctx.drawImage(tblImg, cx - TW/2, cy - TH, TW, TH);
-    const custCY = cy - TH * 0.3;
-    ctx.drawImage(custImg, cx - CW/2, custCY - CH, CW, CH);
-  }
+  // 앉은 손님: customer_sitting.png는 사람+테이블 합성 스프라이트 (high top-down)
+  // 테이블 위치에 맞게 중앙 정렬하여 교체 표시
+  const SW = custImg.width  * 1.6;
+  const SH = custImg.height * 1.6;
+  ctx.drawImage(custImg, cx - SW/2, cy - SH * 0.85, SW, SH);
 
   // 말풍선
-  const bx = cx, by = cy - TH - 4;
+  const bx = cx, by = cy - SH * 0.85 - 6;
   ctx.fillStyle = 'rgba(255,220,60,0.92)';
   ctx.beginPath(); roundRect(ctx, bx - 22, by - 18, 44, 16, 4); ctx.fill();
   ctx.fillStyle = '#333';
@@ -194,7 +167,7 @@ function drawMain() {
   cells.sort((a, b) => a.y - b.y || a.x - b.x);
 
   for (const { x, y } of cells) {
-    drawOneTable(ctx, x, y, tbl, cst, mode);
+    drawOneTable(ctx, x, y, tbl, cst);
   }
 }
 
@@ -212,7 +185,7 @@ function drawZoom() {
   ctx.save();
   ctx.translate(90, 100);
   ctx.scale(1.8, 1.8);
-  drawOneTable(ctx, 0, 0, tbl, cst, mode);
+  drawOneTable(ctx, 0, 0, tbl, cst);
   ctx.restore();
 }
 
