@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - 씬 시뮬레이터</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    /* ── 레이아웃 ── */
+    .sim-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── 캔버스 래퍼 ── */
+    .canvas-wrap {
+      position: sticky;
+      top: 24px;
+    }
+
+    .canvas-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .canvas-label .badge {
+      background: rgba(255,107,53,0.15);
+      color: #ff6b35;
+      border: 1px solid rgba(255,107,53,0.4);
+      border-radius: 8px;
+      padding: 1px 8px;
+      font-size: 0.7rem;
+    }
+
+    #gameCanvas {
+      display: block;
+      width: 360px;
+      height: 640px;
+      image-rendering: pixelated;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    /* ── 씬 탭 ── */
+    .scene-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .scene-tab {
+      flex: 1;
+      padding: 10px 8px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all 0.15s;
+      border-right: 1px solid var(--border);
+    }
+
+    .scene-tab:last-child { border-right: none; }
+
+    .scene-tab:hover { background: var(--bg-secondary); color: var(--text-secondary); }
+
+    .scene-tab.active {
+      background: rgba(255,107,53,0.12);
+      color: #ff6b35;
+      font-weight: 600;
+    }
+
+    /* ── 컨트롤 패널 ── */
+    .ctrl-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .ctrl-panel h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .ctrl-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+    }
+
+    .ctrl-row label {
+      width: 80px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      font-size: 0.78rem;
+    }
+
+    .ctrl-row input[type="range"] {
+      flex: 1;
+      accent-color: #ff6b35;
+    }
+
+    .ctrl-row .val {
+      width: 28px;
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    /* ── 버튼 그리드 ── */
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .ctrl-btn {
+      padding: 8px 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .ctrl-btn:hover { border-color: #ff6b35; color: #ff6b35; background: rgba(255,107,53,0.08); }
+    .ctrl-btn.active { background: rgba(255,107,53,0.15); border-color: #ff6b35; color: #ff6b35; }
+
+    /* ── 테이블 그리드 ── */
+    .table-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .table-cell {
+      padding: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.72rem;
+      transition: all 0.15s;
+    }
+
+    .table-cell:hover { border-color: #ff6b35; }
+    .table-cell.empty { color: var(--text-muted); }
+    .table-cell.seated { border-color: #4ae88a; color: #4ae88a; }
+    .table-cell.ready { border-color: #ffd700; color: #ffd700; }
+    .table-cell.served { border-color: #4a9eff; color: #4a9eff; }
+
+    .table-emoji { font-size: 1.1rem; display: block; margin-bottom: 2px; }
+
+    /* ── 섹션 패널 숨기기 ── */
+    .scene-panel { display: none; }
+    .scene-panel.active { display: block; }
+
+    /* ── 재료 칩 ── */
+    .ing-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .ing-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .ing-chip:hover { border-color: #ff6b35; }
+
+    /* ── 도구 리스트 ── */
+    .tool-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tool-item {
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tool-item:hover { border-color: rgba(255,107,53,0.5); }
+    .tool-item.owned { border-color: rgba(74,232,138,0.4); }
+
+    .tool-img {
+      width: 36px;
+      height: 36px;
+      image-rendering: pixelated;
+      object-fit: contain;
+    }
+
+    .tool-info { line-height: 1.4; }
+    .tool-name { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); }
+    .tool-desc { font-size: 0.72rem; color: var(--text-muted); }
+    .tool-count { font-size: 0.7rem; color: var(--text-secondary); font-family: var(--font-mono); }
+
+    .tool-price {
+      text-align: right;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--accent-gold);
+      white-space: nowrap;
+    }
+
+    .tool-owned-badge {
+      font-size: 0.65rem;
+      color: #4ae88a;
+    }
+
+    /* ── 쉐프 카드 ── */
+    .chef-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .chef-card {
+      padding: 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .chef-card:hover { border-color: rgba(255,107,53,0.5); }
+    .chef-card.selected { border-color: #ff6b35; background: rgba(255,107,53,0.08); }
+    .chef-card.unlocked { border-color: rgba(74,232,138,0.4); }
+
+    .chef-portrait {
+      width: 48px;
+      height: 48px;
+      image-rendering: pixelated;
+      object-fit: contain;
+      border-radius: 4px;
+      margin: 0 auto 4px;
+      display: block;
+    }
+
+    .chef-name { font-size: 0.75rem; font-weight: 600; }
+    .chef-status { font-size: 0.65rem; color: var(--text-muted); }
+
+    /* ── 파도 정보 ── */
+    .wave-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .wave-stat {
+      padding: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .wave-stat .k { font-size: 0.68rem; color: var(--text-muted); display: block; }
+    .wave-stat .v { font-size: 0.9rem; font-weight: 600; font-family: var(--font-mono); color: var(--text-primary); }
+
+    /* ── 환경 셀렉터 ── */
+    .env-select {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .env-btn {
+      padding: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.75rem;
+      text-align: center;
+      transition: all 0.15s;
+      color: var(--text-secondary);
+    }
+
+    .env-btn:hover { border-color: #4a9eff; color: #4a9eff; }
+    .env-btn.active { background: rgba(74,158,255,0.12); border-color: #4a9eff; color: #4a9eff; font-weight: 600; }
+
+    /* ── 적 목록 ── */
+    .enemy-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .enemy-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .enemy-chip.active { border-color: rgba(255,74,106,0.6); color: var(--accent-red); background: rgba(255,74,106,0.08); }
+    .enemy-chip:hover { border-color: rgba(255,74,106,0.4); }
+    .enemy-img { width: 20px; height: 20px; image-rendering: pixelated; object-fit: contain; }
+
+    /* ── 가이드 텍스트 ── */
+    .guide-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding: 8px 10px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      border-left: 3px solid rgba(255,107,53,0.4);
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #ff6b35;">Kitchen Chaos</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> /
+      <a href="../index.html">Kitchen Chaos</a> /
+      씬 시뮬레이터
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Assets</div>
+    <a href="../index.html">Overview</a>
+    <a href="../enemies/index.html">Enemies</a>
+    <a href="../towers/index.html">Towers</a>
+    <a href="../chefs/index.html">Chefs</a>
+    <a href="../tilesets/index.html">Tilesets</a>
+    <a href="../ingredients/index.html">Ingredients</a>
+    <a href="../portraits/index.html">Characters</a>
+    <a href="../dialogues/index.html">Dialogues</a>
+    <div class="section-title" style="margin-top:12px;">Scenes</div>
+    <a href="index.html" class="active">씬 시뮬레이터</a>
+    <a href="../service/index.html">Service 밸런스</a>
+  </nav>
+
+  <main class="content">
+    <h2 style="margin-bottom: 4px;">씬 시뮬레이터</h2>
+    <p class="text-muted" style="font-size:0.82rem; margin-bottom:20px;">
+      실제 게임 레이아웃(360×640)을 캔버스로 시뮬레이션. 우측 패널로 상태를 변경하여 피드백 확인.
+    </p>
+
+    <div class="sim-layout">
+
+      <!-- ── 왼쪽: 게임 캔버스 ── -->
+      <div class="canvas-wrap">
+        <div class="canvas-label">
+          <span id="sceneLabel">영업씬</span>
+          <span class="badge">360 × 640</span>
+        </div>
+        <canvas id="gameCanvas" width="360" height="640"></canvas>
+      </div>
+
+      <!-- ── 오른쪽: 컨트롤 ── -->
+      <div>
+        <!-- 씬 탭 -->
+        <div class="scene-tabs">
+          <button class="scene-tab active" data-scene="service">🍽 영업씬</button>
+          <button class="scene-tab" data-scene="gathering">⚔️ 채집씬</button>
+          <button class="scene-tab" data-scene="merchant">🐱 행상인</button>
+        </div>
+
+        <!-- ─── 영업씬 컨트롤 ─── -->
+        <div class="scene-panel active" id="panel-service">
+
+          <div class="guide-text" style="margin-bottom:14px;">
+            테이블 클릭 → 손님 상태 순환 (빈 자리 → 착석 → 음식 준비 → 서빙 완료)
+          </div>
+
+          <!-- 홀 테이블 상태 -->
+          <div class="ctrl-panel">
+            <h3>테이블 상태 (클릭으로 변경)</h3>
+            <div class="table-grid" id="tableGrid">
+              <!-- JS가 생성 -->
+            </div>
+          </div>
+
+          <!-- 조리 슬롯 -->
+          <div class="ctrl-panel">
+            <h3>조리 슬롯</h3>
+            <div class="btn-grid" id="cookSlots">
+              <!-- JS가 생성 -->
+            </div>
+          </div>
+
+          <!-- 테이블 등급 -->
+          <div class="ctrl-panel">
+            <h3>테이블 등급</h3>
+            <div class="ctrl-row">
+              <label>Lv 0–4</label>
+              <input type="range" id="tableGradeSlider" min="0" max="4" value="0" step="1">
+              <span class="val" id="tableGradeVal">0</span>
+            </div>
+          </div>
+
+          <!-- 손님 유형 -->
+          <div class="ctrl-panel">
+            <h3>착석 손님 유형</h3>
+            <div class="btn-grid" id="customerTypeGrid">
+              <!-- JS가 생성 -->
+            </div>
+          </div>
+
+          <!-- 식당 환경 -->
+          <div class="ctrl-panel">
+            <h3>식당 분위기</h3>
+            <div class="ctrl-row">
+              <label>인테리어</label>
+              <input type="range" id="interiorSlider" min="0" max="5" value="0" step="1">
+              <span class="val" id="interiorVal">0</span>
+            </div>
+            <div class="ctrl-row">
+              <label>골드</label>
+              <input type="range" id="serviceGoldSlider" min="0" max="9999" value="500" step="50">
+              <span class="val" id="serviceGoldVal">500</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── 채집씬 컨트롤 ─── -->
+        <div class="scene-panel" id="panel-gathering">
+
+          <div class="guide-text" style="margin-bottom:14px;">
+            도구 배치 위치를 클릭하여 타워 종류를 선택. 적 파도 구성을 조정.
+          </div>
+
+          <!-- 파도 정보 -->
+          <div class="ctrl-panel">
+            <h3>웨이브 정보</h3>
+            <div class="wave-info">
+              <div class="wave-stat">
+                <span class="k">웨이브</span>
+                <span class="v" id="waveNumDisplay">1</span>
+              </div>
+              <div class="wave-stat">
+                <span class="k">적 수</span>
+                <span class="v" id="enemyCountDisplay">5</span>
+              </div>
+              <div class="wave-stat">
+                <span class="k">남은 시간</span>
+                <span class="v" id="waveTimeDisplay">60s</span>
+              </div>
+            </div>
+            <div class="ctrl-row">
+              <label>웨이브</label>
+              <input type="range" id="waveSlider" min="1" max="20" value="1">
+              <span class="val" id="waveSliderVal">1</span>
+            </div>
+          </div>
+
+          <!-- 환경 선택 -->
+          <div class="ctrl-panel">
+            <h3>스테이지 환경</h3>
+            <div class="env-select" id="envSelect">
+              <button class="env-btn active" data-env="oriental_bamboo">🎋 대나무 밭</button>
+              <button class="env-btn" data-env="pasta_field">🍝 파스타 밭</button>
+              <button class="env-btn" data-env="seafood_beach">🦞 해변</button>
+              <button class="env-btn" data-env="volcano_lava">🌋 화산</button>
+            </div>
+          </div>
+
+          <!-- 배치 도구 선택 -->
+          <div class="ctrl-panel">
+            <h3>도구 배치 (맵 타일 클릭)</h3>
+            <div class="btn-grid" id="toolSelectGrid">
+              <!-- JS가 생성 -->
+            </div>
+            <div style="margin-top:8px;">
+              <button class="ctrl-btn" id="clearMapBtn" style="width:100%">🗑 배치 초기화</button>
+            </div>
+          </div>
+
+          <!-- 셰프 -->
+          <div class="ctrl-panel">
+            <h3>셰프 선택</h3>
+            <div class="chef-cards" id="chefCards">
+              <!-- JS가 생성 -->
+            </div>
+          </div>
+
+          <!-- 적 파도 구성 -->
+          <div class="ctrl-panel">
+            <h3>등장 적 (클릭으로 추가/제거)</h3>
+            <div class="enemy-list" id="enemyList">
+              <!-- JS가 생성 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── 행상인씬 컨트롤 ─── -->
+        <div class="scene-panel" id="panel-merchant">
+
+          <div class="guide-text" style="margin-bottom:14px;">
+            도구를 클릭하면 소유/미소유를 전환. 골드를 조정하여 구매 가능 상태를 확인.
+          </div>
+
+          <!-- 골드 -->
+          <div class="ctrl-panel">
+            <h3>보유 골드</h3>
+            <div class="ctrl-row">
+              <label>💰 골드</label>
+              <input type="range" id="merchantGoldSlider" min="0" max="9999" value="500" step="50">
+              <span class="val" id="merchantGoldVal" style="color:var(--accent-gold);">500</span>
+            </div>
+          </div>
+
+          <!-- 도구 목록 -->
+          <div class="ctrl-panel">
+            <h3>도구 구매 (클릭으로 소유 전환)</h3>
+            <div class="tool-list" id="toolList">
+              <!-- JS가 생성 -->
+            </div>
+          </div>
+
+          <!-- 셰프 고용 -->
+          <div class="ctrl-panel">
+            <h3>셰프 고용</h3>
+            <div class="chef-cards" id="merchantChefCards">
+              <!-- JS가 생성 -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+  // ── 상수 ──
+  const W = 360, H = 640;
+  const HUD_H = 40;
+  const HALL_Y = 40, HALL_H = 240;
+  const COOK_Y = 280, COOK_H = 60;
+  const STOCK_Y = 340, STOCK_H = 100;
+  const RECIPE_Y = 440, RECIPE_H = 130;
+  const BOTTOM_Y = 570, BOTTOM_H = 70;
+
+  // ── 데이터 ──
+  const TOOL_DEFS = {
+    pan:           { icon: '🍳', nameKo: '프라이팬',       desc: '기본 공격 도구',    cost: 80,  maxCount: 5, color: '#c0c0c0' },
+    salt:          { icon: '🧂', nameKo: '소금 분사기',    desc: '적 이동속도 감소',  cost: 120, maxCount: 4, color: '#87ceeb' },
+    grill:         { icon: '🔥', nameKo: '화염 그릴',      desc: '도트 화상 데미지',  cost: 200, maxCount: 3, color: '#ff4500' },
+    delivery:      { icon: '🤖', nameKo: '배달 로봇',      desc: '재료 자동 수집',    cost: 100, maxCount: 3, color: '#00cc88' },
+    freezer:       { icon: '🧊', nameKo: '냉동고',          desc: '적 동결',           cost: 160, maxCount: 3, color: '#00bfff' },
+    soup_pot:      { icon: '🍲', nameKo: '수프 솥',         desc: '아군 버프 오라',    cost: 140, maxCount: 3, color: '#32cd32' },
+    wasabi_cannon: { icon: '🌿', nameKo: '와사비 대포',    desc: '광역 느려짐 효과',  cost: 180, maxCount: 3, color: '#7cfc00' },
+    spice_grinder: { icon: '⚙️', nameKo: '향신료 그라인더', desc: '독성 도트 데미지',  cost: 160, maxCount: 3, color: '#ff8c00' },
+  };
+
+  const CHEF_DEFS = [
+    { id: 'petit_chef', nameKo: '꼬마 셰프',  icon: '🍳', color: '#ffcc00', locked: false },
+    { id: 'flame_chef', nameKo: '불꽃 요리사', icon: '🔥', color: '#ff4500', locked: false },
+    { id: 'ice_chef',   nameKo: '얼음 요리장', icon: '❄️', color: '#00bfff', locked: true  },
+    { id: 'yuki_chef',  nameKo: '유키',        icon: '🌸', color: '#ff69b4', locked: true  },
+    { id: 'lao_chef',   nameKo: '라오',        icon: '🐉', color: '#ff4500', locked: true  },
+  ];
+
+  const CUSTOMER_TYPES = [
+    { id: 'normal',  icon: '😊', nameKo: '일반',   color: '#aaaaff' },
+    { id: 'vip',     icon: '👑', nameKo: 'VIP',    color: '#ffd700' },
+    { id: 'gourmet', icon: '🎩', nameKo: '미식가', color: '#cc88ff' },
+    { id: 'rushed',  icon: '💨', nameKo: '급한',   color: '#ff6655' },
+    { id: 'group',   icon: '👨‍👧', nameKo: '단체',   color: '#4ae88a' },
+  ];
+
+  const RECIPES = [
+    { nameKo: '당근 수프',   ings: '🥕×1',        reward: 80  },
+    { nameKo: '스테이크 정식', ings: '🥩×2',       reward: 150 },
+    { nameKo: '혼합 플래터', ings: '🥕×2 🥩×1',   reward: 180 },
+    { nameKo: '해산물 파스타', ings: '🦑×1 🌾×1',  reward: 200 },
+    { nameKo: '매운 볶음',   ings: '🌶×1 🥩×1',   reward: 160 },
+    { nameKo: '치즈 퐁뒤',   ings: '🌾×2 🥩×1',   reward: 220 },
+  ];
+
+  const ENEMY_DEFS = [
+    { id: 'carrot_goblin',  nameKo: '당근 고블린', hash: 'walking-012372c9' },
+    { id: 'meat_ogre',      nameKo: '고기 오우거', hash: 'walking-dff9d5bc' },
+    { id: 'butter_ghost',   nameKo: '버터 유령',   hash: 'walking-166fb6f3' },
+    { id: 'flour_ghost',    nameKo: '밀가루 유령', hash: 'walking-dafa8589' },
+    { id: 'chili_demon',    nameKo: '고추 악마',   hash: 'walking-98c5d521' },
+    { id: 'cheese_golem',   nameKo: '치즈 골렘',   hash: 'walking-e8ab7eac' },
+  ];
+
+  const TOOL_ORDER = ['pan', 'salt', 'grill', 'delivery', 'freezer', 'soup_pot', 'wasabi_cannon', 'spice_grinder'];
+  const INGREDIENTS = [
+    { id:'carrot', icon:'🥕', nameKo:'당근', count:10 },
+    { id:'meat',   icon:'🥩', nameKo:'고기', count:8  },
+    { id:'squid',  icon:'🦑', nameKo:'문어', count:4  },
+    { id:'chili',  icon:'🌶', nameKo:'고추', count:3  },
+    { id:'flour',  icon:'🌾', nameKo:'밀가루',count:6 },
+  ];
+
+  // ── 상태 ──
+  const state = {
+    scene: 'service',
+    service: {
+      gold: 500,
+      interior: 0,
+      tableGrade: 0,
+      customerType: 'normal',
+      tables: [
+        { state: 'empty', custType: 'normal' },
+        { state: 'empty', custType: 'normal' },
+        { state: 'empty', custType: 'normal' },
+        { state: 'empty', custType: 'normal' },
+      ],
+      cookSlots: [
+        { state: 'empty', recipe: null, progress: 0 },
+        { state: 'empty', recipe: null, progress: 0 },
+      ],
+    },
+    gathering: {
+      wave: 1,
+      env: 'oriental_bamboo',
+      selectedTool: 'pan',
+      selectedChef: 'lao_chef',
+      mapTools: {},  // key: "r,c" -> toolId
+      activeEnemies: new Set(['carrot_goblin', 'butter_ghost']),
+    },
+    merchant: {
+      gold: 500,
+      ownedTools: {},  // toolId -> count
+      ownedChefs: new Set(['petit_chef']),
+    },
+  };
+
+  // ── 이미지 캐시 ──
+  const images = {};
+
+  function loadImg(key, src) {
+    return new Promise(resolve => {
+      if (images[key]) { resolve(images[key]); return; }
+      const img = new Image();
+      img.onload = () => { images[key] = img; resolve(img); };
+      img.onerror = () => { images[key] = null; resolve(null); };
+      img.src = src;
+    });
+  }
+
+  async function preloadAll() {
+    const loads = [
+      loadImg('floor_hall',     '../service/floor_hall.png'),
+      loadImg('counter_cooking','../service/counter_cooking.png'),
+      ...([0,1,2,3,4].map(n => loadImg(`table_lv${n}`, `../service/table_lv${n}.png`))),
+      ...CUSTOMER_TYPES.map(c => loadImg(`customer_${c.id}`, `../service/customer_${c.id}.png`)),
+      ...TOOL_ORDER.map(id => loadImg(`tower_${id}`, `../assets/towers/${id}/tower.png`)),
+      ...CHEF_DEFS.map(c => loadImg(`chef_${c.id}`, `../assets/chefs/${c.id}/rotations/south.png`)),
+      ...CHEF_DEFS.map(c => loadImg(`portrait_${c.id.replace('_chef','')}`, `../assets/portraits/portrait_${c.id.replace('_chef','')}.png`)),
+      loadImg('tileset_oriental_bamboo', '../assets/tilesets/oriental_bamboo.png'),
+      loadImg('tileset_pasta_field',     '../assets/tilesets/pasta_field.png'),
+      loadImg('tileset_seafood_beach',   '../assets/tilesets/seafood_beach.png'),
+      loadImg('tileset_volcano_lava',    '../assets/tilesets/volcano_lava.png'),
+      ...ENEMY_DEFS.map(e => loadImg(`enemy_${e.id}`,
+        `../assets/enemies/${e.id}/animations/${e.hash}/south/frame_000.png`)),
+      ...INGREDIENTS.map(i => loadImg(`ing_${i.id}`, `../assets/ingredients/${i.id}.png`)),
+    ];
+    await Promise.all(loads);
+  }
+
+  // ── 캔버스 & 드로잉 ──
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.roundRect(x, y, w, h, r);
+    ctx.fill();
+  }
+
+  function text(ctx, str, x, y, opts = {}) {
+    const { size = 12, color = '#ffffff', align = 'left', weight = 'normal', font = 'sans-serif' } = opts;
+    ctx.fillStyle = color;
+    ctx.font = `${weight} ${size}px ${font}`;
+    ctx.textAlign = align;
+    ctx.textBaseline = 'middle';
+    ctx.fillText(str, x, y);
+    ctx.textAlign = 'left';
+  }
+
+  // ── 영업씬 그리기 ──
+  function drawService() {
+    const sv = state.service;
+    const animTick = (Date.now() / 400) | 0;
+
+    // 배경
+    ctx.fillStyle = '#1a0a00';
+    ctx.fillRect(0, 0, W, H);
+
+    // HUD
+    ctx.fillStyle = '#0d0d1a';
+    ctx.fillRect(0, 0, W, HUD_H);
+    ctx.fillStyle = '#333355';
+    ctx.fillRect(0, HUD_H - 1, W, 1);
+    // gold
+    text(ctx, `💰 ${sv.gold.toLocaleString()}G`, 12, 20, { size: 13, color: '#ffd700' });
+    // time
+    text(ctx, '영업시간  2:57', W / 2, 20, { size: 13, color: '#ffffff', align: 'center' });
+    // lives
+    text(ctx, '⭐ 10', W - 12, 20, { size: 13, color: '#ffee88', align: 'right' });
+
+    // 홀 배경
+    if (images.floor_hall) {
+      ctx.drawImage(images.floor_hall, 0, HALL_Y, W, HALL_H);
+    } else {
+      ctx.fillStyle = '#2a1505';
+      ctx.fillRect(0, HALL_Y, W, HALL_H);
+    }
+
+    // 테이블 (2×2 그리드)
+    const cellW = W / 2, cellH = HALL_H / 2;
+    const tw = 90, th = 80;
+    const tables = sv.tables;
+    tables.forEach((tbl, idx) => {
+      const col = idx % 2, row = Math.floor(idx / 2);
+      const cx = cellW * col + cellW / 2;
+      const cy = HALL_Y + cellH * row + cellH / 2;
+      const grade = sv.tableGrade;
+
+      // 테이블 스프라이트
+      const tImg = images[`table_lv${grade}`];
+      if (tImg) {
+        ctx.drawImage(tImg, cx - tw / 2, cy - th / 2, tw, th);
+      } else {
+        ctx.fillStyle = '#8b4513';
+        ctx.fillRect(cx - tw / 2, cy - th / 2, tw, th);
+      }
+
+      // 테이블 상태 라벨
+      const stateColors = { empty: '#666688', seated: '#4ae88a', ready: '#ffd700', served: '#4a9eff' };
+      const stateIcons  = { empty: '빈 자리', seated: '착석 중', ready: '음식 준비됨', served: '서빙 완료' };
+
+      if (tbl.state === 'empty') {
+        text(ctx, stateIcons[tbl.state], cx, cy - th / 2 + 12, { size: 9, color: '#888888', align: 'center' });
+      } else {
+        // 손님 스프라이트
+        const custImg = images[`customer_${tbl.custType}`];
+        if (custImg) {
+          ctx.drawImage(custImg, cx - 16, cy - th / 2 - 28, 32, 32);
+        } else {
+          const custDef = CUSTOMER_TYPES.find(c => c.id === tbl.custType);
+          text(ctx, custDef?.icon || '👤', cx, cy - th / 2 - 14, { size: 20, align: 'center' });
+        }
+        // 상태 라벨
+        ctx.fillStyle = stateColors[tbl.state];
+        ctx.globalAlpha = 0.9;
+        ctx.fillRect(cx - 28, cy - th / 2 + 4, 56, 14);
+        ctx.globalAlpha = 1;
+        text(ctx, stateIcons[tbl.state], cx, cy - th / 2 + 11, { size: 8, color: '#000000', align: 'center' });
+
+        // 인내심 바 (seated 상태)
+        if (tbl.state === 'seated') {
+          const p = 0.6; // 인내심 60%
+          ctx.fillStyle = '#333355';
+          ctx.fillRect(cx - tw / 2 + 4, cy + th / 2 - 12, tw - 8, 6);
+          ctx.fillStyle = '#ffbb44';
+          ctx.fillRect(cx - tw / 2 + 4, cy + th / 2 - 12, (tw - 8) * p, 6);
+        }
+
+        // 말풍선 (ready 상태)
+        if (tbl.state === 'ready') {
+          ctx.fillStyle = '#fffde7';
+          ctx.fillRect(cx - 22, cy - th / 2 - 44, 44, 14);
+          text(ctx, '주문할게요!', cx, cy - th / 2 - 37, { size: 7, color: '#333333', align: 'center' });
+        }
+      }
+    });
+
+    // 구역 구분선
+    ctx.fillStyle = '#1a1a2e';
+    ctx.globalAlpha = 0.6;
+    ctx.fillRect(0, COOK_Y, W, 1);
+    ctx.globalAlpha = 1;
+
+    // 조리 슬롯 배경
+    ctx.fillStyle = '#222233';
+    ctx.fillRect(0, COOK_Y, W, COOK_H);
+
+    const slotW = W / 2;
+    sv.cookSlots.forEach((slot, i) => {
+      const cx = slotW * i + slotW / 2;
+      const cy = COOK_Y + COOK_H / 2;
+
+      // 슬롯 배경
+      ctx.fillStyle = '#333344';
+      ctx.strokeStyle = '#555566';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(slotW * i + 6, COOK_Y + 6, slotW - 12, COOK_H - 12, 4);
+      ctx.fill();
+      ctx.stroke();
+
+      // counter_cooking 아이콘
+      const ccImg = images.counter_cooking;
+      if (ccImg) {
+        const iconSize = COOK_H - 16;
+        ctx.drawImage(ccImg, slotW * i + 8, COOK_Y + 8, iconSize, iconSize);
+      }
+
+      if (slot.state === 'empty') {
+        text(ctx, '빈 슬롯', cx + 10, cy - 8, { size: 10, color: '#888888', align: 'center' });
+        // 버리기 버튼 위치 (비활성)
+        ctx.fillStyle = '#333344';
+        ctx.fillRect(slotW * i + slotW - 30, COOK_Y + 8, 22, 14);
+        text(ctx, '🗑', cx + 50, cy - 8, { size: 10, align: 'center' });
+      } else if (slot.state === 'cooking') {
+        const prog = slot.progress;
+        text(ctx, slot.recipe || '당근 수프', cx + 10, cy - 8, { size: 9, color: '#aaaacc', align: 'center' });
+        // 진행 바
+        ctx.fillStyle = '#444455';
+        ctx.fillRect(slotW * i + 8, cy + 6, slotW - 16, 8);
+        ctx.fillStyle = '#ff8844';
+        ctx.fillRect(slotW * i + 8, cy + 6, (slotW - 16) * prog, 8);
+      } else if (slot.state === 'ready') {
+        text(ctx, '✅ 완성!', cx + 10, cy - 8, { size: 10, color: '#4ae88a', align: 'center' });
+        // 버리기 버튼 (활성)
+        ctx.fillStyle = '#992222';
+        ctx.fillRect(slotW * i + slotW - 34, COOK_Y + 8, 26, 14);
+        text(ctx, '🗑', cx + slotW / 2 - 10, cy - 8, { size: 9, color: '#ffffff', align: 'center' });
+      }
+    });
+
+    // 재고 구역
+    ctx.fillStyle = '#11111f';
+    ctx.fillRect(0, STOCK_Y, W, STOCK_H);
+    ctx.fillStyle = '#333355';
+    ctx.fillRect(0, STOCK_Y, W, 1);
+    text(ctx, '재료 재고', 10, STOCK_Y + 14, { size: 10, color: '#888888' });
+
+    const ingCols = 5;
+    const ingW = W / ingCols;
+    INGREDIENTS.forEach((ing, i) => {
+      const ix = ingW * i + ingW / 2;
+      const iy = STOCK_Y + 42;
+      const ingImg = images[`ing_${ing.id}`];
+      if (ingImg) {
+        ctx.drawImage(ingImg, ix - 12, iy - 14, 24, 24);
+      } else {
+        text(ctx, ing.icon, ix, iy - 4, { size: 18, align: 'center' });
+      }
+      text(ctx, `×${ing.count}`, ix, iy + 18, { size: 9, color: '#bbbbcc', align: 'center' });
+    });
+
+    // 레시피 구역
+    ctx.fillStyle = '#0d0d1a';
+    ctx.fillRect(0, RECIPE_Y, W, RECIPE_H);
+    ctx.fillStyle = '#333355';
+    ctx.fillRect(0, RECIPE_Y, W, 1);
+    text(ctx, '레시피', 10, RECIPE_Y + 14, { size: 10, color: '#888888' });
+
+    const rcols = 3, rrows = 2;
+    const rW = W / rcols, rH = (RECIPE_H - 22) / rrows;
+    RECIPES.forEach((r, i) => {
+      const col = i % rcols, row = Math.floor(i / rcols);
+      const rx = rW * col + 4, ry = RECIPE_Y + 22 + rH * row + 2;
+      ctx.fillStyle = '#1a1a2e';
+      ctx.strokeStyle = '#333355';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(rx, ry, rW - 8, rH - 4, 3);
+      ctx.fill();
+      ctx.stroke();
+      text(ctx, r.nameKo, rx + (rW - 8) / 2, ry + 14, { size: 9, color: '#ccccee', align: 'center' });
+      text(ctx, r.ings, rx + (rW - 8) / 2, ry + 28, { size: 8, color: '#888899', align: 'center' });
+    });
+
+    // 하단 바
+    ctx.fillStyle = '#080814';
+    ctx.fillRect(0, BOTTOM_Y, W, BOTTOM_H);
+    ctx.fillStyle = '#333355';
+    ctx.fillRect(0, BOTTOM_Y, W, 1);
+
+    // 셰프 아이콘 (최대 3개)
+    const chefSlots = 3;
+    const chefSlotW = (W - 80) / chefSlots;
+    for (let i = 0; i < chefSlots; i++) {
+      const bx = 8 + chefSlotW * i;
+      const by = BOTTOM_Y + 8;
+      ctx.fillStyle = '#1a1a2e';
+      ctx.strokeStyle = '#334466';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, chefSlotW - 6, BOTTOM_H - 16, 4);
+      ctx.fill();
+      ctx.stroke();
+      // chef sprite placeholder
+      text(ctx, i === 0 ? '🍳' : '＋', bx + (chefSlotW - 6) / 2, by + (BOTTOM_H - 16) / 2, { size: i === 0 ? 18 : 14, align: 'center', color: i === 0 ? '#ffcc66' : '#444466' });
+    }
+
+    // 마감/일시정지 버튼
+    ctx.fillStyle = '#333344';
+    ctx.beginPath();
+    ctx.roundRect(W - 72, BOTTOM_Y + 10, 64, BOTTOM_H - 20, 4);
+    ctx.fill();
+    text(ctx, '⏸ 일시정지', W - 40, BOTTOM_Y + BOTTOM_H / 2, { size: 9, color: '#aaaacc', align: 'center' });
+  }
+
+  // ── 채집씬 그리기 ──
+  const MAP_COLS = 6, MAP_ROWS = 8;
+  // 단순 경로 맵: 0=풀, 1=길
+  const MAP_PATH = [
+    [0,0,1,0,0,0],
+    [0,0,1,0,0,0],
+    [0,0,1,1,0,0],
+    [0,0,0,1,0,0],
+    [0,0,0,1,1,0],
+    [0,0,0,0,1,0],
+    [0,0,0,0,1,0],
+    [0,0,0,0,1,0],
+  ];
+
+  function drawGathering() {
+    const gs = state.gathering;
+    const tileSize = Math.floor(W / MAP_COLS); // 60
+
+    // 맵 영역 높이
+    const mapH = tileSize * MAP_ROWS; // 480
+
+    // 배경
+    ctx.fillStyle = '#0a0a1a';
+    ctx.fillRect(0, 0, W, H);
+
+    // HUD
+    ctx.fillStyle = '#0d0d1a';
+    ctx.fillRect(0, 0, W, HUD_H);
+    ctx.fillStyle = '#333355';
+    ctx.fillRect(0, HUD_H - 1, W, 1);
+    text(ctx, `웨이브 ${gs.wave}`, W / 2, 20, { size: 13, color: '#ffffff', align: 'center' });
+    text(ctx, `⭐ 15`, W - 12, 20, { size: 12, color: '#ffee88', align: 'right' });
+    text(ctx, `💰 350G`, 12, 20, { size: 12, color: '#ffd700' });
+
+    // 타일셋 키
+    const tsKey = `tileset_${gs.env}`;
+    const tsImg = images[tsKey];
+
+    // 타일 그리기
+    for (let r = 0; r < MAP_ROWS; r++) {
+      for (let c = 0; c < MAP_COLS; c++) {
+        const tx = c * tileSize;
+        const ty = HUD_H + r * tileSize;
+        const isPath = MAP_PATH[r][c] === 1;
+
+        if (tsImg) {
+          // Wang 타일셋에서 적절한 타일 선택 (0~3번 타일 사용)
+          const tileIdx = isPath ? 1 : 0;
+          const srcX = (tileIdx % 4) * 32, srcY = Math.floor(tileIdx / 4) * 32;
+          ctx.drawImage(tsImg, srcX, srcY, 32, 32, tx, ty, tileSize, tileSize);
+        } else {
+          ctx.fillStyle = isPath ? '#6b5a3e' : '#1e4d1e';
+          ctx.fillRect(tx, ty, tileSize, tileSize);
+          ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+          ctx.lineWidth = 0.5;
+          ctx.strokeRect(tx, ty, tileSize, tileSize);
+        }
+
+        // 경로 표시
+        if (isPath) {
+          ctx.fillStyle = 'rgba(0,0,0,0.2)';
+          ctx.fillRect(tx + 6, ty + 6, tileSize - 12, tileSize - 12);
+        }
+
+        // 배치된 도구 표시
+        const tKey = `${r},${c}`;
+        if (gs.mapTools[tKey] && !isPath) {
+          const toolId = gs.mapTools[tKey];
+          const toolImg = images[`tower_${toolId}`];
+          const def = TOOL_DEFS[toolId];
+          if (toolImg) {
+            ctx.drawImage(toolImg, tx + 6, ty + 6, tileSize - 12, tileSize - 12);
+          } else {
+            ctx.fillStyle = def.color;
+            ctx.fillRect(tx + 10, ty + 10, tileSize - 20, tileSize - 20);
+            text(ctx, def.icon, tx + tileSize / 2, ty + tileSize / 2, { size: 18, align: 'center' });
+          }
+        }
+      }
+    }
+
+    // 적 애니메이션 (경로 위에 표시)
+    const tick = (Date.now() / 300) | 0;
+    const pathCells = [];
+    MAP_PATH.forEach((row, r) => row.forEach((v, c) => { if (v === 1) pathCells.push({r, c}); }));
+
+    if (pathCells.length > 0) {
+      const enemyIds = [...gs.activeEnemies];
+      enemyIds.slice(0, 4).forEach((eid, ei) => {
+        const pathPos = (ei * 2 + tick) % pathCells.length;
+        const cell = pathCells[pathPos];
+        const ex = cell.c * tileSize + tileSize / 2;
+        const ey = HUD_H + cell.r * tileSize + tileSize / 2;
+        const eImg = images[`enemy_${eid}`];
+        if (eImg) {
+          ctx.drawImage(eImg, ex - 18, ey - 22, 36, 36);
+        } else {
+          text(ctx, '👾', ex, ey, { size: 20, align: 'center' });
+        }
+        // HP 바
+        ctx.fillStyle = '#660000';
+        ctx.fillRect(ex - 14, ey - 26, 28, 4);
+        ctx.fillStyle = '#cc0000';
+        ctx.fillRect(ex - 14, ey - 26, 20, 4);
+      });
+    }
+
+    // 셰프 (맵 위에 배치된 셰프)
+    const chefCell = { r: 3, c: 1 };
+    const cex = chefCell.c * tileSize + tileSize / 2;
+    const cey = HUD_H + chefCell.r * tileSize + tileSize / 2;
+    const chefImg = images[`chef_${gs.selectedChef}`];
+    if (chefImg) {
+      ctx.drawImage(chefImg, cex - 18, cey - 22, 36, 36);
+    } else {
+      text(ctx, '🧑‍🍳', cex, cey, { size: 22, align: 'center' });
+    }
+    // 셰프 범위 표시
+    ctx.strokeStyle = 'rgba(255,255,0,0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cex, cey, tileSize * 1.5, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // 파도 정보 하단 패널
+    const panelY = HUD_H + mapH;
+    ctx.fillStyle = '#0d0d1a';
+    ctx.fillRect(0, panelY, W, H - panelY);
+    ctx.fillStyle = '#333355';
+    ctx.fillRect(0, panelY, W, 1);
+    text(ctx, `웨이브 ${gs.wave} / 20 진행 중`, W / 2, panelY + 20, { size: 11, color: '#ccccee', align: 'center' });
+    text(ctx, `활성 적: ${gs.activeEnemies.size}종 등장`, W / 2, panelY + 38, { size: 10, color: '#888888', align: 'center' });
+
+    // 파도 진행 바
+    const wProg = (gs.wave - 1) / 19;
+    ctx.fillStyle = '#222233';
+    ctx.fillRect(20, panelY + 50, W - 40, 8);
+    ctx.fillStyle = '#4a9eff';
+    ctx.fillRect(20, panelY + 50, (W - 40) * wProg, 8);
+  }
+
+  // ── 행상인씬 그리기 ──
+  function drawMerchant() {
+    const ms = state.merchant;
+
+    // 배경
+    ctx.fillStyle = '#0d0d1a';
+    ctx.fillRect(0, 0, W, H);
+
+    // HUD
+    ctx.fillStyle = '#111122';
+    ctx.fillRect(0, 0, W, HUD_H);
+    ctx.fillStyle = '#333355';
+    ctx.fillRect(0, HUD_H - 1, W, 1);
+    text(ctx, '🐱  포코의 행상 창고', W / 2, 20, { size: 12, color: '#ffcc88', align: 'center' });
+    text(ctx, `💰 ${ms.gold.toLocaleString()}G`, W - 12, 20, { size: 12, color: '#ffd700', align: 'right' });
+
+    // 카테고리 탭
+    const cats = ['도구 구매', '셰프 고용', '업그레이드'];
+    const catW = W / cats.length;
+    cats.forEach((cat, i) => {
+      const isActive = i === 0;
+      ctx.fillStyle = isActive ? 'rgba(255,107,53,0.2)' : '#111122';
+      ctx.strokeStyle = isActive ? '#ff6b35' : '#333355';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(catW * i + 4, HUD_H + 6, catW - 8, 28, 3);
+      ctx.fill();
+      ctx.stroke();
+      text(ctx, cat, catW * i + catW / 2, HUD_H + 20, { size: 10, color: isActive ? '#ff6b35' : '#888888', align: 'center' });
+    });
+
+    // 도구 목록
+    const listStartY = HUD_H + 42;
+    const itemH = 60;
+    TOOL_ORDER.forEach((toolId, i) => {
+      const def = TOOL_DEFS[toolId];
+      const owned = (ms.ownedTools[toolId] || 0) > 0;
+      const canAfford = ms.gold >= def.cost;
+      const iy = listStartY + itemH * i;
+
+      if (iy + itemH > H - 10) return; // 화면 밖 생략
+
+      ctx.fillStyle = owned ? 'rgba(74,232,138,0.06)' : '#111122';
+      ctx.strokeStyle = owned ? 'rgba(74,232,138,0.3)' : '#222233';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(8, iy + 2, W - 16, itemH - 4, 4);
+      ctx.fill();
+      ctx.stroke();
+
+      // 타워 이미지
+      const tImg = images[`tower_${toolId}`];
+      if (tImg) {
+        ctx.drawImage(tImg, 14, iy + 10, 36, 36);
+      } else {
+        text(ctx, def.icon, 32, iy + 28, { size: 22, align: 'center' });
+      }
+
+      // 이름 / 설명
+      text(ctx, def.nameKo, 58, iy + 18, { size: 11, color: '#ddddee', weight: '600' });
+      text(ctx, def.desc, 58, iy + 33, { size: 9, color: '#666688' });
+      text(ctx, `최대 ${def.maxCount}개`, 58, iy + 46, { size: 8, color: '#444466' });
+
+      // 소유 뱃지 / 구매 버튼
+      const owns = ms.ownedTools[toolId] || 0;
+      if (owned) {
+        ctx.fillStyle = 'rgba(74,232,138,0.2)';
+        ctx.beginPath();
+        ctx.roundRect(W - 70, iy + 18, 58, 22, 3);
+        ctx.fill();
+        text(ctx, `✓ ${owns}/${def.maxCount}`, W - 41, iy + 29, { size: 9, color: '#4ae88a', align: 'center' });
+      } else {
+        ctx.fillStyle = canAfford ? 'rgba(255,107,53,0.2)' : 'rgba(80,80,100,0.3)';
+        ctx.beginPath();
+        ctx.roundRect(W - 70, iy + 18, 58, 22, 3);
+        ctx.fill();
+        text(ctx, `${def.cost}G 구매`, W - 41, iy + 29, { size: 9, color: canAfford ? '#ff6b35' : '#555566', align: 'center' });
+      }
+    });
+  }
+
+  // ── 메인 루프 ──
+  let lastScene = null;
+
+  function drawLoop() {
+    const sc = state.scene;
+    if (sc === 'service')   drawService();
+    else if (sc === 'gathering') drawGathering();
+    else if (sc === 'merchant')  drawMerchant();
+    requestAnimationFrame(drawLoop);
+  }
+
+  // ── UI 빌드 ──
+
+  function buildServiceUI() {
+    // 테이블 그리드
+    const grid = document.getElementById('tableGrid');
+    grid.innerHTML = '';
+    const stateLabels = { empty: '빈 자리', seated: '착석 중', ready: '음식 준비됨', served: '서빙 완료' };
+    const stateIcons  = { empty: '🪑', seated: '😊', ready: '🍜', served: '✅' };
+    state.service.tables.forEach((tbl, i) => {
+      const cell = document.createElement('div');
+      cell.className = `table-cell ${tbl.state}`;
+      cell.innerHTML = `<span class="table-emoji">${stateIcons[tbl.state]}</span>${stateLabels[tbl.state]}`;
+      cell.onclick = () => {
+        const order = ['empty', 'seated', 'ready', 'served'];
+        const next = order[(order.indexOf(tbl.state) + 1) % order.length];
+        tbl.state = next;
+        if (next !== 'empty') tbl.custType = state.service.customerType;
+        buildServiceUI();
+      };
+      grid.appendChild(cell);
+    });
+
+    // 조리 슬롯
+    const cookGrid = document.getElementById('cookSlots');
+    cookGrid.innerHTML = '';
+    const cookIcons  = { empty: '🍳 시작', cooking: '🔥 조리 중', ready: '✅ 완성' };
+    state.service.cookSlots.forEach((slot, i) => {
+      const btn = document.createElement('button');
+      btn.className = `ctrl-btn ${slot.state !== 'empty' ? 'active' : ''}`;
+      btn.textContent = `슬롯${i + 1}: ${cookIcons[slot.state]}`;
+      btn.onclick = () => {
+        const order = ['empty', 'cooking', 'ready'];
+        const next = order[(order.indexOf(slot.state) + 1) % order.length];
+        slot.state = next;
+        slot.progress = next === 'cooking' ? 0.45 : 0;
+        slot.recipe = next !== 'empty' ? RECIPES[i].nameKo : null;
+        buildServiceUI();
+      };
+      cookGrid.appendChild(btn);
+    });
+  }
+
+  function buildCustomerTypeUI() {
+    const grid = document.getElementById('customerTypeGrid');
+    grid.innerHTML = '';
+    CUSTOMER_TYPES.forEach(ct => {
+      const btn = document.createElement('button');
+      btn.className = `ctrl-btn ${state.service.customerType === ct.id ? 'active' : ''}`;
+      btn.textContent = `${ct.icon} ${ct.nameKo}`;
+      btn.onclick = () => {
+        state.service.customerType = ct.id;
+        // 착석 중인 테이블 손님 유형도 변경
+        state.service.tables.forEach(t => { if (t.state !== 'empty') t.custType = ct.id; });
+        buildCustomerTypeUI();
+      };
+      grid.appendChild(btn);
+    });
+  }
+
+  function buildGatheringUI() {
+    // 도구 선택 그리드
+    const grid = document.getElementById('toolSelectGrid');
+    grid.innerHTML = '';
+    TOOL_ORDER.forEach(toolId => {
+      const def = TOOL_DEFS[toolId];
+      const btn = document.createElement('button');
+      btn.className = `ctrl-btn ${state.gathering.selectedTool === toolId ? 'active' : ''}`;
+      btn.textContent = `${def.icon} ${def.nameKo}`;
+      btn.onclick = () => {
+        state.gathering.selectedTool = toolId;
+        buildGatheringUI();
+      };
+      grid.appendChild(btn);
+    });
+
+    // 셰프 카드
+    const chefCards = document.getElementById('chefCards');
+    chefCards.innerHTML = '';
+    CHEF_DEFS.forEach(ch => {
+      const card = document.createElement('div');
+      card.className = `chef-card ${state.gathering.selectedChef === ch.id ? 'selected' : ''} ${ch.locked ? '' : 'unlocked'}`;
+      const img = images[`chef_${ch.id}`];
+      card.innerHTML = img
+        ? `<img src="../assets/chefs/${ch.id}/rotations/south.png" class="chef-portrait" style="image-rendering:pixelated;">`
+        : `<div class="chef-portrait" style="font-size:28px;line-height:48px;">${ch.icon}</div>`;
+      card.innerHTML += `<div class="chef-name">${ch.nameKo}</div>
+        <div class="chef-status">${ch.locked ? '🔒 잠김' : '✓ 사용 가능'}</div>`;
+      if (!ch.locked) card.onclick = () => {
+        state.gathering.selectedChef = ch.id;
+        buildGatheringUI();
+      };
+      chefCards.appendChild(card);
+    });
+
+    // 적 목록
+    const enemyList = document.getElementById('enemyList');
+    enemyList.innerHTML = '';
+    ENEMY_DEFS.forEach(e => {
+      const chip = document.createElement('div');
+      const active = state.gathering.activeEnemies.has(e.id);
+      chip.className = `enemy-chip ${active ? 'active' : ''}`;
+      const img = images[`enemy_${e.id}`];
+      chip.innerHTML = img
+        ? `<img src="../assets/enemies/${e.id}/animations/${e.hash}/south/frame_000.png" class="enemy-img">`
+        : '';
+      chip.innerHTML += e.nameKo;
+      chip.onclick = () => {
+        if (state.gathering.activeEnemies.has(e.id)) state.gathering.activeEnemies.delete(e.id);
+        else state.gathering.activeEnemies.add(e.id);
+        buildGatheringUI();
+      };
+      enemyList.appendChild(chip);
+    });
+  }
+
+  function buildMerchantUI() {
+    // 도구 목록
+    const toolList = document.getElementById('toolList');
+    toolList.innerHTML = '';
+    TOOL_ORDER.forEach(toolId => {
+      const def = TOOL_DEFS[toolId];
+      const owns = state.merchant.ownedTools[toolId] || 0;
+      const item = document.createElement('div');
+      item.className = `tool-item ${owns > 0 ? 'owned' : ''}`;
+      const imgEl = images[`tower_${toolId}`]
+        ? `<img src="../assets/towers/${toolId}/tower.png" class="tool-img">`
+        : `<div class="tool-img" style="font-size:24px;text-align:center;line-height:36px">${def.icon}</div>`;
+      item.innerHTML = `
+        ${imgEl}
+        <div class="tool-info">
+          <div class="tool-name">${def.icon} ${def.nameKo}</div>
+          <div class="tool-desc">${def.desc}</div>
+          <div class="tool-count">${owns}/${def.maxCount}개 보유</div>
+        </div>
+        <div class="tool-price">
+          ${owns > 0 ? `<div class="tool-owned-badge">✓ 보유</div>` : ''}
+          ${def.cost}G
+        </div>
+      `;
+      item.onclick = () => {
+        state.merchant.ownedTools[toolId] = owns > 0 ? 0 : 1;
+        buildMerchantUI();
+      };
+      toolList.appendChild(item);
+    });
+
+    // 셰프 카드
+    const chefCards = document.getElementById('merchantChefCards');
+    chefCards.innerHTML = '';
+    CHEF_DEFS.forEach(ch => {
+      const owned = state.merchant.ownedChefs.has(ch.id);
+      const card = document.createElement('div');
+      card.className = `chef-card ${owned ? 'unlocked' : ''}`;
+      const portKey = `portrait_${ch.id.replace('_chef', '')}`;
+      const portSrc = `../assets/portraits/portrait_${ch.id.replace('_chef', '')}.png`;
+      card.innerHTML = images[portKey]
+        ? `<img src="${portSrc}" class="chef-portrait" style="image-rendering:pixelated;">`
+        : `<div class="chef-portrait" style="font-size:28px;line-height:48px;">${ch.icon}</div>`;
+      card.innerHTML += `
+        <div class="chef-name">${ch.nameKo}</div>
+        <div class="chef-status">${owned ? '✓ 고용됨' : '🔒 미고용 (300G)'}</div>
+      `;
+      card.onclick = () => {
+        if (owned) state.merchant.ownedChefs.delete(ch.id);
+        else state.merchant.ownedChefs.add(ch.id);
+        buildMerchantUI();
+      };
+      chefCards.appendChild(card);
+    });
+  }
+
+  // ── 캔버스 클릭 핸들러 ──
+  canvas.addEventListener('click', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const cx = (e.clientX - rect.left) * scaleX;
+    const cy = (e.clientY - rect.top) * scaleY;
+
+    if (state.scene === 'service') {
+      // 테이블 클릭
+      const cellW = W / 2, cellH = HALL_H / 2;
+      const tw = 90, th = 80;
+      state.service.tables.forEach((tbl, idx) => {
+        const col = idx % 2, row = Math.floor(idx / 2);
+        const tcx = cellW * col + cellW / 2;
+        const tcy = HALL_Y + cellH * row + cellH / 2;
+        if (Math.abs(cx - tcx) < tw / 2 + 10 && Math.abs(cy - tcy) < th / 2 + 10) {
+          const order = ['empty', 'seated', 'ready', 'served'];
+          tbl.state = order[(order.indexOf(tbl.state) + 1) % order.length];
+          if (tbl.state !== 'empty') tbl.custType = state.service.customerType;
+          buildServiceUI();
+        }
+      });
+    } else if (state.scene === 'gathering') {
+      // 타일 클릭 → 도구 배치
+      if (cy > HUD_H) {
+        const tileSize = Math.floor(W / MAP_COLS);
+        const tileCol = Math.floor(cx / tileSize);
+        const tileRow = Math.floor((cy - HUD_H) / tileSize);
+        if (tileRow < MAP_ROWS && tileCol < MAP_COLS) {
+          if (MAP_PATH[tileRow][tileCol] === 0) {
+            const key = `${tileRow},${tileCol}`;
+            if (state.gathering.mapTools[key] === state.gathering.selectedTool) {
+              delete state.gathering.mapTools[key];
+            } else {
+              state.gathering.mapTools[key] = state.gathering.selectedTool;
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // ── 슬라이더/버튼 이벤트 ──
+
+  // 씬 탭
+  document.querySelectorAll('.scene-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.scene-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const sc = btn.dataset.scene;
+      state.scene = sc;
+      document.querySelectorAll('.scene-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`panel-${sc}`).classList.add('active');
+      document.getElementById('sceneLabel').textContent =
+        sc === 'service' ? '영업씬' : sc === 'gathering' ? '채집씬' : '행상인씬';
+    });
+  });
+
+  // 테이블 등급
+  document.getElementById('tableGradeSlider').addEventListener('input', e => {
+    state.service.tableGrade = parseInt(e.target.value);
+    document.getElementById('tableGradeVal').textContent = e.target.value;
+  });
+
+  // 인테리어
+  document.getElementById('interiorSlider').addEventListener('input', e => {
+    state.service.interior = parseInt(e.target.value);
+    document.getElementById('interiorVal').textContent = e.target.value;
+  });
+
+  // 골드 (영업씬)
+  document.getElementById('serviceGoldSlider').addEventListener('input', e => {
+    state.service.gold = parseInt(e.target.value);
+    document.getElementById('serviceGoldVal').textContent = e.target.value;
+  });
+
+  // 파도 슬라이더
+  document.getElementById('waveSlider').addEventListener('input', e => {
+    const v = parseInt(e.target.value);
+    state.gathering.wave = v;
+    document.getElementById('waveSliderVal').textContent = v;
+    document.getElementById('waveNumDisplay').textContent = v;
+    document.getElementById('enemyCountDisplay').textContent = 3 + v * 2;
+    document.getElementById('waveTimeDisplay').textContent = `${60 - v}s`;
+  });
+
+  // 환경 선택
+  document.querySelectorAll('#envSelect .env-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#envSelect .env-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.gathering.env = btn.dataset.env;
+    });
+  });
+
+  // 배치 초기화
+  document.getElementById('clearMapBtn').addEventListener('click', () => {
+    state.gathering.mapTools = {};
+  });
+
+  // 골드 (행상인)
+  document.getElementById('merchantGoldSlider').addEventListener('input', e => {
+    state.merchant.gold = parseInt(e.target.value);
+    document.getElementById('merchantGoldVal').textContent = e.target.value;
+    buildMerchantUI();
+  });
+
+  // ── 초기화 ──
+  async function init() {
+    await preloadAll();
+    buildServiceUI();
+    buildCustomerTypeUI();
+    buildGatheringUI();
+    buildMerchantUI();
+    drawLoop();
+  }
+
+  init();
+  </script>
+</body>
+</html>
