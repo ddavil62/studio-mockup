@@ -25,21 +25,21 @@
 <body>
 
 <h2>깊이 분할 데모 — My Cafe 방식</h2>
-<p class="sub">테이블을 앞/뒤로 쪼개 캐릭터를 사이에 끼워넣기 (일반 손님: 실제 앉은 포즈 스프라이트)</p>
+<p class="sub">테이블 앞면이 하체를 가리고 가슴+머리가 테이블 위로 나오는 My Cafe 방식</p>
 
 <div class="controls">
   <button onclick="toggleSit()">손님 <span id="togLabel">입장</span></button>
   <span style="margin:0 10px; color:#555;">|</span>
   <label>분할선 Y:
-    <input type="range" id="splitSlider" min="20" max="80" value="45"
+    <input type="range" id="splitSlider" min="20" max="80" value="42"
            oninput="splitPct=+this.value; document.getElementById('splitVal').textContent=this.value+'%'; drawAll();">
-    <span id="splitVal">45%</span>
+    <span id="splitVal">42%</span>
   </label>
   <span style="margin:0 10px; color:#555;">|</span>
   <label>손님 Y 오프셋:
-    <input type="range" id="custSlider" min="-60" max="20" value="-10"
+    <input type="range" id="custSlider" min="-40" max="40" value="0"
            oninput="custOff=+this.value; document.getElementById('custOffVal').textContent=this.value; drawAll();">
-    <span id="custOffVal" style="color:#f0c040;font-size:11px;">-10</span>
+    <span id="custOffVal" style="color:#f0c040;font-size:11px;">0</span>
   </label>
   <span style="margin:0 10px; color:#555;">|</span>
   손님:
@@ -71,10 +71,10 @@
 const IMGS = {};
 let sitting = false;
 let custType = 'normal';
-let splitPct = 45;   // 테이블 스프라이트 높이 대비 분할 % (위쪽이 '뒤')
-let custOff  = -10;  // 손님 Y 오프셋 조정
+let splitPct = 42;   // 테이블 앞면 상단 위치 (~42%)
+let custOff  = 0;    // 손님 Y 오프셋 조정
 let loadedCount = 0;
-const KEYS = ['table0', 'normal', 'normal_sitting', 'vip', 'gourmet', 'rushed'];
+const KEYS = ['table0', 'normal', 'vip', 'gourmet', 'rushed'];
 
 function load(key, src) {
   const img = new Image();
@@ -82,12 +82,11 @@ function load(key, src) {
   img.src = src;
 }
 
-load('table0',         '../service/table_lv0.png');
-load('normal',         '../service/customer_normal.png');
-load('normal_sitting', '../service/customer_normal_sitting.png');  // 앉은 포즈 (PixelLab crouching 프레임)
-load('vip',            '../service/customer_vip.png');
-load('gourmet',        '../service/customer_gourmet.png');
-load('rushed',         '../service/customer_rushed.png');
+load('table0',   '../service/table_lv0.png');
+load('normal',   '../service/customer_normal.png');
+load('vip',      '../service/customer_vip.png');
+load('gourmet',  '../service/customer_gourmet.png');
+load('rushed',   '../service/customer_rushed.png');
 
 // 바닥 그리기
 function drawFloor(ctx, w, h) {
@@ -111,31 +110,33 @@ function drawDepthSplit(ctx, cx, cy, tbl, cust) {
     return;
   }
 
-  // 앉은 포즈 스프라이트: normal 손님은 별도 sitting 이미지 사용
-  const sittingImg = (custType === 'normal' && IMGS['normal_sitting']) ? IMGS['normal_sitting'] : cust;
+  // 캐릭터 크기 2.5배 — 상체가 충분히 보이도록
+  const CW = cust.naturalWidth  * 2.5;
+  const CH = cust.naturalHeight * 2.5;
 
-  // 1. 테이블 뒷부분 (상판 위쪽) — splitY 위만
+  // 핵심 계산: 가슴(위에서 45%) 이 splitY에 오도록 배치
+  // → 가슴 = 아래에서 55% 위치 → custFeetY = splitY + CH * 0.55
+  const custFeetY = splitY + CH * 0.55 + custOff;
+  const custX     = cx - CW / 2;
+  const custTopY  = custFeetY - CH;   // 머리 위치
+
+  // 1. 테이블 뒷부분 (상판 + 뒤) — splitY 위만
   ctx.save();
   ctx.beginPath(); ctx.rect(0, 0, 9999, splitY); ctx.clip();
   ctx.drawImage(tbl, tx, ty, TW, TH);
   ctx.restore();
 
-  // 2. 캐릭터 — 앉은(혹은 서있는) 스프라이트, 허리가 splitY 근처에 오도록 배치
-  const CW = sittingImg.naturalWidth  * 1.8;
-  const CH = sittingImg.naturalHeight * 1.8;
-  // 캐릭터 발 위치: splitY + 캐릭터 키의 절반 정도 아래 (테이블 앞다리 사이)
-  const custFeetY = splitY + CH * 0.52 + custOff;
-  const custX = cx - CW / 2;
-  ctx.drawImage(sittingImg, custX, custFeetY - CH, CW, CH);
+  // 2. 캐릭터 전체 (테이블 뒷부분 위에, 앞부분 아래에)
+  ctx.drawImage(cust, custX, custTopY, CW, CH);
 
-  // 3. 테이블 앞부분 (앞면+앞다리) — splitY 아래만
+  // 3. 테이블 앞면+앞다리 — splitY 아래만 (캐릭터 하체를 가림)
   ctx.save();
   ctx.beginPath(); ctx.rect(0, splitY, 9999, 9999); ctx.clip();
   ctx.drawImage(tbl, tx, ty, TW, TH);
   ctx.restore();
 
-  // 4. 말풍선 (테이블 위)
-  drawBubble(ctx, cx, ty - 8, custType);
+  // 4. 말풍선 (머리 바로 위)
+  drawBubble(ctx, cx, custTopY - 6, custType);
 }
 
 // ─── 현재 방식 (비교용) ───
