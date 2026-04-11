@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>홀 레이아웃 A/B/C 비교</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1a1a2e; color: #eee; font-family: sans-serif; padding: 20px; }
+  h1 { text-align: center; font-size: 15px; color: #f0c040; margin-bottom: 4px; }
+  p.sub { text-align: center; font-size: 10px; color: #888; margin-bottom: 20px; }
+
+  .compare-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .panel {
+    background: #252540;
+    border-radius: 10px;
+    padding: 14px;
+    width: 220px;
+    text-align: center;
+  }
+  .panel .badge {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    line-height: 32px;
+    margin-bottom: 6px;
+  }
+  .badge-a { background: #2a7a2a; color: #aff; }
+  .badge-b { background: #7a4a00; color: #ffd86e; }
+  .badge-c { background: #3a2a7a; color: #c9aaff; }
+  .panel h3 { font-size: 12px; margin-bottom: 2px; }
+  .panel .desc { font-size: 10px; color: #888; margin-bottom: 4px; min-height: 28px; }
+  .panel canvas {
+    display: block;
+    margin: 0 auto 6px;
+    image-rendering: pixelated;
+    border: 1px solid #333;
+    border-radius: 4px;
+  }
+  .pros { font-size: 9px; color: #6f6; text-align: left; margin-bottom: 3px; }
+  .cons { font-size: 9px; color: #f66; text-align: left; }
+  .pros li, .cons li { margin-left: 14px; margin-bottom: 1px; }
+
+  .spec-table {
+    margin: 0 auto 20px;
+    border-collapse: collapse;
+    font-size: 10px;
+  }
+  .spec-table th, .spec-table td {
+    border: 1px solid #444;
+    padding: 4px 8px;
+    text-align: center;
+  }
+  .spec-table th {
+    background: #2a2a4a;
+    color: #f0c040;
+  }
+  .spec-table td { color: #ccc; }
+  .spec-table .highlight { color: #6f6; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>Phase 19-6 — 영업씬 홀 레이아웃 비교 A / B / C</h1>
+<p class="sub">세 가지 레이아웃 옵션의 시각적 비교 — 게임 화면 360x640px, 50% 스케일 (180x320px) — 2026-04-11</p>
+
+<table class="spec-table">
+  <tr>
+    <th>영역</th><th>현재</th><th>A: 홀 확장</th><th>B: 그리드 재배치</th><th>C: 절충안</th>
+  </tr>
+  <tr>
+    <td>HUD</td><td>0~40 (40)</td><td>0~40 (40)</td><td>0~40 (40)</td><td>0~40 (40)</td>
+  </tr>
+  <tr>
+    <td>HALL</td><td>40~280 (240)</td>
+    <td class="highlight">40~320 (280)</td>
+    <td>40~280 (240)</td>
+    <td class="highlight">40~300 (260)</td>
+  </tr>
+  <tr>
+    <td>COOK</td><td>280~340 (60)</td><td>320~370 (50)</td><td>280~340 (60)</td><td>300~355 (55)</td>
+  </tr>
+  <tr>
+    <td>STOCK</td><td>340~440 (100)</td><td>370~450 (80)</td><td>340~440 (100)</td><td>355~440 (85)</td>
+  </tr>
+  <tr>
+    <td>RECIPE</td><td>440~570 (130)</td><td>450~570 (120)</td><td>440~570 (130)</td><td>440~560 (120)</td>
+  </tr>
+  <tr>
+    <td>BOTTOM</td><td>570~640 (70)</td><td>570~640 (70)</td><td>570~640 (70)</td><td>560~640 (80)</td>
+  </tr>
+  <tr>
+    <td>테이블 크기</td><td>72x56</td>
+    <td class="highlight">88x68</td>
+    <td>72x56</td>
+    <td class="highlight">80x62</td>
+  </tr>
+  <tr>
+    <td>배경 오브젝트</td><td>없음</td><td>없음</td>
+    <td class="highlight">벽+입구+화분</td>
+    <td class="highlight">벽+입구+화분</td>
+  </tr>
+</table>
+
+<div class="compare-row">
+
+  <!-- A: 홀 확장, 하단 압축 -->
+  <div class="panel">
+    <div class="badge badge-a">A</div>
+    <h3>홀 확장, 하단 압축</h3>
+    <p class="desc">HALL +40px, 테이블 88x68px. 하단 패널 약간 작아짐.</p>
+    <canvas id="cvA" width="180" height="320"></canvas>
+    <ul class="pros">
+      <li>테이블이 크고 선명</li>
+      <li>홀 여백 여유</li>
+      <li>구현 변경 최소 (수치만 조정)</li>
+    </ul>
+    <ul class="cons">
+      <li>하단 UI 압축감</li>
+      <li>STOCK/RECIPE 터치 영역 축소</li>
+    </ul>
+  </div>
+
+  <!-- B: 홀 유지, 그리드 재배치 + 배경 오브젝트 -->
+  <div class="panel">
+    <div class="badge badge-b">B</div>
+    <h3>그리드 재배치 + 배경 오브젝트</h3>
+    <p class="desc">홀 크기 동일. 벽/입구/화분으로 분위기 연출.</p>
+    <canvas id="cvB" width="180" height="320"></canvas>
+    <ul class="pros">
+      <li>하단 UI 그대로</li>
+      <li>레스토랑 분위기</li>
+      <li>업그레이드 오브젝트 확장 가능</li>
+    </ul>
+    <ul class="cons">
+      <li>테이블 크기 동일 (작음)</li>
+      <li>배경 에셋 추가 필요</li>
+    </ul>
+  </div>
+
+  <!-- C: 소폭 확장 + 배경 오브젝트 -->
+  <div class="panel">
+    <div class="badge badge-c">C</div>
+    <h3>소폭 확장 + 배경 오브젝트</h3>
+    <p class="desc">HALL +20px, 테이블 80x62px, 벽/입구/화분 병행.</p>
+    <canvas id="cvC" width="180" height="320"></canvas>
+    <ul class="pros">
+      <li>테이블 약간 더 큼</li>
+      <li>배경 오브젝트 분위기</li>
+      <li>하단 압축 최소화</li>
+    </ul>
+    <ul class="cons">
+      <li>BOTTOM +10px는 낭비일 수 있음</li>
+      <li>절충안의 애매함</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+// ── 상수: 게임 360x640 -> 캔버스 180x320 (scale=0.5) ──
+const S = 0.5;
+const CW = 180, CH = 320;
+
+// ── 레이아웃 정의 (게임 원본 좌표) ──
+const LAYOUTS = {
+  A: {
+    hud:    { y: 0,   h: 40  },
+    hall:   { y: 40,  h: 280 },
+    cook:   { y: 320, h: 50  },
+    stock:  { y: 370, h: 80  },
+    recipe: { y: 450, h: 120 },
+    bottom: { y: 570, h: 70  },
+    grid: { originX: 140, originY: 130, halfW: 40, halfH: 30 },
+    tableW: 88, tableH: 68,
+    hasBackWall: false,
+    hasEntrance: false,
+    hasPlants: false
+  },
+  B: {
+    hud:    { y: 0,   h: 40  },
+    hall:   { y: 40,  h: 240 },
+    cook:   { y: 280, h: 60  },
+    stock:  { y: 340, h: 100 },
+    recipe: { y: 440, h: 130 },
+    bottom: { y: 570, h: 70  },
+    grid: { originX: 140, originY: 100, halfW: 40, halfH: 30 },
+    tableW: 72, tableH: 56,
+    hasBackWall: true,
+    hasEntrance: true,
+    hasPlants: true
+  },
+  C: {
+    hud:    { y: 0,   h: 40  },
+    hall:   { y: 40,  h: 260 },
+    cook:   { y: 300, h: 55  },
+    stock:  { y: 355, h: 85  },
+    recipe: { y: 440, h: 120 },
+    bottom: { y: 560, h: 80  },
+    grid: { originX: 140, originY: 110, halfW: 40, halfH: 30 },
+    tableW: 80, tableH: 62,
+    hasBackWall: true,
+    hasEntrance: true,
+    hasPlants: true
+  }
+};
+
+// ── 테이블 그리드: 4열 x 2행 (아이소메트릭) ──
+// 일부 테이블에 손님 착석
+const TABLE_GRID = [
+  { col: 0, row: 0, occupied: true  },
+  { col: 1, row: 0, occupied: false },
+  { col: 2, row: 0, occupied: true  },
+  { col: 3, row: 0, occupied: false },
+  { col: 0, row: 1, occupied: false },
+  { col: 1, row: 1, occupied: true  },
+  { col: 2, row: 1, occupied: false },
+  { col: 3, row: 1, occupied: true  },
+];
+
+// ── 헤링본 바닥 패턴 ──
+function drawHerringbone(ctx, x, y, w, h, scale) {
+  const tw = 8 * scale, th = 4 * scale;
+  ctx.save();
+  ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+  for (let row = -1; row < h / th + 1; row++) {
+    for (let col = -1; col < w / tw + 2; col++) {
+      const px = x + col * tw * 2 + (row % 2 === 0 ? 0 : tw);
+      const py = y + row * th;
+      ctx.fillStyle = (Math.floor(row / 1 + col) % 2 === 0) ? '#c8a876' : '#b8986a';
+      ctx.fillRect(px, py, tw, th);
+      ctx.fillStyle = '#a88858';
+      ctx.fillRect(px + tw, py, tw, th);
+    }
+  }
+  ctx.restore();
+}
+
+// ── 아이소메트릭 테이블 ──
+function drawIsoTable(ctx, cx, cy, tw, th, occupied) {
+  // 다이아몬드 (상단면)
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - th / 2);
+  ctx.lineTo(cx + tw / 2, cy);
+  ctx.lineTo(cx, cy + th / 2);
+  ctx.lineTo(cx - tw / 2, cy);
+  ctx.closePath();
+  ctx.fillStyle = occupied ? '#8B5E3C' : '#A0703A';
+  ctx.fill();
+  ctx.strokeStyle = '#5A3518';
+  ctx.lineWidth = 0.5;
+  ctx.stroke();
+
+  // 테이블 측면 (3D 느낌)
+  const legH = th * 0.3;
+  ctx.beginPath();
+  ctx.moveTo(cx - tw / 2, cy);
+  ctx.lineTo(cx - tw / 2, cy + legH);
+  ctx.lineTo(cx, cy + th / 2 + legH);
+  ctx.lineTo(cx + tw / 2, cy + legH);
+  ctx.lineTo(cx + tw / 2, cy);
+  ctx.lineTo(cx, cy + th / 2);
+  ctx.lineTo(cx - tw / 2, cy);
+  ctx.closePath();
+  ctx.fillStyle = occupied ? '#6B4020' : '#7A4F28';
+  ctx.fill();
+  ctx.strokeStyle = '#3A1A08';
+  ctx.lineWidth = 0.3;
+  ctx.stroke();
+
+  // 착석 손님 표시
+  if (occupied) {
+    // 머리 (원)
+    ctx.fillStyle = '#5588cc';
+    ctx.beginPath();
+    ctx.arc(cx, cy - th / 2 - 4, 3, 0, Math.PI * 2);
+    ctx.fill();
+    // 몸통 (작은 삼각형)
+    ctx.fillStyle = '#4477bb';
+    ctx.beginPath();
+    ctx.moveTo(cx - 2.5, cy - th / 2 - 1);
+    ctx.lineTo(cx + 2.5, cy - th / 2 - 1);
+    ctx.lineTo(cx, cy - th / 2 + 3);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
+// ── 뒷벽 그리기 ──
+function drawBackWall(ctx, x, y, w, h) {
+  // 목재 벽 패널
+  const grad = ctx.createLinearGradient(x, y, x, y + h);
+  grad.addColorStop(0, '#4a2f1a');
+  grad.addColorStop(1, '#6b4423');
+  ctx.fillStyle = grad;
+  ctx.fillRect(x, y, w, h);
+  // 세로 패널 구분선
+  for (let i = 1; i < 5; i++) {
+    ctx.strokeStyle = '#3a2010';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(x + i * (w / 5), y);
+    ctx.lineTo(x + i * (w / 5), y + h);
+    ctx.stroke();
+  }
+  // 걸린 등 (원형)
+  for (let i = 1; i < 3; i++) {
+    ctx.fillStyle = '#ffd878';
+    ctx.beginPath();
+    ctx.arc(x + i * (w / 3), y + h * 0.6, 3, 0, Math.PI * 2);
+    ctx.fill();
+    // 등 글로우
+    ctx.fillStyle = 'rgba(255,216,120,0.15)';
+    ctx.beginPath();
+    ctx.arc(x + i * (w / 3), y + h * 0.6, 8, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// ── 입구 매트 + 도어웨이 ──
+function drawEntrance(ctx, x, y, w, h) {
+  // 바닥 매트
+  const matW = w * 0.3, matH = h * 0.5;
+  const mx = x + (w - matW) / 2, my = y + (h - matH) / 2;
+  ctx.fillStyle = '#8B4513';
+  ctx.fillRect(mx, my, matW, matH);
+  ctx.strokeStyle = '#6B3010';
+  ctx.lineWidth = 0.5;
+  ctx.strokeRect(mx, my, matW, matH);
+  // 매트 무늬
+  ctx.fillStyle = '#A05520';
+  ctx.fillRect(mx + 2, my + 1, matW - 4, 1);
+  ctx.fillRect(mx + 2, my + matH - 2, matW - 4, 1);
+
+  // 문 표시 (아래쪽 중앙에 작은 아치)
+  ctx.strokeStyle = '#555';
+  ctx.lineWidth = 0.8;
+  ctx.beginPath();
+  const doorCx = x + w / 2;
+  const doorBot = y + h;
+  ctx.arc(doorCx, doorBot, w * 0.08, Math.PI, 0);
+  ctx.stroke();
+}
+
+// ── 화분 ──
+function drawPlant(ctx, cx, cy, size) {
+  // 화분
+  ctx.fillStyle = '#8B4513';
+  ctx.fillRect(cx - size * 0.4, cy, size * 0.8, size * 0.6);
+  // 화분 테두리
+  ctx.fillStyle = '#A0522D';
+  ctx.fillRect(cx - size * 0.5, cy - 1, size, 2);
+  // 잎 (녹색 원들)
+  ctx.fillStyle = '#2d7a2d';
+  ctx.beginPath(); ctx.arc(cx, cy - size * 0.3, size * 0.4, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#3d8a3d';
+  ctx.beginPath(); ctx.arc(cx - size * 0.25, cy - size * 0.1, size * 0.3, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx + size * 0.25, cy - size * 0.1, size * 0.3, 0, Math.PI * 2); ctx.fill();
+}
+
+// ── HUD 영역 ──
+function drawHUD(ctx, y, h) {
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillRect(0, y, CW, h);
+  ctx.fillStyle = '#ddd';
+  ctx.font = 'bold 7px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('2:47   100%   0', CW / 2, y + h / 2 + 2);
+  // 아이콘 텍스트
+  ctx.font = '6px sans-serif';
+  ctx.fillStyle = '#888';
+  ctx.fillText('TIME     STAR     GOLD', CW / 2, y + h / 2 + 10);
+}
+
+// ── COOK 영역 ──
+function drawCook(ctx, y, h) {
+  ctx.fillStyle = '#1e1e30';
+  ctx.fillRect(0, y, CW, h);
+  // 슬롯 2개
+  const slotW = 35, slotH = h * 0.7;
+  for (let i = 0; i < 2; i++) {
+    const sx = CW / 2 + (i - 0.5) * (slotW + 6) - slotW / 2;
+    const sy = y + (h - slotH) / 2;
+    ctx.fillStyle = '#2a2a44';
+    ctx.fillRect(sx, sy, slotW, slotH);
+    ctx.strokeStyle = '#444';
+    ctx.lineWidth = 0.5;
+    ctx.strokeRect(sx, sy, slotW, slotH);
+    ctx.fillStyle = '#666';
+    ctx.font = '5px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('SLOT ' + (i + 1), sx + slotW / 2, sy + slotH / 2 + 2);
+  }
+}
+
+// ── STOCK 영역 ──
+function drawStock(ctx, y, h) {
+  ctx.fillStyle = '#1a1a28';
+  ctx.fillRect(0, y, CW, h);
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth = 0.3;
+  ctx.strokeRect(1, y + 1, CW - 2, h - 2);
+  // 재료 아이콘 텍스트
+  const items = ['T', 'R', 'E', 'F', 'M', 'S'];
+  const cols = 6;
+  const itemW = CW / cols;
+  ctx.font = '7px sans-serif';
+  ctx.textAlign = 'center';
+  for (let i = 0; i < items.length; i++) {
+    const ix = i * itemW + itemW / 2;
+    const iy = y + h / 2;
+    ctx.fillStyle = '#333';
+    ctx.fillRect(ix - 7, iy - 7, 14, 14);
+    ctx.fillStyle = '#aaa';
+    ctx.fillText(items[i], ix, iy + 3);
+  }
+  ctx.fillStyle = '#555';
+  ctx.font = '5px sans-serif';
+  ctx.fillText('STOCK', CW / 2, y + 7);
+}
+
+// ── RECIPE 영역 ──
+function drawRecipe(ctx, y, h) {
+  ctx.fillStyle = '#1e1e32';
+  ctx.fillRect(0, y, CW, h);
+  // 2x3 그리드
+  const cols = 3, rows = 2;
+  const padX = 6, padY = 4;
+  const btnW = (CW - padX * (cols + 1)) / cols;
+  const btnH = (h - padY * (rows + 1)) / rows;
+  const colors = ['#6a3a2a', '#3a5a2a', '#2a3a6a', '#5a4a2a', '#4a2a5a', '#2a5a5a'];
+  ctx.font = '5px sans-serif';
+  ctx.textAlign = 'center';
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const bx = padX + c * (btnW + padX);
+      const by = y + padY + r * (btnH + padY);
+      ctx.fillStyle = colors[r * cols + c];
+      ctx.fillRect(bx, by, btnW, btnH);
+      ctx.strokeStyle = '#555';
+      ctx.lineWidth = 0.3;
+      ctx.strokeRect(bx, by, btnW, btnH);
+      ctx.fillStyle = '#ccc';
+      ctx.fillText('RECIPE', bx + btnW / 2, by + btnH / 2 + 2);
+    }
+  }
+}
+
+// ── BOTTOM 영역 ──
+function drawBottom(ctx, y, h) {
+  ctx.fillStyle = '#141428';
+  ctx.fillRect(0, y, CW, h);
+  // 버튼 3개
+  const labels = ['SKILL', 'CHEF', 'PAUSE'];
+  const btnW = 30, btnH = h * 0.5;
+  const gap = 8;
+  const totalW = labels.length * btnW + (labels.length - 1) * gap;
+  const startX = (CW - totalW) / 2;
+  ctx.font = '5px sans-serif';
+  ctx.textAlign = 'center';
+  for (let i = 0; i < labels.length; i++) {
+    const bx = startX + i * (btnW + gap);
+    const by = y + (h - btnH) / 2;
+    ctx.fillStyle = '#333';
+    ctx.fillRect(bx, by, btnW, btnH);
+    ctx.strokeStyle = '#555';
+    ctx.lineWidth = 0.3;
+    ctx.strokeRect(bx, by, btnW, btnH);
+    ctx.fillStyle = '#aaa';
+    ctx.fillText(labels[i], bx + btnW / 2, by + btnH / 2 + 2);
+  }
+}
+
+// ── 전체 레이아웃 그리기 ──
+function drawLayout(canvasId, layoutKey) {
+  const cv = document.getElementById(canvasId);
+  const ctx = cv.getContext('2d');
+  const L = LAYOUTS[layoutKey];
+
+  // 배경 클리어
+  ctx.fillStyle = '#111';
+  ctx.fillRect(0, 0, CW, CH);
+
+  // HALL 영역 (헤링본 바닥)
+  const hallY = L.hall.y * S;
+  const hallH = L.hall.h * S;
+  drawHerringbone(ctx, 0, hallY, CW, hallH, S);
+
+  // 뒷벽 (옵션 B/C)
+  if (L.hasBackWall) {
+    const wallH = 25 * S; // 상단 약 25px 벽
+    drawBackWall(ctx, 0, hallY, CW, wallH);
+  }
+
+  // 입구 표시 (옵션 B/C)
+  if (L.hasEntrance) {
+    const entrH = 12 * S;
+    drawEntrance(ctx, 0, hallY + hallH - entrH, CW, entrH);
+  }
+
+  // 화분 (옵션 B/C)
+  if (L.hasPlants) {
+    const plantSize = 6;
+    // 좌상단
+    drawPlant(ctx, 12, hallY + 18 * S, plantSize);
+    // 우상단
+    drawPlant(ctx, CW - 12, hallY + 18 * S, plantSize);
+    // 좌하단
+    drawPlant(ctx, 10, hallY + hallH - 20 * S, plantSize);
+    // 우하단
+    drawPlant(ctx, CW - 10, hallY + hallH - 20 * S, plantSize);
+  }
+
+  // 아이소메트릭 테이블 그리드
+  const ox = L.grid.originX * S;
+  const oy = L.grid.originY * S;
+  const hw = L.grid.halfW * S;
+  const hh = L.grid.halfH * S;
+  const tw = L.tableW * S;
+  const th = L.tableH * S;
+
+  for (const t of TABLE_GRID) {
+    // 아이소메트릭 좌표 변환: (col, row) -> screen
+    const sx = ox + (t.col - t.row) * hw;
+    const sy = oy + (t.col + t.row) * hh;
+    drawIsoTable(ctx, sx, sy, tw, th, t.occupied);
+  }
+
+  // UI 영역들 (스케일 적용)
+  drawHUD(ctx, L.hud.y * S, L.hud.h * S);
+  drawCook(ctx, L.cook.y * S, L.cook.h * S);
+  drawStock(ctx, L.stock.y * S, L.stock.h * S);
+  drawRecipe(ctx, L.recipe.y * S, L.recipe.h * S);
+  drawBottom(ctx, L.bottom.y * S, L.bottom.h * S);
+
+  // 영역 구분선 (디버그용, 얇은 반투명)
+  ctx.strokeStyle = 'rgba(240,192,64,0.25)';
+  ctx.lineWidth = 0.5;
+  const zones = ['hud', 'hall', 'cook', 'stock', 'recipe', 'bottom'];
+  for (const z of zones) {
+    const zy = L[z].y * S;
+    const zh = L[z].h * S;
+    ctx.strokeRect(0, zy, CW, zh);
+  }
+
+  // 영역 라벨
+  ctx.fillStyle = 'rgba(240,192,64,0.5)';
+  ctx.font = '5px sans-serif';
+  ctx.textAlign = 'left';
+  for (const z of zones) {
+    const zy = L[z].y * S;
+    const zh = L[z].h * S;
+    ctx.fillText(z.toUpperCase() + ' (' + L[z].h + 'px)', 2, zy + 6);
+  }
+}
+
+// ── 메인 ──
+drawLayout('cvA', 'A');
+drawLayout('cvB', 'B');
+drawLayout('cvC', 'C');
+</script>
+</body>
+</html>
