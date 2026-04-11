@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>깊이 분할 데모 (My Cafe 방식)</title>
+<style>
+  body { background: #1a1a2e; color: #eee; font-family: sans-serif; margin: 0; padding: 20px; }
+  h2 { text-align: center; margin: 0 0 6px; font-size: 16px; }
+  p.sub { text-align: center; font-size: 11px; color: #aaa; margin: 0 0 16px; }
+  .row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .panel { background: #2a2a3e; border-radius: 8px; padding: 12px; text-align: center; }
+  .panel h3 { font-size: 12px; color: #f0c040; margin: 0 0 4px; }
+  .panel p { font-size: 10px; color: #888; margin: 0 0 8px; }
+  canvas { display: block; border: 1px solid #444; border-radius: 4px; }
+  .controls { text-align: center; margin-bottom: 14px; }
+  button { background: #f0c040; color: #1a1a2e; border: none; border-radius: 6px; padding: 8px 20px; font-size: 13px; font-weight: bold; cursor: pointer; margin: 3px; }
+  button:hover { background: #ffd860; }
+  .s-btn { background: #3a3a5e; color: #eee; font-size: 11px; padding: 5px 10px; }
+  .s-btn.active { background: #f0c040; color: #1a1a2e; }
+  label { font-size: 11px; color: #aaa; }
+  input[type=range] { width: 120px; vertical-align: middle; }
+  #splitVal { color: #f0c040; font-size: 11px; margin-left: 4px; }
+</style>
+</head>
+<body>
+
+<h2>깊이 분할 데모 — My Cafe 방식</h2>
+<p class="sub">테이블을 앞/뒤로 쪼개 캐릭터를 사이에 끼워넣기</p>
+
+<div class="controls">
+  <button onclick="toggleSit()">손님 <span id="togLabel">입장</span></button>
+  <span style="margin:0 10px; color:#555;">|</span>
+  <label>분할선 Y:
+    <input type="range" id="splitSlider" min="20" max="80" value="45"
+           oninput="splitPct=+this.value; document.getElementById('splitVal').textContent=this.value+'%'; drawAll();">
+    <span id="splitVal">45%</span>
+  </label>
+  <span style="margin:0 10px; color:#555;">|</span>
+  <label>손님 Y 오프셋:
+    <input type="range" id="custSlider" min="-60" max="20" value="-10"
+           oninput="custOff=+this.value; document.getElementById('custOffVal').textContent=this.value; drawAll();">
+    <span id="custOffVal" style="color:#f0c040;font-size:11px;">-10</span>
+  </label>
+  <span style="margin:0 10px; color:#555;">|</span>
+  손님:
+  <button class="s-btn active" onclick="setCust('normal')">일반</button>
+  <button class="s-btn" onclick="setCust('vip')">VIP</button>
+  <button class="s-btn" onclick="setCust('gourmet')">미식가</button>
+  <button class="s-btn" onclick="setCust('rushed')">급함</button>
+</div>
+
+<div class="row">
+  <div class="panel">
+    <h3>깊이 분할 (My Cafe 방식)</h3>
+    <p>테이블 뒤 → 캐릭터 → 테이블 앞면</p>
+    <canvas id="cvDepth" width="200" height="240"></canvas>
+  </div>
+  <div class="panel">
+    <h3>현재 방식 (비교)</h3>
+    <p>테이블 전체 → 캐릭터 아이콘 부유</p>
+    <canvas id="cvCurrent" width="200" height="240"></canvas>
+  </div>
+  <div class="panel">
+    <h3>분할선 시각화</h3>
+    <p>빨간선 = 테이블 분할 Y 위치</p>
+    <canvas id="cvDebug" width="200" height="240"></canvas>
+  </div>
+</div>
+
+<script>
+const IMGS = {};
+let sitting = false;
+let custType = 'normal';
+let splitPct = 45;   // 테이블 스프라이트 높이 대비 분할 % (위쪽이 '뒤')
+let custOff  = -10;  // 손님 Y 오프셋 조정
+let loadedCount = 0;
+const KEYS = ['table0', 'normal', 'vip', 'gourmet', 'rushed'];
+
+function load(key, src) {
+  const img = new Image();
+  img.onload = img.onerror = () => { IMGS[key] = img.naturalWidth ? img : null; loadedCount++; if (loadedCount >= KEYS.length) drawAll(); };
+  img.src = src;
+}
+
+load('table0',  '../service/table_lv0.png');
+load('normal',  '../service/customer_normal.png');
+load('vip',     '../service/customer_vip.png');
+load('gourmet', '../service/customer_gourmet.png');
+load('rushed',  '../service/customer_rushed.png');
+
+// 바닥 그리기
+function drawFloor(ctx, w, h) {
+  ctx.fillStyle = '#c8a87a';
+  ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = 'rgba(0,0,0,0.07)';
+  ctx.lineWidth = 0.5;
+  for (let y = 0; y < h; y += 14) for (let x = 0; x < w; x += 14) ctx.strokeRect(x, y, 14, 14);
+}
+
+// ─── 깊이 분할 렌더링 ───
+function drawDepthSplit(ctx, cx, cy, tbl, cust) {
+  if (!tbl) return;
+  const TW = 112, TH = 88; // 테이블 표시 크기 (원본 96×96 → 약간 확대)
+  const tx = cx - TW / 2;
+  const ty = cy - TH;
+  const splitY = ty + TH * (splitPct / 100); // 분할선 절대 Y
+
+  if (!sitting || !cust) {
+    ctx.drawImage(tbl, tx, ty, TW, TH);
+    return;
+  }
+
+  // 1. 테이블 뒷부분 (상판 위쪽) — splitY 위만
+  ctx.save();
+  ctx.beginPath(); ctx.rect(0, 0, 9999, splitY); ctx.clip();
+  ctx.drawImage(tbl, tx, ty, TW, TH);
+  ctx.restore();
+
+  // 2. 캐릭터 — 전신 스프라이트, 허리가 splitY 근처에 오도록 배치
+  const CW = cust.naturalWidth  * 1.8;
+  const CH = cust.naturalHeight * 1.8;
+  // 캐릭터 발 위치: splitY + 캐릭터 키의 절반 정도 아래 (테이블 앞다리 사이)
+  const custFeetY = splitY + CH * 0.52 + custOff;
+  const custX = cx - CW / 2;
+  ctx.drawImage(cust, custX, custFeetY - CH, CW, CH);
+
+  // 3. 테이블 앞부분 (앞면+앞다리) — splitY 아래만
+  ctx.save();
+  ctx.beginPath(); ctx.rect(0, splitY, 9999, 9999); ctx.clip();
+  ctx.drawImage(tbl, tx, ty, TW, TH);
+  ctx.restore();
+
+  // 4. 말풍선 (테이블 위)
+  drawBubble(ctx, cx, ty - 8, custType);
+}
+
+// ─── 현재 방식 (비교용) ───
+function drawCurrent(ctx, cx, cy, tbl, cust) {
+  if (!tbl) return;
+  const TW = 112, TH = 88;
+  const tx = cx - TW / 2, ty = cy - TH;
+  ctx.drawImage(tbl, tx, ty, TW, TH);
+
+  if (sitting && cust) {
+    // 손님 아이콘 부유
+    const IW = cust.naturalWidth  * 1.4;
+    const IH = cust.naturalHeight * 1.4;
+    ctx.drawImage(cust, cx - IW/2, ty - IH - 4, IW, IH);
+    drawBubble(ctx, cx, ty - IH - 12, custType);
+  }
+}
+
+// ─── 디버그: 분할선 시각화 ───
+function drawDebug(ctx, cx, cy, tbl) {
+  if (!tbl) return;
+  const TW = 112, TH = 88;
+  const tx = cx - TW / 2, ty = cy - TH;
+  const splitY = ty + TH * (splitPct / 100);
+
+  ctx.globalAlpha = 0.5;
+  ctx.drawImage(tbl, tx, ty, TW, TH);
+  ctx.globalAlpha = 1;
+
+  // 분할선
+  ctx.strokeStyle = '#ff4444';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 3]);
+  ctx.beginPath(); ctx.moveTo(tx - 10, splitY); ctx.lineTo(tx + TW + 10, splitY); ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = '#ff4444';
+  ctx.font = 'bold 9px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText(`분할 ${splitPct}%`, tx + TW + 2, splitY + 4);
+
+  // 위 영역 (뒤) 표시
+  ctx.fillStyle = 'rgba(0,100,255,0.12)';
+  ctx.fillRect(tx, ty, TW, splitY - ty);
+  ctx.fillStyle = '#66aaff';
+  ctx.font = '8px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('뒤 (먼저 그림)', cx, ty + (splitY - ty) / 2);
+
+  // 아래 영역 (앞) 표시
+  ctx.fillStyle = 'rgba(255,100,0,0.12)';
+  ctx.fillRect(tx, splitY, TW, ty + TH - splitY);
+  ctx.fillStyle = '#ffaa66';
+  ctx.fillText('앞 (나중에 그림)', cx, splitY + (ty + TH - splitY) / 2);
+}
+
+function drawBubble(ctx, cx, by, type) {
+  const labels = { normal:'😊 주문할게요!', vip:'⭐ VIP 손님', gourmet:'🍷 미식가', rushed:'⚡ 서둘러요!' };
+  ctx.fillStyle = 'rgba(255,220,60,0.93)';
+  ctx.beginPath();
+  roundRect(ctx, cx - 26, by - 16, 52, 14, 4);
+  ctx.fill();
+  ctx.fillStyle = '#333';
+  ctx.font = '7px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(labels[type] || '😊', cx, by - 5);
+}
+
+function drawPanel(canvasId, drawFn) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, 200, 240);
+  drawFloor(ctx, 200, 240);
+  const tbl  = IMGS['table0'];
+  const cust = IMGS[custType];
+  drawFn(ctx, 100, 175, tbl, cust);
+}
+
+function drawAll() {
+  drawPanel('cvDepth',   (ctx, cx, cy, tbl, cust) => drawDepthSplit(ctx, cx, cy, tbl, cust));
+  drawPanel('cvCurrent', (ctx, cx, cy, tbl, cust) => drawCurrent(ctx, cx, cy, tbl, cust));
+  drawPanel('cvDebug',   (ctx, cx, cy, tbl)       => drawDebug(ctx, cx, cy, tbl));
+}
+
+function toggleSit() {
+  sitting = !sitting;
+  document.getElementById('togLabel').textContent = sitting ? '퇴장' : '입장';
+  drawAll();
+}
+
+function setCust(type) {
+  custType = type;
+  document.querySelectorAll('.s-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  drawAll();
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+</script>
+</body>
+</html>
