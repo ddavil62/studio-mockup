@@ -1050,14 +1050,14 @@
     });
 
     // 적 (경로 위 애니메이션)
-    const tick = (Date.now() / 500) | 0;
+    const tick = Math.floor(Date.now() / 500); // | 0은 32bit 오버플로우 발생
     const pathArr = [...ISO_PATH].map(k => {
       const [c, r] = k.split(',').map(Number);
       return { c, r, d: c + r };
     }).sort((a, b) => a.d - b.d);
 
     [...gs.activeEnemies].slice(0, 4).forEach((eid, ei) => {
-      const pos = (ei * 5 + tick) % pathArr.length;
+      const pos = ((ei * 5 + tick) % pathArr.length + pathArr.length) % pathArr.length;
       const { c, r } = pathArr[pos];
       const { x, y } = isoToScreen(c, r);
       if (y < G_HUD_H || y > G_TOWER_BAR_Y) return;
