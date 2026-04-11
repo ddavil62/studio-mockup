@@ -597,12 +597,13 @@
     spice_grinder: { icon: '⚙️', nameKo: '향신료 그라인더', desc: '독성 도트 데미지',  cost: 160, maxCount: 3, color: '#ff8c00' },
   };
 
+  // portraitKey: 실제 portrait_*.png 파일명 매핑
   const CHEF_DEFS = [
-    { id: 'petit_chef', nameKo: '꼬마 셰프',  icon: '🍳', color: '#ffcc00', locked: false },
-    { id: 'flame_chef', nameKo: '불꽃 요리사', icon: '🔥', color: '#ff4500', locked: false },
-    { id: 'ice_chef',   nameKo: '얼음 요리장', icon: '❄️', color: '#00bfff', locked: true  },
-    { id: 'yuki_chef',  nameKo: '유키',        icon: '🌸', color: '#ff69b4', locked: true  },
-    { id: 'lao_chef',   nameKo: '라오',        icon: '🐉', color: '#ff4500', locked: true  },
+    { id: 'petit_chef', nameKo: '꼬마 셰프',  icon: '🍳', color: '#ffcc00', locked: false, portraitKey: 'mimi' },
+    { id: 'flame_chef', nameKo: '불꽃 요리사', icon: '🔥', color: '#ff4500', locked: false, portraitKey: 'poco' },
+    { id: 'ice_chef',   nameKo: '얼음 요리장', icon: '❄️', color: '#00bfff', locked: true,  portraitKey: 'rin'  },
+    { id: 'yuki_chef',  nameKo: '유키',        icon: '🌸', color: '#ff69b4', locked: true,  portraitKey: 'yuki' },
+    { id: 'lao_chef',   nameKo: '라오',        icon: '🐉', color: '#ff4500', locked: true,  portraitKey: 'lao'  },
   ];
 
   const CUSTOMER_TYPES = [
@@ -635,7 +636,7 @@
   const INGREDIENTS = [
     { id:'carrot', icon:'🥕', nameKo:'당근', count:10 },
     { id:'meat',   icon:'🥩', nameKo:'고기', count:8  },
-    { id:'squid',  icon:'🦑', nameKo:'문어', count:4  },
+    { id:'octopus',icon:'🦑', nameKo:'문어', count:4  },
     { id:'chili',  icon:'🌶', nameKo:'고추', count:3  },
     { id:'flour',  icon:'🌾', nameKo:'밀가루',count:6 },
   ];
@@ -695,7 +696,7 @@
       ...CUSTOMER_TYPES.map(c => loadImg(`customer_${c.id}`, `../service/customer_${c.id}.png`)),
       ...TOOL_ORDER.map(id => loadImg(`tower_${id}`, `../assets/towers/${id}/tower.png`)),
       ...CHEF_DEFS.map(c => loadImg(`chef_${c.id}`, `../assets/chefs/${c.id}/rotations/south.png`)),
-      ...CHEF_DEFS.map(c => loadImg(`portrait_${c.id.replace('_chef','')}`, `../assets/portraits/portrait_${c.id.replace('_chef','')}.png`)),
+      ...CHEF_DEFS.map(c => loadImg(`portrait_${c.portraitKey}`, `../assets/portraits/portrait_${c.portraitKey}.png`)),
       loadImg('tileset_oriental_bamboo', '../assets/tilesets/oriental_bamboo.png'),
       loadImg('tileset_pasta_field',     '../assets/tilesets/pasta_field.png'),
       loadImg('tileset_seafood_beach',   '../assets/tilesets/seafood_beach.png'),
@@ -1330,8 +1331,8 @@
       const owned = state.merchant.ownedChefs.has(ch.id);
       const card = document.createElement('div');
       card.className = `chef-card ${owned ? 'unlocked' : ''}`;
-      const portKey = `portrait_${ch.id.replace('_chef', '')}`;
-      const portSrc = `../assets/portraits/portrait_${ch.id.replace('_chef', '')}.png`;
+      const portKey = `portrait_${ch.portraitKey}`;
+      const portSrc = `../assets/portraits/portrait_${ch.portraitKey}.png`;
       card.innerHTML = images[portKey]
         ? `<img src="${portSrc}" class="chef-portrait" style="image-rendering:pixelated;">`
         : `<div class="chef-portrait" style="font-size:28px;line-height:48px;">${ch.icon}</div>`;
