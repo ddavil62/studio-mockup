@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - Service 씬</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    /* ── Service 씬 레이아웃 ── */
+    .scene-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* ── 컨트롤 패널 ── */
+    .control-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .control-panel h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* ── 프리셋 버튼 ── */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .preset-btn {
+      padding: 8px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .preset-btn:hover {
+      border-color: #ff6b35;
+      color: #ff6b35;
+      background: rgba(255, 107, 53, 0.08);
+    }
+
+    /* ── 재료 슬라이더 ── */
+    .ingredient-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 0;
+      font-size: 0.82rem;
+    }
+
+    .ingredient-row label {
+      width: 64px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .ingredient-row input[type="range"] {
+      flex: 1;
+      accent-color: #ff6b35;
+      cursor: pointer;
+    }
+
+    .ingredient-row .ing-val {
+      width: 24px;
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    /* ── 레시피 선택 ── */
+    .recipe-select {
+      width: 100%;
+      padding: 8px 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    /* ── 골드 슬라이더 ── */
+    .gold-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .gold-row label { color: var(--text-secondary); font-size: 0.85rem; }
+
+    .gold-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent-gold);
+    }
+
+    .gold-row .gold-val {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      width: 48px;
+      text-align: right;
+    }
+
+    /* ── 씬 뷰 ── */
+    .scene-view {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    /* ── 상태 표시 ── */
+    .state-display {
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .state-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .state-row:last-child { border-bottom: none; }
+    .state-row .k { color: var(--text-secondary); }
+    .state-row .v { color: var(--text-primary); font-weight: 600; }
+    .state-row .v.warn { color: var(--accent-ember); }
+    .state-row .v.gold-color { color: var(--accent-gold); }
+
+    /* ── 재료 칩 ── */
+    .ingredient-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .ing-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.78rem;
+    }
+
+    .ing-chip.zero { opacity: 0.35; }
+    .ing-chip.needed { border-color: #ff6b35; color: #ff6b35; }
+
+    /* ── 액션 버튼 ── */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .action-btn {
+      padding: 12px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .action-btn:active { transform: scale(0.97); }
+
+    .btn-serve {
+      background: rgba(74, 232, 138, 0.15);
+      border: 1px solid var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .btn-serve:hover { background: rgba(74, 232, 138, 0.25); }
+    .btn-serve:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-lose {
+      background: rgba(255, 74, 106, 0.12);
+      border: 1px solid var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    .btn-lose:hover { background: rgba(255, 74, 106, 0.22); }
+
+    .btn-end-round {
+      grid-column: 1 / -1;
+      background: rgba(212, 168, 67, 0.12);
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .btn-end-round:hover { background: rgba(212, 168, 67, 0.22); }
+
+    .btn-reset {
+      grid-column: 1 / -1;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      padding: 8px;
+    }
+
+    .btn-reset:hover { color: var(--text-secondary); border-color: var(--text-secondary); }
+
+    /* ── 콤보 표시 ── */
+    .combo-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(74, 158, 255, 0.15);
+      border: 1px solid var(--accent-blue);
+      color: var(--accent-blue);
+      transition: all 0.2s;
+    }
+
+    .combo-badge.hot {
+      background: rgba(255, 107, 53, 0.2);
+      border-color: #ff6b35;
+      color: #ff6b35;
+    }
+
+    /* ── 피드백 패널 (mock-metrics 렌더링 대상) ── */
+    .metrics-panel {
+      background: var(--bg-secondary);
+      border-left: 3px solid #ff6b35;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 16px;
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    .metrics-panel.metrics-empty {
+      color: var(--text-muted);
+      font-style: italic;
+      border-left-color: var(--border);
+    }
+
+    .metrics-header {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metrics-rounds {
+      font-size: 0.72rem;
+      background: rgba(255, 107, 53, 0.15);
+      color: #ff6b35;
+      padding: 1px 6px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+    }
+
+    .metrics-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 2px 0;
+    }
+
+    .metrics-icon { font-size: 1rem; flex-shrink: 0; }
+    .metrics-label { color: var(--text-secondary); flex: 1; }
+    .metrics-value { font-family: var(--font-mono); font-weight: 600; }
+    .metrics-sub { color: var(--text-muted); font-size: 0.78rem; font-weight: 400; }
+
+    .metrics-total {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .metrics-total b { color: var(--accent-gold); }
+
+    /* ── 피드백 토스트 ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: all 0.25s;
+      pointer-events: none;
+      z-index: 999;
+      white-space: nowrap;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #ff6b35;">Kitchen Chaos</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> /
+      <a href="../index.html">Kitchen Chaos</a> /
+      Service 씬
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Assets</div>
+    <a href="../index.html">Overview</a>
+    <a href="../enemies/index.html">Enemies</a>
+    <a href="../towers/index.html">Towers</a>
+    <a href="../chefs/index.html">Chefs</a>
+    <a href="../tilesets/index.html">Tilesets</a>
+    <a href="../ingredients/index.html">Ingredients</a>
+    <a href="../portraits/index.html">Characters</a>
+    <a href="../dialogues/index.html">Dialogues</a>
+    <div class="section-title" style="margin-top:12px;">Scenes</div>
+    <a href="index.html" class="active">Service</a>
+  </nav>
+
+  <main class="content">
+    <h2 style="margin-bottom: 4px;">Service 씬 — 밸런스 테스트</h2>
+    <p class="text-muted" style="font-size:0.82rem; margin-bottom:20px;">
+      프리셋 선택 → 서빙/이탈 버튼 클릭 → 밸런스 패널 확인
+    </p>
+
+    <div class="scene-layout">
+
+      <!-- ── 왼쪽: 씬 뷰 + 액션 ── -->
+      <div>
+        <!-- 상태 표시 -->
+        <div class="scene-view" style="margin-bottom:16px;">
+          <div id="state-display" class="state-display">
+            <!-- renderScene()이 채운다 -->
+          </div>
+
+          <!-- 재료 현황 -->
+          <div id="ingredient-chips" class="ingredient-chips">
+            <!-- renderScene()이 채운다 -->
+          </div>
+
+          <!-- 액션 버튼 -->
+          <div class="action-grid">
+            <button class="action-btn btn-serve" id="btn-serve">
+              ✅ 서빙 성공
+            </button>
+            <button class="action-btn btn-lose" id="btn-lose">
+              ❌ 손님 이탈
+            </button>
+            <button class="action-btn btn-end-round" id="btn-end-round">
+              🔔 라운드 종료
+            </button>
+            <button class="action-btn btn-reset" id="btn-reset">
+              초기화 (프리셋 + 지표)
+            </button>
+          </div>
+        </div>
+
+        <!-- 밸런스 패널 -->
+        <div id="metrics-output">
+          <!-- MockMetrics.render()가 채운다 -->
+        </div>
+      </div>
+
+      <!-- ── 오른쪽: 컨트롤 패널 ── -->
+      <div>
+        <!-- 프리셋 -->
+        <div class="control-panel" style="margin-bottom:16px;">
+          <h3>프리셋</h3>
+          <div class="preset-grid" id="preset-grid">
+            <!-- JS가 채운다 -->
+          </div>
+        </div>
+
+        <!-- 레시피 선택 -->
+        <div class="control-panel" style="margin-bottom:16px;">
+          <h3>레시피 선택</h3>
+          <select class="recipe-select" id="recipe-select">
+            <!-- JS가 채운다 -->
+          </select>
+          <div id="recipe-info" style="font-size:0.8rem; color:var(--text-secondary); line-height:1.6;">
+            <!-- renderScene()이 채운다 -->
+          </div>
+        </div>
+
+        <!-- 골드 -->
+        <div class="control-panel" style="margin-bottom:16px;">
+          <h3>골드</h3>
+          <div class="gold-row">
+            <label>💰</label>
+            <input type="range" id="gold-slider" min="0" max="9999" step="50" value="500">
+            <span class="gold-val" id="gold-display">500</span>
+          </div>
+        </div>
+
+        <!-- 재료 -->
+        <div class="control-panel">
+          <h3>재료 수량</h3>
+          <div id="ingredient-controls">
+            <!-- JS가 채운다 -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 토스트 -->
+  <div id="toast"></div>
+
+  <script src="../../shared/app.js"></script>
+  <script src="../lib/mock-state.js"></script>
+  <script src="../lib/mock-metrics.js"></script>
+  <script>
+    // ── 렌더링 ──
+
+    function renderScene() {
+      const s = MockState;
+      const recipe = s.selectedRecipe;
+      const canServe = s.canServe();
+
+      // 상태 표시
+      document.getElementById('state-display').innerHTML = `
+        <div class="state-row">
+          <span class="k">골드</span>
+          <span class="v gold-color">${s.gold.toLocaleString()} G</span>
+        </div>
+        <div class="state-row">
+          <span class="k">선택 레시피</span>
+          <span class="v">${recipe.icon} ${recipe.nameKo} (+${recipe.baseReward}G)</span>
+        </div>
+        <div class="state-row">
+          <span class="k">서빙 가능</span>
+          <span class="v ${canServe ? '' : 'warn'}">${canServe ? '✅ 가능' : '⚠️ 재료 부족'}</span>
+        </div>
+        <div class="state-row">
+          <span class="k">콤보</span>
+          <span class="v">
+            <span class="combo-badge ${s.comboCount >= 3 ? 'hot' : ''}">
+              ${s.comboCount}콤보
+            </span>
+          </span>
+        </div>
+      `;
+
+      // 재료 칩: 현재 레시피 필요 재료 강조
+      const needed = recipe.ingredients;
+      document.getElementById('ingredient-chips').innerHTML =
+        s.INGREDIENT_KEYS.map(key => {
+          const cnt = s.ingredients[key] || 0;
+          const isNeeded = needed[key] && cnt < needed[key];
+          const cls = cnt === 0 ? 'zero' : (isNeeded ? 'needed' : '');
+          return `<span class="ing-chip ${cls}">${s.INGREDIENT_NAMES[key]} ${cnt}</span>`;
+        }).join('');
+
+      // 서빙 버튼 활성화
+      document.getElementById('btn-serve').disabled = !canServe;
+
+      // 레시피 정보
+      const ingStr = Object.entries(recipe.ingredients)
+        .map(([k, v]) => `${s.INGREDIENT_NAMES[k]}×${v}`)
+        .join(', ');
+      document.getElementById('recipe-info').innerHTML =
+        `필요 재료: ${ingStr}<br>기본 보상: ${recipe.baseReward}G · 등급: ${'★'.repeat(recipe.tier)}`;
+
+      // 골드 슬라이더 동기화
+      document.getElementById('gold-slider').value = s.gold;
+      document.getElementById('gold-display').textContent = s.gold;
+
+      // 재료 슬라이더 동기화
+      s.INGREDIENT_KEYS.forEach(key => {
+        const slider = document.getElementById(`ing-slider-${key}`);
+        const val    = document.getElementById(`ing-val-${key}`);
+        if (slider) slider.value = s.ingredients[key];
+        if (val)    val.textContent = s.ingredients[key];
+      });
+
+      // 밸런스 패널
+      MockMetrics.render('metrics-output');
+    }
+
+    // ── 컨트롤 빌드 ──
+
+    function buildControls() {
+      // 프리셋 버튼
+      const presetGrid = document.getElementById('preset-grid');
+      Object.keys(MockState.presets).forEach(name => {
+        const btn = document.createElement('button');
+        btn.className = 'preset-btn';
+        btn.textContent = name;
+        btn.addEventListener('click', () => {
+          MockState.applyPreset(name);
+          renderScene();
+          toast(`프리셋 적용: ${name}`);
+        });
+        presetGrid.appendChild(btn);
+      });
+
+      // 레시피 셀렉트
+      const sel = document.getElementById('recipe-select');
+      MockState.RECIPES.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = r.id;
+        opt.textContent = `${r.icon} ${r.nameKo} (+${r.baseReward}G)`;
+        sel.appendChild(opt);
+      });
+      sel.value = MockState.selectedRecipeId;
+      sel.addEventListener('change', () => {
+        MockState.selectedRecipeId = sel.value;
+        renderScene();
+      });
+
+      // 골드 슬라이더
+      document.getElementById('gold-slider').addEventListener('input', e => {
+        MockState.gold = parseInt(e.target.value);
+        document.getElementById('gold-display').textContent = MockState.gold;
+        renderScene();
+      });
+
+      // 재료 슬라이더
+      const ingCtrl = document.getElementById('ingredient-controls');
+      MockState.INGREDIENT_KEYS.forEach(key => {
+        const row = document.createElement('div');
+        row.className = 'ingredient-row';
+        row.innerHTML = `
+          <label>${MockState.INGREDIENT_NAMES[key]}</label>
+          <input type="range" id="ing-slider-${key}" min="0" max="15" value="${MockState.ingredients[key]}">
+          <span class="ing-val" id="ing-val-${key}">${MockState.ingredients[key]}</span>
+        `;
+        ingCtrl.appendChild(row);
+
+        row.querySelector(`#ing-slider-${key}`).addEventListener('input', e => {
+          MockState.ingredients[key] = parseInt(e.target.value);
+          document.getElementById(`ing-val-${key}`).textContent = MockState.ingredients[key];
+          renderScene();
+        });
+      });
+    }
+
+    // ── 액션 버튼 핸들러 ──
+
+    document.getElementById('btn-serve').addEventListener('click', () => {
+      const recipe = MockState.selectedRecipe;
+      MockState.consumeIngredients();
+      MockState.gold += recipe.baseReward;
+      MockState.comboCount += 1;
+
+      MockMetrics.customersServed += 1;
+      MockMetrics.goldEarned      += recipe.baseReward;
+      if (MockState.comboCount > MockMetrics.comboMax) {
+        MockMetrics.comboMax = MockState.comboCount;
+      }
+
+      renderScene();
+      toast(`+${recipe.baseReward}G — ${recipe.nameKo} 서빙!`);
+    });
+
+    document.getElementById('btn-lose').addEventListener('click', () => {
+      MockMetrics.customersLost += 1;
+      MockState.comboCount = 0;
+      renderScene();
+      toast('손님 이탈 — 콤보 리셋');
+    });
+
+    document.getElementById('btn-end-round').addEventListener('click', () => {
+      const wasted = MockState.totalIngredients();
+      MockMetrics.ingredientsWasted += wasted;
+      MockMetrics.roundsPlayed      += 1;
+      renderScene();
+      toast(`라운드 종료 — 재료 낭비 ${wasted}개 기록`);
+    });
+
+    document.getElementById('btn-reset').addEventListener('click', () => {
+      MockState.applyPreset('정상 운영');
+      MockMetrics.reset();
+      renderScene();
+      toast('초기화 완료');
+    });
+
+    // ── 토스트 ──
+
+    let toastTimer = null;
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 1800);
+    }
+
+    // ── 초기화 ──
+    buildControls();
+    renderScene();
+  </script>
+</body>
+</html>
