@@ -25,7 +25,7 @@
 <body>
 
 <h2>깊이 분할 데모 — My Cafe 방식</h2>
-<p class="sub">테이블을 앞/뒤로 쪼개 캐릭터를 사이에 끼워넣기</p>
+<p class="sub">테이블을 앞/뒤로 쪼개 캐릭터를 사이에 끼워넣기 (일반 손님: 실제 앉은 포즈 스프라이트)</p>
 
 <div class="controls">
   <button onclick="toggleSit()">손님 <span id="togLabel">입장</span></button>
@@ -74,7 +74,7 @@ let custType = 'normal';
 let splitPct = 45;   // 테이블 스프라이트 높이 대비 분할 % (위쪽이 '뒤')
 let custOff  = -10;  // 손님 Y 오프셋 조정
 let loadedCount = 0;
-const KEYS = ['table0', 'normal', 'vip', 'gourmet', 'rushed'];
+const KEYS = ['table0', 'normal', 'normal_sitting', 'vip', 'gourmet', 'rushed'];
 
 function load(key, src) {
   const img = new Image();
@@ -82,11 +82,12 @@ function load(key, src) {
   img.src = src;
 }
 
-load('table0',  '../service/table_lv0.png');
-load('normal',  '../service/customer_normal.png');
-load('vip',     '../service/customer_vip.png');
-load('gourmet', '../service/customer_gourmet.png');
-load('rushed',  '../service/customer_rushed.png');
+load('table0',         '../service/table_lv0.png');
+load('normal',         '../service/customer_normal.png');
+load('normal_sitting', '../service/customer_normal_sitting.png');  // 앉은 포즈 (PixelLab crouching 프레임)
+load('vip',            '../service/customer_vip.png');
+load('gourmet',        '../service/customer_gourmet.png');
+load('rushed',         '../service/customer_rushed.png');
 
 // 바닥 그리기
 function drawFloor(ctx, w, h) {
@@ -110,19 +111,22 @@ function drawDepthSplit(ctx, cx, cy, tbl, cust) {
     return;
   }
 
+  // 앉은 포즈 스프라이트: normal 손님은 별도 sitting 이미지 사용
+  const sittingImg = (custType === 'normal' && IMGS['normal_sitting']) ? IMGS['normal_sitting'] : cust;
+
   // 1. 테이블 뒷부분 (상판 위쪽) — splitY 위만
   ctx.save();
   ctx.beginPath(); ctx.rect(0, 0, 9999, splitY); ctx.clip();
   ctx.drawImage(tbl, tx, ty, TW, TH);
   ctx.restore();
 
-  // 2. 캐릭터 — 전신 스프라이트, 허리가 splitY 근처에 오도록 배치
-  const CW = cust.naturalWidth  * 1.8;
-  const CH = cust.naturalHeight * 1.8;
+  // 2. 캐릭터 — 앉은(혹은 서있는) 스프라이트, 허리가 splitY 근처에 오도록 배치
+  const CW = sittingImg.naturalWidth  * 1.8;
+  const CH = sittingImg.naturalHeight * 1.8;
   // 캐릭터 발 위치: splitY + 캐릭터 키의 절반 정도 아래 (테이블 앞다리 사이)
   const custFeetY = splitY + CH * 0.52 + custOff;
   const custX = cx - CW / 2;
-  ctx.drawImage(cust, custX, custFeetY - CH, CW, CH);
+  ctx.drawImage(sittingImg, custX, custFeetY - CH, CW, CH);
 
   // 3. 테이블 앞부분 (앞면+앞다리) — splitY 아래만
   ctx.save();
