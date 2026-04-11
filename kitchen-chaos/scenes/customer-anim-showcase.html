@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>손님 애니메이션 세트 — customer_normal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1a1a2e; color: #eee; font-family: sans-serif; padding: 20px; }
+  h1 { text-align: center; font-size: 16px; color: #f0c040; margin-bottom: 4px; }
+  p.sub { text-align: center; font-size: 10px; color: #888; margin-bottom: 18px; }
+
+  /* ── 애니메이션 그리드 ── */
+  .anim-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 760px;
+    margin: 0 auto 24px;
+  }
+  .anim-card {
+    background: #252540;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+  .anim-card h3 { font-size: 11px; color: #f0c040; margin-bottom: 2px; }
+  .anim-card p  { font-size: 9px;  color: #888; margin-bottom: 6px; }
+  .anim-card canvas {
+    display: block;
+    margin: 0 auto;
+    image-rendering: pixelated;
+    border: 1px solid #333;
+    border-radius: 4px;
+  }
+  .fps-label { font-size: 9px; color: #555; margin-top: 4px; }
+
+  /* ── 깊이 분할 데모 ── */
+  .split-section { max-width: 760px; margin: 0 auto; }
+  .split-section h2 { font-size: 13px; color: #f0c040; margin-bottom: 8px; border-bottom: 1px solid #333; padding-bottom: 4px; }
+  .split-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .split-panel { background: #252540; border-radius: 8px; padding: 10px; text-align: center; }
+  .split-panel h3 { font-size: 11px; color: #f0c040; margin-bottom: 2px; }
+  .split-panel p  { font-size: 9px;  color: #888; margin-bottom: 6px; }
+  .split-panel canvas { display: block; border: 1px solid #333; border-radius: 4px; image-rendering: pixelated; }
+
+  .controls { text-align: center; margin-bottom: 12px; font-size: 10px; color: #aaa; }
+  .controls label { margin: 0 6px; }
+  .controls input[type=range] { width: 100px; vertical-align: middle; }
+  .val { color: #f0c040; }
+  .state-btn { background: #333; color: #ccc; border: none; border-radius: 4px; padding: 4px 10px; font-size: 10px; cursor: pointer; margin: 2px; }
+  .state-btn.active { background: #f0c040; color: #1a1a2e; }
+</style>
+</head>
+<body>
+<h1>손님 애니메이션 세트 — customer_normal</h1>
+<p class="sub">PixelLab 생성 | 32px | low top-down | 4방향(south) | 2026-04-11</p>
+
+<!-- ── 6종 애니메이션 그리드 ── -->
+<div class="anim-grid" id="animGrid"></div>
+
+<!-- ── 깊이 분할 데모 ── -->
+<div class="split-section">
+  <h2>앉은 상태 렌더링 — 깊이 분할 (My Cafe 방식)</h2>
+  <div class="controls">
+    <label>상태:
+      <button class="state-btn active" data-anim="sit"     onclick="setTableAnim('sit')">착석(sit)</button>
+      <button class="state-btn"        data-anim="eat"     onclick="setTableAnim('eat')">식사(eat)</button>
+      <button class="state-btn"        data-anim="happy"   onclick="setTableAnim('happy')">만족</button>
+      <button class="state-btn"        data-anim="neutral" onclick="setTableAnim('neutral')">덤덤</button>
+      <button class="state-btn"        data-anim="angry"   onclick="setTableAnim('angry')">화남</button>
+    </label>
+    <label style="margin-left:16px">분할선:
+      <input type="range" id="slSplit" min="25" max="65" value="42"
+        oninput="splitPct=+this.value; document.getElementById('vSplit').textContent=this.value+'%';">
+      <span class="val" id="vSplit">42%</span>
+    </label>
+    <label>오프셋:
+      <input type="range" id="slOff" min="-30" max="30" value="0"
+        oninput="custOff=+this.value; document.getElementById('vOff').textContent=this.value;">
+      <span class="val" id="vOff">0</span>
+    </label>
+  </div>
+  <div class="split-row">
+    <div class="split-panel">
+      <h3>깊이 분할 (My Cafe)</h3>
+      <p>테이블 뒤→캐릭터→테이블 앞면</p>
+      <canvas id="cvSplit" width="200" height="240"></canvas>
+    </div>
+    <div class="split-panel">
+      <h3>원본 프레임 미리보기</h3>
+      <p>깊이 분할 없이 스프라이트만</p>
+      <canvas id="cvRaw" width="120" height="120"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+// ──────────────────────────────────
+// 애니메이션 정의
+// ──────────────────────────────────
+const BASE = '../service/customer_normal/';
+const TABLE_SRC = '../service/table_lv0.png';
+
+const ANIMS = [
+  { id: 'walk',    label: '걷기 (Walk)',          ko: '테이블 이동',     frames: 4,  fps: 8,  color: '#6ae' },
+  { id: 'sit',     label: '앉기 (Sit)',            ko: '착석 커스텀 생성', frames: 16, fps: 6,  color: '#fa6' },
+  { id: 'eat',     label: '먹기 (Eat)',            ko: '식사 중',         frames: 6,  fps: 7,  color: '#6a6' },
+  { id: 'happy',   label: '만족 (Happy)',          ko: '음식 만족 리액션', frames: 9,  fps: 10, color: '#ff6' },
+  { id: 'neutral', label: '덤덤 (Neutral)',        ko: '기대 이하',       frames: 4,  fps: 5,  color: '#888' },
+  { id: 'angry',   label: '화남 (Angry)',          ko: '불만족 리액션',   frames: 6,  fps: 9,  color: '#f66' },
+];
+
+// ──────────────────────────────────
+// 이미지 로드
+// ──────────────────────────────────
+const IMGS = {};     // key = animId+'/frame_NNN' → Image
+const LOADED = {};   // animId → bool
+let tableImg = null;
+let tableLoaded = false;
+let sitIdleImg = null;
+
+function loadFrames(animId, frameCount) {
+  LOADED[animId] = false;
+  let cnt = 0;
+  for (let i = 0; i < frameCount; i++) {
+    const key = `${animId}/${i}`;
+    const img = new Image();
+    img.onload = img.onerror = () => {
+      IMGS[key] = img.naturalWidth ? img : null;
+      if (++cnt >= frameCount) LOADED[animId] = true;
+    };
+    img.src = `${BASE}${animId}/frame_${String(i).padStart(3,'0')}.png`;
+  }
+}
+
+ANIMS.forEach(a => loadFrames(a.id, a.frames));
+
+// 테이블 이미지
+tableImg = new Image();
+tableImg.onload = tableImg.onerror = () => { tableLoaded = true; };
+tableImg.src = TABLE_SRC;
+
+// sit_idle (깊이 분할용)
+sitIdleImg = new Image();
+sitIdleImg.src = '../service/customer_normal_sit_idle.png';
+
+// ──────────────────────────────────
+// 애니메이션 카드 렌더링
+// ──────────────────────────────────
+const SCALE = 5;  // 48px × 5 = 240px 미리보기
+const CSIZE = 48 * SCALE;
+
+const grid = document.getElementById('animGrid');
+const ctxMap = {};
+const frameMap = {};
+
+ANIMS.forEach(a => {
+  const card = document.createElement('div');
+  card.className = 'anim-card';
+  card.innerHTML = `
+    <h3 style="color:${a.color}">${a.label}</h3>
+    <p>${a.ko} &nbsp;|&nbsp; ${a.frames}f @ ${a.fps}fps</p>
+    <canvas id="cv_${a.id}" width="${CSIZE}" height="${CSIZE}"></canvas>
+    <div class="fps-label">${a.fps} fps</div>`;
+  grid.appendChild(card);
+
+  const ctx = document.getElementById(`cv_${a.id}`).getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctxMap[a.id] = ctx;
+  frameMap[a.id] = 0;
+});
+
+// 애니메이션 루프
+let lastTime = 0;
+const timers = {};
+ANIMS.forEach(a => { timers[a.id] = 0; });
+
+function drawAnimCard(animId, anim) {
+  const ctx = ctxMap[animId];
+  if (!LOADED[animId]) return;
+  const f = frameMap[animId];
+  const img = IMGS[`${animId}/${f}`];
+  ctx.clearRect(0, 0, CSIZE, CSIZE);
+  ctx.fillStyle = '#1e1e2e';
+  ctx.fillRect(0, 0, CSIZE, CSIZE);
+  if (img) {
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(img, 0, 0, CSIZE, CSIZE);
+  }
+}
+
+function tick(ts) {
+  const dt = ts - lastTime;
+  lastTime = ts;
+  ANIMS.forEach(a => {
+    timers[a.id] += dt;
+    const interval = 1000 / a.fps;
+    if (timers[a.id] >= interval) {
+      timers[a.id] -= interval;
+      frameMap[a.id] = (frameMap[a.id] + 1) % a.frames;
+      drawAnimCard(a.id, a);
+    }
+  });
+  drawTableDemo();
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+// ──────────────────────────────────
+// 깊이 분할 데모
+// ──────────────────────────────────
+let tableAnim = 'sit';
+let splitPct = 42;
+let custOff = 0;
+let tableAnimFrame = 0;
+let tableAnimTimer = 0;
+
+function setTableAnim(id) {
+  tableAnim = id;
+  tableAnimFrame = 0;
+  document.querySelectorAll('.state-btn').forEach(b => b.classList.toggle('active', b.dataset.anim === id));
+}
+
+function drawTableDemo() {
+  const cvS = document.getElementById('cvSplit');
+  const cvR = document.getElementById('cvRaw');
+  const ctxS = cvS.getContext('2d');
+  const ctxR = cvR.getContext('2d');
+  ctxS.imageSmoothingEnabled = false;
+  ctxR.imageSmoothingEnabled = false;
+
+  // 현재 프레임 결정
+  const animDef = ANIMS.find(a => a.id === tableAnim);
+  if (!animDef) return;
+  const f = frameMap[tableAnim];
+  const custImg = IMGS[`${tableAnim}/${f}`];
+
+  // ── Raw 미리보기 ──
+  ctxR.clearRect(0, 0, 120, 120);
+  ctxR.fillStyle = '#1e1e2e';
+  ctxR.fillRect(0, 0, 120, 120);
+  if (custImg) ctxR.drawImage(custImg, 0, 0, 120, 120);
+
+  // ── 깊이 분할 ──
+  const W = 200, H = 240;
+  ctxS.clearRect(0, 0, W, H);
+  // 바닥
+  ctxS.fillStyle = '#c8a87a';
+  ctxS.fillRect(0, 0, W, H);
+  ctxS.strokeStyle = 'rgba(0,0,0,0.07)'; ctxS.lineWidth = 0.5;
+  for (let y = 0; y < H; y += 14) for (let x = 0; x < W; x += 14) ctxS.strokeRect(x, y, 14, 14);
+
+  if (!tableLoaded || !tableImg) return;
+
+  const TW = 112, TH = 88;
+  const cx = W / 2, cy = 175;
+  const tx = cx - TW / 2, ty = cy - TH;
+  const splitY = ty + TH * (splitPct / 100);
+
+  if (!custImg) {
+    ctxS.drawImage(tableImg, tx, ty, TW, TH);
+    return;
+  }
+
+  const CW = custImg.naturalWidth  * 2.5;
+  const CH = custImg.naturalHeight * 2.5;
+  const custFeetY = splitY + CH * 0.55 + custOff;
+  const custX = cx - CW / 2;
+  const custTopY = custFeetY - CH;
+
+  // 1. 테이블 뒷부분
+  ctxS.save(); ctxS.beginPath(); ctxS.rect(0, 0, 9999, splitY); ctxS.clip();
+  ctxS.drawImage(tableImg, tx, ty, TW, TH); ctxS.restore();
+
+  // 2. 캐릭터
+  ctxS.drawImage(custImg, custX, custTopY, CW, CH);
+
+  // 3. 테이블 앞면
+  ctxS.save(); ctxS.beginPath(); ctxS.rect(0, splitY, 9999, 9999); ctxS.clip();
+  ctxS.drawImage(tableImg, tx, ty, TW, TH); ctxS.restore();
+
+  // 4. 말풍선
+  const labels = { sit:'🪑 착석', eat:'🍽️ 식사 중', happy:'😊 맛있어요!', neutral:'😐 그저 그래', angry:'😤 불만족' };
+  const txt = labels[tableAnim] || '';
+  ctxS.fillStyle = 'rgba(255,220,60,0.93)';
+  ctxS.beginPath();
+  const bw = ctxS.measureText(txt).width + 14;
+  ctxS.roundRect(cx - bw/2, custTopY - 18, bw, 14, 4);
+  ctxS.fill();
+  ctxS.fillStyle = '#333'; ctxS.font = '9px sans-serif'; ctxS.textAlign = 'center';
+  ctxS.fillText(txt, cx, custTopY - 7);
+}
+</script>
+</body>
+</html>
