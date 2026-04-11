@@ -945,145 +945,190 @@
     text(ctx, '⏸ 일시정지', W - 40, BOTTOM_Y + BOTTOM_H / 2, { size: 9, color: '#aaaacc', align: 'center' });
   }
 
-  // ── 채집씬 그리기 ──
-  const MAP_COLS = 6, MAP_ROWS = 8;
-  // 단순 경로 맵: 0=풀, 1=길
-  const MAP_PATH = [
-    [0,0,1,0,0,0],
-    [0,0,1,0,0,0],
-    [0,0,1,1,0,0],
-    [0,0,0,1,0,0],
-    [0,0,0,1,1,0],
-    [0,0,0,0,1,0],
-    [0,0,0,0,1,0],
-    [0,0,0,0,1,0],
-  ];
+  // ── 채집씬: 실제 게임과 동일한 아이소메트릭 9×10 그리드 ──
+  // 게임 코드 GatheringScene.js 상수 그대로 사용
+  const ISO_COLS = 9, ISO_ROWS = 10;
+  const ISO_HALF_W = 24, ISO_HALF_H = 18;
+  const ISO_ORIGIN_X = 180, ISO_ORIGIN_Y = 107; // 절대 y (HUD 포함)
+  const G_HUD_H = 40;
+  const G_TOWER_BAR_Y = 480, G_TOWER_BAR_H = 60;
+  const G_ING_BAR_Y = 540, G_ING_BAR_H = 50;
+  const G_WAVE_Y = 590, G_WAVE_H = 50;
+
+  // 경로 셀: col=1 rows 0~3 → row=3 cols 1~7 → col=7 rows 3~7 (L자형)
+  function buildPathSet() {
+    const s = new Set();
+    for (let r = 0; r <= 3; r++) s.add(`1,${r}`);
+    for (let c = 1; c <= 7; c++) s.add(`${c},3`);
+    for (let r = 3; r <= 7; r++) s.add(`7,${r}`);
+    return s;
+  }
+  const ISO_PATH = buildPathSet();
+
+  function isoToScreen(col, row) {
+    return {
+      x: ISO_ORIGIN_X + (col - row) * ISO_HALF_W,
+      y: ISO_ORIGIN_Y + (col + row) * ISO_HALF_H
+    };
+  }
+
+  function screenToIso(sx, sy) {
+    const dx = sx - ISO_ORIGIN_X, dy = sy - ISO_ORIGIN_Y;
+    return {
+      col: Math.floor((dx / ISO_HALF_W + dy / ISO_HALF_H) / 2 + 0.5),
+      row: Math.floor((dy / ISO_HALF_H - dx / ISO_HALF_W) / 2 + 0.5)
+    };
+  }
+
+  function drawIsoDiamond(x, y, fillStyle, strokeStyle) {
+    ctx.beginPath();
+    ctx.moveTo(x, y - ISO_HALF_H);
+    ctx.lineTo(x + ISO_HALF_W, y);
+    ctx.lineTo(x, y + ISO_HALF_H);
+    ctx.lineTo(x - ISO_HALF_W, y);
+    ctx.closePath();
+    ctx.fillStyle = fillStyle;
+    ctx.fill();
+    if (strokeStyle) {
+      ctx.strokeStyle = strokeStyle;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }
 
   function drawGathering() {
     const gs = state.gathering;
-    const tileSize = Math.floor(W / MAP_COLS); // 60
-
-    // 맵 영역 높이
-    const mapH = tileSize * MAP_ROWS; // 480
 
     // 배경
-    ctx.fillStyle = '#0a0a1a';
+    ctx.fillStyle = '#091509';
     ctx.fillRect(0, 0, W, H);
 
-    // HUD
+    // 하단 UI 배경
     ctx.fillStyle = '#0d0d1a';
-    ctx.fillRect(0, 0, W, HUD_H);
+    ctx.fillRect(0, G_TOWER_BAR_Y, W, H - G_TOWER_BAR_Y);
+
+    // HUD (0~40)
+    ctx.fillStyle = '#0d0d1a';
+    ctx.fillRect(0, 0, W, G_HUD_H);
     ctx.fillStyle = '#333355';
-    ctx.fillRect(0, HUD_H - 1, W, 1);
-    text(ctx, `웨이브 ${gs.wave}`, W / 2, 20, { size: 13, color: '#ffffff', align: 'center' });
-    text(ctx, `⭐ 15`, W - 12, 20, { size: 12, color: '#ffee88', align: 'right' });
-    text(ctx, `💰 350G`, 12, 20, { size: 12, color: '#ffd700' });
+    ctx.fillRect(0, G_HUD_H - 1, W, 1);
+    text(ctx, `🔨 0/5`, 10, 22, { size: 11, color: '#aaaacc' });
+    text(ctx, `웨이브 ${gs.wave}/8`, W / 2, 22, { size: 13, color: '#ffffff', align: 'center' });
+    text(ctx, `❤️ 20`, W - 10, 22, { size: 12, color: '#ff8888', align: 'right' });
 
-    // 타일셋 키
-    const tsKey = `tileset_${gs.env}`;
-    const tsImg = images[tsKey];
+    // 아이소메트릭 타일 (depth sort: col+row 오름차순 = 화면 위→아래)
+    const tiles = [];
+    for (let r = 0; r < ISO_ROWS; r++)
+      for (let c = 0; c < ISO_COLS; c++)
+        tiles.push({ c, r, d: c + r });
+    tiles.sort((a, b) => a.d - b.d);
 
-    // 타일 그리기
-    for (let r = 0; r < MAP_ROWS; r++) {
-      for (let c = 0; c < MAP_COLS; c++) {
-        const tx = c * tileSize;
-        const ty = HUD_H + r * tileSize;
-        const isPath = MAP_PATH[r][c] === 1;
+    tiles.forEach(({ c, r }) => {
+      const isPath = ISO_PATH.has(`${c},${r}`);
+      const { x, y } = isoToScreen(c, r);
+      if (y + ISO_HALF_H < G_HUD_H || y - ISO_HALF_H > G_TOWER_BAR_Y) return;
 
-        if (tsImg) {
-          // Wang 타일셋에서 적절한 타일 선택 (0~3번 타일 사용)
-          const tileIdx = isPath ? 1 : 0;
-          const srcX = (tileIdx % 4) * 32, srcY = Math.floor(tileIdx / 4) * 32;
-          ctx.drawImage(tsImg, srcX, srcY, 32, 32, tx, ty, tileSize, tileSize);
+      drawIsoDiamond(x, y,
+        isPath ? '#c8a46e' : '#2d5a1b',
+        isPath ? '#a07840' : '#1d3d11'
+      );
+
+      // 배치된 도구 (비경로 셀)
+      const tKey = `${c},${r}`;
+      if (!isPath && gs.mapTools[tKey]) {
+        const toolId = gs.mapTools[tKey];
+        const toolImg = images[`tower_${toolId}`];
+        const def = TOOL_DEFS[toolId];
+        if (toolImg) {
+          ctx.drawImage(toolImg, x - 14, y - ISO_HALF_H - 20, 28, 28);
         } else {
-          ctx.fillStyle = isPath ? '#6b5a3e' : '#1e4d1e';
-          ctx.fillRect(tx, ty, tileSize, tileSize);
-          ctx.strokeStyle = 'rgba(0,0,0,0.3)';
-          ctx.lineWidth = 0.5;
-          ctx.strokeRect(tx, ty, tileSize, tileSize);
-        }
-
-        // 경로 표시
-        if (isPath) {
-          ctx.fillStyle = 'rgba(0,0,0,0.2)';
-          ctx.fillRect(tx + 6, ty + 6, tileSize - 12, tileSize - 12);
-        }
-
-        // 배치된 도구 표시
-        const tKey = `${r},${c}`;
-        if (gs.mapTools[tKey] && !isPath) {
-          const toolId = gs.mapTools[tKey];
-          const toolImg = images[`tower_${toolId}`];
-          const def = TOOL_DEFS[toolId];
-          if (toolImg) {
-            ctx.drawImage(toolImg, tx + 6, ty + 6, tileSize - 12, tileSize - 12);
-          } else {
-            ctx.fillStyle = def.color;
-            ctx.fillRect(tx + 10, ty + 10, tileSize - 20, tileSize - 20);
-            text(ctx, def.icon, tx + tileSize / 2, ty + tileSize / 2, { size: 18, align: 'center' });
-          }
+          ctx.fillStyle = def.color;
+          ctx.beginPath(); ctx.arc(x, y - ISO_HALF_H - 8, 9, 0, Math.PI * 2); ctx.fill();
+          text(ctx, def.icon, x, y - ISO_HALF_H - 5, { size: 13, align: 'center' });
         }
       }
-    }
+    });
 
-    // 적 애니메이션 (경로 위에 표시)
-    const tick = (Date.now() / 300) | 0;
-    const pathCells = [];
-    MAP_PATH.forEach((row, r) => row.forEach((v, c) => { if (v === 1) pathCells.push({r, c}); }));
+    // 적 (경로 위 애니메이션)
+    const tick = (Date.now() / 500) | 0;
+    const pathArr = [...ISO_PATH].map(k => {
+      const [c, r] = k.split(',').map(Number);
+      return { c, r, d: c + r };
+    }).sort((a, b) => a.d - b.d);
 
-    if (pathCells.length > 0) {
-      const enemyIds = [...gs.activeEnemies];
-      enemyIds.slice(0, 4).forEach((eid, ei) => {
-        const pathPos = (ei * 2 + tick) % pathCells.length;
-        const cell = pathCells[pathPos];
-        const ex = cell.c * tileSize + tileSize / 2;
-        const ey = HUD_H + cell.r * tileSize + tileSize / 2;
-        const eImg = images[`enemy_${eid}`];
-        if (eImg) {
-          ctx.drawImage(eImg, ex - 18, ey - 22, 36, 36);
-        } else {
-          text(ctx, '👾', ex, ey, { size: 20, align: 'center' });
-        }
-        // HP 바
-        ctx.fillStyle = '#660000';
-        ctx.fillRect(ex - 14, ey - 26, 28, 4);
-        ctx.fillStyle = '#cc0000';
-        ctx.fillRect(ex - 14, ey - 26, 20, 4);
-      });
-    }
+    [...gs.activeEnemies].slice(0, 4).forEach((eid, ei) => {
+      const pos = (ei * 5 + tick) % pathArr.length;
+      const { c, r } = pathArr[pos];
+      const { x, y } = isoToScreen(c, r);
+      if (y < G_HUD_H || y > G_TOWER_BAR_Y) return;
+      const eImg = images[`enemy_${eid}`];
+      if (eImg) {
+        ctx.drawImage(eImg, x - 13, y - ISO_HALF_H - 18, 26, 26);
+      } else {
+        text(ctx, '👾', x, y - ISO_HALF_H, { size: 18, align: 'center' });
+      }
+      ctx.fillStyle = '#440000'; ctx.fillRect(x - 11, y - ISO_HALF_H - 20, 22, 3);
+      ctx.fillStyle = '#cc2222'; ctx.fillRect(x - 11, y - ISO_HALF_H - 20, 15, 3);
+    });
 
-    // 셰프 (맵 위에 배치된 셰프)
-    const chefCell = { r: 3, c: 1 };
-    const cex = chefCell.c * tileSize + tileSize / 2;
-    const cey = HUD_H + chefCell.r * tileSize + tileSize / 2;
+    // 셰프 (col=2, row=1 — 비경로 셀)
+    const { x: cex, y: cey } = isoToScreen(2, 1);
     const chefImg = images[`chef_${gs.selectedChef}`];
     if (chefImg) {
-      ctx.drawImage(chefImg, cex - 18, cey - 22, 36, 36);
+      ctx.drawImage(chefImg, cex - 14, cey - ISO_HALF_H - 22, 28, 28);
     } else {
-      text(ctx, '🧑‍🍳', cex, cey, { size: 22, align: 'center' });
+      text(ctx, '🧑‍🍳', cex, cey - ISO_HALF_H, { size: 20, align: 'center' });
     }
-    // 셰프 범위 표시
-    ctx.strokeStyle = 'rgba(255,255,0,0.25)';
+    ctx.strokeStyle = 'rgba(255,255,0,0.18)';
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.arc(cex, cey, tileSize * 1.5, 0, Math.PI * 2);
+    ctx.ellipse(cex, cey, ISO_HALF_W * 3.5, ISO_HALF_H * 3.5, 0, 0, Math.PI * 2);
     ctx.stroke();
 
-    // 파도 정보 하단 패널
-    const panelY = HUD_H + mapH;
-    ctx.fillStyle = '#0d0d1a';
-    ctx.fillRect(0, panelY, W, H - panelY);
-    ctx.fillStyle = '#333355';
-    ctx.fillRect(0, panelY, W, 1);
-    text(ctx, `웨이브 ${gs.wave} / 20 진행 중`, W / 2, panelY + 20, { size: 11, color: '#ccccee', align: 'center' });
-    text(ctx, `활성 적: ${gs.activeEnemies.size}종 등장`, W / 2, panelY + 38, { size: 10, color: '#888888', align: 'center' });
+    // 도구 바 (480~540)
+    ctx.fillStyle = '#111122';
+    ctx.fillRect(0, G_TOWER_BAR_Y, W, G_TOWER_BAR_H);
+    ctx.fillStyle = '#333366'; ctx.fillRect(0, G_TOWER_BAR_Y, W, 1);
+    const btnW = (W - 8) / 6;
+    TOOL_ORDER.slice(0, 6).forEach((toolId, i) => {
+      const def = TOOL_DEFS[toolId];
+      const bx = 4 + i * btnW;
+      const isSel = gs.selectedTool === toolId;
+      ctx.fillStyle = isSel ? 'rgba(255,107,53,0.25)' : 'rgba(20,20,40,0.9)';
+      ctx.strokeStyle = isSel ? '#ff6b35' : '#333355';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.roundRect(bx + 1, G_TOWER_BAR_Y + 5, btnW - 2, G_TOWER_BAR_H - 10, 3);
+      ctx.fill(); ctx.stroke();
+      const tImg = images[`tower_${toolId}`];
+      if (tImg) {
+        ctx.drawImage(tImg, bx + btnW / 2 - 12, G_TOWER_BAR_Y + 8, 24, 24);
+      } else {
+        text(ctx, def.icon, bx + btnW / 2, G_TOWER_BAR_Y + 28, { size: 16, align: 'center' });
+      }
+      text(ctx, `0/${def.maxCount}`, bx + btnW / 2, G_TOWER_BAR_Y + G_TOWER_BAR_H - 7, { size: 7.5, color: '#888899', align: 'center' });
+    });
 
-    // 파도 진행 바
-    const wProg = (gs.wave - 1) / 19;
-    ctx.fillStyle = '#222233';
-    ctx.fillRect(20, panelY + 50, W - 40, 8);
-    ctx.fillStyle = '#4a9eff';
-    ctx.fillRect(20, panelY + 50, (W - 40) * wProg, 8);
+    // 재료 바 (540~590)
+    ctx.fillStyle = '#0d0d18';
+    ctx.fillRect(0, G_ING_BAR_Y, W, G_ING_BAR_H);
+    ctx.fillStyle = '#333355'; ctx.fillRect(0, G_ING_BAR_Y, W, 1);
+    text(ctx, '수집', 5, G_ING_BAR_Y + 13, { size: 8, color: '#666688' });
+    const iSlotW = (W - 14) / INGREDIENTS.length;
+    INGREDIENTS.forEach((ing, i) => {
+      const ix = 14 + i * iSlotW + iSlotW / 2;
+      const ingImg = images[`ing_${ing.id}`];
+      if (ingImg) ctx.drawImage(ingImg, ix - 10, G_ING_BAR_Y + 6, 20, 20);
+      else text(ctx, ing.icon, ix, G_ING_BAR_Y + 18, { size: 15, align: 'center' });
+      text(ctx, '×0', ix, G_ING_BAR_Y + 40, { size: 8, color: '#888888', align: 'center' });
+    });
+
+    // 웨이브 컨트롤 (590~640)
+    ctx.fillStyle = '#0a0a15';
+    ctx.fillRect(0, G_WAVE_Y, W, G_WAVE_H);
+    ctx.fillStyle = '#333355'; ctx.fillRect(0, G_WAVE_Y, W, 1);
+    ctx.fillStyle = '#1a4422'; ctx.strokeStyle = '#2d7a44'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.roundRect(W / 2 - 60, G_WAVE_Y + 9, 120, G_WAVE_H - 18, 4); ctx.fill(); ctx.stroke();
+    text(ctx, '▶ 웨이브 시작', W / 2, G_WAVE_Y + G_WAVE_H / 2, { size: 12, color: '#4ae88a', align: 'center' });
   }
 
   // ── 행상인씬 그리기 ──
@@ -1373,14 +1418,12 @@
         }
       });
     } else if (state.scene === 'gathering') {
-      // 타일 클릭 → 도구 배치
-      if (cy > HUD_H) {
-        const tileSize = Math.floor(W / MAP_COLS);
-        const tileCol = Math.floor(cx / tileSize);
-        const tileRow = Math.floor((cy - HUD_H) / tileSize);
-        if (tileRow < MAP_ROWS && tileCol < MAP_COLS) {
-          if (MAP_PATH[tileRow][tileCol] === 0) {
-            const key = `${tileRow},${tileCol}`;
+      // 아이소메트릭 셀 클릭 → 도구 배치/제거
+      if (cy > G_HUD_H && cy < G_TOWER_BAR_Y) {
+        const { col, row } = screenToIso(cx, cy);
+        if (col >= 0 && col < ISO_COLS && row >= 0 && row < ISO_ROWS) {
+          const key = `${col},${row}`;
+          if (!ISO_PATH.has(key)) {
             if (state.gathering.mapTools[key] === state.gathering.selectedTool) {
               delete state.gathering.mapTools[key];
             } else {
