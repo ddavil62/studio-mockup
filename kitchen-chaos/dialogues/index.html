@@ -66,6 +66,8 @@
     .line-speaker.rin { color: #ff4444; }
     .line-speaker.mage { color: #cc88ff; }
     .line-speaker.narrator { color: #cccccc; font-style: italic; }
+    .line-speaker.yuki { color: #87ceeb; }
+    .line-speaker.lao  { color: #ff7733; }
     .line-speaker.unknown { color: #888; }
     .line-text { color: var(--text-primary); }
     .line-text.narrator-text { font-style: italic; color: var(--text-secondary); }
@@ -129,15 +131,15 @@
 
   <main class="content">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-      <p class="text-muted" style="font-size: 0.85rem;">Phase 16 | 32 Scripts | 4 Characters + Narrator</p>
+      <p class="text-muted" style="font-size: 0.85rem;">Phase 21 | 43 Scripts | 6 Characters + Narrator</p>
       <button class="expand-all" onclick="toggleAll()">Expand All</button>
     </div>
 
     <div class="stats-bar">
-      <div class="stat-item"><div class="stat-value">32</div><div class="stat-label">Scripts</div></div>
-      <div class="stat-item"><div class="stat-value">7</div><div class="stat-label">Chapters</div></div>
-      <div class="stat-item"><div class="stat-value">250</div><div class="stat-label">Lines</div></div>
-      <div class="stat-item"><div class="stat-value">4</div><div class="stat-label">Characters</div></div>
+      <div class="stat-item"><div class="stat-value">43</div><div class="stat-label">Scripts</div></div>
+      <div class="stat-item"><div class="stat-value">10</div><div class="stat-label">Chapters</div></div>
+      <div class="stat-item"><div class="stat-value">334</div><div class="stat-label">Lines</div></div>
+      <div class="stat-item"><div class="stat-value">6</div><div class="stat-label">Characters</div></div>
     </div>
 
     <div id="dialogues-container"></div>
@@ -149,6 +151,8 @@
       poco: { nameKo: '포코', portrait: '\u{1F431}', color: '#ffaa33', cls: 'poco' },
       rin:  { nameKo: '린',   portrait: '\u{1F525}', color: '#ff4444', cls: 'rin' },
       mage: { nameKo: '메이지', portrait: '\u{1F9C1}', color: '#cc88ff', cls: 'mage' },
+      yuki: { nameKo: '유키', portrait: '❄️', color: '#87ceeb', cls: 'yuki' },
+      lao:  { nameKo: '라오', portrait: '🐉', color: '#ff7733', cls: 'lao' },
       narrator: { nameKo: '', portrait: '', color: '#cccccc', cls: 'narrator' },
     };
 
@@ -158,6 +162,8 @@
       if (speaker === '포코') return 'poco';
       if (speaker === '린') return 'rin';
       if (speaker === '메이지') return 'mage';
+      if (speaker === '유키') return 'yuki';
+      if (speaker === '라오') return 'lao';
       return 'unknown';
     }
 
@@ -228,6 +234,35 @@
           { id: 'team_side_6', trigger: 'result_clear 6-2', desc: '팀 각오 한 마디', lines: 8 },
           { id: 'chapter6_final_battle', trigger: 'gathering_enter 6-3', desc: '퀴진 갓 등장, 봉인 내막', lines: 9 },
           { id: 'chapter6_ending', trigger: 'result_clear 6-3', desc: '식란 종결, 엔딩', lines: 11 },
+        ]
+      },
+      {
+        title: '시즌 2 프롤로그',
+        badge: 'S2.PRO',
+        scripts: [
+          { id: 'season2_prologue',   trigger: 'worldmap_enter', desc: '시즌 2 개막, WCA 연락 + 해외 식란', lines: 5 },
+          { id: 'season2_yuki_intro', trigger: 'worldmap_enter', desc: '유키 첫 등장, 이자카야 구조 요청', lines: 4 },
+          { id: 'season2_lao_intro',  trigger: 'worldmap_enter', desc: '라오 첫 등장, 용 웍 오염 구조 요청', lines: 4 },
+        ]
+      },
+      {
+        title: '7장 - 사쿠라 이자카야',
+        badge: 'CH.7',
+        scripts: [
+          { id: 'chapter7_intro',      trigger: 'worldmap_enter', desc: '유키 고향 진입, 이자카야 마을 식란', lines: 8 },
+          { id: 'chapter7_yuki_joins', trigger: 'result_clear 7-3', desc: '유키 동료 합류, 길드 본부 재회', lines: 9 },
+          { id: 'chapter7_clear',      trigger: 'result_clear 7-6', desc: '사케 오니 격파, 7장 클리어', lines: 8 },
+          { id: 'yuki_side_7',         trigger: 'merchant_enter', desc: '유키 독백: 동료를 잃을 두려움', lines: 9 },
+        ]
+      },
+      {
+        title: '8장 - 용의 주방',
+        badge: 'CH.8',
+        scripts: [
+          { id: 'chapter8_intro',      trigger: 'worldmap_enter', desc: '라오 가문 주방 진입, 드래곤 웍 오염', lines: 8 },
+          { id: 'chapter8_lao_joins',  trigger: 'result_clear 8-3', desc: '라오 동료 합류, 할아버지의 웍 앞에서', lines: 11 },
+          { id: 'chapter8_clear',      trigger: 'result_clear 8-6', desc: '드래곤 웍 정화, 8장 클리어 + 9장 복선', lines: 9 },
+          { id: 'lao_side_8',          trigger: 'merchant_enter', desc: '라오 독백: 웍의 불길은 혼자가 아니야', lines: 9 },
         ]
       },
       {
@@ -640,6 +675,115 @@
         { s: '포코', p: '\u{1F431}', t: '침착해! 주방 사고는 가끔 일어나는 거야!' },
         { s: '포코', p: '\u{1F431}', t: '조리 슬롯 하나를 잠깐 못 쓰게 되겠지만, 다른 슬롯으로 버텨!' },
         { s: '미미', p: '\u{1F467}', t: '알겠어! 하나 없어도 해낼 수 있어! 아마도!' },
+      ],
+      // ── 시즌 2 프롤로그 ──
+      season2_prologue: [
+        { s: 'narrator', p: '', t: '식란이 잠시 수그러들었지만... 세계 곳곳에서 이상 징후가 감지되기 시작했다.' },
+        { s: '미미', p: '\u{1F467}', t: '할머니, 해외에서 편지가 왔어요!' },
+        { s: '포코', p: '\u{1F431}', t: '세계 미력사 연합(WCA)이라... 해외에서 동시다발 식란이 발생했대.' },
+        { s: '미미', p: '\u{1F467}', t: '우리가 도와야 해! 이제 세계를 무대로!' },
+        { s: '포코', p: '\u{1F431}', t: '좋아, 시즌 2 개막이다! 새로운 동료들도 만나게 될 거야.' },
+      ],
+      season2_yuki_intro: [
+        { s: '유키', p: '❄️', t: '당신이 미미... WCA에서 이야기 들었습니다.' },
+        { s: '유키', p: '❄️', t: '제 고향 이자카야가 식란에 잠식됐어요. 도와주실 수 있나요?' },
+        { s: '미미', p: '\u{1F467}', t: '물론이죠! 같이 가요, 유키 씨!' },
+        { s: '포코', p: '\u{1F431}', t: '유키의 정밀한 칼솜씨... 든든한 동료가 됐군!' },
+      ],
+      season2_lao_intro: [
+        { s: '라오', p: '🐉', t: '하하! 너희가 그 유명한 미미 팀이구나!' },
+        { s: '라오', p: '🐉', t: '내 가문의 용 웍이 식란에 오염됐다... 도와달라!' },
+        { s: '미미', p: '\u{1F467}', t: '라오 씨! 당연히 도와드릴게요!' },
+        { s: '포코', p: '\u{1F431}', t: '또 새 동료야? 밥값은 내라구! ...농담이야~' },
+      ],
+      // ── 7장 사쿠라 이자카야 ──
+      chapter7_intro: [
+        { s: 'narrator', p: '', t: '일본 어딘가, 벚꽃이 흩날리는 전통 이자카야 마을.' },
+        { s: '유키', p: '❄️', t: '여기야... 내 고향이야.' },
+        { s: '유키', p: '❄️', t: '이자카야 거리 전체가 식란에 잠식됐어. 동료들도 연락이 끊겼고.' },
+        { s: '미미', p: '\u{1F467}', t: '유키 씨... 힘들겠다. 같이 찾아줄게, 동료들!' },
+        { s: '포코', p: '\u{1F431}', t: '식란이 이자카야 재료들을 뒤틀어놨군. 초밥이 칼 들고 나오는 건 좀 과한데...' },
+        { s: '유키', p: '❄️', t: '이 마을의 미력사 길드가 모두 쓰러졌어. 우리가 마지막이야.' },
+        { s: '미미', p: '\u{1F467}', t: '마지막이라도 포기하면 안 되지. 자, 가자!' },
+        { s: '포코', p: '\u{1F431}', t: '참, 이자카야 재료를 정화하면 최상급 일식 식재료가 돼! ...아, 지금 그 얘기 아닌가?' },
+      ],
+      chapter7_yuki_joins: [
+        { s: 'narrator', p: '', t: '7-3 클리어 직후. 유키가 고향 마을의 폐허가 된 길드 본부 앞에 선다.' },
+        { s: '유키', p: '❄️', t: '...여기가 길드 훈련소였어. 내가 처음 정화를 배운 곳이야.' },
+        { s: '미미', p: '\u{1F467}', t: '유키 씨, 괜찮아? 많이 힘들어 보여.' },
+        { s: '유키', p: '❄️', t: '(고개를 끄덕이며) ...괜찮아. 감상에 잠길 시간이 없어. 사케 오니가 이 모든 걸 일으킨 주범이야.' },
+        { s: '유키', p: '❄️', t: '미미... 나도 같이 싸울게. 처음부터 그러고 싶었지만, 혼자 처리해야 한다고 생각했어.' },
+        { s: '미미', p: '\u{1F467}', t: '혼자 처리할 필요 없잖아! 우리 팀이잖아, 유키 씨.' },
+        { s: '포코', p: '\u{1F431}', t: '환영해, 유키! 그나저나 새 동료 특별 도구 세트가\u2014' },
+        { s: '유키', p: '❄️', t: '(차갑게) 지금은 됐어요.' },
+        { s: '포코', p: '\u{1F431}', t: '(작게) 역시 성격이 차갑다...' },
+      ],
+      chapter7_clear: [
+        { s: 'narrator', p: '', t: '사케 오니가 정화되었다. 이자카야 마을에 평화가 돌아온다.' },
+        { s: '미미', p: '\u{1F467}', t: '해냈다! 사케 오니 정화 완료!' },
+        { s: '유키', p: '❄️', t: '...고마워. 혼자였다면 절대 못 했을 거야.' },
+        { s: '유키', p: '❄️', t: '(마을을 둘러보며) 이제 재건할 수 있겠어. 미력사 길드도 다시 세울 수 있고.' },
+        { s: '포코', p: '\u{1F431}', t: '정화된 사케... 이게 최상급 주류가 되겠군. 이자카야 다시 열면 대박 날 텐데~' },
+        { s: '미미', p: '\u{1F467}', t: '아직 8장이 남아 있어. 라오 씨 고향도 도와야 해!' },
+        { s: '유키', p: '❄️', t: '당연하지. 같이 가자.' },
+        { s: 'narrator', p: '', t: '7장 클리어. 유키가 정식으로 미미 팀의 일원이 되었다.' },
+      ],
+      yuki_side_7: [
+        { s: '유키', p: '❄️', t: '미미, 잠깐 좋을까.' },
+        { s: '미미', p: '\u{1F467}', t: '응? 무슨 일이야, 유키 씨?' },
+        { s: '유키', p: '❄️', t: '...내가 왜 혼자 처리하려 했는지 알아? 동료를 잃을 게 두려웠어.' },
+        { s: '미미', p: '\u{1F467}', t: '유키 씨...' },
+        { s: '유키', p: '❄️', t: '길드 동료들이 식란에 당했을 때, 내가 곁에 없었거든. 그래서 다음엔 혼자 다 막겠다고 생각했어.' },
+        { s: '미미', p: '\u{1F467}', t: '그건 유키 씨 잘못이 아니야. 그리고 혼자 전부 막을 수 있는 사람은 없어.' },
+        { s: '유키', p: '❄️', t: '...알아. 이제는 알 것 같아. 함께라서 이길 수 있었던 거니까.' },
+        { s: '포코', p: '\u{1F431}', t: '(뒤에서 훌쩍) 좋은 얘기다... 참, 동료 할인 이벤트\u2014' },
+        { s: '유키', p: '❄️', t: '포코 씨. 저리 가 줄래요.' },
+      ],
+      // ── 8장 용의 주방 ──
+      chapter8_intro: [
+        { s: 'narrator', p: '', t: '중국 어딘가, 황금빛 용이 새겨진 거대한 궁전 주방.' },
+        { s: '라오', p: '🐉', t: '...(발걸음을 멈추며) 여기야. 우리 가문의 주방이야.' },
+        { s: '미미', p: '\u{1F467}', t: '우아, 진짜 크다! 이게 다 라오 씨 가문 거야?' },
+        { s: '라오', p: '🐉', t: '대대로 내려온 웍이 있어. 그게 지금 식란에 오염됐어. 드래곤 웍이라고 불리는 보스가 취하고 있는 거야.' },
+        { s: '포코', p: '\u{1F431}', t: '용 형상의 웍이 폭주했군. 장관이긴 한데... 좀 위험해 보이는데?' },
+        { s: '라오', p: '🐉', t: '원래 혼자 처리하려 했어. 하지만... 팀이 있으니까.' },
+        { s: '미미', p: '\u{1F467}', t: '맞아! 같이 하면 무서울 거 없지. 가자, 라오 씨!' },
+        { s: '라오', p: '🐉', t: '(고개를 끄덕이며) ...응. 같이 가자.' },
+      ],
+      chapter8_lao_joins: [
+        { s: 'narrator', p: '', t: '8-3 클리어 직후. 라오가 오래된 웍 앞에 멈춰 선다.' },
+        { s: '라오', p: '🐉', t: '...이 웍으로 할아버지가 첫 요리를 가르쳐줬어.' },
+        { s: '미미', p: '\u{1F467}', t: '라오 씨... 소중한 거구나.' },
+        { s: '라오', p: '🐉', t: '(고개를 들며) 미미, 나 같이 싸울게. 처음부터 혼자 할 생각이었는데, 그게 잘못이었어.' },
+        { s: '미미', p: '\u{1F467}', t: '당연히 같이 해야지! 유키 씨도 처음엔 그랬는데, 이젠 우리 팀이잖아.' },
+        { s: '유키', p: '❄️', t: '(차갑게) ...나는 그런 말 한 적 없어.' },
+        { s: '미미', p: '\u{1F467}', t: '했어.' },
+        { s: '포코', p: '\u{1F431}', t: '환영해, 라오! 신규 멤버 특별 웍 세트가\u2014' },
+        { s: '라오', p: '🐉', t: '(담담하게) 됐어요.' },
+        { s: '포코', p: '\u{1F431}', t: '(작게) 이 팀 분위기가 왜 이렇지...' },
+        { s: 'narrator', p: '', t: '라오가 정식으로 미미 팀의 일원이 되었다.' },
+      ],
+      chapter8_clear: [
+        { s: 'narrator', p: '', t: '드래곤 웍이 정화되었다. 가문의 주방에 평화가 돌아온다.' },
+        { s: '미미', p: '\u{1F467}', t: '드래곤 웍 정화 완료! 라오 씨, 해냈어!' },
+        { s: '라오', p: '🐉', t: '(웍을 어루만지며) ...할아버지의 웍이 돌아왔어. 감사합니다.' },
+        { s: '유키', p: '❄️', t: '...라오. 가족이 있어서 다행이야.' },
+        { s: '라오', p: '🐉', t: '(미소를 지으며) 유키도 마찬가지야. 이제 우리 모두 가족이야.' },
+        { s: '미미', p: '\u{1F467}', t: '팀이 점점 커지네! 다음엔 어디야, 포코 씨?' },
+        { s: '포코', p: '\u{1F431}', t: '다음은 유럽 쪽에서 연락이 왔어. 파리의 고급 레스토랑이 식란의 진원지라고 하더군.' },
+        { s: '라오', p: '🐉', t: '파리... 양식을 배울 기회군.' },
+        { s: 'narrator', p: '', t: '8장 클리어. 라오가 정식으로 미미 팀의 일원이 되었다.' },
+      ],
+      lao_side_8: [
+        { s: '라오', p: '🐉', t: '미미, 잠깐 좋을까.' },
+        { s: '미미', p: '\u{1F467}', t: '응? 무슨 일이야, 라오 씨?' },
+        { s: '라오', p: '🐉', t: '웍이라는 건 말이야... 불과 재료와 요리사가 하나가 되는 순간이야. 그 웍이 오염됐을 때, 내가 얼마나 무서웠는지 몰라.' },
+        { s: '미미', p: '\u{1F467}', t: '그래서 혼자 처리하려 한 거야?' },
+        { s: '라오', p: '🐉', t: '응. 하지만 이제 알아. 요리도 싸움도 혼자가 아니야. 팀이 있어야 진짜 웍의 불길이 살아나는 거야.' },
+        { s: '미미', p: '\u{1F467}', t: '뭔가 멋있는 말 같은데... 맞는 말인 것 같기도 해!' },
+        { s: '포코', p: '\u{1F431}', t: '(감동받은 척) 진짜 멋있어. 그 정신으로 도구 업그레이드도\u2014' },
+        { s: '라오', p: '🐉', t: '(무표정) ...포코 씨는 항상 거기서 나오네.' },
+        { s: '유키', p: '❄️', t: '(작게) 포코를 대하는 방법이 나랑 비슷하네, 라오.' },
       ],
       choice_sample_merchant: [
         { s: '포코', p: '\u{1F431}', t: '이번에 새 정화 도구 세트가 들어왔는데~ 관심 있어?' },
