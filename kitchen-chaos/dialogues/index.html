@@ -131,14 +131,14 @@
 
   <main class="content">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-      <p class="text-muted" style="font-size: 0.85rem;">Phase 21 | 43 Scripts | 6 Characters + Narrator</p>
+      <p class="text-muted" style="font-size: 0.85rem;">Phase 22-1 | 46 Scripts | 6 Characters + Narrator</p>
       <button class="expand-all" onclick="toggleAll()">Expand All</button>
     </div>
 
     <div class="stats-bar">
-      <div class="stat-item"><div class="stat-value">43</div><div class="stat-label">Scripts</div></div>
+      <div class="stat-item"><div class="stat-value">46</div><div class="stat-label">Scripts</div></div>
       <div class="stat-item"><div class="stat-value">10</div><div class="stat-label">Chapters</div></div>
-      <div class="stat-item"><div class="stat-value">334</div><div class="stat-label">Lines</div></div>
+      <div class="stat-item"><div class="stat-value">363</div><div class="stat-label">Lines</div></div>
       <div class="stat-item"><div class="stat-value">6</div><div class="stat-label">Characters</div></div>
     </div>
 
@@ -251,7 +251,7 @@
         scripts: [
           { id: 'chapter7_intro',      trigger: 'worldmap_enter', desc: '유키 고향 진입, 이자카야 마을 식란', lines: 8 },
           { id: 'chapter7_yuki_joins', trigger: 'result_clear 7-3', desc: '유키 동료 합류, 길드 본부 재회', lines: 9 },
-          { id: 'chapter7_clear',      trigger: 'result_clear 7-6', desc: '사케 오니 격파, 7장 클리어', lines: 8 },
+          { id: 'chapter7_clear',      trigger: 'result_clear 7-6', desc: '사케 오니 격파, 7장 클리어 + 봉인 복선', lines: 11 },
           { id: 'yuki_side_7',         trigger: 'merchant_enter', desc: '유키 독백: 동료를 잃을 두려움', lines: 9 },
         ]
       },
@@ -260,9 +260,12 @@
         badge: 'CH.8',
         scripts: [
           { id: 'chapter8_intro',      trigger: 'worldmap_enter', desc: '라오 가문 주방 진입, 드래곤 웍 오염', lines: 8 },
+          { id: 'chapter8_yuki_clue',  trigger: 'result_clear 8-4', desc: '유키 봉인 표식 발견, 지하 단서 공유', lines: 8 },
+          { id: 'chapter8_mid',        trigger: 'result_clear 8-5', desc: '팀 갈등 — 유키 단독 행동 vs 협력', lines: 9 },
           { id: 'chapter8_lao_joins',  trigger: 'result_clear 8-3', desc: '라오 동료 합류, 할아버지의 웍 앞에서', lines: 11 },
           { id: 'chapter8_clear',      trigger: 'result_clear 8-6', desc: '드래곤 웍 정화, 8장 클리어 + 9장 복선', lines: 9 },
           { id: 'lao_side_8',          trigger: 'merchant_enter', desc: '라오 독백: 웍의 불길은 혼자가 아니야', lines: 9 },
+          { id: 'yuki_side_8',         trigger: 'merchant_enter (chapter8_mid_seen)', desc: '유키 독백: 정보를 혼자 짊어지던 버릇', lines: 9 },
         ]
       },
       {
@@ -726,6 +729,9 @@
         { s: '포코', p: '\u{1F431}', t: '정화된 사케... 이게 최상급 주류가 되겠군. 이자카야 다시 열면 대박 날 텐데~' },
         { s: '미미', p: '\u{1F467}', t: '아직 8장이 남아 있어. 라오 씨 고향도 도와야 해!' },
         { s: '유키', p: '❄️', t: '당연하지. 같이 가자.' },
+        { s: '유키', p: '❄️', t: '...그런데 한 가지 신경 쓰이는 게 있어. 이자카야 아래 지하 구조물 — 봉인의 핵심이 거기 있을 수 있어.' },
+        { s: '미미', p: '\u{1F467}', t: '봉인의 핵심? 그게 뭔데?' },
+        { s: '유키', p: '❄️', t: '자세한 건 나도 몰라. 하지만 미력사 길드 고문서에 그런 기록이 있어. 지금은 일단 라오 씨를 도우러 가자.' },
         { s: 'narrator', p: '', t: '7장 클리어. 유키가 정식으로 미미 팀의 일원이 되었다.' },
       ],
       yuki_side_7: [
@@ -739,7 +745,40 @@
         { s: '포코', p: '\u{1F431}', t: '(뒤에서 훌쩍) 좋은 얘기다... 참, 동료 할인 이벤트\u2014' },
         { s: '유키', p: '❄️', t: '포코 씨. 저리 가 줄래요.' },
       ],
-      // ── 8장 용의 주방 ──
+      // ── 8장 용의 주방 (Phase 22-1 추가) ──
+      chapter8_yuki_clue: [
+        { s: 'narrator', p: '', t: '8-4 클리어 직후. 유키가 홀로 궁전 기둥에 새겨진 문양을 들여다보고 있다.' },
+        { s: '유키', p: '❄️', t: '(문양을 손으로 짚으며) ...이 문양. 일본 이자카야 지하에서 본 것과 같아.' },
+        { s: '미미', p: '\u{1F467}', t: '유키 씨, 뭐야?' },
+        { s: '유키', p: '❄️', t: '미미. 식란의 원점이 지하 어딘가에 있을 것 같아. 이 문양이 봉인 표식이야.' },
+        { s: '라오', p: '🐉', t: '(다가서며) ...우리 가문 고서에도 있었어. "용의 주방 아래, 봉인이 잠든다"는 구절이.' },
+        { s: '미미', p: '\u{1F467}', t: '그럼 여기도?!' },
+        { s: '유키', p: '❄️', t: '아직 확신은 없어. 하지만 — 계속 싸우면서 단서를 모아야 해.' },
+        { s: '포코', p: '\u{1F431}', t: '(진지하게) ...이번엔 나도 쉽게 넘길 얘기가 아닌 것 같군.' },
+      ],
+      chapter8_mid: [
+        { s: 'narrator', p: '', t: '8-5 클리어 직후. 드래곤 웍이 가까워지며 팀 내 긴장이 고조된다.' },
+        { s: '유키', p: '❄️', t: '라오. 나 혼자 선두로 들어갈게. 봉인 지점을 먼저 확인해야 해.' },
+        { s: '라오', p: '🐉', t: '(차분하게) 안 돼. 여기는 내 가문의 주방이야. 내가 선두다.' },
+        { s: '유키', p: '❄️', t: '...봉인에 대해 가장 많이 아는 건 나야. 판단은 내가 해.' },
+        { s: '미미', p: '\u{1F467}', t: '잠깐, 둘 다! 싸울 시간 없어. 같이 들어가면 되잖아!' },
+        { s: '유키', p: '❄️', t: '(잠시 침묵 후) ...미미가 맞아. 혼자 행동하는 건 내 나쁜 버릇이야.' },
+        { s: '라오', p: '🐉', t: '(끄덕이며) 나도 마찬가지야. 같이 가자, 유키.' },
+        { s: '포코', p: '\u{1F431}', t: '(눈물 닦으며) 이 팀... 진짜 성장하고 있어. 감동이야.' },
+        { s: '유키', p: '❄️', t: '포코 씨. 지금 상황이 그런 상황이 아닌 거 알죠.' },
+      ],
+      yuki_side_8: [
+        { s: '유키', p: '❄️', t: '미미, 잠깐 좋을까.' },
+        { s: '미미', p: '\u{1F467}', t: '응? 무슨 일이야, 유키 씨?' },
+        { s: '유키', p: '❄️', t: '...아까 라오랑 다퉜던 거. 내가 너무 혼자 결정하려 했어. 나쁜 버릇이라는 건 알지만.' },
+        { s: '미미', p: '\u{1F467}', t: '유키 씨가 봉인에 대해 걱정되니까 그런 거잖아. 알아.' },
+        { s: '유키', p: '❄️', t: '미력사 길드가 무너졌을 때, 나 혼자 모든 정보를 짊어졌어. 그 버릇이 아직 남아 있나봐.' },
+        { s: '미미', p: '\u{1F467}', t: '이제는 우리가 다 같이 짊어지면 돼. 봉인 정보도, 싸움도, 전부.' },
+        { s: '유키', p: '❄️', t: '(작게 웃으며) ...그렇군. 팀이라는 게 그런 거구나.' },
+        { s: '라오', p: '🐉', t: '(지나가며) 맞아, 유키. 웍도 혼자 들면 무거워.' },
+        { s: '유키', p: '❄️', t: '...라오, 그 비유 되게 마음에 들어.' },
+      ],
+      // ── 8장 용의 주방 (Phase 21) ──
       chapter8_intro: [
         { s: 'narrator', p: '', t: '중국 어딘가, 황금빛 용이 새겨진 거대한 궁전 주방.' },
         { s: '라오', p: '🐉', t: '...(발걸음을 멈추며) 여기야. 우리 가문의 주방이야.' },
