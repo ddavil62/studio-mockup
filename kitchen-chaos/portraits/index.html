@@ -6,9 +6,25 @@
   <title>Kitchen Chaos - Characters</title>
   <link rel="stylesheet" href="../../shared/style.css">
   <style>
+    .style-toggle {
+      display: flex; gap: 8px; margin-bottom: 24px; align-items: center;
+    }
+    .style-btn {
+      padding: 6px 18px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid var(--border);
+      background: var(--bg-card); color: var(--text-secondary);
+      transition: all 0.15s;
+    }
+    .style-btn.active {
+      background: #ff6b35; color: #0a0a0f; border-color: #ff6b35;
+    }
+    .style-label {
+      font-size: 0.78rem; color: var(--text-muted); margin-left: 4px;
+    }
+
     .char-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 24px;
     }
     .char-card {
@@ -20,7 +36,47 @@
     }
     .char-card:hover { border-color: #ff6b35; }
 
-    .portrait-area {
+    /* 비교 영역 */
+    .portrait-compare {
+      background: var(--bg-secondary);
+      display: flex;
+      gap: 0;
+      min-height: 220px;
+    }
+    .portrait-slot {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 12px 10px;
+      position: relative;
+    }
+    .portrait-slot + .portrait-slot {
+      border-left: 1px solid var(--border);
+    }
+    .slot-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 2px 8px; border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .slot-label.current {
+      background: rgba(255,255,255,0.07); color: var(--text-muted);
+    }
+    .slot-label.candidate {
+      background: rgba(255,107,53,0.15); color: #ff6b35;
+    }
+    .portrait-slot img {
+      max-width: 120px; max-height: 120px;
+      image-rendering: pixelated;
+      border-radius: 6px;
+    }
+    .portrait-slot .no-img {
+      font-size: 60px; line-height: 1;
+    }
+
+    /* 단독 표시 모드 */
+    .portrait-single {
       background: var(--bg-secondary);
       display: flex;
       align-items: center;
@@ -28,66 +84,44 @@
       padding: 24px;
       min-height: 220px;
     }
-    .portrait-area img {
-      max-width: 180px;
-      max-height: 180px;
+    .portrait-single img {
+      max-width: 180px; max-height: 180px;
       image-rendering: pixelated;
       border-radius: var(--radius);
     }
-    .portrait-area .no-img {
-      font-size: 80px;
-      line-height: 1;
-    }
+    .portrait-single .no-img { font-size: 80px; line-height: 1; }
 
-    .char-info {
-      padding: 18px 20px;
-    }
-    .char-name {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin: 0 0 2px;
-    }
+    .char-info { padding: 18px 20px; }
+    .char-name { font-size: 1.2rem; font-weight: 700; margin: 0 0 2px; }
     .char-role-badge {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      display: inline-block; font-size: 0.72rem; font-weight: 600;
+      padding: 2px 8px; border-radius: 20px; margin-bottom: 12px;
+      text-transform: uppercase; letter-spacing: 0.05em;
     }
     .role-protagonist { background: #ff6b3522; color: #ff6b35; border: 1px solid #ff6b3544; }
     .role-merchant    { background: #ffaa3322; color: #ffaa33; border: 1px solid #ffaa3344; }
     .role-rival       { background: #ff444422; color: #ff6666; border: 1px solid #ff444444; }
     .role-researcher  { background: #cc88ff22; color: #cc88ff; border: 1px solid #cc88ff44; }
+    .role-ally        { background: #44aaff22; color: #44aaff; border: 1px solid #44aaff44; }
 
     .char-desc {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      line-height: 1.55;
-      margin-bottom: 14px;
+      font-size: 0.88rem; color: var(--text-secondary);
+      line-height: 1.55; margin-bottom: 14px;
     }
-
     .char-stats {
-      font-size: 0.8rem;
-      border-top: 1px solid var(--border);
-      padding-top: 12px;
+      font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 12px;
     }
-    .stat-row {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-      padding: 4px 0;
+    .stat-row { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; }
+    .stat-label { color: var(--text-muted); min-width: 52px; flex-shrink: 0; }
+    .stat-value { color: var(--text-secondary); }
+
+    .notice-bar {
+      background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.25);
+      border-radius: var(--radius); padding: 10px 16px; margin-bottom: 20px;
+      font-size: 0.82rem; color: var(--text-secondary);
+      display: flex; align-items: center; gap: 10px;
     }
-    .stat-label {
-      color: var(--text-muted);
-      min-width: 52px;
-      flex-shrink: 0;
-    }
-    .stat-value {
-      color: var(--text-secondary);
-    }
+    .notice-bar span { color: #ff6b35; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -107,129 +141,157 @@
     <a href="../tilesets/index.html">Tilesets</a>
     <a href="../ingredients/index.html">Ingredients</a>
     <a href="index.html" class="active">Characters</a>
+    <a href="../dialogues/index.html">Dialogues</a>
   </nav>
 
   <main class="content">
     <h2>Characters (6)</h2>
-    <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 24px;">스토리 대화에 등장하는 주요 캐릭터. 포트레이트 이미지 + 설정.</p>
+    <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 16px;">스토리 대화에 등장하는 주요 캐릭터. 포트레이트 이미지 + 설정.</p>
 
-    <div class="char-grid">
-
-      <!-- 미미 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_mimi.png" alt="미미 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">👧</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">미미 (Mimi)</div>
-          <span class="char-role-badge role-protagonist">주인공</span>
-          <div class="char-desc">초보 미력사. 할머니가 남긴 낡은 식당을 물려받은 요리학교 졸업생. 겁이 많지만 책임감이 강하며, 식란이 시작된 날부터 매일 밤 정화 임무를 수행한다.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">플레이어 캐릭터 / 서사 주도</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ff8899;">■ 핑크 (#ff8899)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">👧</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 포코 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_poco.png" alt="포코 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🐱</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">포코 (Poco)</div>
-          <span class="char-role-badge role-merchant">행상인</span>
-          <div class="char-desc">미미 할머니의 오랜 협력자였던 마력 품은 고양이. 정화 도구 제작 장인이자 행상인. 붙임성 좋고 수다스럽지만 장사는 절대 양보하지 않는다.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">행상인 NPC / 튜토리얼 가이드</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ffaa33;">■ 골드 (#ffaa33)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">🐱</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 린 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_rin.png" alt="린 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🔥</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">린 (Rin)</div>
-          <span class="char-role-badge role-rival">라이벌</span>
-          <div class="char-desc">불꽃 요리사. 처음엔 미미와 경쟁하지만, 공동의 적 앞에서 점차 동료가 되어간다. 강렬하고 직설적인 성격. 화염 계열 도구에 특화된 미력사.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">라이벌 → 동료 (2장 이후)</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ff4444;">■ 레드 (#ff4444)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">🔥</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 메이지 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_mage.png" alt="메이지 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🧁</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">메이지 (Mage)</div>
-          <span class="char-role-badge role-researcher">연구자</span>
-          <div class="char-desc">디저트 전문 미력사이자 식란 연구자. 식란의 근본 원인을 학문적으로 추적하며, 미미에게 식란의 역사와 이론적 배경을 알려준다. 차분하고 분석적이다.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">정보 제공 NPC / 연구자</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#cc88ff;">■ 퍼플 (#cc88ff)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">🧁</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 유키 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_yuki.png" alt="유키 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">❄️</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">유키 (Yuki)</div>
-          <span class="char-role-badge role-protagonist">시즌2 셰프</span>
-          <div class="char-desc">일식 전문 냉기 미력사. WCA 본선 진출자로, 챕터 7에서 미미와 합류한다. 차갑고 과묵하지만 완벽주의적 조리 기술을 가졌다.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">시즌2 플레이어블 셰프</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#88ccff;">■ 아이스블루 (#88ccff)</span></div>
-            <div class="stat-row"><span class="stat-label">해금</span><span class="stat-value">6장 클리어 후</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 라오 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_lao.png" alt="라오 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🔥</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">라오 (Lao)</div>
-          <span class="char-role-badge role-rival">시즌2 셰프</span>
-          <div class="char-desc">중식 전문 화력 미력사. 웍 하나로 수십 인분을 동시에 볶아내는 실력자. 챕터 8에서 미미와 합류. 호탕하고 의리 있는 성격.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">시즌2 플레이어블 셰프</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ff6633;">■ 차이나레드 (#ff6633)</span></div>
-            <div class="stat-row"><span class="stat-label">해금</span><span class="stat-value">7장 클리어 후</span></div>
-          </div>
-        </div>
-      </div>
-
+    <div class="notice-bar">
+      🎨 <span>아트 스타일 검토 중</span> — 좌: 현재 (SD 픽셀아트 / 미미 기준) &nbsp;|&nbsp; 우: 후보 (애니메이션 픽셀아트 / 유키 기준)
     </div>
+
+    <div class="style-toggle">
+      <button class="style-btn active" onclick="setMode('compare')">나란히 비교</button>
+      <button class="style-btn" onclick="setMode('current')">현재만 보기</button>
+      <button class="style-btn" onclick="setMode('candidate')">후보만 보기</button>
+      <span class="style-label">후보는 배경 제거 전 초안입니다</span>
+    </div>
+
+    <div class="char-grid" id="char-grid"></div>
   </main>
+
+  <script>
+    const CHARS = [
+      {
+        id: 'mimi', nameKo: '미미', nameEn: 'Mimi', emoji: '👧',
+        role: 'protagonist', roleName: '주인공',
+        desc: '초보 미력사. 할머니가 남긴 낡은 식당을 물려받은 요리학교 졸업생. 겁이 많지만 책임감이 강하며, 식란이 시작된 날부터 매일 밤 정화 임무를 수행한다.',
+        stats: [
+          { label: '역할', value: '플레이어 캐릭터 / 서사 주도' },
+          { label: '색상', value: '■ 핑크 (#ff8899)', style: 'color:#ff8899' },
+          { label: '이모지', value: '👧' },
+        ]
+      },
+      {
+        id: 'poco', nameKo: '포코', nameEn: 'Poco', emoji: '🐱',
+        role: 'merchant', roleName: '행상인',
+        desc: '미미 할머니의 오랜 협력자였던 마력 품은 고양이. 정화 도구 제작 장인이자 행상인. 붙임성 좋고 수다스럽지만 장사는 절대 양보하지 않는다.',
+        stats: [
+          { label: '역할', value: '행상인 NPC / 튜토리얼 가이드' },
+          { label: '색상', value: '■ 골드 (#ffaa33)', style: 'color:#ffaa33' },
+          { label: '이모지', value: '🐱' },
+        ]
+      },
+      {
+        id: 'rin', nameKo: '린', nameEn: 'Rin', emoji: '🔥',
+        role: 'rival', roleName: '라이벌',
+        desc: '불꽃 요리사. 처음엔 미미와 경쟁하지만, 공동의 적 앞에서 점차 동료가 되어간다. 강렬하고 직설적인 성격. 화염 계열 도구에 특화된 미력사.',
+        stats: [
+          { label: '역할', value: '라이벌 → 동료 (2장 이후)' },
+          { label: '색상', value: '■ 레드 (#ff4444)', style: 'color:#ff4444' },
+          { label: '이모지', value: '🔥' },
+        ]
+      },
+      {
+        id: 'mage', nameKo: '메이지', nameEn: 'Mage', emoji: '🧁',
+        role: 'researcher', roleName: '연구자',
+        desc: '디저트 전문 미력사이자 식란 연구자. 식란의 근본 원인을 학문적으로 추적하며, 미미에게 식란의 역사와 이론적 배경을 알려준다. 차분하고 분석적이다.',
+        stats: [
+          { label: '역할', value: '정보 제공 NPC / 연구자' },
+          { label: '색상', value: '■ 퍼플 (#cc88ff)', style: 'color:#cc88ff' },
+          { label: '이모지', value: '🧁' },
+        ]
+      },
+      {
+        id: 'yuki', nameKo: '유키', nameEn: 'Yuki', emoji: '❄️',
+        role: 'ally', roleName: '시즌2 셰프',
+        desc: '일식 전문 냉기 미력사. WCA 본선 진출자로, 챕터 7에서 미미와 합류한다. 차갑고 과묵하지만 완벽주의적 조리 기술을 가졌다.',
+        stats: [
+          { label: '역할', value: '시즌2 플레이어블 셰프' },
+          { label: '색상', value: '■ 아이스블루 (#88ccff)', style: 'color:#88ccff' },
+          { label: '해금', value: '6장 클리어 후' },
+        ],
+        noCurrent: true
+      },
+      {
+        id: 'lao', nameKo: '라오', nameEn: 'Lao', emoji: '🐉',
+        role: 'ally', roleName: '시즌2 셰프',
+        desc: '중식 전문 화력 미력사. 웍 하나로 수십 인분을 동시에 볶아내는 실력자. 챕터 8에서 미미와 합류. 호탕하고 의리 있는 성격.',
+        stats: [
+          { label: '역할', value: '시즌2 플레이어블 셰프' },
+          { label: '색상', value: '■ 차이나레드 (#ff6633)', style: 'color:#ff6633' },
+          { label: '해금', value: '7장 클리어 후' },
+        ]
+      },
+    ];
+
+    let currentMode = 'compare';
+
+    function imgTag(src, alt, emoji) {
+      return `<img src="${src}" alt="${alt}"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="no-img" style="display:none">${emoji}</div>`;
+    }
+
+    function renderCard(ch) {
+      const currentSrc  = `../assets/portraits/portrait_${ch.id}.png`;
+      const candidateSrc = `../assets/portraits/candidates/portrait_${ch.id}.png`;
+
+      let portraitHtml = '';
+      if (currentMode === 'compare') {
+        portraitHtml = `
+          <div class="portrait-compare">
+            <div class="portrait-slot">
+              <div class="slot-label current">현재</div>
+              ${ch.noCurrent
+                ? `<div class="no-img">${ch.emoji}</div>`
+                : imgTag(currentSrc, ch.nameKo + ' 현재', ch.emoji)}
+            </div>
+            <div class="portrait-slot">
+              <div class="slot-label candidate">후보</div>
+              ${imgTag(candidateSrc, ch.nameKo + ' 후보', ch.emoji)}
+            </div>
+          </div>`;
+      } else {
+        const src = currentMode === 'current' ? currentSrc : candidateSrc;
+        portraitHtml = `
+          <div class="portrait-single">
+            ${(currentMode === 'current' && ch.noCurrent)
+              ? `<div class="no-img">${ch.emoji}</div>`
+              : imgTag(src, ch.nameKo, ch.emoji)}
+          </div>`;
+      }
+
+      const statsHtml = ch.stats.map(s =>
+        `<div class="stat-row">
+           <span class="stat-label">${s.label}</span>
+           <span class="stat-value" ${s.style ? `style="${s.style}"` : ''}>${s.value}</span>
+         </div>`
+      ).join('');
+
+      return `
+        <div class="char-card">
+          ${portraitHtml}
+          <div class="char-info">
+            <div class="char-name">${ch.nameKo} (${ch.nameEn})</div>
+            <span class="char-role-badge role-${ch.role}">${ch.roleName}</span>
+            <div class="char-desc">${ch.desc}</div>
+            <div class="char-stats">${statsHtml}</div>
+          </div>
+        </div>`;
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll('.style-btn').forEach((b, i) => {
+        b.classList.toggle('active', ['compare','current','candidate'][i] === mode);
+      });
+      document.getElementById('char-grid').innerHTML = CHARS.map(renderCard).join('');
+    }
+
+    setMode('compare');
+  </script>
 </body>
 </html>
