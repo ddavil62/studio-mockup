@@ -69,7 +69,7 @@
   </nav>
 
   <main class="content">
-    <h2>Ingredients (15)</h2>
+    <h2>Ingredients (19)</h2>
     <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 20px;">32x32 isometric pixel art icons</p>
 
     <div class="ingredient-grid" id="grid"></div>
@@ -92,9 +92,13 @@
       { id: 'butter', ko: '버터', en: 'Butter', ch: 'ch3' },
       { id: 'sugar', ko: '설탕', en: 'Sugar', ch: 'ch4' },
       { id: 'milk', ko: '우유', en: 'Milk', ch: 'ch4' },
+      { id: 'sashimi_tuna', ko: '참치 사시미', en: 'Sashimi Tuna', ch: 'ch7' },
+      { id: 'wasabi', ko: '와사비', en: 'Wasabi', ch: 'ch7' },
+      { id: 'tofu', ko: '두부', en: 'Tofu', ch: 'ch8' },
+      { id: 'cilantro', ko: '고수', en: 'Cilantro', ch: 'ch8' },
     ];
 
-    const chLabels = { ch1: '1장', ch2: '2장', ch3: '3장', ch4: '4장' };
+    const chLabels = { ch1: '1장', ch2: '2장', ch3: '3장', ch4: '4장', ch7: '7장', ch8: '8장' };
     const grid = document.getElementById('grid');
 
     INGREDIENTS.forEach(i => {

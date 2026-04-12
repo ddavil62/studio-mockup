@@ -182,6 +182,11 @@
       { id: 'butter_ghost', name: '버터 유령', role: 'Butter Ghost / Slippery', ch: 'ch3', type: 'enemies', size: 32 },
       { id: 'sugar_fairy', name: '설탕 요정', role: 'Sugar Fairy / Death Debuff', ch: 'ch4', type: 'enemies', size: 32 },
       { id: 'milk_phantom', name: '밀크 팬텀', role: 'Milk Phantom / Coagulate', ch: 'ch4', type: 'enemies', size: 32 },
+      { id: 'sushi_ninja', name: '스시 닌자', role: 'Sushi Ninja / Stealth', ch: 'ch7', type: 'enemies', size: 48 },
+      { id: 'tempura_monk', name: '텐푸라 승려', role: 'Tempura Monk / Shield', ch: 'ch7', type: 'enemies', size: 48 },
+      { id: 'dumpling_warrior', name: '만두 전사', role: 'Dumpling Warrior / Split', ch: 'ch8', type: 'enemies', size: 48 },
+      { id: 'mini_dumpling', name: '미니 만두', role: 'Mini Dumpling / Spawn', ch: 'ch8', type: 'enemies', size: 36 },
+      { id: 'wok_phantom', name: '웍 팬텀', role: 'Wok Phantom / FireZone', ch: 'ch8', type: 'enemies', size: 48 },
     ];
 
     const BOSSES = [
@@ -191,6 +196,8 @@
       { id: 'lava_dessert_golem', name: '용암 디저트 골렘', role: 'Lava Dessert Golem / 4장 보스', ch: 'boss', type: 'bosses', size: 48 },
       { id: 'master_patissier', name: '마스터 파티시에', role: 'Master Patissier / 5장 보스', ch: 'boss', type: 'bosses', size: 48 },
       { id: 'cuisine_god', name: '요리의 신', role: 'Cuisine God / 최종 보스', ch: 'boss', type: 'bosses', size: 48 },
+      { id: 'sake_oni', name: '사케 오니', role: 'Sake Oni / 7장 보스', ch: 'boss', type: 'bosses', size: 68 },
+      { id: 'dragon_wok', name: '드래곤 웍', role: 'Dragon Wok / 8장 보스 (3페이즈)', ch: 'boss', type: 'bosses', size: 92 },
     ];
 
     const ALL = [...ENEMIES, ...BOSSES];
@@ -309,7 +316,7 @@
           .then(r => r.json())
           .then(meta => {
             const anims = meta.frames?.animations || {};
-            const walkKey = Object.keys(anims).find(k => k.startsWith('walking'));
+            const walkKey = Object.keys(anims).find(k => k.startsWith('walking') || k.startsWith('animating'));
             if (!walkKey) { showStatic(); return; }
             walkFolder = walkKey;
             const dirFrames = anims[walkKey][currentDir] || anims[walkKey]['south'] || [];
