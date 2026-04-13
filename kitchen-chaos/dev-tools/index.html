@@ -148,10 +148,16 @@
         <span class="stage-chip ch8">8-1</span><span class="stage-chip ch8">8-2</span><span class="stage-chip ch8">8-3</span><span class="stage-chip ch8">8-4</span><span class="stage-chip ch8">8-5</span><span class="stage-chip ch8">8-6</span>
       </div>
 
-      <div style="margin: 10px 0; font-size: 0.8rem; color: var(--text-secondary);">9장 사케 오니 최종전 (일식 3)</div>
+      <div style="margin: 10px 0; font-size: 0.8rem; color: var(--text-secondary);">
+        9장 사케 오니 최종전 (일식 3)
+        <span style="margin-left:8px; background:#cc3333; color:#fff; border-radius:4px; padding:1px 7px; font-size:0.72rem; font-weight:600; letter-spacing:0.3px;">Phase 23-2 완료</span>
+      </div>
       <div class="stage-grid">
         <span class="stage-chip ch9">9-1</span><span class="stage-chip ch9">9-2</span><span class="stage-chip ch9">9-3</span><span class="stage-chip ch9">9-4</span><span class="stage-chip ch9">9-5</span><span class="stage-chip ch9">9-6 🔥보스</span>
       </div>
+      <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:6px;">
+        sake_specter + oni_minion 중심 웨이브 / W6에 <code>sake_oni</code> 보스 등장
+      </p>
     </section>
 
     <!-- ── Playwright 픽스처 ── -->
@@ -226,6 +232,10 @@ await injectSave(page, mySave);</code></pre>
           <tr>
             <td><code>js/main.js</code></td>
             <td><code>import.meta.env.DEV</code> 조건으로 DevHelper를 동적 임포트.</td>
+          </tr>
+          <tr>
+            <td><code>public/dev-launcher.html</code></td>
+            <td>Stage Launcher UI. Vite가 <code>/dev-launcher.html</code>로 서빙. 동일 오리진에서 localStorage 직접 조작.</td>
           </tr>
           <tr>
             <td><code>tests/fixtures/saveFixtures.js</code></td>
