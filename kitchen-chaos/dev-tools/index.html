@@ -186,6 +186,7 @@
       <div style="margin: 18px 0 10px 0; font-size: 0.8rem; color: var(--text-secondary);">
         11장 용의 주방 심층부 (중국식 2)
         <span class="badge" style="background:#2a0a3a;color:#cc66ff;margin-left:8px;">Phase 25-1 완료</span>
+        <span class="badge" style="background:#1a2a0a;color:#99cc44;margin-left:4px;">Phase 25-2 완료</span>
       </div>
       <div class="stage-grid">
         <span class="stage-chip ch11">11-1</span><span class="stage-chip ch11">11-2</span><span class="stage-chip ch11">11-3</span><span class="stage-chip ch11">11-4</span><span class="stage-chip ch11">11-5</span><span class="stage-chip ch11" style="opacity:0.5;">11-6 🔒보스</span>
@@ -193,6 +194,16 @@
       <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:6px;">
         shadow_dragon_spawn(어둠 디버프) + wok_guardian(전면 방어 70%) 웨이브 / 11-6 보스(dragon_wok)는 Phase 26 예정
       </p>
+      <!-- Phase 25-2 walk 애니메이션 + dark_debuff -->
+      <div style="margin-top: 10px; background: rgba(153,204,68,0.06); border: 1px solid rgba(153,204,68,0.25); border-radius: 8px; padding: 12px 14px;">
+        <div style="font-size: 0.85rem; font-weight: 600; color: #99cc44; margin-bottom: 5px;">🎬 Walk 애니메이션 (Phase 25-2)</div>
+        <ul style="font-size:0.78rem; color:var(--text-secondary); margin:0; padding-left:18px; line-height:1.7;">
+          <li>shadow_dragon_spawn: <code>walking-dde29672</code> — 8방향 × 6프레임</li>
+          <li>wok_guardian: <code>walking-bc1aca17</code> — 8방향 × 6프레임</li>
+          <li>dark_debuff: GatheringScene <code>_onDarkDebuff</code> 구현 — 범위 내 타워 공격력 -20% / 5초</li>
+          <li>ENEMY_IDS 25종 확정</li>
+        </ul>
+      </div>
 
       <div style="margin: 18px 0 8px 0; font-size: 0.8rem; color: var(--text-secondary);">
         12~15장 / 16~24장 (placeholder — 미구현)
