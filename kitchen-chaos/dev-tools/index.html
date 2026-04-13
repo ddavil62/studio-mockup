@@ -53,7 +53,23 @@
 
   <main class="content">
     <h2 style="margin-bottom: 4px;">Dev Tools</h2>
-    <p class="text-muted" style="font-size: 0.85rem;">후반 챕터 테스트용 — 콘솔 헬퍼 + Playwright 픽스처</p>
+    <p class="text-muted" style="font-size: 0.85rem;">후반 챕터 테스트용 — 스테이지 런처 + 콘솔 헬퍼 + Playwright 픽스처</p>
+
+    <!-- ── 스테이지 런처 ── -->
+    <section style="margin-top: 20px;">
+      <h3>0. Stage Launcher <span style="font-size:0.75rem; color:var(--text-secondary); font-weight:400;">(dev server 필요)</span></h3>
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 12px;">
+        버튼 한 번으로 원하는 스테이지에서 게임을 시작한다.
+        <code>npm run dev</code> 로 개발 서버를 켜두고 아래 버튼을 클릭하면 된다.
+      </p>
+      <a href="http://localhost:5173/dev-launcher.html" target="_blank"
+        style="display:inline-block; background:#ff6b35; color:#fff; border-radius:8px; padding:11px 28px; font-size:0.95rem; font-weight:600; text-decoration:none; letter-spacing:0.5px;">
+        🚀 Stage Launcher 열기
+      </a>
+      <p style="font-size:0.78rem; color:var(--text-secondary); margin-top: 8px;">
+        → <code>http://localhost:5173/dev-launcher.html</code> 에서 동작 (게임 서버와 동일 오리진)
+      </p>
+    </section>
 
     <!-- ── 브라우저 콘솔 헬퍼 ── -->
     <section style="margin-top: 28px;">
