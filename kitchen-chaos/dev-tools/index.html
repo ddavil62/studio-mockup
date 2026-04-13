@@ -17,8 +17,14 @@
     .stage-chip { background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 4px 9px; font-size: 0.78rem; font-family: monospace; cursor: pointer; }
     .stage-chip:hover { border-color: #ff6b35; color: #ff6b35; }
     .stage-chip.ch7 { border-color: #cc6699; color: #cc6699; }
-    .stage-chip.ch8 { border-color: #cc9933; color: #cc9933; }
+    .stage-chip.ch8 { border-color: #888; color: #888; opacity: 0.6; }
     .stage-chip.ch9 { border-color: #cc3333; color: #cc3333; }
+    .stage-chip.ch10 { border-color: #3399cc; color: #3399cc; }
+    .badge { display:inline-block; border-radius:4px; padding:1px 7px; font-size:0.72rem; font-weight:600; letter-spacing:0.3px; vertical-align:middle; }
+    .badge-red { background:#cc3333; color:#fff; }
+    .badge-blue { background:#3399cc; color:#fff; }
+    .badge-green { background:#33aa66; color:#fff; }
+    .badge-gray { background:#555; color:#ccc; }
     .fixture-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin: 8px 0; }
     .fixture-box h4 { margin: 0 0 6px 0; font-size: 0.9rem; }
     .fixture-box .desc { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; }
@@ -143,14 +149,20 @@
         <span class="stage-chip ch7">7-1</span><span class="stage-chip ch7">7-2</span><span class="stage-chip ch7">7-3</span><span class="stage-chip ch7">7-4</span><span class="stage-chip ch7">7-5</span><span class="stage-chip ch7">7-6</span>
       </div>
 
-      <div style="margin: 10px 0; font-size: 0.8rem; color: var(--text-secondary);">8장 이자카야 심층부 (일식 2)</div>
+      <div style="margin: 10px 0; font-size: 0.8rem; color: var(--text-secondary);">
+        8장 (placeholder — 미구현)
+        <span class="badge badge-gray" style="margin-left:6px;">Phase 24-2</span>
+      </div>
       <div class="stage-grid">
         <span class="stage-chip ch8">8-1</span><span class="stage-chip ch8">8-2</span><span class="stage-chip ch8">8-3</span><span class="stage-chip ch8">8-4</span><span class="stage-chip ch8">8-5</span><span class="stage-chip ch8">8-6</span>
       </div>
+      <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:4px;">
+        ⚠ 스테이지 데이터 없음 — WorldMap에서 잠금 표시됨, <code>__kc.go('8-x')</code> 불가
+      </p>
 
       <div style="margin: 10px 0; font-size: 0.8rem; color: var(--text-secondary);">
         9장 사케 오니 최종전 (일식 3)
-        <span style="margin-left:8px; background:#cc3333; color:#fff; border-radius:4px; padding:1px 7px; font-size:0.72rem; font-weight:600; letter-spacing:0.3px;">Phase 23-2 완료</span>
+        <span class="badge badge-red" style="margin-left:8px;">Phase 23-2 완료</span>
       </div>
       <div class="stage-grid">
         <span class="stage-chip ch9">9-1</span><span class="stage-chip ch9">9-2</span><span class="stage-chip ch9">9-3</span><span class="stage-chip ch9">9-4</span><span class="stage-chip ch9">9-5</span><span class="stage-chip ch9">9-6 🔥보스</span>
@@ -158,6 +170,37 @@
       <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:6px;">
         sake_specter + oni_minion 중심 웨이브 / W6에 <code>sake_oni</code> 보스 등장
       </p>
+
+      <div style="margin: 18px 0 10px 0; font-size: 0.8rem; color: var(--text-secondary);">
+        10장 용의 주방 (중국식 1)
+        <span class="badge badge-blue" style="margin-left:8px;">Phase 24-1 완료</span>
+      </div>
+      <div class="stage-grid">
+        <span class="stage-chip ch10">10-1</span><span class="stage-chip ch10">10-2</span><span class="stage-chip ch10">10-3</span><span class="stage-chip ch10">10-4</span><span class="stage-chip ch10">10-5</span><span class="stage-chip ch10">10-6</span>
+      </div>
+      <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:6px;">
+        lao_joined, chapter10_clear 플래그 / <code>__kc.go('10-1')</code> 로 진입 가능
+      </p>
+
+      <div style="margin: 18px 0 8px 0; font-size: 0.8rem; color: var(--text-secondary);">
+        11~15장 / 16~24장 (placeholder — 미구현)
+      </div>
+      <p style="font-size:0.75rem; color:var(--text-secondary);">
+        WorldMap 그룹2(11~15장) · 그룹3(16~24장) 노드에 표시됨. 스테이지 데이터 없음.
+      </p>
+
+      <!-- Phase 24-2 WorldMap 탭 UI -->
+      <div style="margin-top: 20px; background: rgba(51,153,204,0.08); border: 1px solid rgba(51,153,204,0.3); border-radius: 8px; padding: 14px 16px;">
+        <div style="font-size: 0.88rem; font-weight: 600; color: #3399cc; margin-bottom: 6px;">
+          🗺 WorldMap 3탭 UI
+          <span class="badge badge-green" style="margin-left:8px;">Phase 24-2 완료</span>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6;">
+          그룹1 (1~6장) · 그룹2 (7~15장) · 그룹3 (16~24장) 탭 전환 구현.<br>
+          <code>season2Unlocked</code> → 탭2 해금 / <code>season3Unlocked</code> → 탭3 해금.<br>
+          HUD 별점은 현재 탭 그룹 기준으로 표시. <code>SaveManager.getTotalStars(group)</code>
+        </div>
+      </div>
     </section>
 
     <!-- ── Playwright 픽스처 ── -->
