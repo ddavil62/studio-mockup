@@ -131,17 +131,18 @@
 
   <main class="content">
     <div class="section-title-bar">
-      <h2>Enemies (30)</h2>
+      <h2>Enemies (32)</h2>
     </div>
 
     <div class="filter-bar" id="faction-filter">
-      <button class="filter-btn active" data-filter="all">All (22)</button>
+      <button class="filter-btn active" data-filter="all">All (24)</button>
       <button class="filter-btn" data-filter="ch1">1장 (5)</button>
       <button class="filter-btn" data-filter="ch2">2장 (3)</button>
       <button class="filter-btn" data-filter="ch3">3장 (3)</button>
       <button class="filter-btn" data-filter="ch4">4장 (5)</button>
       <button class="filter-btn" data-filter="ch7">7장 (3)</button>
-      <button class="filter-btn" data-filter="ch8">8장 (3)</button>
+      <button class="filter-btn" data-filter="ch8jp">8장 심층부 (2)</button>
+      <button class="filter-btn" data-filter="ch8">8장→10장 용주 (3)</button>
       <button class="filter-btn" data-filter="boss">Bosses (8)</button>
     </div>
 
@@ -165,8 +166,12 @@
     <h3 id="ch7" class="chapter-title">7장: 사쿠라 이자카야</h3>
     <div class="enemy-grid" id="grid-ch7"></div>
 
-    <!-- 8장 용의 주방 -->
-    <h3 id="ch8" class="chapter-title">8장: 용의 주방</h3>
+    <!-- 8장 이자카야 심층부 (Phase 22) -->
+    <h3 id="ch8jp" class="chapter-title">8장: 이자카야 심층부 (Phase 22)</h3>
+    <div class="enemy-grid" id="grid-ch8jp"></div>
+
+    <!-- 8장 용의 주방 (→10장으로 재편 예정, Phase 24) -->
+    <h3 id="ch8" class="chapter-title">8장→10장: 용의 주방</h3>
     <div class="enemy-grid" id="grid-ch8"></div>
 
     <!-- 보스 -->
@@ -195,6 +200,8 @@
       { id: 'sushi_ninja', name: '스시 닌자', role: 'Sushi Ninja / Stealth', ch: 'ch7', type: 'enemies', size: 48 },
       { id: 'tempura_monk', name: '텐푸라 승려', role: 'Tempura Monk / Shield', ch: 'ch7', type: 'enemies', size: 48 },
       { id: 'oni_herald', name: '오니 전령', role: 'Oni Herald / 7장 미드보스 (Phase 22-2 스프라이트)', ch: 'ch7', type: 'enemies', size: 42 },
+      { id: 'sake_specter', name: '사케 유령', role: 'Sake Specter / Stun Debuff (Phase 22-2)', ch: 'ch8jp', type: 'enemies', size: 48 },
+      { id: 'oni_minion', name: '오니 부하', role: 'Oni Minion / Charge (Phase 22-2)', ch: 'ch8jp', type: 'enemies', size: 48 },
       { id: 'dumpling_warrior', name: '만두 전사', role: 'Dumpling Warrior / Split', ch: 'ch8', type: 'enemies', size: 48 },
       { id: 'mini_dumpling', name: '미니 만두', role: 'Mini Dumpling / Spawn', ch: 'ch8', type: 'enemies', size: 36 },
       { id: 'wok_phantom', name: '웍 팬텀', role: 'Wok Phantom / FireZone', ch: 'ch8', type: 'enemies', size: 48 },
@@ -232,7 +239,7 @@
     }
 
     // 그리드 채우기
-    const grids = { ch1: 'grid-ch1', ch2: 'grid-ch2', ch3: 'grid-ch3', ch4: 'grid-ch4', ch7: 'grid-ch7', ch8: 'grid-ch8', boss: 'grid-boss' };
+    const grids = { ch1: 'grid-ch1', ch2: 'grid-ch2', ch3: 'grid-ch3', ch4: 'grid-ch4', ch7: 'grid-ch7', ch8jp: 'grid-ch8jp', ch8: 'grid-ch8', boss: 'grid-boss' };
     ALL.forEach(e => {
       const g = document.getElementById(grids[e.ch]);
       if (g) g.insertAdjacentHTML('beforeend', createCard(e));
