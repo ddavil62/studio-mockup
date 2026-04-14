@@ -1,0 +1,113 @@
+{
+  "character": {
+    "id": "feddb030-452b-455e-a93f-866869ccc4ab",
+    "name": "maharaja",
+    "prompt": "maharaja spice king boss, ancient indian ruler sealed for 300 years, ornate purple royal safa turban with golden brooch and feather ornament, heavy golden-crimson achkan robe with rich gold embroidery patterns reaching to knees, multiple golden necklaces and thick golden bangles on both wrists, right hand holding golden incense censer with spice flame and smoke rising, left hand holding golden scepter with spice seed ornament at tip, broad imposing figure with dignified heavy stance, dark golden-brown skin tone, fine golden spice powder particles drifting around feet, top-down low-angle RPG boss sprite, high detail pixel art chibi proportions, transparent background, indian spice palace theme",
+    "size": {
+      "width": 212,
+      "height": 212
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-14T12:31:36.243148+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "animating-2c666ada": {
+        "south": [
+          "animations/animating-2c666ada/south/frame_000.png",
+          "animations/animating-2c666ada/south/frame_001.png",
+          "animations/animating-2c666ada/south/frame_002.png",
+          "animations/animating-2c666ada/south/frame_003.png",
+          "animations/animating-2c666ada/south/frame_004.png",
+          "animations/animating-2c666ada/south/frame_005.png",
+          "animations/animating-2c666ada/south/frame_006.png",
+          "animations/animating-2c666ada/south/frame_007.png"
+        ],
+        "south-west": [
+          "animations/animating-2c666ada/south-west/frame_000.png",
+          "animations/animating-2c666ada/south-west/frame_001.png",
+          "animations/animating-2c666ada/south-west/frame_002.png",
+          "animations/animating-2c666ada/south-west/frame_003.png",
+          "animations/animating-2c666ada/south-west/frame_004.png",
+          "animations/animating-2c666ada/south-west/frame_005.png",
+          "animations/animating-2c666ada/south-west/frame_006.png",
+          "animations/animating-2c666ada/south-west/frame_007.png"
+        ],
+        "north-west": [
+          "animations/animating-2c666ada/north-west/frame_000.png",
+          "animations/animating-2c666ada/north-west/frame_001.png",
+          "animations/animating-2c666ada/north-west/frame_002.png",
+          "animations/animating-2c666ada/north-west/frame_003.png",
+          "animations/animating-2c666ada/north-west/frame_004.png",
+          "animations/animating-2c666ada/north-west/frame_005.png",
+          "animations/animating-2c666ada/north-west/frame_006.png",
+          "animations/animating-2c666ada/north-west/frame_007.png"
+        ],
+        "north-east": [
+          "animations/animating-2c666ada/north-east/frame_000.png",
+          "animations/animating-2c666ada/north-east/frame_001.png",
+          "animations/animating-2c666ada/north-east/frame_002.png",
+          "animations/animating-2c666ada/north-east/frame_003.png",
+          "animations/animating-2c666ada/north-east/frame_004.png",
+          "animations/animating-2c666ada/north-east/frame_005.png",
+          "animations/animating-2c666ada/north-east/frame_006.png",
+          "animations/animating-2c666ada/north-east/frame_007.png"
+        ],
+        "west": [
+          "animations/animating-2c666ada/west/frame_000.png",
+          "animations/animating-2c666ada/west/frame_001.png",
+          "animations/animating-2c666ada/west/frame_002.png",
+          "animations/animating-2c666ada/west/frame_003.png",
+          "animations/animating-2c666ada/west/frame_004.png",
+          "animations/animating-2c666ada/west/frame_005.png",
+          "animations/animating-2c666ada/west/frame_006.png",
+          "animations/animating-2c666ada/west/frame_007.png"
+        ],
+        "north": [
+          "animations/animating-2c666ada/north/frame_000.png",
+          "animations/animating-2c666ada/north/frame_001.png",
+          "animations/animating-2c666ada/north/frame_002.png",
+          "animations/animating-2c666ada/north/frame_003.png",
+          "animations/animating-2c666ada/north/frame_004.png",
+          "animations/animating-2c666ada/north/frame_005.png",
+          "animations/animating-2c666ada/north/frame_006.png",
+          "animations/animating-2c666ada/north/frame_007.png"
+        ],
+        "east": [
+          "animations/animating-2c666ada/east/frame_000.png",
+          "animations/animating-2c666ada/east/frame_001.png",
+          "animations/animating-2c666ada/east/frame_002.png",
+          "animations/animating-2c666ada/east/frame_003.png",
+          "animations/animating-2c666ada/east/frame_004.png",
+          "animations/animating-2c666ada/east/frame_005.png",
+          "animations/animating-2c666ada/east/frame_006.png",
+          "animations/animating-2c666ada/east/frame_007.png"
+        ],
+        "south-east": [
+          "animations/animating-2c666ada/south-east/frame_000.png",
+          "animations/animating-2c666ada/south-east/frame_001.png",
+          "animations/animating-2c666ada/south-east/frame_002.png",
+          "animations/animating-2c666ada/south-east/frame_003.png",
+          "animations/animating-2c666ada/south-east/frame_004.png",
+          "animations/animating-2c666ada/south-east/frame_005.png",
+          "animations/animating-2c666ada/south-east/frame_006.png",
+          "animations/animating-2c666ada/south-east/frame_007.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-14T12:45:35.843598"
+}
