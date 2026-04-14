@@ -8,7 +8,7 @@
   <style>
     .char-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 24px;
     }
     .char-card {
@@ -27,6 +27,7 @@
       justify-content: center;
       padding: 24px;
       min-height: 220px;
+      position: relative;
     }
     .portrait-area img {
       max-width: 180px;
@@ -38,6 +39,17 @@
       font-size: 80px;
       line-height: 1;
     }
+    .portrait-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
 
     .char-info {
       padding: 18px 20px;
@@ -47,22 +59,40 @@
       font-weight: 700;
       margin: 0 0 2px;
     }
+    .char-name-en {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin: 0 0 8px;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
     .char-role-badge {
       display: inline-block;
       font-size: 0.72rem;
       font-weight: 600;
       padding: 2px 8px;
       border-radius: 20px;
-      margin-bottom: 12px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+    }
+    .char-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
     }
     .role-protagonist { background: #ff6b3522; color: #ff6b35; border: 1px solid #ff6b3544; }
     .role-merchant    { background: #ffaa3322; color: #ffaa33; border: 1px solid #ffaa3344; }
     .role-rival       { background: #ff444422; color: #ff6666; border: 1px solid #ff444444; }
     .role-researcher  { background: #cc88ff22; color: #cc88ff; border: 1px solid #cc88ff44; }
     .role-ally        { background: #4169e122; color: #6699ff; border: 1px solid #4169e144; }
-    .role-boss        { background: #cc111122; color: #ff4466; border: 1px solid #cc111144; }
 
     .char-desc {
       font-size: 0.88rem;
@@ -75,21 +105,55 @@
       font-size: 0.8rem;
       border-top: 1px solid var(--border);
       padding-top: 12px;
+      margin-bottom: 12px;
     }
     .stat-row {
       display: flex;
       gap: 8px;
       align-items: flex-start;
-      padding: 4px 0;
+      padding: 3px 0;
     }
     .stat-label {
       color: var(--text-muted);
-      min-width: 52px;
+      min-width: 60px;
       flex-shrink: 0;
     }
     .stat-value {
       color: var(--text-secondary);
     }
+
+    .char-quote {
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+    .char-quote .quote-label {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .char-quote blockquote {
+      margin: 0;
+      padding: 8px 12px;
+      border-left: 2px solid var(--border);
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .group-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 6px 0 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .group-section { margin-bottom: 36px; }
   </style>
 </head>
 <body>
@@ -119,163 +183,288 @@
 
   <main class="content">
     <h2>Characters (8)</h2>
-    <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 24px;">스토리 대화에 등장하는 주요 캐릭터. 포트레이트 이미지 + 설정.</p>
+    <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 28px;">스토리 대화에 등장하는 주요 캐릭터. 포트레이트 이미지 + 상세 프로필.</p>
 
-    <div class="char-grid">
+    <!-- 그룹 1: 초기 팀 (1~6장) -->
+    <div class="group-section">
+      <div class="group-title">Group 1 — 초기 팀 (Ch.1~6)</div>
+      <div class="char-grid">
 
-      <!-- 미미 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_mimi.png" alt="미미 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">👧</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">미미 (Mimi)</div>
-          <span class="char-role-badge role-protagonist">주인공</span>
-          <div class="char-desc">초보 미력사. 할머니가 남긴 낡은 식당을 물려받은 요리학교 졸업생. 겁이 많지만 책임감이 강하며, 식란이 시작된 날부터 매일 밤 정화 임무를 수행한다.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">플레이어 캐릭터 / 서사 주도</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ff8899;">■ 핑크 (#ff8899)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">👧</span></div>
+        <!-- 미미 -->
+        <div class="char-card">
+          <div class="portrait-area">
+            <img src="../assets/portraits/portrait_mimi.png" alt="미미 포트레이트"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="no-img" style="display:none">👧</div>
+            <span class="portrait-badge">portrait ✓</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">미미</div>
+            <div class="char-name-en">Mimi</div>
+            <div class="badge-row">
+              <span class="char-role-badge role-protagonist">주인공</span>
+              <span class="char-tag">여성</span>
+              <span class="char-tag">20대 초반</span>
+              <span class="char-tag">🍳 프라이팬</span>
+            </div>
+            <div class="char-desc">평범한 요리학교 졸업생. 할머니가 남긴 낡은 식당을 물려받으면서 미력사 혈통임을 깨닫는다. 낮에는 요리사, 밤에는 식란 정화사로 이중생활을 시작한다.</div>
+            <div class="char-stats">
+              <div class="stat-row"><span class="stat-label">출신</span><span class="stat-value">국내 (한국계 추정)</span></div>
+              <div class="stat-row"><span class="stat-label">특화</span><span class="stat-value">범용 정화 / 프라이팬 미력</span></div>
+              <div class="stat-row"><span class="stat-label">성격</span><span class="stat-value">겁이 많지만 책임감 강함. 공감 능력이 팀의 접착제 역할</span></div>
+              <div class="stat-row"><span class="stat-label">등장</span><span class="stat-value">1장 ~ (전 스토리 주도)</span></div>
+              <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ff8899;">■ 핑크 #ff8899</span></div>
+            </div>
+            <div class="char-quote">
+              <div class="quote-label">대표 대사</div>
+              <blockquote>"기다려, 할머니. 이 식당, 내가 지킬게!"</blockquote>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- 포코 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_poco.png" alt="포코 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🐱</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">포코 (Poco)</div>
-          <span class="char-role-badge role-merchant">행상인</span>
-          <div class="char-desc">미미 할머니의 오랜 협력자였던 마력 품은 고양이. 정화 도구 제작 장인이자 행상인. 붙임성 좋고 수다스럽지만 장사는 절대 양보하지 않는다.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">행상인 NPC / 튜토리얼 가이드</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ffaa33;">■ 골드 (#ffaa33)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">🐱</span></div>
+        <!-- 포코 -->
+        <div class="char-card">
+          <div class="portrait-area">
+            <img src="../assets/portraits/portrait_poco.png" alt="포코 포트레이트"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="no-img" style="display:none">🐱</div>
+            <span class="portrait-badge">portrait ✓</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">포코</div>
+            <div class="char-name-en">Poco</div>
+            <div class="badge-row">
+              <span class="char-role-badge role-merchant">행상인</span>
+              <span class="char-tag">수컷 고양이</span>
+              <span class="char-tag">불명 (고령)</span>
+              <span class="char-tag">🛒 장비 장인</span>
+            </div>
+            <div class="char-desc">미미 할머니의 오랜 협력자. 마력이 깃든 의인화 고양이. 정화 도구 제작 장인이자 행상인으로, 전 스토리에 걸쳐 팀의 장비를 담당한다.</div>
+            <div class="char-stats">
+              <div class="stat-row"><span class="stat-label">출신</span><span class="stat-value">미력사 가문 협력자 (비밀 결사)</span></div>
+              <div class="stat-row"><span class="stat-label">특화</span><span class="stat-value">정화 도구 제작 / 업그레이드 / 판매</span></div>
+              <div class="stat-row"><span class="stat-label">성격</span><span class="stat-value">붙임성 좋고 수다스러움. 상인 근성 강함 — 위기 속에서도 할인 권유</span></div>
+              <div class="stat-row"><span class="stat-label">등장</span><span class="stat-value">1장 ~ (행상인 씬 전담)</span></div>
+              <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ffaa33;">■ 골드 #ffaa33</span></div>
+            </div>
+            <div class="char-quote">
+              <div class="quote-label">대표 대사</div>
+              <blockquote>"지금 업그레이드하면 20% 할인인데—"</blockquote>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- 린 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_rin.png" alt="린 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🔥</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">린 (Rin)</div>
-          <span class="char-role-badge role-rival">라이벌</span>
-          <div class="char-desc">불꽃 요리사. 처음엔 미미와 경쟁하지만, 공동의 적 앞에서 점차 동료가 되어간다. 강렬하고 직설적인 성격. 화염 계열 도구에 특화된 미력사.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">라이벌 → 동료 (2장 이후)</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ff4444;">■ 레드 (#ff4444)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">🔥</span></div>
+        <!-- 린 -->
+        <div class="char-card">
+          <div class="portrait-area">
+            <img src="../assets/portraits/portrait_rin.png" alt="린 포트레이트"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="no-img" style="display:none">🔥</div>
+            <span class="portrait-badge">portrait ✓</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">린</div>
+            <div class="char-name-en">Rin</div>
+            <div class="badge-row">
+              <span class="char-role-badge role-rival">라이벌 → 동료</span>
+              <span class="char-tag">여성</span>
+              <span class="char-tag">20대</span>
+              <span class="char-tag">🔥 화염 특화</span>
+            </div>
+            <div class="char-desc">불꽃 요리사 가문의 후계자. 처음엔 미미와 경쟁하지만, 공동의 적 앞에서 점차 신뢰를 쌓는다. 강렬하고 직설적이며 지고는 못 사는 성격.</div>
+            <div class="char-stats">
+              <div class="stat-row"><span class="stat-label">출신</span><span class="stat-value">불꽃 요리사 가문</span></div>
+              <div class="stat-row"><span class="stat-label">특화</span><span class="stat-value">화염 계열 정화 / 구이 특화</span></div>
+              <div class="stat-row"><span class="stat-label">성격</span><span class="stat-value">경쟁적, 직설적. 인정할 건 인정하는 솔직함</span></div>
+              <div class="stat-row"><span class="stat-label">등장</span><span class="stat-value">2장 (라이벌) → 2장 이후 동료</span></div>
+              <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ff4444;">■ 레드 #ff4444</span></div>
+            </div>
+            <div class="char-quote">
+              <div class="quote-label">대표 대사</div>
+              <blockquote>"인정할 건 인정해야지. 솜씨가 있네, 초보."</blockquote>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- 메이지 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_mage.png" alt="메이지 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🧁</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">메이지 (Mage)</div>
-          <span class="char-role-badge role-researcher">연구자</span>
-          <div class="char-desc">디저트 전문 미력사이자 식란 연구자. 식란의 근본 원인을 학문적으로 추적하며, 미미에게 식란의 역사와 이론적 배경을 알려준다. 차분하고 분석적이다.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">정보 제공 NPC / 연구자</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#cc88ff;">■ 퍼플 (#cc88ff)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">🧁</span></div>
+        <!-- 메이지 -->
+        <div class="char-card">
+          <div class="portrait-area">
+            <img src="../assets/portraits/portrait_mage.png" alt="메이지 포트레이트"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="no-img" style="display:none">🧁</div>
+            <span class="portrait-badge">portrait ✓</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">메이지</div>
+            <div class="char-name-en">Mage</div>
+            <div class="badge-row">
+              <span class="char-role-badge role-researcher">연구자 → 동료</span>
+              <span class="char-tag">여성</span>
+              <span class="char-tag">20대 초반</span>
+              <span class="char-tag">🧁 디저트 특화</span>
+            </div>
+            <div class="char-desc">디저트 전문 미력사이자 식란 연구자. 식란의 근본 원인을 학문적으로 추적하며 미미에게 이론적 배경을 알려준다. 안경 착용. 차분하고 분석적.</div>
+            <div class="char-stats">
+              <div class="stat-row"><span class="stat-label">출신</span><span class="stat-value">학술 미력 연구기관</span></div>
+              <div class="stat-row"><span class="stat-label">특화</span><span class="stat-value">디저트 정화 / 미력 데이터 수집·분석</span></div>
+              <div class="stat-row"><span class="stat-label">성격</span><span class="stat-value">학구적, 침착. "데이터는 거짓말을 하지 않죠"</span></div>
+              <div class="stat-row"><span class="stat-label">등장</span><span class="stat-value">3장 씨푸드 바 연구소</span></div>
+              <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#cc88ff;">■ 퍼플 #cc88ff</span></div>
+            </div>
+            <div class="char-quote">
+              <div class="quote-label">대표 대사</div>
+              <blockquote>"식란은 자연현상이 아닐 수도 있어요. 미력의 근원지가 있을 거예요."</blockquote>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- 유키 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_yuki.png" alt="유키 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">❄️</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">유키 (Yuki)</div>
-          <span class="char-role-badge role-protagonist">시즌2 셰프</span>
-          <div class="char-desc">일식 전문 냉기 미력사. WCA 본선 진출자로, 챕터 7에서 미미와 합류한다. 차갑고 과묵하지만 완벽주의적 조리 기술을 가졌다.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">시즌2 플레이어블 셰프</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#88ccff;">■ 아이스블루 (#88ccff)</span></div>
-            <div class="stat-row"><span class="stat-label">해금</span><span class="stat-value">6장 클리어 후</span></div>
-          </div>
-        </div>
       </div>
-
-      <!-- 라오 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_lao.png" alt="라오 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🔥</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">라오 (Lao)</div>
-          <span class="char-role-badge role-rival">시즌2 셰프</span>
-          <div class="char-desc">중식 전문 화력 미력사. 웍 하나로 수십 인분을 동시에 볶아내는 실력자. 챕터 8에서 미미와 합류. 호탕하고 의리 있는 성격.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">시즌2 플레이어블 셰프</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ff6633;">■ 차이나레드 (#ff6633)</span></div>
-            <div class="stat-row"><span class="stat-label">해금</span><span class="stat-value">7장 클리어 후</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 앙드레 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_andre.png" alt="앙드레 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🥐</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">앙드레 (André)</div>
-          <span class="char-role-badge role-ally">동료</span>
-          <div class="char-desc">WCA 유럽 지부장. 파리 출신 미력사로, 별빛 비스트로 식란 사태를 조사 중이다. 13장에서 미미 팀에 합류.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">13장 동료 NPC</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#6699ff;">■ 로얄블루 (#4169e1)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">🥐</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 아르준 -->
-      <div class="char-card">
-        <div class="portrait-area">
-          <img src="../assets/portraits/portrait_masala_guide.png" alt="아르준 포트레이트"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <div class="no-img" style="display:none">🪬</div>
-        </div>
-        <div class="char-info">
-          <div class="char-name">아르준 (Arjun)</div>
-          <span class="char-role-badge role-ally">동료</span>
-          <div class="char-desc">마살라 문파 12대 계승자. 인도 향신료 시장의 식란을 대대로 수호해온 비밀 결사의 후계자. 17장에서 ???로 등장 후 18장에서 신원 공개.</div>
-          <div class="char-stats">
-            <div class="stat-row"><span class="stat-label">역할</span><span class="stat-value">인도 아크 동료</span></div>
-            <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#d4a017;">■ 황금앰버 (#d4a017)</span></div>
-            <div class="stat-row"><span class="stat-label">이모지</span><span class="stat-value">🪬</span></div>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- 그룹 2: 국제 팀 (7~15장) -->
+    <div class="group-section">
+      <div class="group-title">Group 2 — 국제 미력사 팀 (Ch.7~15)</div>
+      <div class="char-grid">
+
+        <!-- 유키 -->
+        <div class="char-card">
+          <div class="portrait-area">
+            <img src="../assets/portraits/portrait_yuki.png" alt="유키 포트레이트"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="no-img" style="display:none">❄️</div>
+            <span class="portrait-badge">portrait ✓</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">유키</div>
+            <div class="char-name-en">Yuki</div>
+            <div class="badge-row">
+              <span class="char-role-badge role-ally">동료 (7장~)</span>
+              <span class="char-tag">여성</span>
+              <span class="char-tag">일본 출신</span>
+              <span class="char-tag">❄️ 냉기 특화</span>
+            </div>
+            <div class="char-desc">일식 전문 냉기 미력사. WCA 본선 진출자. 7장 사쿠라 이자카야에서 합류. 차갑고 과묵하지만 완벽주의적 조리 기술을 가졌다. 원칙을 철저히 지키는 포지션.</div>
+            <div class="char-stats">
+              <div class="stat-row"><span class="stat-label">출신</span><span class="stat-value">일본 / WCA 본선 진출 미력사</span></div>
+              <div class="stat-row"><span class="stat-label">특화</span><span class="stat-value">냉기·얼음 정화 / 칼 계열 도구</span></div>
+              <div class="stat-row"><span class="stat-label">성격</span><span class="stat-value">냉정, 원칙주의. 팀 내 규율 포지션</span></div>
+              <div class="stat-row"><span class="stat-label">등장</span><span class="stat-value">7장 사쿠라 이자카야 (해금: 6장 클리어)</span></div>
+              <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#88ccff;">■ 아이스블루 #88ccff</span></div>
+            </div>
+            <div class="char-quote">
+              <div class="quote-label">대표 대사</div>
+              <blockquote>"위험한 도박이네요."</blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- 라오 -->
+        <div class="char-card">
+          <div class="portrait-area">
+            <img src="../assets/portraits/portrait_lao.png" alt="라오 포트레이트"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="no-img" style="display:none">🐉</div>
+            <span class="portrait-badge">portrait ✓</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">라오</div>
+            <div class="char-name-en">Lao</div>
+            <div class="badge-row">
+              <span class="char-role-badge role-ally">동료 (10장~)</span>
+              <span class="char-tag">남성</span>
+              <span class="char-tag">중국 출신</span>
+              <span class="char-tag">🐉 웍 마스터</span>
+            </div>
+            <div class="char-desc">중식 전문 화력 미력사. 웍 하나로 수십 인분을 동시에 볶아내는 실력자. 10장 용의 주방에서 합류. 호탕하고 의리 있는 성격. 드래곤 웍과 과거 연결이 있다.</div>
+            <div class="char-stats">
+              <div class="stat-row"><span class="stat-label">출신</span><span class="stat-value">중국 / 중식 미력사</span></div>
+              <div class="stat-row"><span class="stat-label">특화</span><span class="stat-value">중식·화력 정화 / 웍·무술 스타일</span></div>
+              <div class="stat-row"><span class="stat-label">성격</span><span class="stat-value">호쾌, 실용적, 긍정적. 팀 내 실용 포지션</span></div>
+              <div class="stat-row"><span class="stat-label">등장</span><span class="stat-value">10장 용의 주방 (해금: 7장 클리어)</span></div>
+              <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#ff6633;">■ 차이나레드 #ff6633</span></div>
+            </div>
+            <div class="char-quote">
+              <div class="quote-label">대표 대사</div>
+              <blockquote>"가자."</blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- 앙드레 -->
+        <div class="char-card">
+          <div class="portrait-area">
+            <img src="../assets/portraits/portrait_andre.png" alt="앙드레 포트레이트"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="no-img" style="display:none">🥐</div>
+            <span class="portrait-badge">portrait 미정</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">앙드레</div>
+            <div class="char-name-en">André</div>
+            <div class="badge-row">
+              <span class="char-role-badge role-ally">동료 (13장~)</span>
+              <span class="char-tag">남성</span>
+              <span class="char-tag">프랑스 파리 출신</span>
+              <span class="char-tag">🥐 프렌치 미력사</span>
+            </div>
+            <div class="char-desc">WCA 유럽 지부장. 파리 출신 미력사로, 별빛 비스트로 식란 사태를 조사 중이다. 정중하고 신사적인 유럽식 예의범절을 갖췄으며, 음식을 '예술'로 보는 철학을 가졌다.</div>
+            <div class="char-stats">
+              <div class="stat-row"><span class="stat-label">출신</span><span class="stat-value">프랑스 파리 / WCA 유럽 지부장</span></div>
+              <div class="stat-row"><span class="stat-label">특화</span><span class="stat-value">프랑스 요리 미력 / 예술적 조리 접근</span></div>
+              <div class="stat-row"><span class="stat-label">성격</span><span class="stat-value">정중, 신사적. 예의바르되 냉철한 분석가</span></div>
+              <div class="stat-row"><span class="stat-label">등장</span><span class="stat-value">13장 별빛 비스트로 (양식 아크)</span></div>
+              <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#6699ff;">■ 로얄블루 #4169e1</span></div>
+            </div>
+            <div class="char-quote">
+              <div class="quote-label">대표 대사</div>
+              <blockquote>"이 별빛 비스트로... 파리 최고의 미슐랭 3스타 레스토랑이었습니다. 지금은 식란의 중심지가 됐지만."</blockquote>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 그룹 3: 인도 아크 (16~18장) -->
+    <div class="group-section">
+      <div class="group-title">Group 3 — 인도 아크 (Ch.16~18)</div>
+      <div class="char-grid">
+
+        <!-- 아르준 -->
+        <div class="char-card">
+          <div class="portrait-area">
+            <img src="../assets/portraits/portrait_masala_guide.png" alt="아르준 포트레이트"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="no-img" style="display:none">🪬</div>
+            <span class="portrait-badge">portrait 미정</span>
+          </div>
+          <div class="char-info">
+            <div class="char-name">아르준</div>
+            <div class="char-name-en">Arjun</div>
+            <div class="badge-row">
+              <span class="char-role-badge role-ally">동료 (18장 신원 공개)</span>
+              <span class="char-tag">남성</span>
+              <span class="char-tag">인도 출신</span>
+              <span class="char-tag">🪬 마살라 문파 12대</span>
+            </div>
+            <div class="char-desc">마살라 문파 12대 계승자. 인도 향신료 시장의 식란을 대대로 수호해온 비밀 결사의 후계자. 16장부터 "???"로 등장해 17장까지 신원을 감춘 뒤, 18장에서 정체를 공개한다.</div>
+            <div class="char-stats">
+              <div class="stat-row"><span class="stat-label">출신</span><span class="stat-value">인도 / 마살라 문파 비밀 결사</span></div>
+              <div class="stat-row"><span class="stat-label">특화</span><span class="stat-value">향신료·봉인 미력 / 마살라 문파 전통 기법</span></div>
+              <div class="stat-row"><span class="stat-label">성격</span><span class="stat-value">책임감 강함. 혼자 짐을 지려다 팀에 의존을 배워가는 성장형</span></div>
+              <div class="stat-row"><span class="stat-label">등장</span><span class="stat-value">16장 ??? → 18장 신원 공개 (인도 아크)</span></div>
+              <div class="stat-row"><span class="stat-label">색상</span><span class="stat-value" style="color:#d4a017;">■ 황금앰버 #d4a017</span></div>
+            </div>
+            <div class="char-quote">
+              <div class="quote-label">대표 대사</div>
+              <blockquote>"마살라 문파를 다시 세울 거야. 이번엔 봉인을 지키는 게 아니라, 미력을 요리로 해방하는 문파로."</blockquote>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 </body>
 </html>
