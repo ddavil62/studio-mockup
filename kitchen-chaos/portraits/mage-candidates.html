@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - 메이지 포트레이트 후보 갤러리</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .back-nav {
+      margin-bottom: 28px;
+    }
+    .back-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-nav a:hover {
+      color: #cc88ff;
+    }
+
+    .intro-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      padding: 16px;
+      background: var(--bg-secondary);
+      border-left: 3px solid #cc88ff;
+      border-radius: 4px;
+    }
+
+    .candidate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .candidate-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .candidate-card:hover {
+      border-color: #cc88ff;
+      transform: translateY(-2px);
+    }
+
+    .candidate-img-wrap {
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      min-height: 180px;
+    }
+    .candidate-img-wrap img {
+      width: 128px;
+      height: 128px;
+      image-rendering: pixelated;
+      border-radius: 4px;
+    }
+
+    .candidate-info {
+      padding: 14px 16px 16px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .candidate-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #cc88ff;
+      margin-bottom: 6px;
+    }
+    .candidate-concept {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin-bottom: 12px;
+      flex-grow: 1;
+    }
+    .candidate-concept .attr {
+      display: inline-block;
+      padding: 2px 6px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      font-size: 0.75rem;
+    }
+
+    .dl-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      background: linear-gradient(135deg, #cc88ff22, #aa55dd22);
+      border: 1px solid #cc88ff;
+      border-radius: 4px;
+      color: #cc88ff;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .dl-btn:hover {
+      background: linear-gradient(135deg, #cc88ff44, #aa55dd44);
+      color: #e8b8ff;
+    }
+
+    @media (max-width: 600px) {
+      .candidate-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #cc88ff;">메이지 포트레이트 후보 갤러리</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Kitchen Chaos</a> / <a href="index.html">Characters</a> / Mage Candidates
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../enemies/index.html">Enemies</a>
+    <a href="../towers/index.html">Towers</a>
+    <a href="../chefs/index.html">Chefs</a>
+    <a href="../tilesets/index.html">Tilesets</a>
+    <a href="../ingredients/index.html">Ingredients</a>
+    <a href="../portraits/index.html" class="active">Characters</a>
+    <a href="../dialogues/index.html">Dialogues</a>
+    <div class="section-title" style="margin-top:12px;">Scenes</div>
+    <a href="../service/index.html">Service</a>
+    <a href="../scenes/index.html">씬 시뮬레이터</a>
+    <div class="section-title" style="margin-top:12px;">Dev</div>
+    <a href="../dev-tools/index.html">Dev Tools</a>
+  </nav>
+
+  <main class="content">
+    <div class="back-nav">
+      <a href="index.html">← 캐릭터 목록으로</a>
+    </div>
+
+    <div class="intro-text">
+      <strong>메이지(🧁) 포트레이트 후보 10개</strong><br>
+      아래는 디저트 전문 미력사 메이지를 다양한 표정·헤어·안경 조합으로 그린 도트아트 포트레이트 후보들입니다.
+      각 후보는 미미와 동일한 스타일로 제작되었으며, 대화 씬에서 메이지의 감정과 상황에 맞게 사용될 수 있도록 설계되었습니다.
+    </div>
+
+    <div class="candidate-grid">
+
+      <!-- 01 — 기본형 중립 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_01.png" alt="메이지 후보 01">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#01</div>
+          <div class="candidate-concept">
+            <span class="attr">중립</span><span class="attr">긴머리</span><span class="attr">꽃핀</span><span class="attr">둥근안경</span>
+            <br><em>가장 캐릭터에 충실한 정석 버전</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_01.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+      <!-- 02 — 밝은 미소 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_02.png" alt="메이지 후보 02">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#02</div>
+          <div class="candidate-concept">
+            <span class="attr">미소</span><span class="attr">긴머리</span><span class="attr">꽃핀</span><span class="attr">둥근안경</span>
+            <br><em>밝고 친근한 인상 — 동료 합류 씬용</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_02.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+      <!-- 03 — 연구 집중 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_03.png" alt="메이지 후보 03">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#03</div>
+          <div class="candidate-concept">
+            <span class="attr">집중</span><span class="attr">포니테일</span><span class="attr">사각안경</span>
+            <br><em>연구자 이미지 강조 — 분석 씬용</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_03.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+      <!-- 04 — 놀람 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_04.png" alt="메이지 후보 04">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#04</div>
+          <div class="candidate-concept">
+            <span class="attr">놀람</span><span class="attr">긴머리</span><span class="attr">꽃핀</span><span class="attr">밝은톤</span>
+            <br><em>귀여운 반응형 표정 — 리액션 씬용</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_04.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+      <!-- 05 — 진지 딥 퍼플 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_05.png" alt="메이지 후보 05">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#05</div>
+          <div class="candidate-concept">
+            <span class="attr">진지</span><span class="attr">포니테일</span><span class="attr">어두운톤</span>
+            <br><em>식란 원인 발표 — 중요 정보 공개 씬용</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_05.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+      <!-- 06 — 반묶음 세련 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_06.png" alt="메이지 후보 06">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#06</div>
+          <div class="candidate-concept">
+            <span class="attr">중립</span><span class="attr">반묶음</span><span class="attr">사각안경</span>
+            <br><em>세련된 연구자 이미지 — 기본형의 세련된 변형</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_06.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+      <!-- 07 — 반묶음 밝음 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_07.png" alt="메이지 후보 07">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#07</div>
+          <div class="candidate-concept">
+            <span class="attr">미소</span><span class="attr">반묶음</span><span class="attr">밝은톤</span>
+            <br><em>가장 부드럽고 밝은 버전 — 일상 씬용</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_07.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+      <!-- 08 — 업두 격식 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_08.png" alt="메이지 후보 08">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#08</div>
+          <div class="candidate-concept">
+            <span class="attr">집중</span><span class="attr">업두</span><span class="attr">사각안경</span><span class="attr">어두운톤</span>
+            <br><em>격식있는 연구자 — 권위있는 발표 씬용</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_08.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+      <!-- 09 — 안경 없음 진지 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_09.png" alt="메이지 후보 09">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#09</div>
+          <div class="candidate-concept">
+            <span class="attr">진지</span><span class="attr">긴머리</span><span class="attr">안경없음</span><span class="attr">어두운톤</span>
+            <br><em>의외의 모습 — 프라이빗 씬용</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_09.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+      <!-- 10 — 업두 단정 -->
+      <div class="candidate-card">
+        <div class="candidate-img-wrap">
+          <img src="candidates/mage/mage_candidate_10.png" alt="메이지 후보 10">
+        </div>
+        <div class="candidate-info">
+          <div class="candidate-num">#10</div>
+          <div class="candidate-concept">
+            <span class="attr">중립</span><span class="attr">업두</span><span class="attr">꽃핀</span><span class="attr">둥근안경</span>
+            <br><em>단정한 업두 — 공식석상 씬용</em>
+          </div>
+          <a href="candidates/mage/mage_candidate_10.png" download class="dl-btn">다운로드</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+</body>
+</html>
