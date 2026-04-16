@@ -131,7 +131,7 @@
 
   <main class="content">
     <div class="section-title-bar">
-      <h2>Enemies (36)</h2>
+      <h2>Enemies (38)</h2>
     </div>
 
     <div class="filter-bar" id="faction-filter">
@@ -146,6 +146,7 @@
       <button class="filter-btn" data-filter="ch9">9장 와인 셀러 (2)</button>
       <button class="filter-btn" data-filter="ch16">16장 인도 (2)</button>
       <button class="filter-btn" data-filter="ch19">19장 멕시칸 (2)</button>
+      <button class="filter-btn" data-filter="ch20">20장 멕시칸 심층부 (2)</button>
       <button class="filter-btn" data-filter="boss">Bosses (10)</button>
     </div>
 
@@ -189,6 +190,10 @@
     <h3 id="ch19" class="chapter-title">19장: 선인장 칸티나</h3>
     <div class="enemy-grid" id="grid-ch19"></div>
 
+    <!-- 20장 칸티나 심층부 (Phase 34-2) -->
+    <h3 id="ch20" class="chapter-title">20장: 칸티나 심층부</h3>
+    <div class="enemy-grid" id="grid-ch20"></div>
+
     <!-- 보스 -->
     <h3 id="bosses" class="chapter-title">Bosses</h3>
     <div class="enemy-grid" id="grid-boss"></div>
@@ -224,6 +229,8 @@
       { id: 'naan_golem', name: '나안 골렘', role: 'Naan Golem / Regen (Phase 31-2)', ch: 'ch16', type: 'enemies', size: 92 },
       { id: 'taco_bandit', name: '타코 산적', role: 'Taco Bandit / Dodge 25% (Phase 33-2)', ch: 'ch19', type: 'enemies', size: 92 },
       { id: 'burrito_juggernaut', name: '부리토 저거넛', role: 'Burrito Juggernaut / Charge +30% (Phase 33-2)', ch: 'ch19', type: 'enemies', size: 92 },
+      { id: 'cactus_wraith', name: '선인장 망령', role: 'Cactus Wraith / Thorn Reflect (Phase 34-2)', ch: 'ch20', type: 'enemies', size: 92 },
+      { id: 'luchador_ghost', name: '루차도르 유령', role: 'Luchador Ghost / Taunt+Dodge (Phase 34-2)', ch: 'ch20', type: 'enemies', size: 92 },
     ];
 
     const BOSSES = [
@@ -260,7 +267,7 @@
     }
 
     // 그리드 채우기
-    const grids = { ch1: 'grid-ch1', ch2: 'grid-ch2', ch3: 'grid-ch3', ch4: 'grid-ch4', ch7: 'grid-ch7', ch8jp: 'grid-ch8jp', ch8: 'grid-ch8', ch9: 'grid-ch9', ch16: 'grid-ch16', ch19: 'grid-ch19', boss: 'grid-boss' };
+    const grids = { ch1: 'grid-ch1', ch2: 'grid-ch2', ch3: 'grid-ch3', ch4: 'grid-ch4', ch7: 'grid-ch7', ch8jp: 'grid-ch8jp', ch8: 'grid-ch8', ch9: 'grid-ch9', ch16: 'grid-ch16', ch19: 'grid-ch19', ch20: 'grid-ch20', boss: 'grid-boss' };
     ALL.forEach(e => {
       const g = document.getElementById(grids[e.ch]);
       if (g) g.insertAdjacentHTML('beforeend', createCard(e));
