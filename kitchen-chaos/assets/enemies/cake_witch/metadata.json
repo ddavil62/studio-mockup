@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "33b9b6c9-c9cb-4318-9f71-68cd7078029d",
+    "name": "cake_witch",
+    "prompt": "A cute chibi witch enemy character. Body shaped like a layered birthday cake with pastel pink frosting and sprinkles. Wears a tall pointed witch hat decorated with a tiny candle. Holds a wand topped with a swirling frosting tip. Pastel pink and purple color scheme. Sparkles and magical aura around the wand. Pixel art style, transparent background.",
+    "size": {
+      "width": 68,
+      "height": 68
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-16T12:57:23.740458+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-076ead3d": {
+        "south-west": [
+          "animations/walking-076ead3d/south-west/frame_000.png",
+          "animations/walking-076ead3d/south-west/frame_001.png",
+          "animations/walking-076ead3d/south-west/frame_002.png",
+          "animations/walking-076ead3d/south-west/frame_003.png",
+          "animations/walking-076ead3d/south-west/frame_004.png",
+          "animations/walking-076ead3d/south-west/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-076ead3d/north-west/frame_000.png",
+          "animations/walking-076ead3d/north-west/frame_001.png",
+          "animations/walking-076ead3d/north-west/frame_002.png",
+          "animations/walking-076ead3d/north-west/frame_003.png",
+          "animations/walking-076ead3d/north-west/frame_004.png",
+          "animations/walking-076ead3d/north-west/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-076ead3d/north-east/frame_000.png",
+          "animations/walking-076ead3d/north-east/frame_001.png",
+          "animations/walking-076ead3d/north-east/frame_002.png",
+          "animations/walking-076ead3d/north-east/frame_003.png",
+          "animations/walking-076ead3d/north-east/frame_004.png",
+          "animations/walking-076ead3d/north-east/frame_005.png"
+        ],
+        "south": [
+          "animations/walking-076ead3d/south/frame_000.png",
+          "animations/walking-076ead3d/south/frame_001.png",
+          "animations/walking-076ead3d/south/frame_002.png",
+          "animations/walking-076ead3d/south/frame_003.png",
+          "animations/walking-076ead3d/south/frame_004.png",
+          "animations/walking-076ead3d/south/frame_005.png"
+        ],
+        "west": [
+          "animations/walking-076ead3d/west/frame_000.png",
+          "animations/walking-076ead3d/west/frame_001.png",
+          "animations/walking-076ead3d/west/frame_002.png",
+          "animations/walking-076ead3d/west/frame_003.png",
+          "animations/walking-076ead3d/west/frame_004.png",
+          "animations/walking-076ead3d/west/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-076ead3d/south-east/frame_000.png",
+          "animations/walking-076ead3d/south-east/frame_001.png",
+          "animations/walking-076ead3d/south-east/frame_002.png",
+          "animations/walking-076ead3d/south-east/frame_003.png",
+          "animations/walking-076ead3d/south-east/frame_004.png",
+          "animations/walking-076ead3d/south-east/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-076ead3d/north/frame_000.png",
+          "animations/walking-076ead3d/north/frame_001.png",
+          "animations/walking-076ead3d/north/frame_002.png",
+          "animations/walking-076ead3d/north/frame_003.png",
+          "animations/walking-076ead3d/north/frame_004.png",
+          "animations/walking-076ead3d/north/frame_005.png"
+        ],
+        "east": [
+          "animations/walking-076ead3d/east/frame_000.png",
+          "animations/walking-076ead3d/east/frame_001.png",
+          "animations/walking-076ead3d/east/frame_002.png",
+          "animations/walking-076ead3d/east/frame_003.png",
+          "animations/walking-076ead3d/east/frame_004.png",
+          "animations/walking-076ead3d/east/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-16T13:02:45.260807"
+}
