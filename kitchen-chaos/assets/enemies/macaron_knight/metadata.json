@@ -1,0 +1,113 @@
+{
+  "character": {
+    "id": "b2e798bf-ee02-461d-80f0-2900b825da7a",
+    "name": "macaron_knight",
+    "prompt": "A cute chibi knight enemy character. Body shaped like a round colorful french macaron with pastel pink and lavender shell layers. Wears full plate armor crafted from hardened macaron shells with pastel pink and purple tones. Holds a large circular shield that looks like an oversized macaron. Magical glowing runes shimmer faintly on the armor surface in soft lavender light. Pixel art style, transparent background.",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-16T14:14:30.776256+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "animating-de406b54": {
+        "east": [
+          "animations/animating-de406b54/east/frame_000.png",
+          "animations/animating-de406b54/east/frame_001.png",
+          "animations/animating-de406b54/east/frame_002.png",
+          "animations/animating-de406b54/east/frame_003.png",
+          "animations/animating-de406b54/east/frame_004.png",
+          "animations/animating-de406b54/east/frame_005.png",
+          "animations/animating-de406b54/east/frame_006.png",
+          "animations/animating-de406b54/east/frame_007.png"
+        ],
+        "north": [
+          "animations/animating-de406b54/north/frame_000.png",
+          "animations/animating-de406b54/north/frame_001.png",
+          "animations/animating-de406b54/north/frame_002.png",
+          "animations/animating-de406b54/north/frame_003.png",
+          "animations/animating-de406b54/north/frame_004.png",
+          "animations/animating-de406b54/north/frame_005.png",
+          "animations/animating-de406b54/north/frame_006.png",
+          "animations/animating-de406b54/north/frame_007.png"
+        ],
+        "west": [
+          "animations/animating-de406b54/west/frame_000.png",
+          "animations/animating-de406b54/west/frame_001.png",
+          "animations/animating-de406b54/west/frame_002.png",
+          "animations/animating-de406b54/west/frame_003.png",
+          "animations/animating-de406b54/west/frame_004.png",
+          "animations/animating-de406b54/west/frame_005.png",
+          "animations/animating-de406b54/west/frame_006.png",
+          "animations/animating-de406b54/west/frame_007.png"
+        ],
+        "south-east": [
+          "animations/animating-de406b54/south-east/frame_000.png",
+          "animations/animating-de406b54/south-east/frame_001.png",
+          "animations/animating-de406b54/south-east/frame_002.png",
+          "animations/animating-de406b54/south-east/frame_003.png",
+          "animations/animating-de406b54/south-east/frame_004.png",
+          "animations/animating-de406b54/south-east/frame_005.png",
+          "animations/animating-de406b54/south-east/frame_006.png",
+          "animations/animating-de406b54/south-east/frame_007.png"
+        ],
+        "north-east": [
+          "animations/animating-de406b54/north-east/frame_000.png",
+          "animations/animating-de406b54/north-east/frame_001.png",
+          "animations/animating-de406b54/north-east/frame_002.png",
+          "animations/animating-de406b54/north-east/frame_003.png",
+          "animations/animating-de406b54/north-east/frame_004.png",
+          "animations/animating-de406b54/north-east/frame_005.png",
+          "animations/animating-de406b54/north-east/frame_006.png",
+          "animations/animating-de406b54/north-east/frame_007.png"
+        ],
+        "south": [
+          "animations/animating-de406b54/south/frame_000.png",
+          "animations/animating-de406b54/south/frame_001.png",
+          "animations/animating-de406b54/south/frame_002.png",
+          "animations/animating-de406b54/south/frame_003.png",
+          "animations/animating-de406b54/south/frame_004.png",
+          "animations/animating-de406b54/south/frame_005.png",
+          "animations/animating-de406b54/south/frame_006.png",
+          "animations/animating-de406b54/south/frame_007.png"
+        ],
+        "south-west": [
+          "animations/animating-de406b54/south-west/frame_000.png",
+          "animations/animating-de406b54/south-west/frame_001.png",
+          "animations/animating-de406b54/south-west/frame_002.png",
+          "animations/animating-de406b54/south-west/frame_003.png",
+          "animations/animating-de406b54/south-west/frame_004.png",
+          "animations/animating-de406b54/south-west/frame_005.png",
+          "animations/animating-de406b54/south-west/frame_006.png",
+          "animations/animating-de406b54/south-west/frame_007.png"
+        ],
+        "north-west": [
+          "animations/animating-de406b54/north-west/frame_000.png",
+          "animations/animating-de406b54/north-west/frame_001.png",
+          "animations/animating-de406b54/north-west/frame_002.png",
+          "animations/animating-de406b54/north-west/frame_003.png",
+          "animations/animating-de406b54/north-west/frame_004.png",
+          "animations/animating-de406b54/north-west/frame_005.png",
+          "animations/animating-de406b54/north-west/frame_006.png",
+          "animations/animating-de406b54/north-west/frame_007.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-16T14:20:01.979924"
+}
