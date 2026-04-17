@@ -131,11 +131,11 @@
 
   <main class="content">
     <div class="section-title-bar">
-      <h2>Enemies (38)</h2>
+      <h2>Enemies (41)</h2>
     </div>
 
     <div class="filter-bar" id="faction-filter">
-      <button class="filter-btn active" data-filter="all">All (36)</button>
+      <button class="filter-btn active" data-filter="all">All (39)</button>
       <button class="filter-btn" data-filter="ch1">1장 (5)</button>
       <button class="filter-btn" data-filter="ch2">2장 (3)</button>
       <button class="filter-btn" data-filter="ch3">3장 (3)</button>
@@ -144,10 +144,11 @@
       <button class="filter-btn" data-filter="ch8jp">8장 심층부 (2)</button>
       <button class="filter-btn" data-filter="ch8">8장→10장 용주 (3)</button>
       <button class="filter-btn" data-filter="ch9">9장 와인 셀러 (2)</button>
-      <button class="filter-btn" data-filter="ch16">16장 인도 (2)</button>
+      <button class="filter-btn" data-filter="ch16">16~18장 인도 (5)</button>
       <button class="filter-btn" data-filter="ch19">19장 멕시칸 (2)</button>
-      <button class="filter-btn" data-filter="ch20">20장 멕시칸 심층부 (2)</button>
-      <button class="filter-btn" data-filter="boss">Bosses (10)</button>
+      <button class="filter-btn" data-filter="ch20">20~21장 멕시칸 심층부 (2)</button>
+      <button class="filter-btn" data-filter="ch22">22~23장 캔디 (4)</button>
+      <button class="filter-btn" data-filter="boss">Bosses (15)</button>
     </div>
 
     <!-- 1장 파스타 필드 -->
@@ -194,13 +195,9 @@
     <h3 id="ch20" class="chapter-title">20장: 칸티나 심층부</h3>
     <div class="enemy-grid" id="grid-ch20"></div>
 
-    <!-- 22장 슈가 드림랜드 (Phase 36) -->
-    <h3 id="ch22" class="chapter-title">22장: 슈가 드림랜드 (Phase 36)</h3>
+    <!-- 22~24장 캔디 킹덤 (Phase 36~44-3) -->
+    <h3 id="ch22" class="chapter-title">22~24장: 캔디 킹덤 (Phase 36~44-3)</h3>
     <div class="enemy-grid" id="grid-ch22"></div>
-
-    <!-- 23장 드림랜드 심층부 (Phase 37) -->
-    <h3 id="ch23" class="chapter-title">23장: 드림랜드 심층부 (Phase 37)</h3>
-    <div class="enemy-grid" id="grid-ch23"></div>
 
     <!-- 보스 -->
     <h3 id="bosses" class="chapter-title">Bosses</h3>
@@ -235,14 +232,17 @@
       { id: 'wok_phantom', name: '웍 팬텀', role: 'Wok Phantom / FireZone', ch: 'ch8', type: 'enemies', size: 48 },
       { id: 'curry_djinn', name: '커리 지니', role: 'Curry Djinn / Teleport (Phase 31-2)', ch: 'ch16', type: 'enemies', size: 92 },
       { id: 'naan_golem', name: '나안 골렘', role: 'Naan Golem / Regen (Phase 31-2)', ch: 'ch16', type: 'enemies', size: 92 },
+      { id: 'masala_guide', name: '마살라 가이드', role: 'Masala Guide / Buff+Heal (Phase 44-3)', ch: 'ch16', type: 'enemies', size: 92 },
+      { id: 'incense_specter', name: '인센스 스펙터', role: 'Incense Specter / DotDebuff (Phase 44-3)', ch: 'ch16', type: 'enemies', size: 92 },
+      { id: 'spice_elemental', name: '스파이스 엘레멘탈', role: 'Spice Elemental / AOE+Burn (Phase 44-3)', ch: 'ch16', type: 'enemies', size: 92 },
       { id: 'taco_bandit', name: '타코 산적', role: 'Taco Bandit / Dodge 25% (Phase 33-2)', ch: 'ch19', type: 'enemies', size: 92 },
       { id: 'burrito_juggernaut', name: '부리토 저거넛', role: 'Burrito Juggernaut / Charge +30% (Phase 33-2)', ch: 'ch19', type: 'enemies', size: 92 },
       { id: 'cactus_wraith', name: '선인장 망령', role: 'Cactus Wraith / Thorn Reflect (Phase 34-2)', ch: 'ch20', type: 'enemies', size: 92 },
       { id: 'luchador_ghost', name: '루차도르 유령', role: 'Luchador Ghost / Taunt+Dodge (Phase 34-2)', ch: 'ch20', type: 'enemies', size: 92 },
       { id: 'candy_soldier', name: '캔디 솔저', role: 'Candy Soldier / DamageReduction 20% (Phase 36)', ch: 'ch22', type: 'enemies', size: 92 },
       { id: 'cake_witch', name: '케이크 마녀', role: 'Cake Witch / Summon (Phase 36)', ch: 'ch22', type: 'enemies', size: 92 },
-      { id: 'macaron_knight', name: '마카롱 기사', role: 'Macaron Knight / MagicResistance 60% (Phase 37)', ch: 'ch23', type: 'enemies', size: 92 },
-      { id: 'sugar_specter', name: '슈가 스펙터', role: 'Sugar Specter / SplitOnDeath (Phase 37)', ch: 'ch23', type: 'enemies', size: 92 },
+      { id: 'macaron_knight', name: '마카롱 기사', role: 'Macaron Knight / MagicResistance 60% (Phase 37)', ch: 'ch22', type: 'enemies', size: 92 },
+      { id: 'sugar_specter', name: '슈가 스펙터', role: 'Sugar Specter / SplitOnDeath (Phase 37)', ch: 'ch22', type: 'enemies', size: 92 },
     ];
 
     const BOSSES = [
@@ -256,11 +256,9 @@
       { id: 'dragon_wok', name: '드래곤 웍', role: 'Dragon Wok / 8장 보스 (3페이즈)', ch: 'boss', type: 'bosses', size: 92 },
       { id: 'sake_master', name: '사케 마스터', role: 'Sake Master / 12장 보스', ch: 'boss', type: 'bosses', size: 92 },
       { id: 'chef_noir', name: '셰프 누아르', role: 'Chef Noir / 15장 보스', ch: 'boss', type: 'bosses', size: 92 },
-      { id: 'el_diablo_pepper', name: '엘 디아블로 페퍼', role: 'El Diablo Pepper / 21장 보스 (Phase 33)', ch: 'boss', type: 'bosses', size: 92 },
-      { id: 'maharaja', name: '마하라자', role: 'Maharaja / 22장 보스 (Phase 34)', ch: 'boss', type: 'bosses', size: 92 },
-      { id: 'queen_of_taste', name: '미각의 여왕 (페이즈1)', role: 'Queen of Taste / 24장 보스 페이즈1 (Phase 38)', ch: 'boss', type: 'bosses', size: 64 },
-      { id: 'queen_of_taste_2', name: '미각의 여왕 (페이즈2)', role: 'Queen of Taste 2 / 24장 보스 페이즈2 변신 (Phase 38)', ch: 'boss', type: 'bosses', size: 64 },
-      { id: 'queen_of_taste_3', name: '미각의 여왕 (페이즈3)', role: 'Queen of Taste 3 / 24장 보스 페이즈3 분노형 (Phase 38)', ch: 'boss', type: 'bosses', size: 64 },
+      { id: 'el_diablo_pepper', name: '엘 디아블로 페퍼', role: 'El Diablo Pepper / 21장 보스 (Phase 44-3)', ch: 'boss', type: 'bosses', size: 112 },
+      { id: 'maharaja', name: '마하라자', role: 'Maharaja / 18장 보스 (Phase 44-3)', ch: 'boss', type: 'bosses', size: 112 },
+      { id: 'queen_of_taste', name: '미각의 여왕', role: 'Queen of Taste / 24장 최종보스 (Phase 44-3)', ch: 'boss', type: 'bosses', size: 136 },
     ];
 
     const ALL = [...ENEMIES, ...BOSSES];
@@ -284,7 +282,7 @@
     }
 
     // 그리드 채우기
-    const grids = { ch1: 'grid-ch1', ch2: 'grid-ch2', ch3: 'grid-ch3', ch4: 'grid-ch4', ch7: 'grid-ch7', ch8jp: 'grid-ch8jp', ch8: 'grid-ch8', ch9: 'grid-ch9', ch16: 'grid-ch16', ch19: 'grid-ch19', ch20: 'grid-ch20', boss: 'grid-boss' };
+    const grids = { ch1: 'grid-ch1', ch2: 'grid-ch2', ch3: 'grid-ch3', ch4: 'grid-ch4', ch7: 'grid-ch7', ch8jp: 'grid-ch8jp', ch8: 'grid-ch8', ch9: 'grid-ch9', ch16: 'grid-ch16', ch19: 'grid-ch19', ch20: 'grid-ch20', ch22: 'grid-ch22', ch23: 'grid-ch22', boss: 'grid-boss' };
     ALL.forEach(e => {
       const g = document.getElementById(grids[e.ch]);
       if (g) g.insertAdjacentHTML('beforeend', createCard(e));
