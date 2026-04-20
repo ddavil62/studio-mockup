@@ -24,7 +24,7 @@
       "south-west": "rotations/south-west.png"
     },
     "animations": {
-      "walking-012372c9": {
+      "walking-6def8c8c": {
         "south": [
           "animations/walking-012372c9/south/frame_000.png",
           "animations/walking-012372c9/south/frame_001.png",
