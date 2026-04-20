@@ -1,0 +1,115 @@
+{
+  "character": {
+    "id": "ad639a19-0c36-460e-aff0-339390c06f6f",
+    "name": "Dumpling Warrior",
+    "prompt": "warrior character made of steamed dumpling dough, cream-colored doughy body with pleat folds, carries a meat cleaver made of dough, furrowed expression, Chinese dim sum warrior aesthetic, round belly with crimped waist seam",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-12T03:38:33.944621+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "animating-1e8cfa3d": {
+        "east": [
+          "animations/animating-1e8cfa3d/east/frame_000.png",
+          "animations/animating-1e8cfa3d/east/frame_001.png",
+          "animations/animating-1e8cfa3d/east/frame_002.png",
+          "animations/animating-1e8cfa3d/east/frame_003.png",
+          "animations/animating-1e8cfa3d/east/frame_004.png",
+          "animations/animating-1e8cfa3d/east/frame_005.png",
+          "animations/animating-1e8cfa3d/east/frame_006.png",
+          "animations/animating-1e8cfa3d/east/frame_007.png"
+        ],
+        "south-west": [
+          "animations/animating-1e8cfa3d/south-west/frame_000.png",
+          "animations/animating-1e8cfa3d/south-west/frame_001.png",
+          "animations/animating-1e8cfa3d/south-west/frame_002.png",
+          "animations/animating-1e8cfa3d/south-west/frame_003.png",
+          "animations/animating-1e8cfa3d/south-west/frame_004.png",
+          "animations/animating-1e8cfa3d/south-west/frame_005.png",
+          "animations/animating-1e8cfa3d/south-west/frame_006.png",
+          "animations/animating-1e8cfa3d/south-west/frame_007.png"
+        ],
+        "north-east": [
+          "animations/animating-1e8cfa3d/north-east/frame_000.png",
+          "animations/animating-1e8cfa3d/north-east/frame_001.png",
+          "animations/animating-1e8cfa3d/north-east/frame_002.png",
+          "animations/animating-1e8cfa3d/north-east/frame_003.png",
+          "animations/animating-1e8cfa3d/north-east/frame_004.png",
+          "animations/animating-1e8cfa3d/north-east/frame_005.png",
+          "animations/animating-1e8cfa3d/north-east/frame_006.png",
+          "animations/animating-1e8cfa3d/north-east/frame_007.png"
+        ],
+        "north": [
+          "animations/animating-1e8cfa3d/north/frame_000.png",
+          "animations/animating-1e8cfa3d/north/frame_001.png",
+          "animations/animating-1e8cfa3d/north/frame_002.png",
+          "animations/animating-1e8cfa3d/north/frame_003.png",
+          "animations/animating-1e8cfa3d/north/frame_004.png",
+          "animations/animating-1e8cfa3d/north/frame_005.png",
+          "animations/animating-1e8cfa3d/north/frame_006.png",
+          "animations/animating-1e8cfa3d/north/frame_007.png"
+        ],
+        "south": [
+          "animations/animating-1e8cfa3d/south/frame_000.png",
+          "animations/animating-1e8cfa3d/south/frame_001.png",
+          "animations/animating-1e8cfa3d/south/frame_002.png",
+          "animations/animating-1e8cfa3d/south/frame_003.png",
+          "animations/animating-1e8cfa3d/south/frame_004.png",
+          "animations/animating-1e8cfa3d/south/frame_005.png",
+          "animations/animating-1e8cfa3d/south/frame_006.png",
+          "animations/animating-1e8cfa3d/south/frame_007.png"
+        ],
+        "west": [
+          "animations/animating-1e8cfa3d/west/frame_000.png",
+          "animations/animating-1e8cfa3d/west/frame_001.png",
+          "animations/animating-1e8cfa3d/west/frame_002.png",
+          "animations/animating-1e8cfa3d/west/frame_003.png",
+          "animations/animating-1e8cfa3d/west/frame_004.png",
+          "animations/animating-1e8cfa3d/west/frame_005.png",
+          "animations/animating-1e8cfa3d/west/frame_006.png",
+          "animations/animating-1e8cfa3d/west/frame_007.png"
+        ],
+        "south-east": [
+          "animations/animating-1e8cfa3d/south-east/frame_000.png",
+          "animations/animating-1e8cfa3d/south-east/frame_001.png",
+          "animations/animating-1e8cfa3d/south-east/frame_002.png",
+          "animations/animating-1e8cfa3d/south-east/frame_003.png",
+          "animations/animating-1e8cfa3d/south-east/frame_004.png",
+          "animations/animating-1e8cfa3d/south-east/frame_005.png",
+          "animations/animating-1e8cfa3d/south-east/frame_006.png",
+          "animations/animating-1e8cfa3d/south-east/frame_007.png"
+        ]
+      },
+      "animating-99e06d7e": {
+        "north-west": [
+          "animations/animating-99e06d7e/north-west/frame_000.png",
+          "animations/animating-99e06d7e/north-west/frame_001.png",
+          "animations/animating-99e06d7e/north-west/frame_002.png",
+          "animations/animating-99e06d7e/north-west/frame_003.png",
+          "animations/animating-99e06d7e/north-west/frame_004.png",
+          "animations/animating-99e06d7e/north-west/frame_005.png",
+          "animations/animating-99e06d7e/north-west/frame_006.png",
+          "animations/animating-99e06d7e/north-west/frame_007.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-12T03:48:08.889858"
+}

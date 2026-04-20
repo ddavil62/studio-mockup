@@ -1,0 +1,97 @@
+{
+  "character": {
+    "id": "9cbea71e-78a5-4367-a10b-35e696025cad",
+    "name": "Oni Minion",
+    "prompt": "oni minion demon enemy, small chubby red-skinned oni demon, tiny horns, wearing white hachimaki headband and brown izakaya apron, holding wooden ladle weapon, angry face with fangs, fantasy RPG enemy chibi style, pixel art",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-13T00:22:41.368956+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "walking-3d25e8be": {
+        "west": [
+          "animations/walking-3d25e8be/west/frame_000.png",
+          "animations/walking-3d25e8be/west/frame_001.png",
+          "animations/walking-3d25e8be/west/frame_002.png",
+          "animations/walking-3d25e8be/west/frame_003.png",
+          "animations/walking-3d25e8be/west/frame_004.png",
+          "animations/walking-3d25e8be/west/frame_005.png"
+        ],
+        "south-west": [
+          "animations/walking-3d25e8be/south-west/frame_000.png",
+          "animations/walking-3d25e8be/south-west/frame_001.png",
+          "animations/walking-3d25e8be/south-west/frame_002.png",
+          "animations/walking-3d25e8be/south-west/frame_003.png",
+          "animations/walking-3d25e8be/south-west/frame_004.png",
+          "animations/walking-3d25e8be/south-west/frame_005.png"
+        ],
+        "south": [
+          "animations/walking-3d25e8be/south/frame_000.png",
+          "animations/walking-3d25e8be/south/frame_001.png",
+          "animations/walking-3d25e8be/south/frame_002.png",
+          "animations/walking-3d25e8be/south/frame_003.png",
+          "animations/walking-3d25e8be/south/frame_004.png",
+          "animations/walking-3d25e8be/south/frame_005.png"
+        ],
+        "north": [
+          "animations/walking-3d25e8be/north/frame_000.png",
+          "animations/walking-3d25e8be/north/frame_001.png",
+          "animations/walking-3d25e8be/north/frame_002.png",
+          "animations/walking-3d25e8be/north/frame_003.png",
+          "animations/walking-3d25e8be/north/frame_004.png",
+          "animations/walking-3d25e8be/north/frame_005.png"
+        ],
+        "north-east": [
+          "animations/walking-3d25e8be/north-east/frame_000.png",
+          "animations/walking-3d25e8be/north-east/frame_001.png",
+          "animations/walking-3d25e8be/north-east/frame_002.png",
+          "animations/walking-3d25e8be/north-east/frame_003.png",
+          "animations/walking-3d25e8be/north-east/frame_004.png",
+          "animations/walking-3d25e8be/north-east/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-3d25e8be/south-east/frame_000.png",
+          "animations/walking-3d25e8be/south-east/frame_001.png",
+          "animations/walking-3d25e8be/south-east/frame_002.png",
+          "animations/walking-3d25e8be/south-east/frame_003.png",
+          "animations/walking-3d25e8be/south-east/frame_004.png",
+          "animations/walking-3d25e8be/south-east/frame_005.png"
+        ],
+        "east": [
+          "animations/walking-3d25e8be/east/frame_000.png",
+          "animations/walking-3d25e8be/east/frame_001.png",
+          "animations/walking-3d25e8be/east/frame_002.png",
+          "animations/walking-3d25e8be/east/frame_003.png",
+          "animations/walking-3d25e8be/east/frame_004.png",
+          "animations/walking-3d25e8be/east/frame_005.png"
+        ],
+        "north-west": [
+          "animations/walking-3d25e8be/north-west/frame_000.png",
+          "animations/walking-3d25e8be/north-west/frame_001.png",
+          "animations/walking-3d25e8be/north-west/frame_002.png",
+          "animations/walking-3d25e8be/north-west/frame_003.png",
+          "animations/walking-3d25e8be/north-west/frame_004.png",
+          "animations/walking-3d25e8be/north-west/frame_005.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-13T00:26:20.236169"
+}

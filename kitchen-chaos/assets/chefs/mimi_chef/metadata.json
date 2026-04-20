@@ -1,0 +1,15 @@
+{
+  "character": {
+    "id": "pending",
+    "name": "mimi_chef",
+    "prompt": "A small chibi girl chef with short black bob hair. She wears a white shirt under a bright green apron (color #44cc44) and a small white chef hat tilted slightly. Her expression is cheerful and energetic. She holds a small ladle in her right hand. Bright and simple cooking outfit. Low top-down view, 8 directions, chibi proportions.",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-20"
+}

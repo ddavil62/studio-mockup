@@ -95,13 +95,13 @@
   </nav>
 
   <main class="content">
-    <h2>Chefs (5)</h2>
+    <h2>Chefs (7)</h2>
     <div class="chef-grid">
 
       <div class="chef-card">
-        <h3>Petit Chef</h3>
-        <div class="chef-desc">꼬마 셰프 / 만능형. 모든 요리 시간 -10%</div>
-        <div class="sprite-area" data-char="petit_chef">
+        <h3>미미 <span style="color:var(--text-muted);font-size:0.85rem;">Mimi Chef</span></h3>
+        <div class="chef-desc">초급 해금. 재료 수거 범위 +30%, 조리시간 -15%</div>
+        <div class="sprite-area" data-char="mimi_chef">
           <canvas width="192" height="192"></canvas>
           <div class="dir-grid">
             <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
@@ -110,15 +110,15 @@
           </div>
         </div>
         <div class="skill-list">
-          <div class="skill-item"><span class="skill-name">TD: 재료 자석</span> — <span class="skill-desc">수집 범위 +30%</span></div>
-          <div class="skill-item"><span class="skill-name">영업: 특급 서비스</span> — <span class="skill-desc">전 고객 인내심 리셋 (90s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">TD: 긴급 배달</span> — <span class="skill-desc">맵 위 모든 드롭 재료 즉시 수거 (60s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 특급 서비스</span> — <span class="skill-desc">다음 3명 손님 인내심 최대치 리셋 (90s CD)</span></div>
         </div>
       </div>
 
       <div class="chef-card">
-        <h3>Flame Chef</h3>
-        <div class="chef-desc">불꽃 요리사 / 공격형. 타워 공격력 +15%</div>
-        <div class="sprite-area" data-char="flame_chef">
+        <h3>린 <span style="color:var(--text-muted);font-size:0.85rem;">Rin Chef</span></h3>
+        <div class="chef-desc">초급 해금. 화염 타워 피해 +20%, 그릴 요리 수익 +25%</div>
+        <div class="sprite-area" data-char="rin_chef">
           <canvas width="192" height="192"></canvas>
           <div class="dir-grid">
             <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
@@ -127,15 +127,15 @@
           </div>
         </div>
         <div class="skill-list">
-          <div class="skill-item"><span class="skill-name">TD: 화염 분출</span> — <span class="skill-desc">범위 화상 피해</span></div>
-          <div class="skill-item"><span class="skill-name">영업: 화염 조리</span> — <span class="skill-desc">대기 요리 즉시 완성 (120s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">TD: 지옥 불꽃</span> — <span class="skill-desc">전체 적 화상 5초 DPS 15 (90s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 화염 조리</span> — <span class="skill-desc">현재 조리 중인 모든 요리 즉시 완성 (120s CD)</span></div>
         </div>
       </div>
 
       <div class="chef-card">
-        <h3>Ice Chef</h3>
-        <div class="chef-desc">얼음 요리장 / 방어형. 적 이동속도 -10%</div>
-        <div class="sprite-area" data-char="ice_chef">
+        <h3>메이지 <span style="color:var(--text-muted);font-size:0.85rem;">Mage Chef</span></h3>
+        <div class="chef-desc">초급 해금. CC 지속 +25%, 디저트 요리 수익 +20%</div>
+        <div class="sprite-area" data-char="mage_chef">
           <canvas width="192" height="192"></canvas>
           <div class="dir-grid">
             <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
@@ -144,14 +144,14 @@
           </div>
         </div>
         <div class="skill-list">
-          <div class="skill-item"><span class="skill-name">TD: 냉기 폭풍</span> — <span class="skill-desc">범위 빙결 2초</span></div>
-          <div class="skill-item"><span class="skill-name">영업: 시간 동결</span> — <span class="skill-desc">인내심 타이머 10초 정지 (150s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">TD: 마법진 설탕</span> — <span class="skill-desc">전체 적 3초 빙결 (120s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 시간 동결</span> — <span class="skill-desc">전체 손님 인내심 10초 정지 (150s CD)</span></div>
         </div>
       </div>
 
       <div class="chef-card">
-        <h3>Yuki Chef</h3>
-        <div class="chef-desc">유키 셰프 / 시즌2 해금. 일식 전문 냉기 요리사</div>
+        <h3>유키 <span style="color:var(--text-muted);font-size:0.85rem;">Yuki Chef</span></h3>
+        <div class="chef-desc">7장 클리어 해금. 조리시간 -20%, ★★★+ 레시피 보상 +15%</div>
         <div class="sprite-area" data-char="yuki_chef">
           <canvas width="192" height="192"></canvas>
           <div class="dir-grid">
@@ -161,14 +161,14 @@
           </div>
         </div>
         <div class="skill-list">
-          <div class="skill-item"><span class="skill-name">TD: 와사비 폭발</span> — <span class="skill-desc">범위 독 피해</span></div>
-          <div class="skill-item"><span class="skill-name">영업: 오마카세</span> — <span class="skill-desc">최고급 요리 자동 서빙</span></div>
+          <div class="skill-item"><span class="skill-name">TD: 빙결 처치</span> — <span class="skill-desc">빙결된 적 전부 즉시 처치 (90s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 정밀 절단</span> — <span class="skill-desc">다음 5개 요리 조리시간 0 (90s CD)</span></div>
         </div>
       </div>
 
       <div class="chef-card">
-        <h3>Lao Chef</h3>
-        <div class="chef-desc">라오 셰프 / 시즌2 해금. 중식 전문 화력 요리사</div>
+        <h3>라오 <span style="color:var(--text-muted);font-size:0.85rem;">Lao Chef</span></h3>
+        <div class="chef-desc">10장 클리어 해금. 도구 공격력 +15%, 재료 드롭률 +10%</div>
         <div class="sprite-area" data-char="lao_chef">
           <canvas width="192" height="192"></canvas>
           <div class="dir-grid">
@@ -178,8 +178,42 @@
           </div>
         </div>
         <div class="skill-list">
-          <div class="skill-item"><span class="skill-name">TD: 웍 화력</span> — <span class="skill-desc">타워 공격속도 버프</span></div>
-          <div class="skill-item"><span class="skill-name">영업: 만한전석</span> — <span class="skill-desc">대량 주문 동시 처리</span></div>
+          <div class="skill-item"><span class="skill-name">TD: 파워 서지</span> — <span class="skill-desc">전 도구 5초 공격력 2배 (120s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 불꽃 웍</span> — <span class="skill-desc">전 테이블 주문 즉시 완성 (120s CD)</span></div>
+        </div>
+      </div>
+
+      <div class="chef-card">
+        <h3>앙드레 <span style="color:var(--text-muted);font-size:0.85rem;">Andre Chef</span></h3>
+        <div class="chef-desc">13장 클리어 해금. 양식 요리 수익 +25%, 손님 팁 +15%</div>
+        <div class="sprite-area" data-char="andre_chef">
+          <canvas width="192" height="192"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">TD: 오마카세 코스</span> — <span class="skill-desc">현재 손님 만족도 +20 + 인내심 리셋 (120s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 플랑베</span> — <span class="skill-desc">다음 5개 요리 수익 2배 (100s CD)</span></div>
+        </div>
+      </div>
+
+      <div class="chef-card">
+        <h3>아르준 <span style="color:var(--text-muted);font-size:0.85rem;">Arjun Chef</span></h3>
+        <div class="chef-desc">17장 클리어 해금. 향신료 타워 공격속도 +20%, 재료 드롭률 +15%</div>
+        <div class="sprite-area" data-char="arjun_chef">
+          <canvas width="192" height="192"></canvas>
+          <div class="dir-grid">
+            <button data-dir="north-west">NW</button><button data-dir="north">N</button><button data-dir="north-east">NE</button>
+            <button data-dir="west">W</button><button class="empty"></button><button data-dir="east">E</button>
+            <button data-dir="south-west">SW</button><button data-dir="south" class="active">S</button><button data-dir="south-east">SE</button>
+          </div>
+        </div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">TD: 마살라 폭풍</span> — <span class="skill-desc">전체 적 독 DPS 20 10초 + 이동속도 -30% (150s CD)</span></div>
+          <div class="skill-item"><span class="skill-name">영업: 비밀 향신료</span> — <span class="skill-desc">다음 3명 손님 주문 랜덤 교체 (수익 +50%) (120s CD)</span></div>
         </div>
       </div>
 

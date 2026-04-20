@@ -1,0 +1,15 @@
+{
+  "character": {
+    "id": "pending",
+    "name": "rin_chef",
+    "prompt": "A chibi girl chef with vivid red twin ponytails. She wears a bright red chef jacket (color #ff4444) and dark brown apron. No chef hat — instead wears a red headband. Strong and fiery expression. Holds cooking tongs in right hand. Energetic flame chef appearance. Low top-down view, 8 directions, chibi proportions.",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-20"
+}

@@ -1,0 +1,113 @@
+{
+  "character": {
+    "id": "2e8136ec-abff-4d93-b738-d0970170b3d3",
+    "name": "sommelier_wraith",
+    "prompt": "sommelier wraith ghost enemy, translucent dark burgundy and deep crimson spectral body with clear black pixel art outline border, faint silhouette of elegant french tuxedo and bow tie, slender and graceful floating ghost, holding a semi-transparent wine glass with dark red swirling liquid, piercing golden glowing eyes, lower body fading into dark red mist, refined and aristocratic undead sommelier, darker and more sinister than a simple wine spirit, cold elegant aura, pale dark-red misty ethereal form, strong black outline around character edges, pixel art chibi proportions",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-14T03:50:27.611876+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "animating-7cb39ccd": {
+        "south-east": [
+          "animations/animating-7cb39ccd/south-east/frame_000.png",
+          "animations/animating-7cb39ccd/south-east/frame_001.png",
+          "animations/animating-7cb39ccd/south-east/frame_002.png",
+          "animations/animating-7cb39ccd/south-east/frame_003.png",
+          "animations/animating-7cb39ccd/south-east/frame_004.png",
+          "animations/animating-7cb39ccd/south-east/frame_005.png",
+          "animations/animating-7cb39ccd/south-east/frame_006.png",
+          "animations/animating-7cb39ccd/south-east/frame_007.png"
+        ],
+        "north-west": [
+          "animations/animating-7cb39ccd/north-west/frame_000.png",
+          "animations/animating-7cb39ccd/north-west/frame_001.png",
+          "animations/animating-7cb39ccd/north-west/frame_002.png",
+          "animations/animating-7cb39ccd/north-west/frame_003.png",
+          "animations/animating-7cb39ccd/north-west/frame_004.png",
+          "animations/animating-7cb39ccd/north-west/frame_005.png",
+          "animations/animating-7cb39ccd/north-west/frame_006.png",
+          "animations/animating-7cb39ccd/north-west/frame_007.png"
+        ],
+        "south": [
+          "animations/animating-7cb39ccd/south/frame_000.png",
+          "animations/animating-7cb39ccd/south/frame_001.png",
+          "animations/animating-7cb39ccd/south/frame_002.png",
+          "animations/animating-7cb39ccd/south/frame_003.png",
+          "animations/animating-7cb39ccd/south/frame_004.png",
+          "animations/animating-7cb39ccd/south/frame_005.png",
+          "animations/animating-7cb39ccd/south/frame_006.png",
+          "animations/animating-7cb39ccd/south/frame_007.png"
+        ],
+        "east": [
+          "animations/animating-7cb39ccd/east/frame_000.png",
+          "animations/animating-7cb39ccd/east/frame_001.png",
+          "animations/animating-7cb39ccd/east/frame_002.png",
+          "animations/animating-7cb39ccd/east/frame_003.png",
+          "animations/animating-7cb39ccd/east/frame_004.png",
+          "animations/animating-7cb39ccd/east/frame_005.png",
+          "animations/animating-7cb39ccd/east/frame_006.png",
+          "animations/animating-7cb39ccd/east/frame_007.png"
+        ],
+        "west": [
+          "animations/animating-7cb39ccd/west/frame_000.png",
+          "animations/animating-7cb39ccd/west/frame_001.png",
+          "animations/animating-7cb39ccd/west/frame_002.png",
+          "animations/animating-7cb39ccd/west/frame_003.png",
+          "animations/animating-7cb39ccd/west/frame_004.png",
+          "animations/animating-7cb39ccd/west/frame_005.png",
+          "animations/animating-7cb39ccd/west/frame_006.png",
+          "animations/animating-7cb39ccd/west/frame_007.png"
+        ],
+        "south-west": [
+          "animations/animating-7cb39ccd/south-west/frame_000.png",
+          "animations/animating-7cb39ccd/south-west/frame_001.png",
+          "animations/animating-7cb39ccd/south-west/frame_002.png",
+          "animations/animating-7cb39ccd/south-west/frame_003.png",
+          "animations/animating-7cb39ccd/south-west/frame_004.png",
+          "animations/animating-7cb39ccd/south-west/frame_005.png",
+          "animations/animating-7cb39ccd/south-west/frame_006.png",
+          "animations/animating-7cb39ccd/south-west/frame_007.png"
+        ],
+        "north": [
+          "animations/animating-7cb39ccd/north/frame_000.png",
+          "animations/animating-7cb39ccd/north/frame_001.png",
+          "animations/animating-7cb39ccd/north/frame_002.png",
+          "animations/animating-7cb39ccd/north/frame_003.png",
+          "animations/animating-7cb39ccd/north/frame_004.png",
+          "animations/animating-7cb39ccd/north/frame_005.png",
+          "animations/animating-7cb39ccd/north/frame_006.png",
+          "animations/animating-7cb39ccd/north/frame_007.png"
+        ],
+        "north-east": [
+          "animations/animating-7cb39ccd/north-east/frame_000.png",
+          "animations/animating-7cb39ccd/north-east/frame_001.png",
+          "animations/animating-7cb39ccd/north-east/frame_002.png",
+          "animations/animating-7cb39ccd/north-east/frame_003.png",
+          "animations/animating-7cb39ccd/north-east/frame_004.png",
+          "animations/animating-7cb39ccd/north-east/frame_005.png",
+          "animations/animating-7cb39ccd/north-east/frame_006.png",
+          "animations/animating-7cb39ccd/north-east/frame_007.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-14T03:55:48.119531"
+}

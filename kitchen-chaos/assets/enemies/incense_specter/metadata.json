@@ -1,0 +1,41 @@
+{
+  "export_version": "2.0",
+  "character_id": "incense_specter",
+  "canvas_size": 176,
+  "directions": [
+    "south",
+    "south-east",
+    "east",
+    "north-east",
+    "north",
+    "north-west",
+    "west",
+    "south-west"
+  ],
+  "animations": {
+    "animating-7f60bab8": {
+      "frame_count": 8,
+      "directions": [
+        "south",
+        "south-east",
+        "east",
+        "north-east",
+        "north",
+        "north-west",
+        "west",
+        "south-west"
+      ]
+    }
+  },
+  "character": {
+    "id": "incense_specter",
+    "name": "incense_specter",
+    "prompt": "",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "directions": 8,
+    "view": "low top-down"
+  }
+}

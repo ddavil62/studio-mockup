@@ -4,8 +4,8 @@
     "name": "Carrot Goblin",
     "prompt": "small cute carrot goblin monster, orange carrot body, green leaf hat, angry face, fantasy RPG enemy",
     "size": {
-      "width": 48,
-      "height": 48
+      "width": 92,
+      "height": 92
     },
     "template_id": "mannequin",
     "directions": 8,

@@ -1,0 +1,15 @@
+{
+  "character": {
+    "id": "unknown",
+    "name": "sushi_ninja",
+    "prompt": "",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-17"
+}

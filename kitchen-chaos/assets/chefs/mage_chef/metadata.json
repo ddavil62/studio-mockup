@@ -1,0 +1,15 @@
+{
+  "character": {
+    "id": "pending",
+    "name": "mage_chef",
+    "prompt": "A chibi girl chef with wavy purple bob hair and small round glasses. She wears a light purple chef dress (color #cc88ff) with white puff sleeves and a dark apron vest overlay. Has a small white flower hair pin and a small white chef hat. Calm and intellectual expression. Holds a whisk or piping bag in right hand. Elegant dessert chef appearance. Low top-down view, 8 directions, chibi proportions.",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-20"
+}

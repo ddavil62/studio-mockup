@@ -1,0 +1,15 @@
+{
+  "character": {
+    "id": "pending",
+    "name": "andre_chef",
+    "prompt": "A chibi adult male chef with long wavy black hair and a short beard. He wears a formal white double-breasted chef jacket with gold braid trim and gold buttons (gold color #f5d76e), and black trousers. Wears a tall white toque blanche chef hat. Blue eyes visible. Distinguished and elegant French chef appearance. Holds a whisk in right hand. Low top-down view, 8 directions, chibi proportions.",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-20"
+}

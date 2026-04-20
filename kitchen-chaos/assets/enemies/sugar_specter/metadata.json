@@ -1,113 +1,15 @@
 {
   "character": {
-    "id": "45090305-b9c7-4358-a69d-269a9e79dce6",
+    "id": "unknown",
     "name": "sugar_specter",
-    "prompt": "A cute chibi ghost enemy character made of white sugar and cream. Translucent wispy form with a soft glowing pale blue and white color scheme. Sugar crystal particles drift and sparkle around the body. The form slightly flickers and splits at the edges, hinting at its ability to divide into smaller versions. Haunting yet sweet aesthetic with flowing ghostly tendrils of crystallized sugar. Pixel art style, transparent background.",
+    "prompt": "",
     "size": {
       "width": 92,
       "height": 92
     },
-    "template_id": "mannequin",
     "directions": 8,
-    "view": "low top-down",
-    "created_at": "2026-04-16T14:14:33.948851+00:00"
-  },
-  "frames": {
-    "rotations": {
-      "south": "rotations/south.png",
-      "south-east": "rotations/south-east.png",
-      "east": "rotations/east.png",
-      "north-east": "rotations/north-east.png",
-      "north": "rotations/north.png",
-      "north-west": "rotations/north-west.png",
-      "west": "rotations/west.png",
-      "south-west": "rotations/south-west.png"
-    },
-    "animations": {
-      "animating-7f31cfcf": {
-        "south-east": [
-          "animations/animating-7f31cfcf/south-east/frame_000.png",
-          "animations/animating-7f31cfcf/south-east/frame_001.png",
-          "animations/animating-7f31cfcf/south-east/frame_002.png",
-          "animations/animating-7f31cfcf/south-east/frame_003.png",
-          "animations/animating-7f31cfcf/south-east/frame_004.png",
-          "animations/animating-7f31cfcf/south-east/frame_005.png",
-          "animations/animating-7f31cfcf/south-east/frame_006.png",
-          "animations/animating-7f31cfcf/south-east/frame_007.png"
-        ],
-        "north": [
-          "animations/animating-7f31cfcf/north/frame_000.png",
-          "animations/animating-7f31cfcf/north/frame_001.png",
-          "animations/animating-7f31cfcf/north/frame_002.png",
-          "animations/animating-7f31cfcf/north/frame_003.png",
-          "animations/animating-7f31cfcf/north/frame_004.png",
-          "animations/animating-7f31cfcf/north/frame_005.png",
-          "animations/animating-7f31cfcf/north/frame_006.png",
-          "animations/animating-7f31cfcf/north/frame_007.png"
-        ],
-        "south": [
-          "animations/animating-7f31cfcf/south/frame_000.png",
-          "animations/animating-7f31cfcf/south/frame_001.png",
-          "animations/animating-7f31cfcf/south/frame_002.png",
-          "animations/animating-7f31cfcf/south/frame_003.png",
-          "animations/animating-7f31cfcf/south/frame_004.png",
-          "animations/animating-7f31cfcf/south/frame_005.png",
-          "animations/animating-7f31cfcf/south/frame_006.png",
-          "animations/animating-7f31cfcf/south/frame_007.png"
-        ],
-        "north-east": [
-          "animations/animating-7f31cfcf/north-east/frame_000.png",
-          "animations/animating-7f31cfcf/north-east/frame_001.png",
-          "animations/animating-7f31cfcf/north-east/frame_002.png",
-          "animations/animating-7f31cfcf/north-east/frame_003.png",
-          "animations/animating-7f31cfcf/north-east/frame_004.png",
-          "animations/animating-7f31cfcf/north-east/frame_005.png",
-          "animations/animating-7f31cfcf/north-east/frame_006.png",
-          "animations/animating-7f31cfcf/north-east/frame_007.png"
-        ],
-        "north-west": [
-          "animations/animating-7f31cfcf/north-west/frame_000.png",
-          "animations/animating-7f31cfcf/north-west/frame_001.png",
-          "animations/animating-7f31cfcf/north-west/frame_002.png",
-          "animations/animating-7f31cfcf/north-west/frame_003.png",
-          "animations/animating-7f31cfcf/north-west/frame_004.png",
-          "animations/animating-7f31cfcf/north-west/frame_005.png",
-          "animations/animating-7f31cfcf/north-west/frame_006.png",
-          "animations/animating-7f31cfcf/north-west/frame_007.png"
-        ],
-        "west": [
-          "animations/animating-7f31cfcf/west/frame_000.png",
-          "animations/animating-7f31cfcf/west/frame_001.png",
-          "animations/animating-7f31cfcf/west/frame_002.png",
-          "animations/animating-7f31cfcf/west/frame_003.png",
-          "animations/animating-7f31cfcf/west/frame_004.png",
-          "animations/animating-7f31cfcf/west/frame_005.png",
-          "animations/animating-7f31cfcf/west/frame_006.png",
-          "animations/animating-7f31cfcf/west/frame_007.png"
-        ],
-        "south-west": [
-          "animations/animating-7f31cfcf/south-west/frame_000.png",
-          "animations/animating-7f31cfcf/south-west/frame_001.png",
-          "animations/animating-7f31cfcf/south-west/frame_002.png",
-          "animations/animating-7f31cfcf/south-west/frame_003.png",
-          "animations/animating-7f31cfcf/south-west/frame_004.png",
-          "animations/animating-7f31cfcf/south-west/frame_005.png",
-          "animations/animating-7f31cfcf/south-west/frame_006.png",
-          "animations/animating-7f31cfcf/south-west/frame_007.png"
-        ],
-        "east": [
-          "animations/animating-7f31cfcf/east/frame_000.png",
-          "animations/animating-7f31cfcf/east/frame_001.png",
-          "animations/animating-7f31cfcf/east/frame_002.png",
-          "animations/animating-7f31cfcf/east/frame_003.png",
-          "animations/animating-7f31cfcf/east/frame_004.png",
-          "animations/animating-7f31cfcf/east/frame_005.png",
-          "animations/animating-7f31cfcf/east/frame_006.png",
-          "animations/animating-7f31cfcf/east/frame_007.png"
-        ]
-      }
-    }
+    "view": "low top-down"
   },
   "export_version": "2.0",
-  "export_date": "2026-04-16T14:18:55.313460"
+  "export_date": "2026-04-17"
 }

@@ -4,8 +4,8 @@
     "name": "Cheese Golem",
     "prompt": "big yellow cheese golem, blocky body made of cheese with holes, heavy and slow, fantasy RPG enemy",
     "size": {
-      "width": 48,
-      "height": 48
+      "width": 92,
+      "height": 92
     },
     "template_id": "mannequin",
     "directions": 8,

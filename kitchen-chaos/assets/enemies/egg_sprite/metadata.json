@@ -4,8 +4,8 @@
     "name": "Egg Sprite",
     "prompt": "tiny egg fairy sprite, cracked eggshell hat, white and yellow colors, small wings, cute fantasy RPG enemy",
     "size": {
-      "width": 48,
-      "height": 48
+      "width": 92,
+      "height": 92
     },
     "template_id": "mannequin",
     "directions": 8,

@@ -1,0 +1,113 @@
+{
+  "character": {
+    "id": "0099975d-6266-487b-985a-7bed0f001b1d",
+    "name": "Foie Gras Knight",
+    "prompt": "foie gras knight enemy, rotund heavily armored knight, golden shiny fatty plate armor with thick black outlines, duck feather plume on helmet, round golden shield shaped like a pate dish, heavy medieval French knight, portly round belly, golden greasy sheen, pompous and slow",
+    "size": {
+      "width": 92,
+      "height": 92
+    },
+    "template_id": "mannequin",
+    "directions": 8,
+    "view": "low top-down",
+    "created_at": "2026-04-14T01:35:15.427232+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {
+      "animating-d9b31bcd": {
+        "north": [
+          "animations/animating-d9b31bcd/north/frame_000.png",
+          "animations/animating-d9b31bcd/north/frame_001.png",
+          "animations/animating-d9b31bcd/north/frame_002.png",
+          "animations/animating-d9b31bcd/north/frame_003.png",
+          "animations/animating-d9b31bcd/north/frame_004.png",
+          "animations/animating-d9b31bcd/north/frame_005.png",
+          "animations/animating-d9b31bcd/north/frame_006.png",
+          "animations/animating-d9b31bcd/north/frame_007.png"
+        ],
+        "east": [
+          "animations/animating-d9b31bcd/east/frame_000.png",
+          "animations/animating-d9b31bcd/east/frame_001.png",
+          "animations/animating-d9b31bcd/east/frame_002.png",
+          "animations/animating-d9b31bcd/east/frame_003.png",
+          "animations/animating-d9b31bcd/east/frame_004.png",
+          "animations/animating-d9b31bcd/east/frame_005.png",
+          "animations/animating-d9b31bcd/east/frame_006.png",
+          "animations/animating-d9b31bcd/east/frame_007.png"
+        ],
+        "south": [
+          "animations/animating-d9b31bcd/south/frame_000.png",
+          "animations/animating-d9b31bcd/south/frame_001.png",
+          "animations/animating-d9b31bcd/south/frame_002.png",
+          "animations/animating-d9b31bcd/south/frame_003.png",
+          "animations/animating-d9b31bcd/south/frame_004.png",
+          "animations/animating-d9b31bcd/south/frame_005.png",
+          "animations/animating-d9b31bcd/south/frame_006.png",
+          "animations/animating-d9b31bcd/south/frame_007.png"
+        ],
+        "south-west": [
+          "animations/animating-d9b31bcd/south-west/frame_000.png",
+          "animations/animating-d9b31bcd/south-west/frame_001.png",
+          "animations/animating-d9b31bcd/south-west/frame_002.png",
+          "animations/animating-d9b31bcd/south-west/frame_003.png",
+          "animations/animating-d9b31bcd/south-west/frame_004.png",
+          "animations/animating-d9b31bcd/south-west/frame_005.png",
+          "animations/animating-d9b31bcd/south-west/frame_006.png",
+          "animations/animating-d9b31bcd/south-west/frame_007.png"
+        ],
+        "north-west": [
+          "animations/animating-d9b31bcd/north-west/frame_000.png",
+          "animations/animating-d9b31bcd/north-west/frame_001.png",
+          "animations/animating-d9b31bcd/north-west/frame_002.png",
+          "animations/animating-d9b31bcd/north-west/frame_003.png",
+          "animations/animating-d9b31bcd/north-west/frame_004.png",
+          "animations/animating-d9b31bcd/north-west/frame_005.png",
+          "animations/animating-d9b31bcd/north-west/frame_006.png",
+          "animations/animating-d9b31bcd/north-west/frame_007.png"
+        ],
+        "west": [
+          "animations/animating-d9b31bcd/west/frame_000.png",
+          "animations/animating-d9b31bcd/west/frame_001.png",
+          "animations/animating-d9b31bcd/west/frame_002.png",
+          "animations/animating-d9b31bcd/west/frame_003.png",
+          "animations/animating-d9b31bcd/west/frame_004.png",
+          "animations/animating-d9b31bcd/west/frame_005.png",
+          "animations/animating-d9b31bcd/west/frame_006.png",
+          "animations/animating-d9b31bcd/west/frame_007.png"
+        ],
+        "north-east": [
+          "animations/animating-d9b31bcd/north-east/frame_000.png",
+          "animations/animating-d9b31bcd/north-east/frame_001.png",
+          "animations/animating-d9b31bcd/north-east/frame_002.png",
+          "animations/animating-d9b31bcd/north-east/frame_003.png",
+          "animations/animating-d9b31bcd/north-east/frame_004.png",
+          "animations/animating-d9b31bcd/north-east/frame_005.png",
+          "animations/animating-d9b31bcd/north-east/frame_006.png",
+          "animations/animating-d9b31bcd/north-east/frame_007.png"
+        ],
+        "south-east": [
+          "animations/animating-d9b31bcd/south-east/frame_000.png",
+          "animations/animating-d9b31bcd/south-east/frame_001.png",
+          "animations/animating-d9b31bcd/south-east/frame_002.png",
+          "animations/animating-d9b31bcd/south-east/frame_003.png",
+          "animations/animating-d9b31bcd/south-east/frame_004.png",
+          "animations/animating-d9b31bcd/south-east/frame_005.png",
+          "animations/animating-d9b31bcd/south-east/frame_006.png",
+          "animations/animating-d9b31bcd/south-east/frame_007.png"
+        ]
+      }
+    }
+  },
+  "export_version": "2.0",
+  "export_date": "2026-04-14T01:42:07.773169"
+}
