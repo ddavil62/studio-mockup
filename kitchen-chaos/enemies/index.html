@@ -314,6 +314,8 @@
       let currentDir = 'south';
       let animInterval = null;
       let currentAnim = null;
+      let playId = 0;       // race condition 방지: 최신 playWalk 호출 ID
+      let cachedMeta = null; // metadata.json 캐시 (방향 변경마다 재요청 방지)
 
       // 애니메이션 컨트롤
       const animDiv = document.createElement('div');
@@ -329,6 +331,13 @@
       walkBtn.dataset.anim = 'walk';
       animDiv.appendChild(walkBtn);
       area.appendChild(animDiv);
+
+      function getMetadata() {
+        if (cachedMeta) return Promise.resolve(cachedMeta);
+        return fetch(`../assets/${charType}/${charName}/metadata.json`)
+          .then(r => r.json())
+          .then(meta => { cachedMeta = meta; return meta; });
+      }
 
       function drawImage(src) {
         const img = new Image();
@@ -363,35 +372,36 @@
       function playWalk() {
         stopAnim();
         currentAnim = 'walk';
-        // walking 폴더명 찾기 — 첫 번째 walking-* 폴더
-        const base = `../assets/${charType}/${charName}/animations`;
-        // 이미지 로딩 시도 (walking-* 폴더명을 모르므로 메타데이터에서 유추)
-        let frame = 0;
-        const maxFrames = 6;
+        const myId = ++playId; // 이 호출의 고유 ID (stale 콜백 차단용)
         const imgs = [];
-        let loaded = 0;
-        let walkFolder = '';
+        let frame = 0;
 
-        // 메타데이터에서 실제 폴더명 탐색 (fallback: 직접 시도)
-        fetch(`../assets/${charType}/${charName}/metadata.json`)
-          .then(r => r.json())
+        getMetadata()
           .then(meta => {
+            if (myId !== playId) return; // 더 최신 호출이 있으면 폐기
             const anims = meta.frames?.animations || {};
             const walkKey = Object.keys(anims).find(k => k.startsWith('walking') || k.startsWith('animating'));
             if (!walkKey) { showStatic(); return; }
-            walkFolder = walkKey;
             const dirFrames = anims[walkKey][currentDir] || anims[walkKey]['south'] || [];
-            dirFrames.forEach((path, i) => {
+            if (dirFrames.length === 0) { showStatic(); return; }
+            let loaded = 0;
+            dirFrames.forEach(path => {
               const img = new Image();
-              img.src = `../assets/${charType}/${charName}/${path}`;
-              img.onload = () => { loaded++; if (loaded === dirFrames.length) startLoop(dirFrames.length); };
+              img.onload = () => {
+                loaded++;
+                if (myId !== playId) return; // stale
+                if (loaded === dirFrames.length) startLoop(dirFrames.length);
+              };
               img.onerror = () => { loaded++; };
+              img.src = `../assets/${charType}/${charName}/${path}`;
               imgs.push(img);
             });
           })
           .catch(() => showStatic());
 
         function startLoop(total) {
+          if (myId !== playId) return; // stale
+          frame = 0;
           drawFrame(0);
           animInterval = setInterval(() => {
             frame = (frame + 1) % total;
