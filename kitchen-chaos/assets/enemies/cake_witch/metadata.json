@@ -1,8 +1,8 @@
 {
   "character": {
-    "id": "33b9b6c9-c9cb-4318-9f71-68cd7078029d",
+    "id": "956d72e2-69cb-4b57-9bd7-d0035a480583",
     "name": "cake_witch",
-    "prompt": "A cute chibi witch enemy character. Body shaped like a layered birthday cake with pastel pink frosting and sprinkles. Wears a tall pointed witch hat decorated with a tiny candle. Holds a wand topped with a swirling frosting tip. Pastel pink and purple color scheme. Sparkles and magical aura around the wand. Pixel art style, transparent background.",
+    "prompt": "A chibi cake witch monster. A witch character with a tall pointed hat made of cake layers. Pink frosting robes with sprinkle decorations. Holds a frosting piping bag as magic wand. Cherry on top of the hat. Pink and cream cake colors with colorful sprinkles.",
     "size": {
       "width": 92,
       "height": 92
@@ -10,7 +10,7 @@
     "template_id": "mannequin",
     "directions": 8,
     "view": "low top-down",
-    "created_at": "2026-04-16T12:57:23.740458+00:00"
+    "created_at": "2026-04-17T09:01:29.125552+00:00"
   },
   "frames": {
     "rotations": {
@@ -24,74 +24,74 @@
       "south-west": "rotations/south-west.png"
     },
     "animations": {
-      "walking-076ead3d": {
+      "animating-739689cb": {
+        "south-east": [
+          "animations/animating-739689cb/south-east/frame_000.png",
+          "animations/animating-739689cb/south-east/frame_001.png",
+          "animations/animating-739689cb/south-east/frame_002.png",
+          "animations/animating-739689cb/south-east/frame_003.png",
+          "animations/animating-739689cb/south-east/frame_004.png",
+          "animations/animating-739689cb/south-east/frame_005.png"
+        ],
         "south-west": [
-          "animations/walking-076ead3d/south-west/frame_000.png",
-          "animations/walking-076ead3d/south-west/frame_001.png",
-          "animations/walking-076ead3d/south-west/frame_002.png",
-          "animations/walking-076ead3d/south-west/frame_003.png",
-          "animations/walking-076ead3d/south-west/frame_004.png",
-          "animations/walking-076ead3d/south-west/frame_005.png"
-        ],
-        "north-west": [
-          "animations/walking-076ead3d/north-west/frame_000.png",
-          "animations/walking-076ead3d/north-west/frame_001.png",
-          "animations/walking-076ead3d/north-west/frame_002.png",
-          "animations/walking-076ead3d/north-west/frame_003.png",
-          "animations/walking-076ead3d/north-west/frame_004.png",
-          "animations/walking-076ead3d/north-west/frame_005.png"
-        ],
-        "north-east": [
-          "animations/walking-076ead3d/north-east/frame_000.png",
-          "animations/walking-076ead3d/north-east/frame_001.png",
-          "animations/walking-076ead3d/north-east/frame_002.png",
-          "animations/walking-076ead3d/north-east/frame_003.png",
-          "animations/walking-076ead3d/north-east/frame_004.png",
-          "animations/walking-076ead3d/north-east/frame_005.png"
+          "animations/animating-739689cb/south-west/frame_000.png",
+          "animations/animating-739689cb/south-west/frame_001.png",
+          "animations/animating-739689cb/south-west/frame_002.png",
+          "animations/animating-739689cb/south-west/frame_003.png",
+          "animations/animating-739689cb/south-west/frame_004.png",
+          "animations/animating-739689cb/south-west/frame_005.png"
         ],
         "south": [
-          "animations/walking-076ead3d/south/frame_000.png",
-          "animations/walking-076ead3d/south/frame_001.png",
-          "animations/walking-076ead3d/south/frame_002.png",
-          "animations/walking-076ead3d/south/frame_003.png",
-          "animations/walking-076ead3d/south/frame_004.png",
-          "animations/walking-076ead3d/south/frame_005.png"
+          "animations/animating-739689cb/south/frame_000.png",
+          "animations/animating-739689cb/south/frame_001.png",
+          "animations/animating-739689cb/south/frame_002.png",
+          "animations/animating-739689cb/south/frame_003.png",
+          "animations/animating-739689cb/south/frame_004.png",
+          "animations/animating-739689cb/south/frame_005.png"
         ],
         "west": [
-          "animations/walking-076ead3d/west/frame_000.png",
-          "animations/walking-076ead3d/west/frame_001.png",
-          "animations/walking-076ead3d/west/frame_002.png",
-          "animations/walking-076ead3d/west/frame_003.png",
-          "animations/walking-076ead3d/west/frame_004.png",
-          "animations/walking-076ead3d/west/frame_005.png"
-        ],
-        "south-east": [
-          "animations/walking-076ead3d/south-east/frame_000.png",
-          "animations/walking-076ead3d/south-east/frame_001.png",
-          "animations/walking-076ead3d/south-east/frame_002.png",
-          "animations/walking-076ead3d/south-east/frame_003.png",
-          "animations/walking-076ead3d/south-east/frame_004.png",
-          "animations/walking-076ead3d/south-east/frame_005.png"
+          "animations/animating-739689cb/west/frame_000.png",
+          "animations/animating-739689cb/west/frame_001.png",
+          "animations/animating-739689cb/west/frame_002.png",
+          "animations/animating-739689cb/west/frame_003.png",
+          "animations/animating-739689cb/west/frame_004.png",
+          "animations/animating-739689cb/west/frame_005.png"
         ],
         "north": [
-          "animations/walking-076ead3d/north/frame_000.png",
-          "animations/walking-076ead3d/north/frame_001.png",
-          "animations/walking-076ead3d/north/frame_002.png",
-          "animations/walking-076ead3d/north/frame_003.png",
-          "animations/walking-076ead3d/north/frame_004.png",
-          "animations/walking-076ead3d/north/frame_005.png"
+          "animations/animating-739689cb/north/frame_000.png",
+          "animations/animating-739689cb/north/frame_001.png",
+          "animations/animating-739689cb/north/frame_002.png",
+          "animations/animating-739689cb/north/frame_003.png",
+          "animations/animating-739689cb/north/frame_004.png",
+          "animations/animating-739689cb/north/frame_005.png"
+        ],
+        "north-east": [
+          "animations/animating-739689cb/north-east/frame_000.png",
+          "animations/animating-739689cb/north-east/frame_001.png",
+          "animations/animating-739689cb/north-east/frame_002.png",
+          "animations/animating-739689cb/north-east/frame_003.png",
+          "animations/animating-739689cb/north-east/frame_004.png",
+          "animations/animating-739689cb/north-east/frame_005.png"
+        ],
+        "north-west": [
+          "animations/animating-739689cb/north-west/frame_000.png",
+          "animations/animating-739689cb/north-west/frame_001.png",
+          "animations/animating-739689cb/north-west/frame_002.png",
+          "animations/animating-739689cb/north-west/frame_003.png",
+          "animations/animating-739689cb/north-west/frame_004.png",
+          "animations/animating-739689cb/north-west/frame_005.png"
         ],
         "east": [
-          "animations/walking-076ead3d/east/frame_000.png",
-          "animations/walking-076ead3d/east/frame_001.png",
-          "animations/walking-076ead3d/east/frame_002.png",
-          "animations/walking-076ead3d/east/frame_003.png",
-          "animations/walking-076ead3d/east/frame_004.png",
-          "animations/walking-076ead3d/east/frame_005.png"
+          "animations/animating-739689cb/east/frame_000.png",
+          "animations/animating-739689cb/east/frame_001.png",
+          "animations/animating-739689cb/east/frame_002.png",
+          "animations/animating-739689cb/east/frame_003.png",
+          "animations/animating-739689cb/east/frame_004.png",
+          "animations/animating-739689cb/east/frame_005.png"
         ]
       }
     }
   },
   "export_version": "2.0",
-  "export_date": "2026-04-16T13:02:45.260807"
+  "export_date": "2026-04-20T23:35:12.233716"
 }

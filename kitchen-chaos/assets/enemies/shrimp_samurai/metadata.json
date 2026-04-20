@@ -1,8 +1,8 @@
 {
   "character": {
-    "id": "113d26e1-f570-4b7f-bc36-f9dc0e656e25",
-    "name": "Shrimp Samurai",
-    "prompt": "orange shrimp samurai warrior, curved shrimp body in samurai armor, katana sword, fantasy RPG enemy",
+    "id": "98ba6572-28bc-49a6-b09e-ace07d196b64",
+    "name": "shrimp_samurai",
+    "prompt": "orange shrimp samurai chibi warrior monster, curved orange-red shrimp-shaped body with segmented armor plates, wearing traditional japanese samurai helmet with antennae horns, holding a gleaming katana sword, determined samurai expression, fan-shaped shrimp tail forming cape behind, fantasy RPG enemy",
     "size": {
       "width": 92,
       "height": 92
@@ -10,7 +10,7 @@
     "template_id": "mannequin",
     "directions": 8,
     "view": "low top-down",
-    "created_at": "2026-04-09T11:11:06.849189+00:00"
+    "created_at": "2026-04-17T07:01:53.505381+00:00"
   },
   "frames": {
     "rotations": {
@@ -25,13 +25,13 @@
     },
     "animations": {
       "walking-bfaf160f": {
-        "east": [
-          "animations/walking-bfaf160f/east/frame_000.png",
-          "animations/walking-bfaf160f/east/frame_001.png",
-          "animations/walking-bfaf160f/east/frame_002.png",
-          "animations/walking-bfaf160f/east/frame_003.png",
-          "animations/walking-bfaf160f/east/frame_004.png",
-          "animations/walking-bfaf160f/east/frame_005.png"
+        "south-west": [
+          "animations/walking-bfaf160f/south-west/frame_000.png",
+          "animations/walking-bfaf160f/south-west/frame_001.png",
+          "animations/walking-bfaf160f/south-west/frame_002.png",
+          "animations/walking-bfaf160f/south-west/frame_003.png",
+          "animations/walking-bfaf160f/south-west/frame_004.png",
+          "animations/walking-bfaf160f/south-west/frame_005.png"
         ],
         "south": [
           "animations/walking-bfaf160f/south/frame_000.png",
@@ -40,14 +40,6 @@
           "animations/walking-bfaf160f/south/frame_003.png",
           "animations/walking-bfaf160f/south/frame_004.png",
           "animations/walking-bfaf160f/south/frame_005.png"
-        ],
-        "south-east": [
-          "animations/walking-bfaf160f/south-east/frame_000.png",
-          "animations/walking-bfaf160f/south-east/frame_001.png",
-          "animations/walking-bfaf160f/south-east/frame_002.png",
-          "animations/walking-bfaf160f/south-east/frame_003.png",
-          "animations/walking-bfaf160f/south-east/frame_004.png",
-          "animations/walking-bfaf160f/south-east/frame_005.png"
         ],
         "west": [
           "animations/walking-bfaf160f/west/frame_000.png",
@@ -65,6 +57,14 @@
           "animations/walking-bfaf160f/north/frame_004.png",
           "animations/walking-bfaf160f/north/frame_005.png"
         ],
+        "north-west": [
+          "animations/walking-bfaf160f/north-west/frame_000.png",
+          "animations/walking-bfaf160f/north-west/frame_001.png",
+          "animations/walking-bfaf160f/north-west/frame_002.png",
+          "animations/walking-bfaf160f/north-west/frame_003.png",
+          "animations/walking-bfaf160f/north-west/frame_004.png",
+          "animations/walking-bfaf160f/north-west/frame_005.png"
+        ],
         "north-east": [
           "animations/walking-bfaf160f/north-east/frame_000.png",
           "animations/walking-bfaf160f/north-east/frame_001.png",
@@ -73,25 +73,165 @@
           "animations/walking-bfaf160f/north-east/frame_004.png",
           "animations/walking-bfaf160f/north-east/frame_005.png"
         ],
+        "east": [
+          "animations/walking-bfaf160f/east/frame_000.png",
+          "animations/walking-bfaf160f/east/frame_001.png",
+          "animations/walking-bfaf160f/east/frame_002.png",
+          "animations/walking-bfaf160f/east/frame_003.png",
+          "animations/walking-bfaf160f/east/frame_004.png",
+          "animations/walking-bfaf160f/east/frame_005.png"
+        ],
+        "south-east": [
+          "animations/walking-bfaf160f/south-east/frame_000.png",
+          "animations/walking-bfaf160f/south-east/frame_001.png",
+          "animations/walking-bfaf160f/south-east/frame_002.png",
+          "animations/walking-bfaf160f/south-east/frame_003.png",
+          "animations/walking-bfaf160f/south-east/frame_004.png",
+          "animations/walking-bfaf160f/south-east/frame_005.png"
+        ]
+      },
+      "falling_backward-01bb1d13": {
+        "north-east": [
+          "animations/falling_backward-01bb1d13/north-east/frame_000.png",
+          "animations/falling_backward-01bb1d13/north-east/frame_001.png",
+          "animations/falling_backward-01bb1d13/north-east/frame_002.png",
+          "animations/falling_backward-01bb1d13/north-east/frame_003.png",
+          "animations/falling_backward-01bb1d13/north-east/frame_004.png",
+          "animations/falling_backward-01bb1d13/north-east/frame_005.png",
+          "animations/falling_backward-01bb1d13/north-east/frame_006.png"
+        ],
         "south-west": [
-          "animations/walking-bfaf160f/south-west/frame_000.png",
-          "animations/walking-bfaf160f/south-west/frame_001.png",
-          "animations/walking-bfaf160f/south-west/frame_002.png",
-          "animations/walking-bfaf160f/south-west/frame_003.png",
-          "animations/walking-bfaf160f/south-west/frame_004.png",
-          "animations/walking-bfaf160f/south-west/frame_005.png"
+          "animations/falling_backward-01bb1d13/south-west/frame_000.png",
+          "animations/falling_backward-01bb1d13/south-west/frame_001.png",
+          "animations/falling_backward-01bb1d13/south-west/frame_002.png",
+          "animations/falling_backward-01bb1d13/south-west/frame_003.png",
+          "animations/falling_backward-01bb1d13/south-west/frame_004.png",
+          "animations/falling_backward-01bb1d13/south-west/frame_005.png",
+          "animations/falling_backward-01bb1d13/south-west/frame_006.png"
+        ],
+        "south": [
+          "animations/falling_backward-01bb1d13/south/frame_000.png",
+          "animations/falling_backward-01bb1d13/south/frame_001.png",
+          "animations/falling_backward-01bb1d13/south/frame_002.png",
+          "animations/falling_backward-01bb1d13/south/frame_003.png",
+          "animations/falling_backward-01bb1d13/south/frame_004.png",
+          "animations/falling_backward-01bb1d13/south/frame_005.png",
+          "animations/falling_backward-01bb1d13/south/frame_006.png"
+        ],
+        "north": [
+          "animations/falling_backward-01bb1d13/north/frame_000.png",
+          "animations/falling_backward-01bb1d13/north/frame_001.png",
+          "animations/falling_backward-01bb1d13/north/frame_002.png",
+          "animations/falling_backward-01bb1d13/north/frame_003.png",
+          "animations/falling_backward-01bb1d13/north/frame_004.png",
+          "animations/falling_backward-01bb1d13/north/frame_005.png",
+          "animations/falling_backward-01bb1d13/north/frame_006.png"
+        ],
+        "west": [
+          "animations/falling_backward-01bb1d13/west/frame_000.png",
+          "animations/falling_backward-01bb1d13/west/frame_001.png",
+          "animations/falling_backward-01bb1d13/west/frame_002.png",
+          "animations/falling_backward-01bb1d13/west/frame_003.png",
+          "animations/falling_backward-01bb1d13/west/frame_004.png",
+          "animations/falling_backward-01bb1d13/west/frame_005.png",
+          "animations/falling_backward-01bb1d13/west/frame_006.png"
+        ],
+        "east": [
+          "animations/falling_backward-01bb1d13/east/frame_000.png",
+          "animations/falling_backward-01bb1d13/east/frame_001.png",
+          "animations/falling_backward-01bb1d13/east/frame_002.png",
+          "animations/falling_backward-01bb1d13/east/frame_003.png",
+          "animations/falling_backward-01bb1d13/east/frame_004.png",
+          "animations/falling_backward-01bb1d13/east/frame_005.png",
+          "animations/falling_backward-01bb1d13/east/frame_006.png"
+        ],
+        "south-east": [
+          "animations/falling_backward-01bb1d13/south-east/frame_000.png",
+          "animations/falling_backward-01bb1d13/south-east/frame_001.png",
+          "animations/falling_backward-01bb1d13/south-east/frame_002.png",
+          "animations/falling_backward-01bb1d13/south-east/frame_003.png",
+          "animations/falling_backward-01bb1d13/south-east/frame_004.png",
+          "animations/falling_backward-01bb1d13/south-east/frame_005.png",
+          "animations/falling_backward-01bb1d13/south-east/frame_006.png"
         ],
         "north-west": [
-          "animations/walking-bfaf160f/north-west/frame_000.png",
-          "animations/walking-bfaf160f/north-west/frame_001.png",
-          "animations/walking-bfaf160f/north-west/frame_002.png",
-          "animations/walking-bfaf160f/north-west/frame_003.png",
-          "animations/walking-bfaf160f/north-west/frame_004.png",
-          "animations/walking-bfaf160f/north-west/frame_005.png"
+          "animations/falling_backward-01bb1d13/north-west/frame_000.png",
+          "animations/falling_backward-01bb1d13/north-west/frame_001.png",
+          "animations/falling_backward-01bb1d13/north-west/frame_002.png",
+          "animations/falling_backward-01bb1d13/north-west/frame_003.png",
+          "animations/falling_backward-01bb1d13/north-west/frame_004.png",
+          "animations/falling_backward-01bb1d13/north-west/frame_005.png",
+          "animations/falling_backward-01bb1d13/north-west/frame_006.png"
+        ]
+      },
+      "animating-d4bff7d3": {
+        "north-west": [
+          "animations/animating-d4bff7d3/north-west/frame_000.png",
+          "animations/animating-d4bff7d3/north-west/frame_001.png",
+          "animations/animating-d4bff7d3/north-west/frame_002.png",
+          "animations/animating-d4bff7d3/north-west/frame_003.png",
+          "animations/animating-d4bff7d3/north-west/frame_004.png",
+          "animations/animating-d4bff7d3/north-west/frame_005.png"
+        ],
+        "east": [
+          "animations/animating-d4bff7d3/east/frame_000.png",
+          "animations/animating-d4bff7d3/east/frame_001.png",
+          "animations/animating-d4bff7d3/east/frame_002.png",
+          "animations/animating-d4bff7d3/east/frame_003.png",
+          "animations/animating-d4bff7d3/east/frame_004.png",
+          "animations/animating-d4bff7d3/east/frame_005.png"
+        ],
+        "north": [
+          "animations/animating-d4bff7d3/north/frame_000.png",
+          "animations/animating-d4bff7d3/north/frame_001.png",
+          "animations/animating-d4bff7d3/north/frame_002.png",
+          "animations/animating-d4bff7d3/north/frame_003.png",
+          "animations/animating-d4bff7d3/north/frame_004.png",
+          "animations/animating-d4bff7d3/north/frame_005.png"
+        ],
+        "south": [
+          "animations/animating-d4bff7d3/south/frame_000.png",
+          "animations/animating-d4bff7d3/south/frame_001.png",
+          "animations/animating-d4bff7d3/south/frame_002.png",
+          "animations/animating-d4bff7d3/south/frame_003.png",
+          "animations/animating-d4bff7d3/south/frame_004.png",
+          "animations/animating-d4bff7d3/south/frame_005.png"
+        ],
+        "north-east": [
+          "animations/animating-d4bff7d3/north-east/frame_000.png",
+          "animations/animating-d4bff7d3/north-east/frame_001.png",
+          "animations/animating-d4bff7d3/north-east/frame_002.png",
+          "animations/animating-d4bff7d3/north-east/frame_003.png",
+          "animations/animating-d4bff7d3/north-east/frame_004.png",
+          "animations/animating-d4bff7d3/north-east/frame_005.png"
+        ],
+        "south-east": [
+          "animations/animating-d4bff7d3/south-east/frame_000.png",
+          "animations/animating-d4bff7d3/south-east/frame_001.png",
+          "animations/animating-d4bff7d3/south-east/frame_002.png",
+          "animations/animating-d4bff7d3/south-east/frame_003.png",
+          "animations/animating-d4bff7d3/south-east/frame_004.png",
+          "animations/animating-d4bff7d3/south-east/frame_005.png"
+        ],
+        "south-west": [
+          "animations/animating-d4bff7d3/south-west/frame_000.png",
+          "animations/animating-d4bff7d3/south-west/frame_001.png",
+          "animations/animating-d4bff7d3/south-west/frame_002.png",
+          "animations/animating-d4bff7d3/south-west/frame_003.png",
+          "animations/animating-d4bff7d3/south-west/frame_004.png",
+          "animations/animating-d4bff7d3/south-west/frame_005.png"
+        ],
+        "west": [
+          "animations/animating-d4bff7d3/west/frame_000.png",
+          "animations/animating-d4bff7d3/west/frame_001.png",
+          "animations/animating-d4bff7d3/west/frame_002.png",
+          "animations/animating-d4bff7d3/west/frame_003.png",
+          "animations/animating-d4bff7d3/west/frame_004.png",
+          "animations/animating-d4bff7d3/west/frame_005.png"
         ]
       }
     }
   },
   "export_version": "2.0",
-  "export_date": "2026-04-09T11:48:25.718553"
+  "export_date": "2026-04-20T23:34:36.480552"
 }

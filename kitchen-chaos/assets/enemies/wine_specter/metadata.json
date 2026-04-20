@@ -1,8 +1,8 @@
 {
   "character": {
-    "id": "221fb5e7-b66b-4234-90ab-0ec90d92842f",
-    "name": "Wine Specter",
-    "prompt": "wine specter ghost enemy, translucent purple body made of swirling red wine mist, glowing violet eyes, wearing a black french beret, holding a crystal wine goblet dripping red wine, ethereal wine vapor trails around body, floating undead spirit, creepy elegant design",
+    "id": "0c5c5f27-b111-4b9b-994b-1b756886626d",
+    "name": "wine_specter_v2",
+    "prompt": "A chibi wine glass ghost monster. Body shaped like a wine glass silhouette with a crystal stem for legs. Deep burgundy-red semi-transparent body. Holds a wine bottle in one hand. Wine droplets floating around. Dark burgundy red color palette. Ghostly translucent lower body fading out.",
     "size": {
       "width": 92,
       "height": 92
@@ -10,7 +10,7 @@
     "template_id": "mannequin",
     "directions": 8,
     "view": "low top-down",
-    "created_at": "2026-04-14T01:35:13.452978+00:00"
+    "created_at": "2026-04-17T08:44:55.465377+00:00"
   },
   "frames": {
     "rotations": {
@@ -24,90 +24,74 @@
       "south-west": "rotations/south-west.png"
     },
     "animations": {
-      "animating-aaf41951": {
-        "west": [
-          "animations/animating-aaf41951/west/frame_000.png",
-          "animations/animating-aaf41951/west/frame_001.png",
-          "animations/animating-aaf41951/west/frame_002.png",
-          "animations/animating-aaf41951/west/frame_003.png",
-          "animations/animating-aaf41951/west/frame_004.png",
-          "animations/animating-aaf41951/west/frame_005.png",
-          "animations/animating-aaf41951/west/frame_006.png",
-          "animations/animating-aaf41951/west/frame_007.png"
-        ],
-        "north-east": [
-          "animations/animating-aaf41951/north-east/frame_000.png",
-          "animations/animating-aaf41951/north-east/frame_001.png",
-          "animations/animating-aaf41951/north-east/frame_002.png",
-          "animations/animating-aaf41951/north-east/frame_003.png",
-          "animations/animating-aaf41951/north-east/frame_004.png",
-          "animations/animating-aaf41951/north-east/frame_005.png",
-          "animations/animating-aaf41951/north-east/frame_006.png",
-          "animations/animating-aaf41951/north-east/frame_007.png"
-        ],
+      "animating-01bb6261": {
         "north": [
-          "animations/animating-aaf41951/north/frame_000.png",
-          "animations/animating-aaf41951/north/frame_001.png",
-          "animations/animating-aaf41951/north/frame_002.png",
-          "animations/animating-aaf41951/north/frame_003.png",
-          "animations/animating-aaf41951/north/frame_004.png",
-          "animations/animating-aaf41951/north/frame_005.png",
-          "animations/animating-aaf41951/north/frame_006.png",
-          "animations/animating-aaf41951/north/frame_007.png"
-        ],
-        "south-east": [
-          "animations/animating-aaf41951/south-east/frame_000.png",
-          "animations/animating-aaf41951/south-east/frame_001.png",
-          "animations/animating-aaf41951/south-east/frame_002.png",
-          "animations/animating-aaf41951/south-east/frame_003.png",
-          "animations/animating-aaf41951/south-east/frame_004.png",
-          "animations/animating-aaf41951/south-east/frame_005.png",
-          "animations/animating-aaf41951/south-east/frame_006.png",
-          "animations/animating-aaf41951/south-east/frame_007.png"
-        ],
-        "north-west": [
-          "animations/animating-aaf41951/north-west/frame_000.png",
-          "animations/animating-aaf41951/north-west/frame_001.png",
-          "animations/animating-aaf41951/north-west/frame_002.png",
-          "animations/animating-aaf41951/north-west/frame_003.png",
-          "animations/animating-aaf41951/north-west/frame_004.png",
-          "animations/animating-aaf41951/north-west/frame_005.png",
-          "animations/animating-aaf41951/north-west/frame_006.png",
-          "animations/animating-aaf41951/north-west/frame_007.png"
-        ],
-        "south-west": [
-          "animations/animating-aaf41951/south-west/frame_000.png",
-          "animations/animating-aaf41951/south-west/frame_001.png",
-          "animations/animating-aaf41951/south-west/frame_002.png",
-          "animations/animating-aaf41951/south-west/frame_003.png",
-          "animations/animating-aaf41951/south-west/frame_004.png",
-          "animations/animating-aaf41951/south-west/frame_005.png",
-          "animations/animating-aaf41951/south-west/frame_006.png",
-          "animations/animating-aaf41951/south-west/frame_007.png"
-        ],
-        "east": [
-          "animations/animating-aaf41951/east/frame_000.png",
-          "animations/animating-aaf41951/east/frame_001.png",
-          "animations/animating-aaf41951/east/frame_002.png",
-          "animations/animating-aaf41951/east/frame_003.png",
-          "animations/animating-aaf41951/east/frame_004.png",
-          "animations/animating-aaf41951/east/frame_005.png",
-          "animations/animating-aaf41951/east/frame_006.png",
-          "animations/animating-aaf41951/east/frame_007.png"
+          "animations/animating-01bb6261/north/frame_000.png",
+          "animations/animating-01bb6261/north/frame_001.png",
+          "animations/animating-01bb6261/north/frame_002.png",
+          "animations/animating-01bb6261/north/frame_003.png",
+          "animations/animating-01bb6261/north/frame_004.png",
+          "animations/animating-01bb6261/north/frame_005.png"
         ],
         "south": [
-          "animations/animating-aaf41951/south/frame_000.png",
-          "animations/animating-aaf41951/south/frame_001.png",
-          "animations/animating-aaf41951/south/frame_002.png",
-          "animations/animating-aaf41951/south/frame_003.png",
-          "animations/animating-aaf41951/south/frame_004.png",
-          "animations/animating-aaf41951/south/frame_005.png",
-          "animations/animating-aaf41951/south/frame_006.png",
-          "animations/animating-aaf41951/south/frame_007.png"
+          "animations/animating-01bb6261/south/frame_000.png",
+          "animations/animating-01bb6261/south/frame_001.png",
+          "animations/animating-01bb6261/south/frame_002.png",
+          "animations/animating-01bb6261/south/frame_003.png",
+          "animations/animating-01bb6261/south/frame_004.png",
+          "animations/animating-01bb6261/south/frame_005.png"
+        ],
+        "west": [
+          "animations/animating-01bb6261/west/frame_000.png",
+          "animations/animating-01bb6261/west/frame_001.png",
+          "animations/animating-01bb6261/west/frame_002.png",
+          "animations/animating-01bb6261/west/frame_003.png",
+          "animations/animating-01bb6261/west/frame_004.png",
+          "animations/animating-01bb6261/west/frame_005.png"
+        ],
+        "east": [
+          "animations/animating-01bb6261/east/frame_000.png",
+          "animations/animating-01bb6261/east/frame_001.png",
+          "animations/animating-01bb6261/east/frame_002.png",
+          "animations/animating-01bb6261/east/frame_003.png",
+          "animations/animating-01bb6261/east/frame_004.png",
+          "animations/animating-01bb6261/east/frame_005.png"
+        ],
+        "north-east": [
+          "animations/animating-01bb6261/north-east/frame_000.png",
+          "animations/animating-01bb6261/north-east/frame_001.png",
+          "animations/animating-01bb6261/north-east/frame_002.png",
+          "animations/animating-01bb6261/north-east/frame_003.png",
+          "animations/animating-01bb6261/north-east/frame_004.png",
+          "animations/animating-01bb6261/north-east/frame_005.png"
+        ],
+        "south-east": [
+          "animations/animating-01bb6261/south-east/frame_000.png",
+          "animations/animating-01bb6261/south-east/frame_001.png",
+          "animations/animating-01bb6261/south-east/frame_002.png",
+          "animations/animating-01bb6261/south-east/frame_003.png",
+          "animations/animating-01bb6261/south-east/frame_004.png",
+          "animations/animating-01bb6261/south-east/frame_005.png"
+        ],
+        "north-west": [
+          "animations/animating-01bb6261/north-west/frame_000.png",
+          "animations/animating-01bb6261/north-west/frame_001.png",
+          "animations/animating-01bb6261/north-west/frame_002.png",
+          "animations/animating-01bb6261/north-west/frame_003.png",
+          "animations/animating-01bb6261/north-west/frame_004.png",
+          "animations/animating-01bb6261/north-west/frame_005.png"
+        ],
+        "south-west": [
+          "animations/animating-01bb6261/south-west/frame_000.png",
+          "animations/animating-01bb6261/south-west/frame_001.png",
+          "animations/animating-01bb6261/south-west/frame_002.png",
+          "animations/animating-01bb6261/south-west/frame_003.png",
+          "animations/animating-01bb6261/south-west/frame_004.png",
+          "animations/animating-01bb6261/south-west/frame_005.png"
         ]
       }
     }
   },
   "export_version": "2.0",
-  "export_date": "2026-04-14T01:42:03.036115"
+  "export_date": "2026-04-20T23:34:56.670885"
 }
