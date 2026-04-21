@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - UI 9-slice 샘플 비교</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    body { background:#1a1424; }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .opt-col {
+      background: rgba(40,30,50,0.7);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #3a3050;
+    }
+    .opt-col h3 { margin: 0 0 12px 0; font-size: 1.1rem; color:#ffd59e; }
+    .opt-col .tagline { font-size: 0.78rem; color:#b5a8c0; margin-bottom: 16px; line-height: 1.4; }
+    .asset-row { display:flex; align-items:center; gap:12px; margin-bottom:18px; flex-wrap:wrap; }
+    .asset-label { font-size: 0.72rem; color:#c0b5d0; width: 100%; }
+    .pixelated { image-rendering: pixelated; image-rendering: crisp-edges; }
+    /* 9-slice via border-image */
+    .ns-panel-a {
+      width: 220px; height: 140px;
+      border: 24px solid transparent;
+      border-image-slice: 24 24 24 24 fill;
+      border-image-width: 24px;
+      border-image-repeat: stretch;
+      padding: 8px;
+      color:#3a2818;
+      font-size:0.85rem;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center;
+    }
+    .ns-panel-b {
+      width: 220px; height: 140px;
+      border: 20px solid transparent;
+      border-image-slice: 20 20 20 20 fill;
+      border-image-width: 20px;
+      border-image-repeat: stretch;
+      padding: 8px;
+      color:#3a2818;
+      font-size:0.85rem;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center;
+    }
+    .ns-button {
+      display:inline-flex;
+      align-items:center; justify-content:center;
+      border: 16px solid transparent;
+      border-image-slice: 16 16 16 16 fill;
+      border-image-width: 16px;
+      border-image-repeat: stretch;
+      color:#4a2a18;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+      height: 44px;
+      margin-right: 8px;
+      padding: 0 16px;
+    }
+    .ns-bar-wrap { position: relative; width: 200px; height: 22px; }
+    .ns-bar-frame {
+      position: absolute; inset: 0;
+      border: 8px solid transparent;
+      border-image-slice: 10 16 10 16 fill;
+      border-image-width: 8px 16px 8px 16px;
+      border-image-repeat: stretch;
+    }
+    .ns-bar-fill {
+      position: absolute;
+      left: 6px; right: 12px; top: 6px; bottom: 6px;
+      background: linear-gradient(to bottom, #ff9a7a, #f06b3c);
+      border-radius: 4px;
+    }
+    .src-display { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; background:#15101c; padding:8px; border-radius:6px; }
+    .src-display img { height: 44px; image-rendering: pixelated; background: #222; border: 1px solid #333; }
+    .src-display .src-small img { height: 22px; }
+    h2 { color:#ffd59e; }
+    .intro { background: #2a2038; border-left: 4px solid #ffd59e; padding:12px 16px; border-radius:4px; margin-bottom:18px; }
+    .intro strong { color:#ffd59e; }
+    .option-tag {
+      display:inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .tag-a { background:#6e4a9a; color:#fff; }
+    .tag-b { background:#4a7a5a; color:#fff; }
+    .tag-c { background:#9a7a4a; color:#fff; }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color:#ff6b35;">Kitchen Chaos UI 9-slice 샘플 비교</h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> /
+      <a href="../index.html">Kitchen Chaos</a> / UI 9-slice Samples
+    </div>
+  </header>
+
+  <main class="content" style="padding:24px;">
+    <div class="intro">
+      <strong>Phase 60-1 샘플 세트</strong> — 파스텔톤 픽셀아트 9-slice UI 에셋 3가지 옵션 비교.
+      각 옵션은 동일한 6종 에셋(패널 2종, 버튼 3-state, 바 프레임)으로 구성.
+      각 상단의 원본 이미지와, 그 아래 CSS border-image로 9-slice 늘림 결과를 확인하세요.
+    </div>
+
+    <div class="compare-grid">
+
+      <!-- ========== OPTION A ========== -->
+      <div class="opt-col">
+        <h3><span class="option-tag tag-a">A</span>SD Forge + PixelSprite LoRA</h3>
+        <div class="tagline">
+          DreamShaper_8 + DarkFantasy-PixelSprite LoRA. 512px 생성 후 NEAREST 다운스케일.
+          장점: 자연스러운 디테일. 단점: 일관성 낮음, 9-slice 경계 불규칙.
+        </div>
+
+        <div class="asset-label">패널 (원본 96×96)</div>
+        <div class="src-display">
+          <img src="a/panel_wood_pastel_A.png" alt="panel A">
+          <img src="a/panel_wood_pastel_B.png" alt="panel B">
+        </div>
+        <div class="asset-label">패널 A → 9-slice 늘림</div>
+        <div class="ns-panel-a pixelated" style="border-image-source: url('a/panel_wood_pastel_A.png');">요리사 카드</div>
+        <div class="asset-label" style="margin-top:10px;">패널 B → 9-slice</div>
+        <div class="ns-panel-b pixelated" style="border-image-source: url('a/panel_wood_pastel_B.png');">다이얼로그 본문</div>
+
+        <div class="asset-label" style="margin-top:14px;">버튼 3-state (원본 160×64)</div>
+        <div class="src-display">
+          <img src="a/btn_primary_normal.png">
+          <img src="a/btn_primary_pressed.png">
+          <img src="a/btn_primary_disabled.png">
+        </div>
+        <div class="asset-label">버튼 → 9-slice</div>
+        <div>
+          <span class="ns-button pixelated" style="border-image-source: url('a/btn_primary_normal.png');">시작</span>
+          <span class="ns-button pixelated" style="border-image-source: url('a/btn_primary_pressed.png');">눌림</span>
+        </div>
+        <div style="margin-top:6px;">
+          <span class="ns-button pixelated" style="border-image-source: url('a/btn_primary_disabled.png'); color:#999;">비활성</span>
+        </div>
+
+        <div class="asset-label" style="margin-top:14px;">바 프레임 (원본 160×32)</div>
+        <div class="src-display src-small"><img src="a/bar_frame_h.png"></div>
+        <div class="ns-bar-wrap pixelated">
+          <div class="ns-bar-frame" style="border-image-source: url('a/bar_frame_h.png');"></div>
+          <div class="ns-bar-fill" style="right: 30%;"></div>
+        </div>
+      </div>
+
+      <!-- ========== OPTION B ========== -->
+      <div class="opt-col">
+        <h3><span class="option-tag tag-b">B</span>Python PIL 프로시저럴</h3>
+        <div class="tagline">
+          코드로 직접 그림. 파스텔 팔레트 고정, 픽셀 퍼펙트 모서리, 정확한 inset.
+          장점: 일관성·수정 즉시 가능. 단점: 장식 디테일 단순.
+        </div>
+
+        <div class="asset-label">패널 (원본 96×96)</div>
+        <div class="src-display">
+          <img src="b/panel_wood_pastel_A.png">
+          <img src="b/panel_wood_pastel_B.png">
+        </div>
+        <div class="asset-label">패널 A → 9-slice 늘림</div>
+        <div class="ns-panel-a pixelated" style="border-image-source: url('b/panel_wood_pastel_A.png');">요리사 카드</div>
+        <div class="asset-label" style="margin-top:10px;">패널 B → 9-slice</div>
+        <div class="ns-panel-b pixelated" style="border-image-source: url('b/panel_wood_pastel_B.png');">다이얼로그 본문</div>
+
+        <div class="asset-label" style="margin-top:14px;">버튼 3-state (원본 160×64)</div>
+        <div class="src-display">
+          <img src="b/btn_primary_normal.png">
+          <img src="b/btn_primary_pressed.png">
+          <img src="b/btn_primary_disabled.png">
+        </div>
+        <div class="asset-label">버튼 → 9-slice</div>
+        <div>
+          <span class="ns-button pixelated" style="border-image-source: url('b/btn_primary_normal.png');">시작</span>
+          <span class="ns-button pixelated" style="border-image-source: url('b/btn_primary_pressed.png');">눌림</span>
+        </div>
+        <div style="margin-top:6px;">
+          <span class="ns-button pixelated" style="border-image-source: url('b/btn_primary_disabled.png'); color:#888;">비활성</span>
+        </div>
+
+        <div class="asset-label" style="margin-top:14px;">바 프레임 (원본 160×32)</div>
+        <div class="src-display src-small"><img src="b/bar_frame_h.png"></div>
+        <div class="ns-bar-wrap pixelated">
+          <div class="ns-bar-frame" style="border-image-source: url('b/bar_frame_h.png');"></div>
+          <div class="ns-bar-fill" style="right: 30%;"></div>
+        </div>
+      </div>
+
+      <!-- ========== OPTION C ========== -->
+      <div class="opt-col">
+        <h3><span class="option-tag tag-c">C</span>하이브리드 (PIL + SD 장식)</h3>
+        <div class="tagline">
+          B 베이스 + SD 생성 장식(별/리본/나무 질감) 오버레이. 구조 일관 + 질감 추가.
+          장점: 깔끔함 유지하며 디테일 보강. 단점: 생성 시간·디버깅 품 추가.
+        </div>
+
+        <div class="asset-label">패널 (원본 96×96, 장식 합성)</div>
+        <div class="src-display">
+          <img src="c/panel_wood_pastel_A.png">
+          <img src="c/panel_wood_pastel_B.png">
+        </div>
+        <div class="asset-label">패널 A → 9-slice 늘림</div>
+        <div class="ns-panel-a pixelated" style="border-image-source: url('c/panel_wood_pastel_A.png');">요리사 카드</div>
+        <div class="asset-label" style="margin-top:10px;">패널 B → 9-slice</div>
+        <div class="ns-panel-b pixelated" style="border-image-source: url('c/panel_wood_pastel_B.png');">다이얼로그 본문</div>
+
+        <div class="asset-label" style="margin-top:14px;">버튼 3-state (원본 160×64)</div>
+        <div class="src-display">
+          <img src="c/btn_primary_normal.png">
+          <img src="c/btn_primary_pressed.png">
+          <img src="c/btn_primary_disabled.png">
+        </div>
+        <div class="asset-label">버튼 → 9-slice</div>
+        <div>
+          <span class="ns-button pixelated" style="border-image-source: url('c/btn_primary_normal.png');">시작</span>
+          <span class="ns-button pixelated" style="border-image-source: url('c/btn_primary_pressed.png');">눌림</span>
+        </div>
+        <div style="margin-top:6px;">
+          <span class="ns-button pixelated" style="border-image-source: url('c/btn_primary_disabled.png'); color:#888;">비활성</span>
+        </div>
+
+        <div class="asset-label" style="margin-top:14px;">바 프레임 (원본 160×32)</div>
+        <div class="src-display src-small"><img src="c/bar_frame_h.png"></div>
+        <div class="ns-bar-wrap pixelated">
+          <div class="ns-bar-frame" style="border-image-source: url('c/bar_frame_h.png');"></div>
+          <div class="ns-bar-fill" style="right: 30%;"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 30px; padding: 16px; background: #2a2038; border-radius: 8px;">
+      <h2 style="margin-top:0;">다양한 크기에서의 9-slice 늘림 (옵션별 패널 A)</h2>
+      <p class="tagline">같은 원본 이미지를 다양한 사이즈로 늘렸을 때 모서리/중앙부가 어떻게 유지되는지 확인.</p>
+      <table style="width:100%; border-collapse: separate; border-spacing:12px; color:#d5c5e0;">
+        <tr>
+          <th></th>
+          <th style="text-align:left;">Small 140×70</th>
+          <th style="text-align:left;">Medium 220×120</th>
+          <th style="text-align:left;">Large 300×180</th>
+        </tr>
+        <tr>
+          <td style="width:60px;"><span class="option-tag tag-a">A</span></td>
+          <td><div class="pixelated" style="width:140px;height:70px;border:24px solid transparent;border-image:url('a/panel_wood_pastel_A.png') 24 fill / 24px stretch;"></div></td>
+          <td><div class="pixelated" style="width:220px;height:120px;border:24px solid transparent;border-image:url('a/panel_wood_pastel_A.png') 24 fill / 24px stretch;"></div></td>
+          <td><div class="pixelated" style="width:300px;height:180px;border:24px solid transparent;border-image:url('a/panel_wood_pastel_A.png') 24 fill / 24px stretch;"></div></td>
+        </tr>
+        <tr>
+          <td><span class="option-tag tag-b">B</span></td>
+          <td><div class="pixelated" style="width:140px;height:70px;border:24px solid transparent;border-image:url('b/panel_wood_pastel_A.png') 24 fill / 24px stretch;"></div></td>
+          <td><div class="pixelated" style="width:220px;height:120px;border:24px solid transparent;border-image:url('b/panel_wood_pastel_A.png') 24 fill / 24px stretch;"></div></td>
+          <td><div class="pixelated" style="width:300px;height:180px;border:24px solid transparent;border-image:url('b/panel_wood_pastel_A.png') 24 fill / 24px stretch;"></div></td>
+        </tr>
+        <tr>
+          <td><span class="option-tag tag-c">C</span></td>
+          <td><div class="pixelated" style="width:140px;height:70px;border:24px solid transparent;border-image:url('c/panel_wood_pastel_A.png') 24 fill / 24px stretch;"></div></td>
+          <td><div class="pixelated" style="width:220px;height:120px;border:24px solid transparent;border-image:url('c/panel_wood_pastel_A.png') 24 fill / 24px stretch;"></div></td>
+          <td><div class="pixelated" style="width:300px;height:180px;border:24px solid transparent;border-image:url('c/panel_wood_pastel_A.png') 24 fill / 24px stretch;"></div></td>
+        </tr>
+      </table>
+    </div>
+  </main>
+</body>
+</html>
