@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - 메인 메뉴 에셋 (Phase 61)</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .asset-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+    .asset-card h3 { font-size: 1.1rem; margin-bottom: 12px; color: #ff6b35; }
+    .asset-preview {
+      background: #1a0a00;
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+    }
+    .asset-preview img { max-width: 100%; height: auto; image-rendering: pixelated; }
+    .asset-meta { margin-top: 12px; font-size: 0.85rem; color: var(--text-secondary); }
+    .asset-meta code { background: rgba(255,107,53,0.12); padding: 1px 6px; border-radius: 4px; }
+
+    .integrated-preview {
+      display: flex;
+      justify-content: center;
+      margin-top: 32px;
+    }
+    .phone-frame {
+      width: 360px;
+      height: 640px;
+      border: 2px solid #ff6b35;
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+      background: #1a0a00;
+    }
+    .phone-frame img.bg-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+    .phone-frame .dark-overlay { position: absolute; inset: 0; background: #1a0a00; opacity: 0.5; }
+    .phone-frame .title-layer {
+      position: absolute; left: 50%; top: 145px;
+      transform: translateX(-50%); width: 320px; height: 150px;
+      image-rendering: pixelated;
+    }
+    .phone-frame .mimi-layer {
+      position: absolute; left: 308px; top: 160px;
+      transform: translate(-50%, 0); width: 80px; height: 80px;
+      image-rendering: pixelated;
+    }
+    .phone-frame .hint-label {
+      position: absolute; bottom: 16px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem; color: #ffd700;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color: #ff6b35;">메인 메뉴 에셋 <span style="color:#ffd700; font-size:1rem;">Phase 61</span></h1>
+    <div class="breadcrumb">
+      <a href="../../index.html">Studio</a> / <a href="../index.html">Kitchen Chaos</a> / Menu
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="../index.html">Overview</a>
+    <a href="../enemies/index.html">Enemies</a>
+    <a href="../towers/index.html">Towers</a>
+    <a href="../chefs/index.html">Chefs</a>
+    <a href="../tilesets/index.html">Tilesets</a>
+    <a href="../ingredients/index.html">Ingredients</a>
+    <a href="../portraits/index.html">Characters</a>
+    <a href="../dialogues/index.html">Dialogues</a>
+    <div class="section-title" style="margin-top:12px;">Scenes</div>
+    <a href="../service/index.html">Service</a>
+    <a href="../scenes/index.html">씬 시뮬레이터</a>
+    <a href="index.html" class="active">메인 메뉴</a>
+    <div class="section-title" style="margin-top:12px;">UI</div>
+    <a href="../ui-nineslice/index.html">9-slice 샘플</a>
+    <a href="../fonts.html">폰트 비교</a>
+    <div class="section-title" style="margin-top:12px;">Dev</div>
+    <a href="../dev-tools/index.html">Dev Tools</a>
+  </nav>
+
+  <main class="content">
+    <h2 style="margin-bottom: 4px;">메인 메뉴 비주얼 에셋 (Phase 61)</h2>
+    <p class="text-muted" style="font-size: 0.85rem;">컨셉 A "주방을 지키는 셰프" / SD Forge + PIL + PixelLab 혼합 파이프라인 / 2026-04-21</p>
+
+    <div class="asset-grid">
+      <div class="asset-card">
+        <h3>메뉴 배경</h3>
+        <div class="asset-preview" style="max-height: 420px;">
+          <img src="../assets/ui/menu_bg.png" alt="Menu Background">
+        </div>
+        <div class="asset-meta">
+          <strong>360×640</strong> · RGB · 291KB<br>
+          도구: <code>SD Forge SDXL Base 1.0</code><br>
+          시드: <code>4025870268</code> · CFG 8.0 · Steps 35<br>
+          버튼 영역(y=390-640) 평균 밝기 36.1/255 (PASS)
+        </div>
+      </div>
+
+      <div class="asset-card">
+        <h3>타이틀 로고</h3>
+        <div class="asset-preview">
+          <img src="../assets/ui/menu_title_logo.png" alt="Title Logo">
+        </div>
+        <div class="asset-meta">
+          <strong>320×150</strong> · RGBA 투명 배경 · 9.3KB<br>
+          도구: <code>PIL 직접 렌더링</code> (Impact.ttf)<br>
+          레이아웃: Kitchen (#ffd700) / Chaos (#ff6b35) / Tycoon (#ffffff) 3줄
+        </div>
+      </div>
+
+      <div class="asset-card">
+        <h3>앱 아이콘</h3>
+        <div class="asset-preview">
+          <img src="../assets/ui/app_icon_512.png" alt="App Icon" style="max-width: 256px;">
+        </div>
+        <div class="asset-meta">
+          <strong>512×512</strong> · RGB · 154KB<br>
+          도구: <code>SD Forge Counterfeit v3</code> + <code>mimi_chef 4x 업스케일</code> + PIL KC 로고 합성<br>
+          시드: <code>3885348100</code><br>
+          얼굴 대비 95.7/255 (PASS · threshold 50)<br>
+          <em>Play Console / Android 런처 전용 (Phaser preload 제외)</em>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="margin-top: 48px; margin-bottom: 4px;">통합 프리뷰 (MenuScene 360×640)</h2>
+    <p class="text-muted" style="font-size: 0.85rem;">배경 + panel dark α=0.5 + 타이틀 로고 + 미미 스프라이트 (mimi_chef/south.png 재활용, NEAREST 필터)</p>
+    <div class="integrated-preview">
+      <div class="phone-frame">
+        <img class="bg-layer" src="../assets/ui/menu_bg.png" alt="Background">
+        <div class="dark-overlay"></div>
+        <img class="title-layer" src="../assets/ui/menu_title_logo.png" alt="Title">
+        <img class="mimi-layer" src="../assets/chefs/mimi_chef/rotations/south.png" alt="Mimi">
+        <div class="hint-label">360×640 합성 프리뷰 (버튼 미포함)</div>
+      </div>
+    </div>
+
+    <div class="section" style="margin-top: 48px;">
+      <h3 style="margin-bottom: 12px;">파이프라인 이력</h3>
+      <div style="font-size:0.9rem; color: var(--text-secondary); line-height: 1.7;">
+        <strong style="color:#ff6b35;">Purposer</strong> → visual_change:art · pipeline:full<br>
+        <strong style="color:#ff6b35;">Planner</strong> → 스펙 확정 (버튼 y좌표 동결)<br>
+        <strong style="color:#ff6b35;">AD 모드1</strong> → 에셋별 도구·프롬프트 결정<br>
+        <strong style="color:#ff6b35;">Coder 1차</strong> → 3종 에셋 생성 + MenuScene 통합<br>
+        <strong style="color:#ff6b35;">AD 모드2</strong> → REVISE: 미미 스프라이트 추가 필요 (컨셉 A 완성)<br>
+        <strong style="color:#ff6b35;">Coder 2차</strong> → mimi_menu 추가 (x=308, y=200)<br>
+        <strong style="color:#ff6b35;">AD 모드3</strong> → APPROVED (버전 텍스트 y=630 권장 반영)<br>
+        <strong style="color:#ff6b35;">QA</strong> → PASS (Playwright 23/23)<br>
+        <strong style="color:#ff6b35;">Doc Writer</strong> → PROJECT.md + CHANGELOG 갱신
+      </div>
+    </div>
+  </main>
+</body>
+</html>
