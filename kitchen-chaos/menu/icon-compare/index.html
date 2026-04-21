@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitchen Chaos — 앱 아이콘 A/B 비교 (Phase 61 재기획)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(180deg, #1a1a2e 0%, #2a1a3e 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #ffd700 0%, #ff6b35 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 48px;
+    font-size: 1.05rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+    margin-bottom: 56px;
+  }
+  .card {
+    background: rgba(30, 30, 50, 0.6);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+  }
+  .card.rejected {
+    border-color: rgba(255, 100, 100, 0.3);
+    opacity: 0.7;
+  }
+  .card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+    color: #ffd700;
+  }
+  .card.rejected h2 { color: #ff6b6b; }
+  .card .tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .tag.new { background: #2ed573; color: #000; }
+  .tag.old { background: #ff4757; color: #fff; }
+  .icon-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: repeating-conic-gradient(#2a2a3e 0% 25%, #1e1e2e 0% 50%) 50% / 20px 20px;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .icon-wrap img {
+    width: 240px;
+    height: 240px;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+  .card.smooth .icon-wrap img {
+    image-rendering: auto;
+  }
+  .meta {
+    font-size: 0.85rem;
+    color: #bbb;
+    line-height: 1.7;
+  }
+  .meta strong { color: #ffd700; }
+  .pros-cons {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  }
+  .pros-cons li {
+    list-style: none;
+    padding: 4px 0;
+    font-size: 0.88rem;
+  }
+  .pros-cons .pro::before { content: "✓ "; color: #2ed573; font-weight: bold; }
+  .pros-cons .con::before { content: "✗ "; color: #ff6b6b; font-weight: bold; }
+  .home-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .home-preview .slot {
+    background: #111;
+    border-radius: 20px;
+    padding: 16px;
+    text-align: center;
+  }
+  .home-preview .slot img {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    border-radius: 22px;
+    image-rendering: pixelated;
+  }
+  .home-preview .slot.smooth img { image-rendering: auto; }
+  .home-preview .slot p {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+  .section {
+    background: rgba(255, 215, 0, 0.04);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+  .section h3 {
+    color: #ffd700;
+    margin-bottom: 16px;
+    font-size: 1.3rem;
+  }
+  .back {
+    display: inline-block;
+    margin-top: 32px;
+    color: #6bcfff;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .back:hover { text-decoration: underline; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-top: 16px;
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  th {
+    background: rgba(255, 215, 0, 0.08);
+    color: #ffd700;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>앱 아이콘 A/B 비교</h1>
+  <p class="subtitle">Phase 61 재기획 · 2026-04-21 · 사용자 피드백("아이콘이 너무 별로") 반영</p>
+
+  <div class="grid">
+
+    <div class="card smooth rejected">
+      <span class="tag old">REJECTED</span>
+      <h2>기존 (거부됨)</h2>
+      <div class="icon-wrap">
+        <img src="app_icon_512_rejected.png" alt="Rejected icon">
+      </div>
+      <div class="meta">
+        <strong>방식:</strong> SD Counterfeit 배경 + 92px 스프라이트 4x 업스케일 + PIL 로고<br>
+        <strong>seed:</strong> 3885348100<br>
+        <strong>문제:</strong> 스타일 3중 불일치, 업스케일 디테일 부족, 합성 티
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="tag new">옵션 A</span>
+      <h2>PixelLab Pro + 합성</h2>
+      <div class="icon-wrap">
+        <img src="app_icon_512_a.png" alt="Option A - PixelLab Pro composite">
+      </div>
+      <div class="meta">
+        <strong>방식:</strong> PixelLab Pro 전용 캐릭터(136px) + menu_bg 기반 배경 + KC TYCOON 오버레이<br>
+        <strong>character_id:</strong> 2cb4f855-fa81-4f64-94ba-dbcb6255fdbc<br>
+        <strong>크기:</strong> 512×512 (260 KB)<br>
+        <strong>톤:</strong> 픽셀아트, 다크 판타지 주방
+      </div>
+      <ul class="pros-cons">
+        <li class="pro">게임 내 픽셀아트 스타일 100% 일치</li>
+        <li class="pro">전용 포즈(프라이팬 방패) 반영됨</li>
+        <li class="pro">다크 무드가 TD 장르성 강조</li>
+        <li class="con">아직 3-레이어 합성 (배경/캐릭터/텍스트)</li>
+        <li class="con">512 기준 해상도 한계 (원본 136px)</li>
+      </ul>
+    </div>
+
+    <div class="card smooth">
+      <span class="tag new">옵션 B</span>
+      <h2>SDXL 단일 씬</h2>
+      <div class="icon-wrap">
+        <img src="app_icon_512_b.png" alt="Option B - SDXL single scene">
+      </div>
+      <div class="meta">
+        <strong>방식:</strong> SDXL Base 1.0, 1024×1024 1회 생성 → 512 LANCZOS 다운샘플<br>
+        <strong>seed:</strong> 4018178692<br>
+        <strong>크기:</strong> 512×512 (391 KB)<br>
+        <strong>톤:</strong> 모던 치비 일러스트, 밝은 주방
+      </div>
+      <ul class="pros-cons">
+        <li class="pro">단일 레이어 = 완전한 스타일 통일</li>
+        <li class="pro">모바일 마켓 썸네일 임팩트 최상</li>
+        <li class="pro">디테일 선명함 (네이티브 1024)</li>
+        <li class="con">게임 내 픽셀 톤과 미묘한 괴리</li>
+        <li class="con">방어 포즈 아닌 요리 포즈로 생성됨</li>
+        <li class="con">KC TYCOON 텍스트 없음 (별도 추가 필요)</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="section">
+    <h3>홈스크린 프리뷰</h3>
+    <p style="color:#aaa; font-size:0.9rem; margin-bottom:12px;">Android 런처에서 예상되는 실제 크기</p>
+    <div class="home-preview">
+      <div class="slot">
+        <img src="app_icon_512_a.png" alt="A 홈">
+        <p>옵션 A (픽셀)</p>
+      </div>
+      <div class="slot smooth">
+        <img src="app_icon_512_b.png" alt="B 홈">
+        <p>옵션 B (일러스트)</p>
+      </div>
+      <div class="slot smooth">
+        <img src="app_icon_512_rejected.png" alt="기존 홈">
+        <p>기존 (REJECTED)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>정량 비교</h3>
+    <table>
+      <tr>
+        <th>항목</th><th>옵션 A</th><th>옵션 B</th><th>기존(거부)</th>
+      </tr>
+      <tr>
+        <td>원본 해상도</td>
+        <td>136×136 (pro) + 360×640 bg</td>
+        <td>1024×1024 (네이티브)</td>
+        <td>92×92 스프라이트 + 512 bg</td>
+      </tr>
+      <tr>
+        <td>레이어 수</td>
+        <td>3 (bg + char + text)</td>
+        <td>1 (단일 렌더)</td>
+        <td>3 (bg + char + text)</td>
+      </tr>
+      <tr>
+        <td>스타일 통일성</td>
+        <td>△ (합성 기반)</td>
+        <td>◎ (완전 통일)</td>
+        <td>✗ (세 스타일 충돌)</td>
+      </tr>
+      <tr>
+        <td>게임 내 일치도</td>
+        <td>◎ (픽셀아트)</td>
+        <td>○ (톤 근접)</td>
+        <td>△ (혼합)</td>
+      </tr>
+      <tr>
+        <td>마켓 임팩트</td>
+        <td>○ (다크 매력)</td>
+        <td>◎ (썸네일 강함)</td>
+        <td>✗</td>
+      </tr>
+      <tr>
+        <td>생성 비용</td>
+        <td>25 gen (Pro)</td>
+        <td>1 gen (SDXL)</td>
+        <td>1 gen (Counterfeit)</td>
+      </tr>
+    </table>
+  </div>
+
+  <a href="../index.html" class="back">← Kitchen Chaos 메뉴 프리뷰로 돌아가기</a> &nbsp;·&nbsp;
+  <a href="../../index.html" class="back">← Kitchen Chaos 프로젝트 홈</a>
+</div>
+</body>
+</html>

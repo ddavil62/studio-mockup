@@ -125,17 +125,22 @@
         </div>
       </div>
 
-      <div class="asset-card">
-        <h3>앱 아이콘</h3>
-        <div class="asset-preview">
-          <img src="../assets/ui/app_icon_512.png" alt="App Icon" style="max-width: 256px;">
+      <div class="asset-card" style="border: 2px solid #ff6b35; background: rgba(255, 107, 53, 0.05);">
+        <h3>앱 아이콘 <span style="color:#ffd700; font-size:0.75rem; background:rgba(255,215,0,0.1); padding:2px 8px; border-radius:6px;">재기획 진행 중</span></h3>
+        <div class="asset-preview" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="text-align:center;">
+            <img src="icon-compare/app_icon_512_a.png" alt="Option A" style="max-width: 140px;">
+            <div style="font-size:0.75rem; color:#2ed573; margin-top:6px;">옵션 A · PixelLab Pro</div>
+          </div>
+          <div style="text-align:center;">
+            <img src="icon-compare/app_icon_512_b.png" alt="Option B" style="max-width: 140px; image-rendering:auto;">
+            <div style="font-size:0.75rem; color:#2ed573; margin-top:6px;">옵션 B · SDXL 단일 씬</div>
+          </div>
         </div>
         <div class="asset-meta">
-          <strong>512×512</strong> · RGB · 154KB<br>
-          도구: <code>SD Forge Counterfeit v3</code> + <code>mimi_chef 4x 업스케일</code> + PIL KC 로고 합성<br>
-          시드: <code>3885348100</code><br>
-          얼굴 대비 95.7/255 (PASS · threshold 50)<br>
-          <em>Play Console / Android 런처 전용 (Phaser preload 제외)</em>
+          <strong>2가지 방향 동시 생성</strong> · 512×512 · 2026-04-21<br>
+          기존 아이콘(seed 3885348100)은 사용자 REJECT.<br>
+          <a href="icon-compare/index.html" style="color:#ffd700; font-weight:bold; text-decoration: none;">→ A/B 상세 비교 페이지 열기</a>
         </div>
       </div>
     </div>
