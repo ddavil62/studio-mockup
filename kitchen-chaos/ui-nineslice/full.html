@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KC UI 9-slice · Full Catalog (C 하이브리드)</title>
+<style>
+  :root {
+    --bg: #1a1a1f;
+    --card: #252530;
+    --ink: #e8e8f0;
+    --muted: #9090a0;
+    --accent: #ffc56e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px;
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, "Noto Sans KR", sans-serif;
+    image-rendering: pixelated;
+  }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  h2 { margin: 32px 0 12px; font-size: 16px; color: var(--accent); border-bottom: 1px solid #333; padding-bottom: 6px; }
+  .sub { color: var(--muted); font-size: 12px; margin-bottom: 20px; }
+  .back { color: var(--muted); font-size: 12px; text-decoration: none; }
+  .back:hover { color: var(--accent); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
+  .cell {
+    background: var(--card);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .cell .name { font-size: 12px; color: var(--muted); font-family: "Menlo", monospace; }
+  .cell .desc { font-size: 11px; color: #bbb; min-height: 28px; }
+  .cell .meta { font-size: 10px; color: #707080; font-family: "Menlo", monospace; }
+
+  .preview {
+    background: #2d2d38;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 120px; padding: 8px; overflow: hidden;
+  }
+  .preview img { image-rendering: pixelated; }
+
+  .preview .src { max-width: 100%; max-height: 120px; }
+
+  /* nineslice stretched preview via border-image */
+  .stretched {
+    width: 180px; height: 90px;
+    image-rendering: pixelated;
+    border-style: solid;
+    background-clip: padding-box;
+  }
+
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; justify-content: center; }
+  .tag { display: inline-block; padding: 2px 6px; background: #3a3a48; border-radius: 3px; font-size: 10px; color: #aaa; }
+  .tint-tag { background: #4a3a2e; color: #ffc56e; }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← A/B/C 비교로 돌아가기</a>
+<h1>Kitchen Chaos · UI 9-slice · 전체 카탈로그 (Option C 채택)</h1>
+<div class="sub">Phase 60-1 산출물. PIL 베이스 + SD(DreamShaper_8 + DarkFantasy-PixelSprite LoRA) 장식 오버레이. 총 28종.</div>
+
+<h2>패널 · Panel (5)</h2>
+<div class="grid" id="panels"></div>
+
+<h2>버튼 · Button (12)</h2>
+<div class="grid" id="buttons"></div>
+
+<h2>바 · Bar (4)</h2>
+<div class="grid" id="bars"></div>
+
+<h2>탭 · Tab (2)</h2>
+<div class="grid" id="tabs"></div>
+
+<h2>기타 · Tooltip · Badge · Divider · Letterbox (5)</h2>
+<div class="grid" id="others"></div>
+
+<script>
+const MANIFEST_URL = "full/manifest.json";
+
+/**
+ * 카테고리별 에셋 목록.
+ * @type {Record<string, string[]>}
+ */
+const GROUPS = {
+  panels: ["panel_wood", "panel_parchment", "panel_dark", "panel_stone", "panel_glow_selected"],
+  buttons: [
+    "btn_primary_normal", "btn_primary_pressed", "btn_primary_disabled",
+    "btn_secondary_normal", "btn_secondary_pressed", "btn_secondary_disabled",
+    "btn_danger_normal", "btn_danger_pressed", "btn_danger_disabled",
+    "btn_icon_normal", "btn_icon_pressed", "btn_icon_disabled",
+  ],
+  bars: ["bar_frame_h", "bar_frame_thick", "bar_fill", "bar_shine_overlay"],
+  tabs: ["tab_active", "tab_inactive"],
+  others: ["tooltip_bg", "badge_circle", "divider_h", "divider_v", "letterbox"],
+};
+
+/**
+ * stretched 프리뷰의 카테고리별 목표 크기.
+ */
+const STRETCH_SIZE = {
+  panels: [200, 120],
+  buttons: [180, 60],
+  bars: [200, 32],
+  tabs: [160, 48],
+  others: [160, 40],
+};
+
+/**
+ * 카테고리 → DOM 컨테이너 맵.
+ */
+const CONTAINERS = {
+  panels: document.getElementById("panels"),
+  buttons: document.getElementById("buttons"),
+  bars: document.getElementById("bars"),
+  tabs: document.getElementById("tabs"),
+  others: document.getElementById("others"),
+};
+
+/**
+ * 한 에셋의 셀 DOM을 구성한다.
+ */
+function makeCell(name, meta, stretchSize) {
+  const [sw, sh] = meta.size;
+  const [l, r, t, b] = meta.insets;
+  const [stw, sth] = stretchSize;
+  const tintTag = meta.tint
+    ? '<span class="tag tint-tag">tint</span>'
+    : '';
+  return `
+    <div class="cell">
+      <div class="name">${name} ${tintTag}</div>
+      <div class="desc">${meta.desc ?? ""}</div>
+      <div class="preview">
+        <img class="src" src="full/${name}.png" alt="${name}" />
+      </div>
+      <div class="preview">
+        <div class="stretched"
+          style="
+            width:${stw}px; height:${sth}px;
+            border-width:${t}px ${r}px ${b}px ${l}px;
+            border-image: url('full/${name}.png') ${t} ${r} ${b} ${l} fill stretch;
+          "></div>
+      </div>
+      <div class="meta">size ${sw}×${sh} · insets L${l} R${r} T${t} B${b}</div>
+    </div>
+  `;
+}
+
+/**
+ * manifest.json을 로드하여 각 그룹을 렌더한다.
+ */
+async function main() {
+  const res = await fetch(MANIFEST_URL);
+  const manifest = await res.json();
+
+  for (const [group, names] of Object.entries(GROUPS)) {
+    const html = names
+      .map((name) => {
+        const meta = manifest.assets[name];
+        if (!meta) return `<div class="cell"><div class="name">${name}</div><div class="desc">(manifest 누락)</div></div>`;
+        return makeCell(name, meta, STRETCH_SIZE[group]);
+      })
+      .join("");
+    CONTAINERS[group].innerHTML = html;
+  }
+}
+
+main();
+</script>
+
+</body>
+</html>

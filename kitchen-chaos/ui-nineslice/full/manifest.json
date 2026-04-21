@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "generated": "2026-04-21",
+  "note": "Phase 60-1 UI nineslice catalog. insets = [left, right, top, bottom] in source-pixel coordinates. tint: whether this asset should accept code-side tint (white base).",
+  "assets": {
+    "panel_wood": { "size": [96, 96], "insets": [24, 24, 24, 24], "tint": false, "desc": "기본 나무 패널 + 코너 별 장식" },
+    "panel_parchment": { "size": [96, 96], "insets": [24, 24, 28, 24], "tint": false, "desc": "양피지 패널 + 상단 리본" },
+    "panel_dark": { "size": [64, 64], "insets": [18, 18, 18, 18], "tint": false, "desc": "어두운 가죽 패널 + 금색 스티치" },
+    "panel_stone": { "size": [96, 96], "insets": [24, 24, 24, 24], "tint": false, "desc": "석조 패널 + 약한 나무 텍스처" },
+    "panel_glow_selected": { "size": [64, 64], "insets": [18, 18, 18, 18], "tint": true, "desc": "선택 강조 글로우 프레임 (white base, tint 적용)" },
+
+    "btn_primary_normal":   { "size": [160, 64], "insets": [20, 20, 20, 20], "tint": false, "desc": "주 버튼 기본 (버터 옐로)" },
+    "btn_primary_pressed":  { "size": [160, 64], "insets": [20, 20, 20, 20], "tint": false, "desc": "주 버튼 눌림 (피치)" },
+    "btn_primary_disabled": { "size": [160, 64], "insets": [20, 20, 20, 20], "tint": false, "desc": "주 버튼 비활성 (회색)" },
+    "btn_secondary_normal":   { "size": [160, 64], "insets": [20, 20, 20, 20], "tint": false, "desc": "보조 버튼 기본 (민트)" },
+    "btn_secondary_pressed":  { "size": [160, 64], "insets": [20, 20, 20, 20], "tint": false, "desc": "보조 버튼 눌림" },
+    "btn_secondary_disabled": { "size": [160, 64], "insets": [20, 20, 20, 20], "tint": false, "desc": "보조 버튼 비활성" },
+    "btn_danger_normal":   { "size": [160, 64], "insets": [20, 20, 20, 20], "tint": false, "desc": "경고 버튼 기본 (코랄)" },
+    "btn_danger_pressed":  { "size": [160, 64], "insets": [20, 20, 20, 20], "tint": false, "desc": "경고 버튼 눌림" },
+    "btn_danger_disabled": { "size": [160, 64], "insets": [20, 20, 20, 20], "tint": false, "desc": "경고 버튼 비활성" },
+    "btn_icon_normal":   { "size": [48, 48], "insets": [14, 14, 14, 14], "tint": false, "desc": "아이콘 버튼 기본 (크림)" },
+    "btn_icon_pressed":  { "size": [48, 48], "insets": [14, 14, 14, 14], "tint": false, "desc": "아이콘 버튼 눌림" },
+    "btn_icon_disabled": { "size": [48, 48], "insets": [14, 14, 14, 14], "tint": false, "desc": "아이콘 버튼 비활성" },
+
+    "bar_frame_h":       { "size": [160, 32], "insets": [10, 10, 6, 6], "tint": false, "desc": "게이지 프레임 (얇은 가로)" },
+    "bar_frame_thick":   { "size": [160, 48], "insets": [14, 14, 10, 10], "tint": false, "desc": "게이지 프레임 (두꺼운 가로)" },
+    "bar_fill":          { "size": [48, 16], "insets": [6, 6, 4, 4], "tint": true, "desc": "게이지 채움 (white base, 코드 tint로 색상 적용)" },
+    "bar_shine_overlay": { "size": [96, 16], "insets": [6, 6, 4, 4], "tint": false, "desc": "게이지 상단 반짝임 오버레이 (반투명)" },
+
+    "tab_active":   { "size": [96, 40], "insets": [16, 16, 12, 0], "tint": false, "desc": "활성 탭 (상단 라운드, 하단 플랫)" },
+    "tab_inactive": { "size": [96, 40], "insets": [16, 16, 12, 0], "tint": false, "desc": "비활성 탭" },
+
+    "tooltip_bg":   { "size": [96, 48], "insets": [16, 16, 14, 14], "tint": false, "desc": "툴팁 배경" },
+    "badge_circle": { "size": [24, 24], "insets": [8, 8, 8, 8], "tint": true, "desc": "원형 뱃지 (white base, tint)" },
+    "divider_h":    { "size": [96, 8], "insets": [4, 4, 2, 2], "tint": false, "desc": "가로 구분선" },
+    "divider_v":    { "size": [8, 96], "insets": [2, 2, 4, 4], "tint": false, "desc": "세로 구분선" },
+    "letterbox":    { "size": [96, 24], "insets": [0, 0, 0, 0], "tint": false, "desc": "레터박스 배경 (stretch only)" }
+  }
+}
