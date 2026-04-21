@@ -165,8 +165,22 @@
 </head>
 <body>
 <div class="container">
-  <h1>앱 아이콘 A/B 비교</h1>
-  <p class="subtitle">Phase 61 재기획 · 2026-04-21 · 사용자 피드백("아이콘이 너무 별로") 반영</p>
+  <h1>앱 아이콘 A/B 비교 (V2)</h1>
+  <p class="subtitle">Phase 61 재기획 V2 · 2026-04-21 · 미미 초상화를 앵커 이미지로 사용하여 외형 일치도 개선</p>
+
+  <div class="section" style="background: rgba(107, 207, 255, 0.06); border-color: rgba(107, 207, 255, 0.25);">
+    <h3 style="color:#6bcfff;">V2 변경 사항 — 앵커 이미지 적용</h3>
+    <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center;">
+      <img src="_anchor_portrait_mimi.png" alt="anchor" style="width: 160px; height: 160px; border-radius: 12px; border: 2px solid #6bcfff; background: #fff;">
+      <div style="font-size: 0.92rem; line-height: 1.7; color: #ccc;">
+        <strong style="color:#6bcfff;">앵커:</strong> portrait_mimi.png (검은 단발 + 파란 눈 + 흰 셰프 모자 + 검은 멜빵)<br>
+        <strong style="color:#ff6b6b;">V1 문제점:</strong> 앵커 미사용으로 주황 쌍갈래머리로 생성되어 미미 외형과 불일치<br>
+        <strong style="color:#2ed573;">V2 개선:</strong>
+        옵션 A는 description에 미미 외형 명시(black bob / blue eyes / white chef beret / black suspenders),
+        옵션 B는 img2img denoise=0.62로 포트레이트 직접 앵커링
+      </div>
+    </div>
+  </div>
 
   <div class="grid">
 
@@ -184,44 +198,48 @@
     </div>
 
     <div class="card">
-      <span class="tag new">옵션 A</span>
+      <span class="tag new">옵션 A · V2</span>
       <h2>PixelLab Pro + 합성</h2>
       <div class="icon-wrap">
-        <img src="app_icon_512_a.png" alt="Option A - PixelLab Pro composite">
+        <img src="app_icon_512_a.png" alt="Option A V2 - PixelLab Pro composite">
       </div>
       <div class="meta">
-        <strong>방식:</strong> PixelLab Pro 전용 캐릭터(136px) + menu_bg 기반 배경 + KC TYCOON 오버레이<br>
-        <strong>character_id:</strong> 2cb4f855-fa81-4f64-94ba-dbcb6255fdbc<br>
-        <strong>크기:</strong> 512×512 (260 KB)<br>
-        <strong>톤:</strong> 픽셀아트, 다크 판타지 주방
+        <strong>방식:</strong> PixelLab Pro 전용 캐릭터(128px) + menu_bg 기반 배경 + KC TYCOON 오버레이<br>
+        <strong>character_id:</strong> 691736e4-a03f-42aa-a0b8-42acb9faaee3<br>
+        <strong>크기:</strong> 512×512 (266 KB)<br>
+        <strong>톤:</strong> 픽셀아트, 다크 판타지 주방<br>
+        <strong style="color:#2ed573;">V2:</strong> 검은 단발, 파란 눈, 흰 셰프 모자 명시 → 미미 외형 일치
       </div>
       <ul class="pros-cons">
         <li class="pro">게임 내 픽셀아트 스타일 100% 일치</li>
         <li class="pro">전용 포즈(프라이팬 방패) 반영됨</li>
         <li class="pro">다크 무드가 TD 장르성 강조</li>
-        <li class="con">아직 3-레이어 합성 (배경/캐릭터/텍스트)</li>
-        <li class="con">512 기준 해상도 한계 (원본 136px)</li>
+        <li class="pro">미미 외형(검은 머리/파란 눈) 정확</li>
+        <li class="con">3-레이어 합성 (배경/캐릭터/텍스트)</li>
+        <li class="con">원본 128px 기준 해상도 한계</li>
       </ul>
     </div>
 
     <div class="card smooth">
-      <span class="tag new">옵션 B</span>
-      <h2>SDXL 단일 씬</h2>
+      <span class="tag new">옵션 B · V2</span>
+      <h2>SDXL img2img (미미 앵커)</h2>
       <div class="icon-wrap">
-        <img src="app_icon_512_b.png" alt="Option B - SDXL single scene">
+        <img src="app_icon_512_b.png" alt="Option B V2 - SDXL img2img with mimi anchor">
       </div>
       <div class="meta">
-        <strong>방식:</strong> SDXL Base 1.0, 1024×1024 1회 생성 → 512 LANCZOS 다운샘플<br>
-        <strong>seed:</strong> 4018178692<br>
-        <strong>크기:</strong> 512×512 (391 KB)<br>
-        <strong>톤:</strong> 모던 치비 일러스트, 밝은 주방
+        <strong>방식:</strong> SDXL Base 1.0 <code>img2img</code>, portrait_mimi.png 앵커, denoise=0.62, 1024×1024 → 512 LANCZOS<br>
+        <strong>seed:</strong> 124294518<br>
+        <strong>크기:</strong> 512×512 (289 KB)<br>
+        <strong>톤:</strong> 모던 일러스트, 초상화 베이스<br>
+        <strong style="color:#2ed573;">V2:</strong> 미미 초상화를 직접 앵커로 사용 → 얼굴·머리·의상 완전 일치
       </div>
       <ul class="pros-cons">
+        <li class="pro">미미 외형(얼굴/머리/눈) 100% 일치</li>
         <li class="pro">단일 레이어 = 완전한 스타일 통일</li>
-        <li class="pro">모바일 마켓 썸네일 임팩트 최상</li>
         <li class="pro">디테일 선명함 (네이티브 1024)</li>
-        <li class="con">게임 내 픽셀 톤과 미묘한 괴리</li>
-        <li class="con">방어 포즈 아닌 요리 포즈로 생성됨</li>
+        <li class="pro">기존 초상화 스타일과 매끄러운 연속성</li>
+        <li class="con">초상화 베이스라 아이콘 구도감 상대적 부족</li>
+        <li class="con">배경·프라이팬 요소 미표현</li>
         <li class="con">KC TYCOON 텍스트 없음 (별도 추가 필요)</li>
       </ul>
     </div>
@@ -254,8 +272,20 @@
         <th>항목</th><th>옵션 A</th><th>옵션 B</th><th>기존(거부)</th>
       </tr>
       <tr>
+        <td>앵커 사용</td>
+        <td>△ description 일치</td>
+        <td>◎ img2img 직접</td>
+        <td>✗ 미사용</td>
+      </tr>
+      <tr>
+        <td>미미 외형 일치도</td>
+        <td>○ (검은머리/파란눈 반영)</td>
+        <td>◎ (초상화 완전 일치)</td>
+        <td>✗ (주황머리로 생성됨)</td>
+      </tr>
+      <tr>
         <td>원본 해상도</td>
-        <td>136×136 (pro) + 360×640 bg</td>
+        <td>128×128 (pro) + 360×640 bg</td>
         <td>1024×1024 (네이티브)</td>
         <td>92×92 스프라이트 + 512 bg</td>
       </tr>
