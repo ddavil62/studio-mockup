@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Chaos - Portrait V4 후보 (미미 앵커 img2img)</title>
+  <link rel="stylesheet" href="../../shared/style.css">
+  <style>
+    body { background: #141418; color: #e8e8e8; font-family: system-ui, -apple-system, sans-serif; }
+    .hero {
+      padding: 32px 24px;
+      text-align: center;
+      background: linear-gradient(180deg, #1a1a22 0%, #0f0f14 100%);
+      border-bottom: 1px solid #2a2a32;
+      margin-bottom: 28px;
+    }
+    .hero h1 { margin: 0 0 8px; font-size: 1.8rem; color: #ff8c42; }
+    .hero p { margin: 4px 0; color: #bdbdc4; font-size: 0.95rem; max-width: 680px; margin-inline: auto; }
+    .meta-row { margin-top: 14px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; color: #888; font-size: 0.8rem; }
+    .meta-row span { background: #232330; padding: 4px 10px; border-radius: 14px; }
+
+    .wrap { max-width: 1400px; margin: 0 auto; padding: 0 20px 60px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #1b1b22;
+      border: 1px solid #2a2a32;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .card h3 {
+      margin: 0;
+      padding: 14px 18px;
+      background: #232330;
+      border-bottom: 1px solid #2a2a32;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card h3 .id { color: #888; font-size: 0.75rem; font-weight: 400; }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+    }
+    .cell {
+      padding: 16px 10px;
+      text-align: center;
+      border-right: 1px solid #2a2a32;
+    }
+    .cell:last-child { border-right: none; }
+    .cell .label {
+      font-size: 0.72rem;
+      color: #999;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .cell .label.v4 { color: #4cd964; }
+    .cell .label.raw { color: #ff8c42; }
+    .cell img {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+    .cell.raw-cell {
+      background: repeating-conic-gradient(#444 0% 25%, #555 0% 50%) 50% / 18px 18px;
+    }
+
+    .desc {
+      padding: 12px 18px;
+      font-size: 0.82rem;
+      color: #aaa;
+      line-height: 1.5;
+      border-top: 1px solid #2a2a32;
+    }
+
+    .note {
+      background: #2a2438;
+      border: 1px solid #4a3d66;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      font-size: 0.88rem;
+      color: #cfc5e0;
+    }
+    .note strong { color: #bb88ff; }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>포트레이트 V4 후보 — 미미 앵커 img2img</h1>
+    <p>미미 포트레이트를 구성/스타일 앵커로 사용하여 img2img 재생성. 치비 아니메 스타일을 강제 유지.</p>
+    <div class="meta-row">
+      <span>SDXL Base 1.0</span>
+      <span>img2img denoise 0.72</span>
+      <span>CFG 8.5</span>
+      <span>40 steps</span>
+      <span>마젠타 크로마키</span>
+      <span>DPM++ 2M Karras</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="note">
+      <strong>상태</strong>: 게임 포트레이트 파일은 현재 <em>원상복구</em>된 상태로, V4 결과물은 후보군으로만 보존 중. 이 페이지에서 비교 후 승인되면 적용한다.<br>
+      <strong>비교 컬럼</strong>: 왼쪽은 현재 사용 중(이전 버전), 가운데는 V4 최종(크로마키 알파 적용), 오른쪽은 V4 raw(SDXL 원본, 마젠타 배경 보존).
+    </div>
+
+    <div class="grid">
+
+      <!-- RIN -->
+      <div class="card">
+        <h3>린 <span class="id">(rin)</span></h3>
+        <div class="compare">
+          <div class="cell"><div class="label">현재</div><img src="candidates/v4/portrait_rin_current.png" alt="Rin current"></div>
+          <div class="cell"><div class="label v4">V4 최종</div><img src="candidates/v4/portrait_rin_v4.png" alt="Rin V4"></div>
+          <div class="cell raw-cell"><div class="label raw">V4 raw</div><img src="candidates/v4/portrait_rin_v4_raw.png" alt="Rin V4 raw"></div>
+        </div>
+        <div class="desc">빨간 단발 + 헤드밴드 + 흰 셰프복 + 빨간 스카프. 자신만만한 표정. seed=812277</div>
+      </div>
+
+      <!-- POCO -->
+      <div class="card">
+        <h3>포코 <span class="id">(poco)</span></h3>
+        <div class="compare">
+          <div class="cell"><div class="label">현재</div><img src="candidates/v4/portrait_poco_current.png" alt="Poco current"></div>
+          <div class="cell"><div class="label v4">V4 최종</div><img src="candidates/v4/portrait_poco_v4.png" alt="Poco V4"></div>
+          <div class="cell raw-cell"><div class="label raw">V4 raw</div><img src="candidates/v4/portrait_poco_v4_raw.png" alt="Poco V4 raw"></div>
+        </div>
+        <div class="desc">핑크 트윈테일 + 노란 리본 + 갈색 베스트 + 흰 블라우스. 밝은 표정. seed=3399128</div>
+      </div>
+
+      <!-- YUKI -->
+      <div class="card">
+        <h3>유키 <span class="id">(yuki)</span></h3>
+        <div class="compare">
+          <div class="cell"><div class="label">현재</div><img src="candidates/v4/portrait_yuki_current.png" alt="Yuki current"></div>
+          <div class="cell"><div class="label v4">V4 최종</div><img src="candidates/v4/portrait_yuki_v4.png" alt="Yuki V4"></div>
+          <div class="cell raw-cell"><div class="label raw">V4 raw</div><img src="candidates/v4/portrait_yuki_v4_raw.png" alt="Yuki V4 raw"></div>
+        </div>
+        <div class="desc">민트 하늘색 긴머리 + 눈송이 핀 + 흰 셰프복 + 하늘색 칼라. 차분한 표정. seed=7752041</div>
+      </div>
+
+      <!-- MAGE -->
+      <div class="card">
+        <h3>메이지 <span class="id">(mage)</span></h3>
+        <div class="compare">
+          <div class="cell"><div class="label">현재</div><img src="candidates/v4/portrait_mage_current.png" alt="Mage current"></div>
+          <div class="cell"><div class="label v4">V4 최종</div><img src="candidates/v4/portrait_mage_v4.png" alt="Mage V4"></div>
+          <div class="cell raw-cell"><div class="label raw">V4 raw</div><img src="candidates/v4/portrait_mage_v4_raw.png" alt="Mage V4 raw"></div>
+        </div>
+        <div class="desc">연보라 웨이브 + 반짝이는 바이올렛 눈 + 핑크/라벤더 셰프복 + 사탕 핀. 디저트 테마. seed=4421983</div>
+      </div>
+
+      <!-- LAO -->
+      <div class="card">
+        <h3>라오 <span class="id">(lao)</span></h3>
+        <div class="compare">
+          <div class="cell"><div class="label">현재</div><img src="candidates/v4/portrait_lao_current.png" alt="Lao current"></div>
+          <div class="cell"><div class="label v4">V4 최종</div><img src="candidates/v4/portrait_lao_v4.png" alt="Lao V4"></div>
+          <div class="cell raw-cell"><div class="label raw">V4 raw</div><img src="candidates/v4/portrait_lao_v4_raw.png" alt="Lao V4 raw"></div>
+        </div>
+        <div class="desc">검정 단발 + 빨간 스트릭 + 금장 테두리 중식 조리복 + 빨간 헤드밴드. 강렬한 표정. seed=6671208</div>
+      </div>
+
+      <!-- ARJUN -->
+      <div class="card">
+        <h3>아르준 <span class="id">(arjun)</span></h3>
+        <div class="compare">
+          <div class="cell"><div class="label">현재</div><img src="candidates/v4/portrait_arjun_current.png" alt="Arjun current"></div>
+          <div class="cell"><div class="label v4">V4 최종</div><img src="candidates/v4/portrait_arjun_v4.png" alt="Arjun V4"></div>
+          <div class="cell raw-cell"><div class="label raw">V4 raw</div><img src="candidates/v4/portrait_arjun_v4_raw.png" alt="Arjun V4 raw"></div>
+        </div>
+        <div class="desc">다크브라운 웨이브 + 호박색 눈 + 주황/사프란 포인트 셰프복 + 이마의 빈디. 신비로운 미소. seed=9112057</div>
+      </div>
+
+      <!-- MASALA GUIDE -->
+      <div class="card">
+        <h3>마살라 가이드 <span class="id">(masala_guide)</span></h3>
+        <div class="compare">
+          <div class="cell"><div class="label">현재</div><img src="candidates/v4/portrait_masala_guide_current.png" alt="Masala current"></div>
+          <div class="cell"><div class="label v4">V4 최종</div><img src="candidates/v4/portrait_masala_guide_v4.png" alt="Masala V4"></div>
+          <div class="cell raw-cell"><div class="label raw">V4 raw</div><img src="candidates/v4/portrait_masala_guide_v4_raw.png" alt="Masala V4 raw"></div>
+        </div>
+        <div class="desc">회색 긴 수염 + 주황 터번 + 사프란/크림 향신료 상인 로브 + 금 귀걸이. 따뜻한 노인 표정. seed=2283410</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
