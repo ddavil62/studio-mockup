@@ -1,15 +1,30 @@
 {
   "character": {
-    "id": "unknown",
-    "name": "lao_chef",
-    "prompt": "",
+    "id": "05fc4bd9-e861-4887-9874-90c6a1df898d",
+    "name": "lao_chef_v3",
+    "prompt": "young Chinese male chef with short black spiky hair, traditional tang-style chef tunic with white upper body and orange-red lower body, orange sash belt, brown eyes, friendly smile, chibi",
     "size": {
-      "width": 92,
-      "height": 92
+      "width": 96,
+      "height": 96
     },
+    "template_id": "mannequin",
     "directions": 8,
-    "view": "low top-down"
+    "view": "low top-down",
+    "created_at": "2026-04-21T00:00:07.11866+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {}
   },
   "export_version": "2.0",
-  "export_date": "2026-04-17"
+  "export_date": "2026-04-21T00:04:32.324042"
 }

@@ -1,15 +1,30 @@
 {
   "character": {
-    "id": "unknown",
-    "name": "yuki_chef",
-    "prompt": "",
+    "id": "c57bd430-2c4e-4d93-ad23-d456a5781519",
+    "name": "yuki_chef_v3",
+    "prompt": "cute anime girl chef with light blue pale cyan hair, snowflake hair clips, blue eyes, gentle smile, white chef apron with icy blue trim, winter frost theme, soft pastel colors, chibi",
     "size": {
-      "width": 92,
-      "height": 92
+      "width": 96,
+      "height": 96
     },
+    "template_id": "mannequin",
     "directions": 8,
-    "view": "low top-down"
+    "view": "low top-down",
+    "created_at": "2026-04-21T00:00:05.538204+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {}
   },
   "export_version": "2.0",
-  "export_date": "2026-04-17"
+  "export_date": "2026-04-21T00:04:30.284637"
 }

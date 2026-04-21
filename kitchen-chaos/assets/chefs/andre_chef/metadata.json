@@ -1,15 +1,30 @@
 {
   "character": {
-    "id": "pending",
-    "name": "andre_chef",
-    "prompt": "A chibi adult male chef with long wavy black hair and a short beard. He wears a formal white double-breasted chef jacket with gold braid trim and gold buttons (gold color #f5d76e), and black trousers. Wears a tall white toque blanche chef hat. Blue eyes visible. Distinguished and elegant French chef appearance. Holds a whisk in right hand. Low top-down view, 8 directions, chibi proportions.",
+    "id": "df8297e6-65e0-48e6-80a5-6207048fd5c9",
+    "name": "andre_chef_v3",
+    "prompt": "handsome young French male chef with wavy dark brown hair, clean shaven no beard no hat bareheaded, white double-breasted chef jacket with golden brown necktie, black inner shirt, slim build, chibi",
     "size": {
-      "width": 92,
-      "height": 92
+      "width": 96,
+      "height": 96
     },
+    "template_id": "mannequin",
     "directions": 8,
-    "view": "low top-down"
+    "view": "low top-down",
+    "created_at": "2026-04-21T00:00:09.726877+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {}
   },
   "export_version": "2.0",
-  "export_date": "2026-04-20"
+  "export_date": "2026-04-21T00:04:34.082629"
 }

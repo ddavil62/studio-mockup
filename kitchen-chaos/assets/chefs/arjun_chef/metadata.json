@@ -1,15 +1,30 @@
 {
   "character": {
-    "id": "pending",
-    "name": "arjun_chef",
-    "prompt": "A chibi adult male chef with long wavy black hair and a short beard. He wears a black Indian-style kurta chef uniform with vivid orange-gold embroidery and golden shoulder ornaments (orange color #ff8800). Wears a black and gold traditional turban (pagri) instead of a chef hat. Golden eyes. Intense and dignified spice master appearance. Holds a small mortar or spice grinder. Low top-down view, 8 directions, chibi proportions.",
+    "id": "60e23203-2470-4bb4-9816-69ae8bcc0603",
+    "name": "arjun_chef_v3",
+    "prompt": "young Indian male chef with orange turban wrapped with white cloth band on forehead, short black goatee beard, tan dark skin, white chef robe with orange accents and orange collar, bright amber eyes, friendly smile, chibi",
     "size": {
-      "width": 92,
-      "height": 92
+      "width": 96,
+      "height": 96
     },
+    "template_id": "mannequin",
     "directions": 8,
-    "view": "low top-down"
+    "view": "low top-down",
+    "created_at": "2026-04-21T00:00:12.121682+00:00"
+  },
+  "frames": {
+    "rotations": {
+      "south": "rotations/south.png",
+      "south-east": "rotations/south-east.png",
+      "east": "rotations/east.png",
+      "north-east": "rotations/north-east.png",
+      "north": "rotations/north.png",
+      "north-west": "rotations/north-west.png",
+      "west": "rotations/west.png",
+      "south-west": "rotations/south-west.png"
+    },
+    "animations": {}
   },
   "export_version": "2.0",
-  "export_date": "2026-04-20"
+  "export_date": "2026-04-21T00:04:36.028455"
 }
