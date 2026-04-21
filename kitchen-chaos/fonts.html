@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Kitchen Chaos — 폰트 비교 (Galmuri11 / DungGeunMo / NeoDunggeunmo)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 한글 픽셀 폰트 3종 (noonnu.cc CDN) -->
+<style>
+@font-face {
+  font-family: 'Galmuri11';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/Galmuri11.woff') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DungGeunMo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.2/DungGeunMo.woff') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NeoDGM';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-01@1.0/NeoDunggeunmoPro-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1a0a00;
+  color: #e8c87a;
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 24px;
+  min-height: 100vh;
+  image-rendering: pixelated;
+}
+
+h1 { text-align: center; margin-bottom: 8px; color: #ffd966; }
+p.lead { text-align: center; margin-bottom: 24px; color: #b89a6a; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #2d1a0a;
+  border: 2px solid #6b4a2a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.card-header {
+  background: linear-gradient(90deg, #4a2e10, #2d1a0a);
+  padding: 12px 16px;
+  border-bottom: 2px solid #6b4a2a;
+}
+.card-header .name { font-size: 20px; font-weight: 700; color: #ffd966; }
+.card-header .meta { font-size: 12px; color: #b89a6a; margin-top: 2px; }
+
+/* 각 카드마다 폰트 지정 */
+.card.galmuri .sample { font-family: 'Galmuri11', monospace; }
+.card.dunggeun .sample { font-family: 'DungGeunMo', monospace; }
+.card.neodgm   .sample { font-family: 'NeoDGM', monospace; }
+
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 20px, rgba(255,255,255,.02) 20px 21px),
+    #1c1008;
+}
+
+/* 9-slice 양피지 패널 재현 */
+.panel-parchment {
+  /* 실제 assets 이미지 사용 */
+  border-image: url('ui-nineslice/full/panel_parchment.png') 24 fill;
+  border-width: 24px;
+  border-style: solid;
+  padding: 14px 20px;
+  color: #4a2e10;
+  text-shadow: 0 0 1px rgba(255,230,180,0.4);
+}
+
+.panel-dark {
+  border-image: url('ui-nineslice/full/panel_dark.png') 24 fill;
+  border-width: 18px;
+  border-style: solid;
+  padding: 10px 18px;
+  color: #e8c87a;
+}
+
+.btn-primary {
+  border-image: url('ui-nineslice/full/btn_primary_normal.png') 20 fill;
+  border-width: 16px;
+  border-style: solid;
+  padding: 8px 22px;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+  display: inline-block;
+  text-align: center;
+}
+.btn-secondary {
+  border-image: url('ui-nineslice/full/btn_secondary_normal.png') 20 fill;
+  border-width: 16px;
+  border-style: solid;
+  padding: 8px 22px;
+  color: #e8c87a;
+  display: inline-block;
+  text-align: center;
+}
+
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+/* 샘플 폰트 크기 프리셋 */
+.t-title   { font-size: 32px; font-weight: 700; line-height: 1.1; }
+.t-sub     { font-size: 16px; }
+.t-btn     { font-size: 18px; font-weight: 700; }
+.t-small   { font-size: 14px; }
+.t-hud     { font-size: 16px; font-weight: 700; }
+.t-label   { font-size: 13px; }
+.t-num     { font-size: 14px; color: #ffd966; }
+
+.divider {
+  height: 2px;
+  background:
+    linear-gradient(90deg, transparent, #ffb84a 15%, #ffb84a 85%, transparent);
+  opacity: 0.6;
+  margin: 4px 0;
+}
+
+/* 반응형 스케일 */
+@media (max-width: 800px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<h1>🍳 Kitchen Chaos — 폰트 비교 샘플</h1>
+<p class="lead">Phase 60 9-slice UI에 어울릴 한글 픽셀 폰트 3종. 실제 게임 자산(panel_parchment, btn_primary)을 border-image로 렌더링.</p>
+
+<div class="grid">
+
+  <!-- ─── 1) Galmuri11 ─── -->
+  <div class="card galmuri">
+    <div class="card-header">
+      <div class="name">Galmuri11</div>
+      <div class="meta">11px 픽셀 · 가독성 우수 · 본문+UI 범용</div>
+    </div>
+    <div class="card-body sample">
+      <!-- 타이틀 -->
+      <div class="panel-parchment">
+        <div class="t-title">Kitchen Chaos<br>Tycoon</div>
+        <div class="t-sub">주방을 지켜라!</div>
+      </div>
+      <!-- 메인 버튼 3개 -->
+      <div class="row" style="justify-content:center;">
+        <div class="btn-primary t-btn">▶ 게임 시작</div>
+      </div>
+      <div class="row" style="justify-content:center;">
+        <div class="btn-secondary t-small">🏪 주방 상점</div>
+        <div class="btn-secondary t-small">📖 레시피 도감</div>
+      </div>
+      <!-- HUD -->
+      <div class="panel-dark">
+        <div class="row">
+          <span class="t-hud">💰 1,240</span>
+          <span class="t-hud" style="margin-left:auto;">영업시간 2:39</span>
+          <span class="t-hud">⭐ 100%</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <!-- 레시피 카드 -->
+      <div class="row" style="flex-direction:column; align-items:stretch;">
+        <div class="btn-secondary t-label">당근 수프 · 🥕1</div>
+        <div class="btn-secondary t-label">스테이크 정식 · 🥩2</div>
+        <div class="btn-secondary t-label">혼합 플래터 · 🥕2 🧀1</div>
+      </div>
+      <!-- 숫자 -->
+      <div class="panel-parchment" style="text-align:center;">
+        <span class="t-num" style="color:#4a2e10;">Lv.0/5</span>
+        &nbsp;·&nbsp;
+        <span class="t-num" style="color:#4a2e10;">12/284 (4.2%)</span>
+        &nbsp;·&nbsp;
+        <span class="t-num" style="color:#4a2e10;">80 💰</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 2) DungGeunMo ─── -->
+  <div class="card dunggeun">
+    <div class="card-header">
+      <div class="name">DungGeunMo (둥근모꼴)</div>
+      <div class="meta">레트로 바이오스 · 둥근 픽셀 · 게임 감성</div>
+    </div>
+    <div class="card-body sample">
+      <div class="panel-parchment">
+        <div class="t-title">Kitchen Chaos<br>Tycoon</div>
+        <div class="t-sub">주방을 지켜라!</div>
+      </div>
+      <div class="row" style="justify-content:center;">
+        <div class="btn-primary t-btn">▶ 게임 시작</div>
+      </div>
+      <div class="row" style="justify-content:center;">
+        <div class="btn-secondary t-small">🏪 주방 상점</div>
+        <div class="btn-secondary t-small">📖 레시피 도감</div>
+      </div>
+      <div class="panel-dark">
+        <div class="row">
+          <span class="t-hud">💰 1,240</span>
+          <span class="t-hud" style="margin-left:auto;">영업시간 2:39</span>
+          <span class="t-hud">⭐ 100%</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row" style="flex-direction:column; align-items:stretch;">
+        <div class="btn-secondary t-label">당근 수프 · 🥕1</div>
+        <div class="btn-secondary t-label">스테이크 정식 · 🥩2</div>
+        <div class="btn-secondary t-label">혼합 플래터 · 🥕2 🧀1</div>
+      </div>
+      <div class="panel-parchment" style="text-align:center;">
+        <span class="t-num" style="color:#4a2e10;">Lv.0/5</span>
+        &nbsp;·&nbsp;
+        <span class="t-num" style="color:#4a2e10;">12/284 (4.2%)</span>
+        &nbsp;·&nbsp;
+        <span class="t-num" style="color:#4a2e10;">80 💰</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 3) NeoDunggeunmo ─── -->
+  <div class="card neodgm">
+    <div class="card-header">
+      <div class="name">NeoDunggeunmo (네오둥근모)</div>
+      <div class="meta">모던 둥근 픽셀 · 크기 다양 · 범용</div>
+    </div>
+    <div class="card-body sample">
+      <div class="panel-parchment">
+        <div class="t-title">Kitchen Chaos<br>Tycoon</div>
+        <div class="t-sub">주방을 지켜라!</div>
+      </div>
+      <div class="row" style="justify-content:center;">
+        <div class="btn-primary t-btn">▶ 게임 시작</div>
+      </div>
+      <div class="row" style="justify-content:center;">
+        <div class="btn-secondary t-small">🏪 주방 상점</div>
+        <div class="btn-secondary t-small">📖 레시피 도감</div>
+      </div>
+      <div class="panel-dark">
+        <div class="row">
+          <span class="t-hud">💰 1,240</span>
+          <span class="t-hud" style="margin-left:auto;">영업시간 2:39</span>
+          <span class="t-hud">⭐ 100%</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row" style="flex-direction:column; align-items:stretch;">
+        <div class="btn-secondary t-label">당근 수프 · 🥕1</div>
+        <div class="btn-secondary t-label">스테이크 정식 · 🥩2</div>
+        <div class="btn-secondary t-label">혼합 플래터 · 🥕2 🧀1</div>
+      </div>
+      <div class="panel-parchment" style="text-align:center;">
+        <span class="t-num" style="color:#4a2e10;">Lv.0/5</span>
+        &nbsp;·&nbsp;
+        <span class="t-num" style="color:#4a2e10;">12/284 (4.2%)</span>
+        &nbsp;·&nbsp;
+        <span class="t-num" style="color:#4a2e10;">80 💰</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p style="text-align:center; margin-top:32px; color:#6b4a2a; font-size:12px;">
+  폰트는 모두 무료 라이선스 (noonnu.cc CDN). 이미지는 실제 Kitchen Chaos 9-slice 자산.<br>
+  ← <a href="index.html" style="color:#ffb84a;">Kitchen Chaos 목업 홈으로</a>
+</p>
+
+</body>
+</html>
