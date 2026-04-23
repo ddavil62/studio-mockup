@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Kitchen Chaos · ServiceScene 카운터 바 레이아웃 시안</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1a1a1f;
+    color: #e8e8ee;
+    font-family: 'Pretendard', 'Segoe UI', sans-serif;
+    padding: 24px;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+  h1 {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  p.lead {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 24px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 360px);
+    gap: 24px 24px;
+    row-gap: 32px;
+    align-items: start;
+  }
+  .variant {
+    width: 360px;
+  }
+  .label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #ffd166;
+  }
+  .desc {
+    font-size: 11px;
+    color: #aaa;
+    margin-bottom: 8px;
+    min-height: 32px;
+    line-height: 1.4;
+  }
+  .frame {
+    position: relative;
+    width: 360px;
+    height: 640px;
+    background: #2a2a35;
+    border: 2px solid #444;
+    overflow: hidden;
+    image-rendering: pixelated;
+  }
+  /* ── 공통 HUD ── */
+  .hud-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 48px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    z-index: 100;
+    font-size: 11px;
+  }
+  .hud-top .gold { color: #ffd166; font-weight: 700; }
+  .hud-top .timer { color: #fff; font-weight: 700; font-size: 14px; }
+  .hud-top .stage { color: #aaa; }
+
+  /* ── 배경 ── */
+  .bg-hall {
+    position: absolute;
+    top: 48px; left: 0; right: 0;
+    height: 280px;
+    background: url('service/floor_hall.png') no-repeat center top;
+    background-size: cover;
+    opacity: 0.55;
+    filter: blur(0.4px);
+  }
+  .bg-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 60%, transparent 50%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
+  }
+
+  /* ── 카운터 바 (공통) ── */
+  .counter {
+    position: absolute;
+    left: 0; right: 0;
+    background: linear-gradient(180deg, #6b4423 0%, #4a2d18 100%);
+    border-top: 4px solid #8b5a2b;
+    border-bottom: 2px solid #2a1810;
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.4);
+  }
+  .counter::before {
+    content: '';
+    position: absolute;
+    top: -6px; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(180deg, #c9963f 0%, #8b5a2b 100%);
+  }
+  /* 카운터 패턴 (나무 결) */
+  .counter::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 38px,
+      rgba(0,0,0,0.15) 38px,
+      rgba(0,0,0,0.15) 40px
+    );
+  }
+
+  /* ── 슬롯 (손님 자리) ── */
+  .slot {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .slot .gauge {
+    width: 56px;
+    height: 6px;
+    background: #2a2a35;
+    border: 1px solid #555;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+  .slot .gauge .fill {
+    height: 100%;
+    background: linear-gradient(90deg, #5cb85c, #5cb85c);
+    transition: width 0.3s;
+  }
+  .slot .gauge.warn .fill { background: linear-gradient(90deg, #f0ad4e, #f0ad4e); }
+  .slot .gauge.danger .fill { background: linear-gradient(90deg, #d9534f, #d9534f); }
+
+  .slot .bubble {
+    position: relative;
+    background: #fff;
+    color: #222;
+    border: 2px solid #222;
+    border-radius: 8px;
+    padding: 4px 6px;
+    font-size: 16px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    line-height: 1;
+  }
+  .slot .bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border: 5px solid transparent;
+    border-top-color: #222;
+  }
+  .slot .bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border: 4px solid transparent;
+    border-top-color: #fff;
+    z-index: 1;
+  }
+  .slot .bubble .price {
+    font-size: 9px;
+    color: #ffd166;
+    background: #222;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+
+  .slot img.customer {
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+  .slot .name {
+    position: absolute;
+    bottom: -14px;
+    font-size: 9px;
+    color: #fff;
+    background: rgba(0,0,0,0.6);
+    padding: 1px 4px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* ── 큐 표시 (대기열) ── */
+  .queue {
+    position: absolute;
+    right: 4px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+  .queue .qlabel {
+    font-size: 8px;
+    color: #aaa;
+    text-transform: uppercase;
+  }
+  .queue .qicon {
+    width: 18px; height: 18px;
+    border-radius: 9px;
+    background: #444;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    color: #fff;
+  }
+
+  /* ── 안내 라벨 ── */
+  .annot {
+    position: absolute;
+    background: rgba(0, 200, 100, 0.85);
+    color: #fff;
+    font-size: 9px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-weight: 700;
+    z-index: 200;
+    pointer-events: none;
+  }
+
+  /* ── 변형별 ── */
+
+  /* V1: 4슬롯, 카운터 하단 1/4, 상반신 노출 */
+  .v1 .counter { bottom: 80px; height: 70px; z-index: 50; }
+  .v1 .slot { bottom: 130px; width: 90px; height: 240px; z-index: 40; }
+  .v1 .slot img.customer { width: 86px; max-height: 140px; object-fit: contain; object-position: bottom; }
+  .v1 .slot.s1 { left: 0; }
+  .v1 .slot.s2 { left: 90px; }
+  .v1 .slot.s3 { left: 180px; }
+  .v1 .slot.s4 { left: 270px; }
+
+  /* V2: 4슬롯, 카운터 중앙, 전신 노출 */
+  .v2 .counter { bottom: 230px; height: 40px; z-index: 50; }
+  .v2 .slot { bottom: 240px; width: 90px; height: 280px; z-index: 40; }
+  .v2 .slot img.customer { width: 86px; max-height: 170px; object-fit: contain; object-position: bottom; }
+  .v2 .slot.s1 { left: 0; }
+  .v2 .slot.s2 { left: 90px; }
+  .v2 .slot.s3 { left: 180px; }
+  .v2 .slot.s4 { left: 270px; }
+  .v2 .control-area {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 200px;
+    background: linear-gradient(180deg, #1a1a25 0%, #0d0d15 100%);
+    border-top: 2px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 12px;
+  }
+  .v2 .menu-card {
+    width: 70px;
+    height: 90px;
+    background: linear-gradient(180deg, #3a3a4a, #1a1a25);
+    border: 2px solid #ffd166;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    position: relative;
+  }
+  .v2 .menu-card .mname {
+    position: absolute;
+    bottom: 4px;
+    font-size: 8px;
+    color: #fff;
+  }
+
+  /* V3: 5슬롯, 카운터 하단 1/4, 신규 스프라이트 축소 */
+  .v3 .counter { bottom: 80px; height: 70px; z-index: 50; }
+  .v3 .slot { bottom: 130px; width: 72px; height: 220px; z-index: 40; }
+  .v3 .slot img.customer { width: 68px; max-height: 120px; object-fit: contain; object-position: bottom; }
+  .v3 .slot .gauge { width: 50px; }
+  .v3 .slot .bubble { font-size: 14px; padding: 3px 5px; }
+  .v3 .slot.s1 { left: 0; }
+  .v3 .slot.s2 { left: 72px; }
+  .v3 .slot.s3 { left: 144px; }
+  .v3 .slot.s4 { left: 216px; }
+  .v3 .slot.s5 { left: 288px; }
+
+  /* V4: 4슬롯 + 우측 큐 대기열 */
+  .v4 .counter { bottom: 80px; height: 70px; right: 36px; z-index: 50; }
+  .v4 .slot { bottom: 130px; width: 81px; height: 230px; z-index: 40; }
+  .v4 .slot img.customer { width: 76px; max-height: 130px; object-fit: contain; object-position: bottom; }
+  .v4 .slot .gauge { width: 52px; }
+  .v4 .slot.s1 { left: 0; }
+  .v4 .slot.s2 { left: 81px; }
+  .v4 .slot.s3 { left: 162px; }
+  .v4 .slot.s4 { left: 243px; }
+  .v4 .queue { bottom: 80px; height: 70px; width: 32px; right: 0; z-index: 60; }
+
+  /* ════ V5: 줄서기 카운터 (활성 4 + 뒤 대기 줄 6명) ════ */
+  .v5 .counter { bottom: 80px; height: 64px; z-index: 50; }
+  .v5 .slot { bottom: 130px; width: 90px; height: 220px; z-index: 40; }
+  .v5 .slot img.customer { width: 84px; max-height: 130px; object-fit: contain; object-position: bottom; }
+  .v5 .slot.s1 { left: 0; }
+  .v5 .slot.s2 { left: 90px; }
+  .v5 .slot.s3 { left: 180px; }
+  .v5 .slot.s4 { left: 270px; }
+
+  /* 뒤쪽 대기 줄 - 작게, 흐릿하게 */
+  .v5 .queue-line {
+    position: absolute;
+    bottom: 290px;
+    left: 0; right: 0;
+    height: 80px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: -20px;
+    z-index: 20;
+    opacity: 0.55;
+    filter: blur(0.3px);
+  }
+  .v5 .queue-line img {
+    width: 48px;
+    max-height: 70px;
+    object-fit: contain;
+    object-position: bottom;
+    image-rendering: pixelated;
+    margin: 0 -10px;
+  }
+  .v5 .queue-label {
+    position: absolute;
+    bottom: 370px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    color: #ccc;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    z-index: 25;
+  }
+  /* 입구 아치 (오른쪽에 손님이 들어오는 입구) */
+  .v5 .entrance {
+    position: absolute;
+    bottom: 280px;
+    right: 4px;
+    width: 36px;
+    height: 90px;
+    background: linear-gradient(180deg, #1a0d05 0%, #2a1810 100%);
+    border: 2px solid #4a2d18;
+    border-radius: 18px 18px 0 0;
+    z-index: 15;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: #888;
+    font-size: 8px;
+    padding-bottom: 4px;
+  }
+  /* 떠다니는 골드 이펙트 */
+  .v5 .float-fx {
+    position: absolute;
+    color: #ffd166;
+    font-size: 10px;
+    font-weight: 700;
+    text-shadow: 1px 1px 0 #000;
+    z-index: 90;
+    animation: floatUp 1.5s infinite;
+  }
+  @keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-30px); }
+  }
+
+  /* ════ V6: ㄷ자형 카운터 (좌2 + 정면4 + 우2 = 8슬롯) ════ */
+  .v6 .counter-front { position:absolute; bottom:80px; left:60px; right:60px; height:64px; z-index:50;
+    background: linear-gradient(180deg, #6b4423 0%, #4a2d18 100%);
+    border-top: 4px solid #8b5a2b; border-bottom: 2px solid #2a1810;
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.4);
+  }
+  .v6 .counter-front::before { content:''; position:absolute; top:-6px; left:0; right:0; height:4px;
+    background: linear-gradient(180deg, #c9963f 0%, #8b5a2b 100%);
+  }
+  .v6 .counter-side-l { position:absolute; bottom:80px; left:0; width:60px; height:200px; z-index:50;
+    background: linear-gradient(90deg, #4a2d18 0%, #6b4423 80%);
+    border-right: 4px solid #8b5a2b;
+  }
+  .v6 .counter-side-r { position:absolute; bottom:80px; right:0; width:60px; height:200px; z-index:50;
+    background: linear-gradient(270deg, #4a2d18 0%, #6b4423 80%);
+    border-left: 4px solid #8b5a2b;
+  }
+  .v6 .slot { z-index: 40; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; }
+  .v6 .slot img.customer { object-fit:contain; object-position:bottom; }
+  /* 정면 4슬롯 */
+  .v6 .slot-f { bottom: 130px; width: 60px; height: 200px; }
+  .v6 .slot-f img.customer { width: 56px; max-height: 100px; }
+  .v6 .slot-f .gauge { width: 40px; }
+  .v6 .slot-f .bubble { font-size: 12px; padding: 2px 4px; }
+  .v6 .slot-f1 { left: 60px; }
+  .v6 .slot-f2 { left: 120px; }
+  .v6 .slot-f3 { left: 180px; }
+  .v6 .slot-f4 { left: 240px; }
+  /* 좌우 2슬롯 (회전된 듯한 효과 위해 작게) */
+  .v6 .slot-l1 { bottom: 230px; left: 4px; width: 50px; height: 130px; }
+  .v6 .slot-l2 { bottom: 130px; left: 4px; width: 50px; height: 130px; }
+  .v6 .slot-r1 { bottom: 230px; right: 4px; width: 50px; height: 130px; }
+  .v6 .slot-r2 { bottom: 130px; right: 4px; width: 50px; height: 130px; }
+  .v6 .slot-l1 img.customer, .v6 .slot-l2 img.customer,
+  .v6 .slot-r1 img.customer, .v6 .slot-r2 img.customer { width: 46px; max-height: 80px; }
+  .v6 .slot-l1 .gauge, .v6 .slot-l2 .gauge,
+  .v6 .slot-r1 .gauge, .v6 .slot-r2 .gauge { width: 36px; }
+  .v6 .slot-l1 .bubble, .v6 .slot-l2 .bubble,
+  .v6 .slot-r1 .bubble, .v6 .slot-r2 .bubble { font-size: 11px; padding: 2px 3px; }
+
+  /* ════ V7: 카운터 + 상단 홀 식사 손님 ════ */
+  .v7 .counter { bottom: 80px; height: 64px; z-index: 50; }
+  .v7 .slot { bottom: 130px; width: 90px; height: 220px; z-index: 40; }
+  .v7 .slot img.customer { width: 84px; max-height: 130px; object-fit: contain; object-position: bottom; }
+  .v7 .slot.s1 { left: 0; }
+  .v7 .slot.s2 { left: 90px; }
+  .v7 .slot.s3 { left: 180px; }
+  .v7 .slot.s4 { left: 270px; }
+
+  /* 상단 홀 식사 영역 (배경 데코, 정적) */
+  .v7 .hall-tables {
+    position: absolute;
+    top: 60px;
+    left: 0; right: 0;
+    height: 240px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 8px 12px;
+    z-index: 15;
+    opacity: 0.78;
+  }
+  .v7 .hall-table {
+    position: relative;
+    background: linear-gradient(180deg, rgba(80,55,30,0.7), rgba(50,30,15,0.7));
+    border: 1px solid rgba(139,90,43,0.5);
+    border-radius: 6px;
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .v7 .hall-table img {
+    width: 36px;
+    max-height: 56px;
+    object-fit: contain;
+    object-position: bottom;
+    image-rendering: pixelated;
+    margin: 0 -6px;
+    filter: brightness(0.85);
+  }
+  .v7 .hall-table .heart {
+    position: absolute;
+    top: 2px; right: 4px;
+    font-size: 10px;
+    color: #ff6b8a;
+    text-shadow: 1px 1px 0 #000;
+  }
+  .v7 .hall-label {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.6);
+    color: #ccc;
+    font-size: 8px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    z-index: 16;
+  }
+
+  /* ════ V8: 회전초밥 바 (좌측 셰프 + 우측 ㄷ자 카운터) ════ */
+  /* 셰프 영역 (좌측 110px) */
+  .v8 .chef-zone {
+    position: absolute;
+    top: 48px; left: 0;
+    width: 110px; bottom: 0;
+    background: linear-gradient(180deg, #1f1d28 0%, #0f0d18 100%);
+    border-right: 3px solid #5a4a2a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 0 10px;
+    z-index: 60;
+  }
+  .v8 .chef-zone::after {
+    /* 우측 카운터 라인 (셰프와 카운터 안쪽 경계) */
+    content: '';
+    position: absolute;
+    right: -3px; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #c9963f, #8b5a2b);
+    box-shadow: 2px 0 6px rgba(0,0,0,0.4);
+  }
+  .v8 .chef-stand {
+    position: relative;
+    width: 88px;
+    height: 110px;
+    background: linear-gradient(180deg, #6b4423 0%, #4a2d18 100%);
+    border-radius: 6px 6px 8px 8px;
+    border: 2px solid #8b5a2b;
+    margin-top: 4px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .v8 .chef-stand::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 18px;
+    background: linear-gradient(180deg, #d8d8e0 0%, #aaa 100%);
+    border-bottom: 1px solid #888;
+  }
+  .v8 .chef-img {
+    position: relative;
+    z-index: 2;
+    font-size: 56px;
+    margin-bottom: -10px;
+    filter: drop-shadow(1px 2px 0 rgba(0,0,0,0.6));
+  }
+  .v8 .chef-label {
+    color: #ccc;
+    font-size: 9px;
+    margin-top: 6px;
+    background: rgba(0,0,0,0.5);
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+  .v8 .menu-cards-vert {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 12px;
+    width: 95px;
+  }
+  .v8 .mc {
+    height: 38px;
+    background: linear-gradient(180deg, #3a3a4a, #1a1a25);
+    border: 2px solid #555;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    font-size: 18px;
+  }
+  .v8 .mc.ready { border-color: #ffd166; box-shadow: 0 0 6px rgba(255,209,102,0.4); }
+  .v8 .mc .qty { font-size: 9px; color: #fff; font-weight: 700; }
+
+  /* 컨베이어 벨트 (ㄷ자 안쪽) */
+  .v8 .conveyor {
+    position: absolute;
+    top: 175px;
+    left: 113px;
+    right: 92px;
+    bottom: 175px;
+    background:
+      repeating-linear-gradient(45deg,
+        rgba(255, 209, 102, 0.10) 0,
+        rgba(255, 209, 102, 0.10) 6px,
+        rgba(50, 40, 20, 0.7) 6px,
+        rgba(50, 40, 20, 0.7) 12px);
+    border: 1px dashed rgba(255, 209, 102, 0.6);
+    border-radius: 4px;
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffd166;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 0 #000;
+  }
+  /* 컨베이어 위 음식 트레이 (이동 중인 요리 표시) */
+  .v8 .tray {
+    position: absolute;
+    width: 28px; height: 18px;
+    background: linear-gradient(180deg, #d8a060, #8b5a2b);
+    border: 1px solid #5a3a18;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    z-index: 25;
+  }
+  .v8 .tray.t1 { top: 178px; left: 130px; }
+  .v8 .tray.t2 { top: 250px; right: 122px; }
+  .v8 .tray.t3 { bottom: 188px; left: 200px; }
+
+  /* ㄷ자 카운터 (우측 영역의 위/우/아래 3변) */
+  .v8 .cnt-top {
+    position: absolute;
+    top: 152px; left: 110px; right: 0;
+    height: 24px;
+    background: linear-gradient(180deg, #8b5a2b 0%, #4a2d18 100%);
+    border-top: 3px solid #c9963f;
+    border-bottom: 2px solid #2a1810;
+    z-index: 50;
+    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.4);
+  }
+  .v8 .cnt-bot {
+    position: absolute;
+    bottom: 152px; left: 110px; right: 0;
+    height: 24px;
+    background: linear-gradient(0deg, #8b5a2b 0%, #4a2d18 100%);
+    border-bottom: 3px solid #c9963f;
+    border-top: 2px solid #2a1810;
+    z-index: 50;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+  }
+  .v8 .cnt-right {
+    position: absolute;
+    top: 175px; bottom: 175px;
+    right: 68px;
+    width: 24px;
+    background: linear-gradient(270deg, #8b5a2b 0%, #4a2d18 100%);
+    border-right: 3px solid #c9963f;
+    border-left: 2px solid #2a1810;
+    z-index: 50;
+    box-shadow: inset -2px 0 4px rgba(0,0,0,0.4);
+  }
+
+  /* 상단 카운터 손님 3명 (카운터 위쪽 = 화면 위쪽에 앉음) */
+  .v8 .cust-top {
+    position: absolute;
+    top: 60px;
+    width: 70px; height: 100px;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .v8 .cust-top img.customer {
+    width: 60px; max-height: 70px;
+    object-fit: contain; object-position: bottom;
+    image-rendering: pixelated;
+  }
+  .v8 .cust-top.t1 { left: 116px; }
+  .v8 .cust-top.t2 { left: 196px; }
+  .v8 .cust-top.t3 { left: 276px; }
+
+  /* 우측 카운터 손님 1명 */
+  .v8 .cust-right {
+    position: absolute;
+    right: 0;
+    top: 220px;
+    width: 68px; height: 130px;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .v8 .cust-right img.customer {
+    width: 60px; max-height: 90px;
+    object-fit: contain; object-position: bottom;
+    image-rendering: pixelated;
+  }
+  .v8 .cust-right .gauge { width: 50px; height: 5px; }
+  .v8 .cust-right .bubble { font-size: 12px; padding: 2px 4px; }
+
+  /* 하단 카운터 손님 3명 */
+  .v8 .cust-bot {
+    position: absolute;
+    bottom: 90px;
+    width: 70px; height: 110px;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .v8 .cust-bot img.customer {
+    width: 60px; max-height: 80px;
+    object-fit: contain; object-position: bottom;
+    image-rendering: pixelated;
+  }
+  .v8 .cust-bot.b1 { left: 116px; }
+  .v8 .cust-bot.b2 { left: 196px; }
+  .v8 .cust-bot.b3 { left: 276px; }
+
+  .v8 .cust-top .gauge,
+  .v8 .cust-bot .gauge { width: 50px; height: 5px; }
+  .v8 .cust-top .bubble,
+  .v8 .cust-bot .bubble { font-size: 13px; padding: 2px 4px; }
+
+  /* 하단 컨트롤 영역 (V1, V3, V4 공통) */
+  .ctrl-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, #2a2a35, #1a1a25);
+    border-top: 2px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 8px;
+  }
+  .ctrl-bar .menu-card {
+    width: 56px;
+    height: 64px;
+    background: linear-gradient(180deg, #3a3a4a, #1a1a25);
+    border: 2px solid #888;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    position: relative;
+  }
+  .ctrl-bar .menu-card.ready {
+    border-color: #ffd166;
+    box-shadow: 0 0 8px rgba(255,209,102,0.5);
+  }
+  .ctrl-bar .menu-card .mname {
+    position: absolute;
+    bottom: 2px;
+    font-size: 8px;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<h1>Kitchen Chaos · ServiceScene 카운터 바 레이아웃 시안</h1>
+<p class="lead">Phase 76 이후 영업씬 재설계 — Papa's Burgeria 스타일 카운터 큐 패턴 적용. 360×640 (게임 viewport 동일).</p>
+
+<div class="grid">
+
+  <!-- ════════════ V1 ════════════ -->
+  <div class="variant v1">
+    <div class="label">V1 · 4슬롯 / 하단 카운터 / 상반신 노출 ★권고</div>
+    <div class="desc">슬롯 90px × 4 = 360px. 카운터가 손님 하반신을 가려 정합 문제 회피. 신규 92×92 스프라이트 그대로 사용 가능.</div>
+    <div class="frame">
+      <div class="hud-top">
+        <span class="stage">⭐ 1-2 비스트로</span>
+        <span class="timer">⏱ 02:14</span>
+        <span class="gold">💰 1,240</span>
+      </div>
+      <div class="bg-hall"></div>
+      <div class="bg-vignette"></div>
+
+      <!-- 슬롯 1: 일반 손님 (기존 48x64) -->
+      <div class="slot s1">
+        <div class="gauge"><div class="fill" style="width: 80%"></div></div>
+        <div class="bubble">🍝 <span class="price">+50</span></div>
+        <img class="customer" src="service/customer_normal_waiting.png" alt="normal">
+        <span class="name">일반 손님</span>
+      </div>
+
+      <!-- 슬롯 2: 평론가 (신규 92x92) -->
+      <div class="slot s2">
+        <div class="gauge warn"><div class="fill" style="width: 50%"></div></div>
+        <div class="bubble">🍕 <span class="price">+120</span></div>
+        <img class="customer" src="service/customer_critic_waiting.png" alt="critic">
+        <span class="name">평론가</span>
+      </div>
+
+      <!-- 슬롯 3: 학생 (신규 92x92) -->
+      <div class="slot s3">
+        <div class="gauge"><div class="fill" style="width: 70%"></div></div>
+        <div class="bubble">🍔 <span class="price">+30</span></div>
+        <img class="customer" src="service/customer_student_waiting.png" alt="student">
+        <span class="name">학생</span>
+      </div>
+
+      <!-- 슬롯 4: 단골 (신규 92x92) -->
+      <div class="slot s4">
+        <div class="gauge danger"><div class="fill" style="width: 22%"></div></div>
+        <div class="bubble">🍣 <span class="price">+80</span></div>
+        <img class="customer" src="service/customer_regular_waiting.png" alt="regular">
+        <span class="name">단골</span>
+      </div>
+
+      <!-- 카운터 -->
+      <div class="counter"></div>
+
+      <!-- 하단 컨트롤 (요리 카드) -->
+      <div class="ctrl-bar">
+        <div class="menu-card ready">🍝<span class="mname">파스타 ×2</span></div>
+        <div class="menu-card">🍕<span class="mname">피자 ×0</span></div>
+        <div class="menu-card ready">🍔<span class="mname">버거 ×3</span></div>
+        <div class="menu-card">🍣<span class="mname">스시 ×1</span></div>
+      </div>
+
+      <span class="annot" style="top:50px; left:6px;">상반신 노출</span>
+      <span class="annot" style="top:380px; left:6px;">카운터로 하반신 가림</span>
+    </div>
+  </div>
+
+  <!-- ════════════ V2 ════════════ -->
+  <div class="variant v2">
+    <div class="label">V2 · 4슬롯 / 중앙 카운터 / 전신 노출</div>
+    <div class="desc">손님 전신이 보임. 카운터가 얇아 주방 영역(하단)이 넓음. 손님 발 정합 문제는 카운터 라인이 흡수.</div>
+    <div class="frame">
+      <div class="hud-top">
+        <span class="stage">⭐ 1-2 비스트로</span>
+        <span class="timer">⏱ 02:14</span>
+        <span class="gold">💰 1,240</span>
+      </div>
+      <div class="bg-hall" style="height:200px;"></div>
+      <div class="bg-vignette"></div>
+
+      <div class="slot s1">
+        <div class="gauge"><div class="fill" style="width: 80%"></div></div>
+        <div class="bubble">🍝 <span class="price">+50</span></div>
+        <img class="customer" src="service/customer_normal_waiting.png" alt="normal">
+        <span class="name">일반 손님</span>
+      </div>
+      <div class="slot s2">
+        <div class="gauge warn"><div class="fill" style="width: 50%"></div></div>
+        <div class="bubble">🍕 <span class="price">+120</span></div>
+        <img class="customer" src="service/customer_business_waiting.png" alt="business">
+        <span class="name">사업가</span>
+      </div>
+      <div class="slot s3">
+        <div class="gauge"><div class="fill" style="width: 70%"></div></div>
+        <div class="bubble">🍔 <span class="price">+30</span></div>
+        <img class="customer" src="service/customer_student_waiting.png" alt="student">
+        <span class="name">학생</span>
+      </div>
+      <div class="slot s4">
+        <div class="gauge danger"><div class="fill" style="width: 22%"></div></div>
+        <div class="bubble">🍣 <span class="price">+80</span></div>
+        <img class="customer" src="service/customer_regular_waiting.png" alt="regular">
+        <span class="name">단골</span>
+      </div>
+
+      <div class="counter"></div>
+
+      <div class="control-area">
+        <div class="menu-card">🍝<span class="mname">파스타 ×2</span></div>
+        <div class="menu-card">🍕<span class="mname">피자 ×0</span></div>
+        <div class="menu-card">🍔<span class="mname">버거 ×3</span></div>
+        <div class="menu-card">🍣<span class="mname">스시 ×1</span></div>
+      </div>
+
+      <span class="annot" style="top:50px; left:6px;">전신 노출</span>
+      <span class="annot" style="top:380px; left:6px;">주방 영역 넓음</span>
+    </div>
+  </div>
+
+  <!-- ════════════ V3 ════════════ -->
+  <div class="variant v3">
+    <div class="label">V3 · 5슬롯 / 하단 카운터 / 신규 스프라이트 축소</div>
+    <div class="desc">슬롯 72px × 5. 동시 5명 처리. 신규 92px 스프라이트는 70%로 축소되어 픽셀아트 보간 우려.</div>
+    <div class="frame">
+      <div class="hud-top">
+        <span class="stage">⭐ 1-2 비스트로</span>
+        <span class="timer">⏱ 02:14</span>
+        <span class="gold">💰 1,240</span>
+      </div>
+      <div class="bg-hall"></div>
+      <div class="bg-vignette"></div>
+
+      <div class="slot s1">
+        <div class="gauge"><div class="fill" style="width: 80%"></div></div>
+        <div class="bubble">🍝 <span class="price">+50</span></div>
+        <img class="customer" src="service/customer_normal_waiting.png" alt="normal">
+        <span class="name">일반</span>
+      </div>
+      <div class="slot s2">
+        <div class="gauge warn"><div class="fill" style="width: 50%"></div></div>
+        <div class="bubble">🍕 <span class="price">+120</span></div>
+        <img class="customer" src="service/customer_critic_waiting.png" alt="critic">
+        <span class="name">평론가</span>
+      </div>
+      <div class="slot s3">
+        <div class="gauge"><div class="fill" style="width: 70%"></div></div>
+        <div class="bubble">🍔 <span class="price">+30</span></div>
+        <img class="customer" src="service/customer_student_waiting.png" alt="student">
+        <span class="name">학생</span>
+      </div>
+      <div class="slot s4">
+        <div class="gauge"><div class="fill" style="width: 60%"></div></div>
+        <div class="bubble">🥘 <span class="price">+90</span></div>
+        <img class="customer" src="service/customer_traveler_waiting.png" alt="traveler">
+        <span class="name">여행객</span>
+      </div>
+      <div class="slot s5">
+        <div class="gauge danger"><div class="fill" style="width: 22%"></div></div>
+        <div class="bubble">🍣 <span class="price">+80</span></div>
+        <img class="customer" src="service/customer_regular_waiting.png" alt="regular">
+        <span class="name">단골</span>
+      </div>
+
+      <div class="counter"></div>
+
+      <div class="ctrl-bar">
+        <div class="menu-card ready">🍝<span class="mname">파스타 ×2</span></div>
+        <div class="menu-card">🍕<span class="mname">피자 ×0</span></div>
+        <div class="menu-card ready">🍔<span class="mname">버거 ×3</span></div>
+        <div class="menu-card">🍣<span class="mname">스시 ×1</span></div>
+      </div>
+
+      <span class="annot" style="top:50px; left:6px;">동시 5명</span>
+      <span class="annot" style="top:380px; left:6px;">신규 스프라이트 70% 축소</span>
+    </div>
+  </div>
+
+  <!-- ════════════ V4 ════════════ -->
+  <div class="variant v4">
+    <div class="label">V4 · 4슬롯 + 우측 대기열</div>
+    <div class="desc">활성 슬롯 4 + 우측 대기 큐 표시. 다음 손님 미리보기 가능, 전략적 판단 여지.</div>
+    <div class="frame">
+      <div class="hud-top">
+        <span class="stage">⭐ 1-2 비스트로</span>
+        <span class="timer">⏱ 02:14</span>
+        <span class="gold">💰 1,240</span>
+      </div>
+      <div class="bg-hall"></div>
+      <div class="bg-vignette"></div>
+
+      <div class="slot s1">
+        <div class="gauge"><div class="fill" style="width: 80%"></div></div>
+        <div class="bubble">🍝 <span class="price">+50</span></div>
+        <img class="customer" src="service/customer_normal_waiting.png" alt="normal">
+        <span class="name">일반</span>
+      </div>
+      <div class="slot s2">
+        <div class="gauge warn"><div class="fill" style="width: 50%"></div></div>
+        <div class="bubble">🍕 <span class="price">+120</span></div>
+        <img class="customer" src="service/customer_critic_waiting.png" alt="critic">
+        <span class="name">평론가</span>
+      </div>
+      <div class="slot s3">
+        <div class="gauge"><div class="fill" style="width: 70%"></div></div>
+        <div class="bubble">🍔 <span class="price">+30</span></div>
+        <img class="customer" src="service/customer_student_waiting.png" alt="student">
+        <span class="name">학생</span>
+      </div>
+      <div class="slot s4">
+        <div class="gauge danger"><div class="fill" style="width: 22%"></div></div>
+        <div class="bubble">🍣 <span class="price">+80</span></div>
+        <img class="customer" src="service/customer_regular_waiting.png" alt="regular">
+        <span class="name">단골</span>
+      </div>
+
+      <div class="counter"></div>
+
+      <!-- 우측 대기열 -->
+      <div class="queue">
+        <div class="qlabel">대기</div>
+        <div class="qicon">👤</div>
+        <div class="qicon">👥</div>
+        <div class="qicon">🧑</div>
+      </div>
+
+      <div class="ctrl-bar">
+        <div class="menu-card ready">🍝<span class="mname">파스타 ×2</span></div>
+        <div class="menu-card">🍕<span class="mname">피자 ×0</span></div>
+        <div class="menu-card ready">🍔<span class="mname">버거 ×3</span></div>
+        <div class="menu-card">🍣<span class="mname">스시 ×1</span></div>
+      </div>
+
+      <span class="annot" style="top:380px; right:42px;">대기열 미리보기 →</span>
+    </div>
+  </div>
+
+  <!-- ════════════ V5 ════════════ -->
+  <div class="variant v5">
+    <div class="label">V5 · 4슬롯 + 뒤쪽 줄서기 (분위기 ★)</div>
+    <div class="desc">활성 4 + 뒤쪽 대기 줄 6명(인터랙션 X, 분위기용). 입구 아치 + 떠다니는 골드 이펙트로 "정신없음" 연출.</div>
+    <div class="frame">
+      <div class="hud-top">
+        <span class="stage">⭐ 1-2 비스트로</span>
+        <span class="timer">⏱ 02:14</span>
+        <span class="gold">💰 1,240</span>
+      </div>
+      <div class="bg-hall"></div>
+      <div class="bg-vignette"></div>
+
+      <!-- 뒤쪽 대기 줄 -->
+      <span class="queue-label">↓ 줄 서있는 손님 8명</span>
+      <div class="queue-line">
+        <img src="service/customer_normal_waiting.png" alt="">
+        <img src="service/customer_vip_waiting.png" alt="">
+        <img src="service/customer_traveler_waiting.png" alt="">
+        <img src="service/customer_business_waiting.png" alt="">
+        <img src="service/customer_gourmet_waiting.png" alt="">
+        <img src="service/customer_rushed_waiting.png" alt="">
+      </div>
+
+      <!-- 입구 아치 (오른쪽) -->
+      <div class="entrance">입구</div>
+
+      <!-- 떠다니는 이펙트 -->
+      <span class="float-fx" style="top:280px; left:60px;">+50</span>
+      <span class="float-fx" style="top:300px; left:240px; animation-delay:0.5s;">+120</span>
+      <span class="float-fx" style="top:260px; left:160px; animation-delay:1s;">⭐</span>
+
+      <!-- 활성 슬롯 4개 -->
+      <div class="slot s1">
+        <div class="gauge"><div class="fill" style="width: 80%"></div></div>
+        <div class="bubble">🍝 <span class="price">+50</span></div>
+        <img class="customer" src="service/customer_normal_waiting.png" alt="normal">
+      </div>
+      <div class="slot s2">
+        <div class="gauge warn"><div class="fill" style="width: 50%"></div></div>
+        <div class="bubble">🍕 <span class="price">+120</span></div>
+        <img class="customer" src="service/customer_critic_waiting.png" alt="critic">
+      </div>
+      <div class="slot s3">
+        <div class="gauge"><div class="fill" style="width: 70%"></div></div>
+        <div class="bubble">🍔 <span class="price">+30</span></div>
+        <img class="customer" src="service/customer_student_waiting.png" alt="student">
+      </div>
+      <div class="slot s4">
+        <div class="gauge danger"><div class="fill" style="width: 22%"></div></div>
+        <div class="bubble">🍣 <span class="price">+80</span></div>
+        <img class="customer" src="service/customer_regular_waiting.png" alt="regular">
+      </div>
+
+      <div class="counter"></div>
+
+      <div class="ctrl-bar">
+        <div class="menu-card ready">🍝<span class="mname">파스타 ×2</span></div>
+        <div class="menu-card">🍕<span class="mname">피자 ×0</span></div>
+        <div class="menu-card ready">🍔<span class="mname">버거 ×3</span></div>
+        <div class="menu-card">🍣<span class="mname">스시 ×1</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ V6 ════════════ -->
+  <div class="variant v6">
+    <div class="label">V6 · ㄷ자 카운터 (8슬롯 동시) ★</div>
+    <div class="desc">정면 4 + 좌측 2 + 우측 2 = 8명 동시 처리. 진짜 정신없음. 단 슬롯당 50~60px로 좁아짐.</div>
+    <div class="frame">
+      <div class="hud-top">
+        <span class="stage">⭐ 1-2 비스트로</span>
+        <span class="timer">⏱ 02:14</span>
+        <span class="gold">💰 1,240</span>
+      </div>
+      <div class="bg-hall"></div>
+      <div class="bg-vignette"></div>
+
+      <!-- 정면 4슬롯 -->
+      <div class="slot slot-f slot-f1">
+        <div class="gauge"><div class="fill" style="width: 80%"></div></div>
+        <div class="bubble">🍝</div>
+        <img class="customer" src="service/customer_normal_waiting.png" alt="">
+      </div>
+      <div class="slot slot-f slot-f2">
+        <div class="gauge warn"><div class="fill" style="width: 50%"></div></div>
+        <div class="bubble">🍕</div>
+        <img class="customer" src="service/customer_critic_waiting.png" alt="">
+      </div>
+      <div class="slot slot-f slot-f3">
+        <div class="gauge"><div class="fill" style="width: 70%"></div></div>
+        <div class="bubble">🍔</div>
+        <img class="customer" src="service/customer_student_waiting.png" alt="">
+      </div>
+      <div class="slot slot-f slot-f4">
+        <div class="gauge danger"><div class="fill" style="width: 22%"></div></div>
+        <div class="bubble">🍣</div>
+        <img class="customer" src="service/customer_regular_waiting.png" alt="">
+      </div>
+
+      <!-- 좌측 2슬롯 -->
+      <div class="slot slot-l1">
+        <div class="gauge"><div class="fill" style="width: 60%"></div></div>
+        <div class="bubble">🥘</div>
+        <img class="customer" src="service/customer_traveler_waiting.png" alt="">
+      </div>
+      <div class="slot slot-l2">
+        <div class="gauge warn"><div class="fill" style="width: 40%"></div></div>
+        <div class="bubble">🍝</div>
+        <img class="customer" src="service/customer_vip_waiting.png" alt="">
+      </div>
+
+      <!-- 우측 2슬롯 -->
+      <div class="slot slot-r1">
+        <div class="gauge"><div class="fill" style="width: 75%"></div></div>
+        <div class="bubble">🍕</div>
+        <img class="customer" src="service/customer_business_waiting.png" alt="">
+      </div>
+      <div class="slot slot-r2">
+        <div class="gauge danger"><div class="fill" style="width: 15%"></div></div>
+        <div class="bubble">🍔</div>
+        <img class="customer" src="service/customer_gourmet_waiting.png" alt="">
+      </div>
+
+      <!-- ㄷ자 카운터 -->
+      <div class="counter-side-l"></div>
+      <div class="counter-side-r"></div>
+      <div class="counter-front"></div>
+
+      <div class="ctrl-bar">
+        <div class="menu-card ready">🍝<span class="mname">파스타 ×2</span></div>
+        <div class="menu-card">🍕<span class="mname">피자 ×0</span></div>
+        <div class="menu-card ready">🍔<span class="mname">버거 ×3</span></div>
+        <div class="menu-card">🍣<span class="mname">스시 ×1</span></div>
+      </div>
+
+      <span class="annot" style="top:200px; left:6px;">측면 슬롯</span>
+      <span class="annot" style="top:200px; right:6px;">측면 슬롯</span>
+    </div>
+  </div>
+
+  <!-- ════════════ V7 ════════════ -->
+  <div class="variant v7">
+    <div class="label">V7 · 카운터 + 상단 식사홀 (분위기 + 4슬롯)</div>
+    <div class="desc">활성 카운터 4 + 상단에 식사 중인 손님 그룹 4테이블 (배경 데코, 정적). 만족 하트 효과로 분위기 살림.</div>
+    <div class="frame">
+      <div class="hud-top">
+        <span class="stage">⭐ 1-2 비스트로</span>
+        <span class="timer">⏱ 02:14</span>
+        <span class="gold">💰 1,240</span>
+      </div>
+      <div class="bg-hall"></div>
+      <div class="bg-vignette"></div>
+
+      <!-- 상단 식사홀 -->
+      <span class="hall-label">식사 중인 손님 (만족도 진행)</span>
+      <div class="hall-tables">
+        <div class="hall-table">
+          <span class="heart">♥80%</span>
+          <img src="service/customer_normal_waiting.png" alt="">
+          <img src="service/customer_vip_waiting.png" alt="">
+        </div>
+        <div class="hall-table">
+          <span class="heart">♥45%</span>
+          <img src="service/customer_traveler_waiting.png" alt="">
+          <img src="service/customer_gourmet_waiting.png" alt="">
+        </div>
+        <div class="hall-table">
+          <span class="heart">♥95%</span>
+          <img src="service/customer_business_waiting.png" alt="">
+        </div>
+        <div class="hall-table">
+          <span class="heart">♥30%</span>
+          <img src="service/customer_rushed_waiting.png" alt="">
+          <img src="service/customer_student_waiting.png" alt="">
+        </div>
+      </div>
+
+      <!-- 활성 카운터 슬롯 4개 -->
+      <div class="slot s1">
+        <div class="gauge"><div class="fill" style="width: 80%"></div></div>
+        <div class="bubble">🍝 <span class="price">+50</span></div>
+        <img class="customer" src="service/customer_normal_waiting.png" alt="">
+      </div>
+      <div class="slot s2">
+        <div class="gauge warn"><div class="fill" style="width: 50%"></div></div>
+        <div class="bubble">🍕 <span class="price">+120</span></div>
+        <img class="customer" src="service/customer_critic_waiting.png" alt="">
+      </div>
+      <div class="slot s3">
+        <div class="gauge"><div class="fill" style="width: 70%"></div></div>
+        <div class="bubble">🍔 <span class="price">+30</span></div>
+        <img class="customer" src="service/customer_student_waiting.png" alt="">
+      </div>
+      <div class="slot s4">
+        <div class="gauge danger"><div class="fill" style="width: 22%"></div></div>
+        <div class="bubble">🍣 <span class="price">+80</span></div>
+        <img class="customer" src="service/customer_regular_waiting.png" alt="">
+      </div>
+
+      <div class="counter"></div>
+
+      <div class="ctrl-bar">
+        <div class="menu-card ready">🍝<span class="mname">파스타 ×2</span></div>
+        <div class="menu-card">🍕<span class="mname">피자 ×0</span></div>
+        <div class="menu-card ready">🍔<span class="mname">버거 ×3</span></div>
+        <div class="menu-card">🍣<span class="mname">스시 ×1</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ V8 ════════════ -->
+  <div class="variant v8">
+    <div class="label">V8 · 회전초밥 바 (좌 셰프 + 우 ㄷ자, 7명) ★★</div>
+    <div class="desc">좌측 셰프(👨‍🍳) + 메뉴 카드 세로 배치. 우측 ㄷ자 카운터에 손님 7명 둘러앉음 (상 3 + 우 1 + 하 3). 가운데 컨베이어 벨트로 음식 운반.</div>
+    <div class="frame">
+      <div class="hud-top">
+        <span class="stage">⭐ 1-2 비스트로</span>
+        <span class="timer">⏱ 02:14</span>
+        <span class="gold">💰 1,240</span>
+      </div>
+      <div class="bg-hall"></div>
+      <div class="bg-vignette"></div>
+
+      <!-- 셰프 영역 (좌측) -->
+      <div class="chef-zone">
+        <div class="chef-stand">
+          <span class="chef-img">👨‍🍳</span>
+        </div>
+        <span class="chef-label">셰프</span>
+        <div class="menu-cards-vert">
+          <div class="mc ready">🍝<span class="qty">×2</span></div>
+          <div class="mc">🍕<span class="qty">×0</span></div>
+          <div class="mc ready">🍔<span class="qty">×3</span></div>
+          <div class="mc">🍣<span class="qty">×1</span></div>
+        </div>
+      </div>
+
+      <!-- 컨베이어 벨트 (ㄷ자 안쪽) -->
+      <div class="conveyor">↻ 컨베이어 ↻</div>
+
+      <!-- 음식 트레이 (이동 중) -->
+      <div class="tray">🍝</div>
+      <div class="tray t2">🍕</div>
+      <div class="tray t3">🍣</div>
+
+      <!-- ㄷ자 카운터 -->
+      <div class="cnt-top"></div>
+      <div class="cnt-bot"></div>
+      <div class="cnt-right"></div>
+
+      <!-- 상단 카운터 손님 3명 -->
+      <div class="cust-top t1">
+        <div class="gauge"><div class="fill" style="width:80%"></div></div>
+        <div class="bubble">🍝</div>
+        <img class="customer" src="service/customer_normal_waiting.png" alt="">
+      </div>
+      <div class="cust-top t2">
+        <div class="gauge warn"><div class="fill" style="width:50%"></div></div>
+        <div class="bubble">🍕</div>
+        <img class="customer" src="service/customer_critic_waiting.png" alt="">
+      </div>
+      <div class="cust-top t3">
+        <div class="gauge"><div class="fill" style="width:70%"></div></div>
+        <div class="bubble">🍔</div>
+        <img class="customer" src="service/customer_student_waiting.png" alt="">
+      </div>
+
+      <!-- 우측 카운터 손님 1명 -->
+      <div class="cust-right">
+        <div class="gauge danger"><div class="fill" style="width:25%"></div></div>
+        <div class="bubble">🥘</div>
+        <img class="customer" src="service/customer_business_waiting.png" alt="">
+      </div>
+
+      <!-- 하단 카운터 손님 3명 -->
+      <div class="cust-bot b1">
+        <div class="gauge"><div class="fill" style="width:75%"></div></div>
+        <div class="bubble">🍝</div>
+        <img class="customer" src="service/customer_traveler_waiting.png" alt="">
+      </div>
+      <div class="cust-bot b2">
+        <div class="gauge danger"><div class="fill" style="width:22%"></div></div>
+        <div class="bubble">🍣</div>
+        <img class="customer" src="service/customer_regular_waiting.png" alt="">
+      </div>
+      <div class="cust-bot b3">
+        <div class="gauge warn"><div class="fill" style="width:40%"></div></div>
+        <div class="bubble">🍔</div>
+        <img class="customer" src="service/customer_vip_waiting.png" alt="">
+      </div>
+
+      <span class="annot" style="top:50px; left:114px;">상단 카운터 (3명)</span>
+      <span class="annot" style="bottom:200px; right:6px;">우측</span>
+      <span class="annot" style="bottom:84px; left:114px;">하단 카운터 (3명)</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top: 32px; padding: 16px; background: #2a2a35; border-radius: 8px; max-width: 1500px;">
+  <h2 style="font-size: 14px; margin-bottom: 8px; color: #ffd166;">레이아웃 비교 요약</h2>
+  <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+    <thead>
+      <tr style="background: #1a1a25;">
+        <th style="padding: 6px; text-align: left; border-bottom: 1px solid #444;">항목</th>
+        <th style="padding: 6px; text-align: center; border-bottom: 1px solid #444;">V1 (권고)</th>
+        <th style="padding: 6px; text-align: center; border-bottom: 1px solid #444;">V2</th>
+        <th style="padding: 6px; text-align: center; border-bottom: 1px solid #444;">V3</th>
+        <th style="padding: 6px; text-align: center; border-bottom: 1px solid #444;">V4</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding: 6px;">동시 슬롯</td><td style="text-align:center;">4</td><td style="text-align:center;">4</td><td style="text-align:center;">5</td><td style="text-align:center;">4 + 큐</td></tr>
+      <tr><td style="padding: 6px;">슬롯 폭</td><td style="text-align:center;">90px</td><td style="text-align:center;">90px</td><td style="text-align:center;">72px</td><td style="text-align:center;">81px</td></tr>
+      <tr><td style="padding: 6px;">손님 노출</td><td style="text-align:center;">상반신</td><td style="text-align:center;">전신</td><td style="text-align:center;">상반신 (소형)</td><td style="text-align:center;">상반신</td></tr>
+      <tr><td style="padding: 6px;">신규 스프라이트(92px) 축소</td><td style="text-align:center; color:#5cb85c;">필요 없음</td><td style="text-align:center; color:#5cb85c;">필요 없음</td><td style="text-align:center; color:#d9534f;">70% 축소</td><td style="text-align:center; color:#f0ad4e;">88% 축소</td></tr>
+      <tr><td style="padding: 6px;">정합 위험</td><td style="text-align:center; color:#5cb85c;">낮음</td><td style="text-align:center; color:#f0ad4e;">중간 (발 정합)</td><td style="text-align:center; color:#5cb85c;">낮음</td><td style="text-align:center; color:#5cb85c;">낮음</td></tr>
+      <tr><td style="padding: 6px;">전략 깊이</td><td style="text-align:center;">기본</td><td style="text-align:center;">기본</td><td style="text-align:center;">+동시성</td><td style="text-align:center;">+예측 가능</td></tr>
+      <tr><td style="padding: 6px;">주방 카드 영역</td><td style="text-align:center;">80px</td><td style="text-align:center;">200px</td><td style="text-align:center;">80px</td><td style="text-align:center;">80px</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Kitchen Chaos · 카이로 소프트 스타일 시안</title>
+<style>
+  body {
+    margin: 0;
+    padding: 24px;
+    background: #15151c;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  h1 { font-size: 18px; margin: 0 0 4px 0; }
+  .lead { font-size: 12px; color: #aaa; margin-bottom: 20px; }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .variant {
+    background: #1f1f2a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffd166;
+    margin-bottom: 4px;
+  }
+  .desc {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 8px;
+    width: 360px;
+  }
+  .frame {
+    position: relative;
+    width: 360px;
+    height: 640px;
+    background: #2a2a35;
+    overflow: hidden;
+    border: 2px solid #444;
+  }
+
+  /* HUD */
+  .hud-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 32px;
+    background: rgba(20, 20, 30, 0.85);
+    border-bottom: 1px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    font-size: 11px;
+    z-index: 100;
+    color: #ffd166;
+  }
+
+  /* 식당 공간 (사선 격자 바닥, 흩뿌리는 floor_tile.png 패턴) */
+  .room {
+    position: absolute;
+    top: 32px; left: 0; right: 0; bottom: 80px;
+    background-image: url('kairo/floor_tile.png');
+    background-repeat: repeat;
+    image-rendering: pixelated;
+    overflow: hidden;
+  }
+
+  /* 뒷벽 (상단) */
+  .wall-back {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    background-image: url('kairo/wall_back.png');
+    background-repeat: repeat-x;
+    background-size: 128px 64px;
+    image-rendering: pixelated;
+    z-index: 1;
+  }
+
+  /* 주방 카운터 (뒷벽 앞) */
+  .kitchen {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    width: 192px;
+    height: 80px;
+    z-index: 5;
+  }
+  .kitchen img.counter {
+    position: absolute;
+    top: 0; left: 0;
+    width: 192px; height: 80px;
+    image-rendering: pixelated;
+  }
+  .kitchen img.chef {
+    position: absolute;
+    bottom: -10px;
+    left: 80px;
+    width: 48px; height: 72px;
+    image-rendering: pixelated;
+    z-index: 10;
+  }
+
+  /* 입구 문 (우측 상단) */
+  .door {
+    position: absolute;
+    top: 60px; right: 16px;
+    width: 64px; height: 80px;
+    image-rendering: pixelated;
+    z-index: 5;
+  }
+
+  /* 화분 장식 */
+  .plant {
+    position: absolute;
+    width: 48px; height: 64px;
+    image-rendering: pixelated;
+    z-index: 6;
+  }
+  .plant.p1 { top: 60px; right: 88px; }
+  .plant.p2 { bottom: 12px; left: 12px; }
+
+  /* 좌석 세트 (테이블 + 4의자, 64x64 → 128x128로 확대해 시인성 확보) */
+  .seat-set {
+    position: absolute;
+    width: 128px; height: 128px;
+    image-rendering: pixelated;
+    z-index: 10;
+  }
+  .seat-set img.table {
+    width: 128px; height: 128px;
+    display: block;
+  }
+
+  /* 앉은 손님 (4슬롯 — 테이블 기준 N/S/E/W 중 N,S만 사용) */
+  .seat-set .seat {
+    position: absolute;
+    width: 36px; height: 42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .seat-set .seat img.cust {
+    width: 36px; height: 42px;
+    image-rendering: pixelated;
+  }
+  /* 위쪽 의자 손님 (등받이 위 → 손님 머리가 등받이보다 위로 올라옴) */
+  .seat-set .seat.n1 { top: 6px; left: 14px; z-index: 11; }
+  .seat-set .seat.n2 { top: 6px; left: 78px; z-index: 11; }
+  /* 아래쪽 의자 손님 (등받이 아래 → 손님 상반신이 의자에 자연스럽게 안착) */
+  .seat-set .seat.s1 { top: 70px; left: 14px; z-index: 13; }
+  .seat-set .seat.s2 { top: 70px; left: 78px; z-index: 13; }
+
+  /* 좌석 세트 배치 (테이블 3개) */
+  .seat-set.t1 { top: 180px; left: 16px; }
+  .seat-set.t2 { top: 180px; left: 184px; }
+  .seat-set.t3 { top: 320px; left: 100px; }
+
+  /* 만족도 게이지 (좌석 세트 위에 떠있음) */
+  .seat-set .gauge {
+    position: absolute;
+    width: 28px; height: 4px;
+    background: #2a2a35;
+    border: 1px solid #888;
+    z-index: 14;
+  }
+  .seat-set .gauge .fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50, #ffd166);
+  }
+  .seat-set .gauge.warn .fill { background: linear-gradient(90deg, #ffd166, #ff7043); }
+  .seat-set .gauge.danger .fill { background: linear-gradient(90deg, #ff7043, #d32f2f); }
+  .seat-set .gauge.n1 { top: -4px; left: 18px; }
+  .seat-set .gauge.n2 { top: -4px; left: 82px; }
+  .seat-set .gauge.s1 { top: 64px; left: 18px; }
+  .seat-set .gauge.s2 { top: 64px; left: 82px; }
+
+  /* 음식 주문 말풍선 */
+  .seat-set .bubble {
+    position: absolute;
+    background: #fff;
+    color: #000;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 1px 4px;
+    font-size: 11px;
+    z-index: 15;
+    white-space: nowrap;
+  }
+  .seat-set .bubble.n1 { top: -16px; left: 8px; }
+  .seat-set .bubble.s2 { top: 56px; left: 76px; }
+
+  /* 대기 손님 (입구 근처에 줄서기) */
+  .waiting {
+    position: absolute;
+    width: 36px; height: 42px;
+    image-rendering: pixelated;
+    z-index: 7;
+  }
+  .waiting.w1 { top: 130px; right: 24px; }
+  .waiting.w2 { top: 132px; right: 56px; opacity: 0.85; }
+
+  /* 하단 컨트롤 바 */
+  .ctrl-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, #2a2a35, #1a1a25);
+    border-top: 2px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 8px;
+    z-index: 50;
+  }
+  .ctrl-bar .menu-card {
+    width: 56px;
+    height: 64px;
+    background: linear-gradient(180deg, #3a3a4a, #1a1a25);
+    border: 2px solid #888;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    position: relative;
+  }
+  .ctrl-bar .menu-card.ready {
+    border-color: #ffd166;
+    box-shadow: 0 0 8px rgba(255,209,102,0.5);
+  }
+  .ctrl-bar .menu-card .mname {
+    position: absolute;
+    bottom: 2px;
+    font-size: 8px;
+    color: #fff;
+  }
+
+  /* 주석 */
+  .annot {
+    position: absolute;
+    background: rgba(255, 209, 102, 0.92);
+    color: #000;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 2px;
+    z-index: 200;
+  }
+
+  .legend {
+    margin-top: 16px;
+    font-size: 11px;
+    color: #aaa;
+    width: 360px;
+  }
+  .legend ul { padding-left: 16px; margin: 4px 0; }
+  .legend li { margin-bottom: 2px; }
+</style>
+</head>
+<body>
+
+<h1>Kitchen Chaos · 카이로 소프트 스타일 시험 시안</h1>
+<p class="lead">Phase 76 영업씬 재설계 시험 — 사선뷰 + 사전 합성 좌석 세트 + 앉기 전용 스프라이트. 360×640. <strong>placeholder 도형 에셋(PIL 생성), 진짜 픽셀아트 아님.</strong></p>
+
+<div class="grid">
+
+  <div class="variant v9">
+    <div class="label">V9 · 카이로 스타일 다이닝홀 (시험)</div>
+    <div class="desc">사선뷰 식당. 테이블+의자 사전 합성 세트, 손님은 의자 위에 단순 박힘. 다리 정합 문제 회피(앉기 전용 상반신 스프라이트). 입구에서 줄서기, 주방 카운터에서 셰프가 조리.</div>
+
+    <div class="frame">
+      <div class="hud-top">
+        <span>⭐ 1-2 비스트로</span>
+        <span>⏱ 02:14</span>
+        <span>💰 1,240</span>
+      </div>
+
+      <div class="room">
+        <!-- 뒷벽 -->
+        <div class="wall-back"></div>
+
+        <!-- 주방 영역 (좌측 상단) -->
+        <div class="kitchen">
+          <img class="counter" src="kairo/kitchen_counter.png" alt="counter">
+          <img class="chef" src="kairo/chef_kairo.png" alt="chef">
+        </div>
+
+        <!-- 입구 (우측 상단) -->
+        <img class="door" src="kairo/door.png" alt="door">
+
+        <!-- 장식 -->
+        <img class="plant p1" src="kairo/plant.png" alt="plant">
+        <img class="plant p2" src="kairo/plant.png" alt="plant">
+
+        <!-- 대기 손님 (입구 근처) -->
+        <img class="waiting w1" src="kairo/customer_seated.png" alt="waiting">
+        <img class="waiting w2" src="kairo/customer_seated.png" alt="waiting">
+
+        <!-- 좌석 세트 1 (좌측) -->
+        <div class="seat-set t1">
+          <img class="table" src="kairo/table_4seat.png" alt="table">
+          <!-- 위쪽 의자 손님 -->
+          <div class="seat n1"><img class="cust" src="kairo/customer_seated.png"></div>
+          <div class="seat n2"><img class="cust" src="kairo/customer_seated.png"></div>
+          <!-- 아래쪽 의자 손님 -->
+          <div class="seat s1"><img class="cust" src="kairo/customer_seated.png"></div>
+          <!-- s2 비어있음 -->
+
+          <div class="gauge n1"><div class="fill" style="width: 75%"></div></div>
+          <div class="gauge warn n2"><div class="fill" style="width: 45%"></div></div>
+          <div class="gauge s1"><div class="fill" style="width: 90%"></div></div>
+          <div class="bubble n1">🍝</div>
+        </div>
+
+        <!-- 좌석 세트 2 (우측) -->
+        <div class="seat-set t2">
+          <img class="table" src="kairo/table_4seat.png" alt="table">
+          <div class="seat n1"><img class="cust" src="kairo/customer_seated.png"></div>
+          <div class="seat s1"><img class="cust" src="kairo/customer_seated.png"></div>
+          <div class="seat s2"><img class="cust" src="kairo/customer_seated.png"></div>
+
+          <div class="gauge n1"><div class="fill" style="width: 60%"></div></div>
+          <div class="gauge s1"><div class="fill" style="width: 80%"></div></div>
+          <div class="gauge danger s2"><div class="fill" style="width: 20%"></div></div>
+          <div class="bubble s2">🍔</div>
+        </div>
+
+        <!-- 좌석 세트 3 (중앙 하단) -->
+        <div class="seat-set t3">
+          <img class="table" src="kairo/table_4seat.png" alt="table">
+          <div class="seat n1"><img class="cust" src="kairo/customer_seated.png"></div>
+          <div class="seat n2"><img class="cust" src="kairo/customer_seated.png"></div>
+          <div class="seat s1"><img class="cust" src="kairo/customer_seated.png"></div>
+          <div class="seat s2"><img class="cust" src="kairo/customer_seated.png"></div>
+
+          <div class="gauge n1"><div class="fill" style="width: 70%"></div></div>
+          <div class="gauge n2"><div class="fill" style="width: 55%"></div></div>
+          <div class="gauge warn s1"><div class="fill" style="width: 35%"></div></div>
+          <div class="gauge s2"><div class="fill" style="width: 85%"></div></div>
+        </div>
+
+        <!-- 주석 -->
+        <span class="annot" style="top:36px; left:6px;">주방 (셰프)</span>
+        <span class="annot" style="top:36px; right:6px;">입구</span>
+        <span class="annot" style="top:170px; left:6px;">3슬롯/4슬롯/4슬롯<br>= 11명 동시</span>
+        <span class="annot" style="bottom:90px; right:6px;">대기열</span>
+      </div>
+
+      <div class="ctrl-bar">
+        <div class="menu-card ready">🍝<span class="mname">파스타 ×2</span></div>
+        <div class="menu-card">🍕<span class="mname">피자 ×0</span></div>
+        <div class="menu-card ready">🍔<span class="mname">버거 ×3</span></div>
+        <div class="menu-card">🍣<span class="mname">스시 ×1</span></div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <strong>카이로 스타일 핵심 요소 (시뮬레이션):</strong>
+      <ul>
+        <li><strong>좌석 세트</strong>: 테이블+의자 4개를 하나의 합성 스프라이트로 처리 (table_4seat.png). 손님은 의자 좌표에 단순 박힘.</li>
+        <li><strong>앉기 전용 스프라이트</strong>: 다리 없는 상반신 컷(customer_seated.png). 다리/의자 정합 문제 회피.</li>
+        <li><strong>Y축 깊이 정렬</strong>: 위쪽 의자 손님(z-index 11) → 테이블 → 아래쪽 의자 손님(z-index 13) 순으로 자연스러운 가림.</li>
+        <li><strong>사선뷰 격자 바닥</strong>: floor_tile.png를 32x32 단위로 반복. 카이로 특유의 평면적이지만 입체감 있는 분위기.</li>
+        <li><strong>동시 처리량</strong>: 11석 × 회전율 → V8(7석)보다 카오스 분위기 강함.</li>
+      </ul>
+      <strong>이 시안의 한계 (실제 구현 시 보강 필요):</strong>
+      <ul>
+        <li>placeholder 도형 에셋이라 카이로 특유의 픽셀 디테일/음영이 없음 → 실제 PixelLab high top-down 발주 필요</li>
+        <li>손님 종류 1종만 사용 → 실제는 10종 다양화</li>
+        <li>주방 영역이 단순 평면 → 실제는 조리 인터랙션(불 켜짐, 김 모락모락 등) 필요</li>
+        <li>벽/입구가 placeholder → 카이로처럼 거리/창문/간판 등 외부 풍경 노출 검토</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
