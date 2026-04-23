@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>KC ServiceScene V11 — 4분면 세로 테이블</title>
+<style>
+:root { --w: 360px; --h: 640px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #1e1e1e;
+  color: #ddd;
+  font-family: -apple-system, sans-serif;
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+.label { font-size: 14px; color: #aaa; margin-bottom: 8px; }
+.viewport {
+  width: var(--w);
+  height: var(--h);
+  background: #2a1f15;
+  border: 2px solid #444;
+  position: relative;
+  image-rendering: pixelated;
+  overflow: hidden;
+}
+img { image-rendering: pixelated; display: block; position: absolute; }
+
+/* HUD 32px */
+.hud {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 32px;
+  background: linear-gradient(#3a2a18, #2a1f10);
+  border-bottom: 1px solid #5a4020;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 8px;
+  font-size: 11px; color: #d8b878;
+}
+
+/* 가로 벽 24px */
+.wall {
+  position: absolute;
+  top: 32px; left: 0; right: 0; height: 24px;
+  background: repeating-linear-gradient(90deg, #4a3320 0, #4a3320 32px, #3a2818 32px, #3a2818 64px);
+  border-bottom: 2px solid #2a1808;
+  z-index: 5;
+}
+
+/* 바닥 영역 (다이닝홀+주방) */
+.room {
+  position: absolute;
+  top: 56px; left: 0; right: 0; bottom: 80px;
+  background-image: url('travellers/floor_wood.png');
+  background-size: 32px 32px;
+  background-repeat: repeat;
+  z-index: 1;
+}
+
+/* 주방 (좌측 120px) */
+.kitchen {
+  position: absolute;
+  top: 56px; left: 0; bottom: 80px; width: 120px;
+  background-color: rgba(60, 35, 20, 0.35);
+  border-right: 2px solid rgba(80, 50, 25, 0.7);
+  z-index: 2;
+}
+
+/* 카운터 (주방 우측 가장자리에 세로) */
+.counter-v {
+  top: 80px; left: 92px;
+}
+
+/* 셰프 (주방 안) */
+.chef-1 { top: 100px; left: 50px; z-index: 50; }
+.chef-2 { top: 250px; left: 60px; z-index: 50; }
+
+/* 다이닝홀 4분면: 좌상/우상/좌하/우하 */
+/* 다이닝홀 x 범위: 120 ~ 360 (240px) */
+/* 가운데 세로 통로: x=240 (왼쪽 4분면 중심 ~178, 오른쪽 4분면 중심 ~302) */
+/* y 범위 80 ~ 540 (460px), 가운데 가로 통로 y=310 */
+/* 위 4분면 중심 y ~190, 아래 4분면 중심 y ~430 */
+
+.quad {
+  position: absolute;
+  width: 100px;
+  height: 110px;
+  z-index: 10;
+}
+.quad.tl { top: 100px; left: 130px; }
+.quad.tr { top: 100px; left: 232px; }
+.quad.bl { top: 340px; left: 130px; }
+.quad.br { top: 340px; left: 232px; }
+
+/* 각 quad 내부에 테이블 + 좌/우 벤치 + 손님 슬롯 */
+.quad .bench-l { top: 18px; left: 18px; }
+.quad .bench-r { top: 18px; left: 68px; }
+.quad .table-v { top: 12px; left: 26px; z-index: 11; }
+/* 손님 좌측 (벤치-l 위, facing-right) - 3슬롯 */
+.quad .cust-l1 { top: 22px; left: 17px; z-index: 13; }
+.quad .cust-l2 { top: 50px; left: 17px; z-index: 13; }
+.quad .cust-l3 { top: 78px; left: 17px; z-index: 13; }
+/* 손님 우측 (벤치-r 위, facing-left) - 3슬롯 */
+.quad .cust-r1 { top: 22px; left: 67px; z-index: 13; }
+.quad .cust-r2 { top: 50px; left: 67px; z-index: 13; }
+.quad .cust-r3 { top: 78px; left: 67px; z-index: 13; }
+
+/* 컨트롤 바 80px */
+.ctrl {
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(#2a1f10, #1a1208);
+  border-top: 2px solid #5a4020;
+  z-index: 100;
+  display: flex; gap: 6px; padding: 6px;
+}
+.ctrl .slot {
+  flex: 1;
+  background: rgba(80, 55, 30, 0.5);
+  border: 1px solid #6a4525;
+  border-radius: 4px;
+}
+
+/* 가이드 라벨 */
+.guide {
+  position: absolute;
+  font-size: 9px;
+  color: #ffcc77;
+  text-shadow: 1px 1px 0 #000;
+  z-index: 200;
+  pointer-events: none;
+}
+
+/* 동선 화살표 (참고용) */
+.path {
+  position: absolute;
+  border: 1px dashed rgba(255, 200, 80, 0.4);
+  z-index: 80;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="label">V11 — 4분면 세로 테이블 (총 24석 = 4테이블 × 6석)</div>
+  <div class="viewport v11">
+    <div class="hud">
+      <span>골드 1,250</span>
+      <span>웨이브 3/5</span>
+      <span>★★★</span>
+    </div>
+    <div class="wall"></div>
+    <div class="room"></div>
+    <div class="kitchen"></div>
+
+    <!-- 카운터 -->
+    <img src="travellers/counter_vertical.png" class="counter-v">
+
+    <!-- 셰프 2명 -->
+    <img src="travellers/chef_side.png" class="chef-1">
+    <img src="travellers/chef_side.png" class="chef-2">
+
+    <!-- 4분면 -->
+    <div class="quad tl">
+      <img src="travellers/bench_vertical_l.png" class="bench-l">
+      <img src="travellers/bench_vertical_r.png" class="bench-r">
+      <img src="travellers/table_vertical.png" class="table-v">
+      <img src="travellers/customer_facing_right.png" class="cust-l1">
+      <img src="travellers/customer_facing_right.png" class="cust-l2">
+      <img src="travellers/customer_facing_right.png" class="cust-l3">
+      <img src="travellers/customer_facing_left.png" class="cust-r1">
+      <img src="travellers/customer_facing_left.png" class="cust-r2">
+      <img src="travellers/customer_facing_left.png" class="cust-r3">
+    </div>
+
+    <div class="quad tr">
+      <img src="travellers/bench_vertical_l.png" class="bench-l">
+      <img src="travellers/bench_vertical_r.png" class="bench-r">
+      <img src="travellers/table_vertical.png" class="table-v">
+      <img src="travellers/customer_facing_right.png" class="cust-l1">
+      <img src="travellers/customer_facing_right.png" class="cust-l2">
+      <img src="travellers/customer_facing_left.png" class="cust-r2">
+      <img src="travellers/customer_facing_left.png" class="cust-r3">
+    </div>
+
+    <div class="quad bl">
+      <img src="travellers/bench_vertical_l.png" class="bench-l">
+      <img src="travellers/bench_vertical_r.png" class="bench-r">
+      <img src="travellers/table_vertical.png" class="table-v">
+      <img src="travellers/customer_facing_right.png" class="cust-l1">
+      <img src="travellers/customer_facing_left.png" class="cust-r1">
+      <img src="travellers/customer_facing_left.png" class="cust-r2">
+    </div>
+
+    <div class="quad br">
+      <img src="travellers/bench_vertical_l.png" class="bench-l">
+      <img src="travellers/bench_vertical_r.png" class="bench-r">
+      <img src="travellers/table_vertical.png" class="table-v">
+      <img src="travellers/customer_facing_right.png" class="cust-l2">
+      <img src="travellers/customer_facing_right.png" class="cust-l3">
+      <img src="travellers/customer_facing_left.png" class="cust-r1">
+      <img src="travellers/customer_facing_left.png" class="cust-r2">
+      <img src="travellers/customer_facing_left.png" class="cust-r3">
+    </div>
+
+    <!-- 가운데 통로 라벨 -->
+    <div class="guide" style="left: 220px; top: 305px;">통로</div>
+
+    <!-- 셰프 동선 화살표 (카운터→4분면) -->
+    <div class="path" style="left: 116px; top: 220px; width: 14px; height: 0; border-top: none; border-left: 2px dashed rgba(255,200,80,0.5);"></div>
+
+    <div class="ctrl">
+      <div class="slot"></div>
+      <div class="slot"></div>
+      <div class="slot"></div>
+      <div class="slot"></div>
+    </div>
+  </div>
+</div>
+
+<div style="max-width: 360px; font-size: 13px; line-height: 1.6;">
+  <h3 style="color: #ffcc77;">V11 변경점</h3>
+  <ul style="padding-left: 20px;">
+    <li><b>테이블 4분면 배치</b>: 좌상/우상/좌하/우하 (긴 가로 테이블 3개 → 짧은 세로 테이블 4개)</li>
+    <li><b>손님 facing-left/right</b>: 사이드뷰 풀바디에 가장 자연스러운 옆모습 앉기</li>
+    <li><b>좌석 6석/테이블</b>: 좌측 벤치 3 + 우측 벤치 3 = 24석 (V10과 동일 총원)</li>
+    <li><b>중앙 통로(+자형)</b>: 셰프가 카운터→4방향 동선 깔끔, 밀집 가능</li>
+    <li><b>카운터 세로 배치</b>: 주방 우측 경계에 붙여 다이닝홀과 명확 분리</li>
+  </ul>
+  <p style="margin-top:12px;color:#aaa;">색상 구분: 주황 = facing-right, 초록 = facing-left (실제 발주는 별개 스프라이트)</p>
+</div>
+
+</body>
+</html>

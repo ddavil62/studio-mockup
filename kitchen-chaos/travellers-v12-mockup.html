@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>KC ServiceScene V12 — 4분면 세로 테이블 (AD 검수 반영)</title>
+<style>
+:root { --w: 360px; --h: 640px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #1e1e1e;
+  color: #ddd;
+  font-family: -apple-system, sans-serif;
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+.label { font-size: 14px; color: #aaa; margin-bottom: 8px; }
+.viewport {
+  width: var(--w);
+  height: var(--h);
+  background: #2a1f15;
+  border: 2px solid #444;
+  position: relative;
+  image-rendering: pixelated;
+  overflow: hidden;
+}
+img { image-rendering: pixelated; display: block; position: absolute; }
+
+/* HUD 32px */
+.hud {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 32px;
+  background: linear-gradient(#3a2a18, #2a1f10);
+  border-bottom: 1px solid #5a4020;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 8px;
+  font-size: 11px; color: #d8b878;
+}
+
+/* 가로 벽 24px */
+.wall {
+  position: absolute;
+  top: 32px; left: 0; right: 0; height: 24px;
+  background: repeating-linear-gradient(90deg, #4a3320 0, #4a3320 32px, #3a2818 32px, #3a2818 64px);
+  border-bottom: 2px solid #2a1808;
+  z-index: 5;
+}
+
+/* 바닥 영역 */
+.room {
+  position: absolute;
+  top: 56px; left: 0; right: 0; bottom: 80px;
+  background-image: url('travellers/floor_wood.png');
+  background-size: 32px 32px;
+  background-repeat: repeat;
+  z-index: 1;
+}
+
+/* 주방 (좌측 120px) */
+.kitchen {
+  position: absolute;
+  top: 56px; left: 0; bottom: 80px; width: 120px;
+  background-color: rgba(60, 35, 20, 0.35);
+  border-right: 2px solid rgba(80, 50, 25, 0.7);
+  z-index: 2;
+}
+
+/* 카운터 V12 (40x100, 가로 확장 작업면 강조) */
+/* 주방 우측 경계 x=120과 맞닿음, top=90 (HUD32+벽24+34 = 90) */
+.counter-v12 { top: 90px; left: 80px; z-index: 3; }
+
+/* 셰프 (주방 안, 카운터 좌측) */
+.chef-1 { top: 100px; left: 40px; z-index: 50; }
+.chef-2 { top: 148px; left: 40px; z-index: 50; }
+
+/* 입구 (좌하단 모서리, 카운터 아래쪽) */
+.entrance { top: 480px; left: 44px; z-index: 4; }
+
+/* ────────────────────────────────────────────────────
+   V12 4분면 quad: 100x120
+   다이닝홀 x: 120 ~ 360 (240px) = 좌10+quad100+통로20+quad100+우10
+   - quad.tl left=130, top=90
+   - quad.tr left=250, top=90  (세로 통로 20px)
+   - quad.bl left=130, top=250 (가로 통로 40px)
+   - quad.br left=250, top=250
+   - 하단 여백 190px (입구/대기열/소품 활용)
+   ──────────────────────────────────────────────────── */
+.quad {
+  position: absolute;
+  width: 100px;
+  height: 120px;
+  z-index: 10;
+}
+.quad.tl { top: 90px;  left: 130px; }
+.quad.tr { top: 90px;  left: 250px; }
+.quad.bl { top: 250px; left: 130px; }
+.quad.br { top: 250px; left: 250px; }
+
+/* 각 quad 내부 (V12 AD 권장 수치) */
+/* bench-l: left=8, top=18 (14x76) */
+/* table-v: left=30, top=10 (44x72) — bench-l gap 8px, bench-r gap 4px */
+/* bench-r: left=78, top=18 */
+.quad .bench-l { top: 18px; left: 8px;  z-index: 12; }
+.quad .bench-r { top: 18px; left: 78px; z-index: 12; }
+.quad .table-v { top: 10px; left: 30px; z-index: 11; }
+
+/* 손님 좌측 벤치 (facing-right, bench-l 위 3슬롯) */
+/* 벤치 사용 가능: top=20 ~ 92 (72px) / 손님 22px×3 = 66px + 간격 3px×2 */
+.quad .cust-l1 { top: 20px; left: 7px; z-index: 13; }
+.quad .cust-l2 { top: 47px; left: 7px; z-index: 13; }
+.quad .cust-l3 { top: 74px; left: 7px; z-index: 13; }
+/* 손님 우측 벤치 (facing-left) */
+.quad .cust-r1 { top: 20px; left: 77px; z-index: 13; }
+.quad .cust-r2 { top: 47px; left: 77px; z-index: 13; }
+.quad .cust-r3 { top: 74px; left: 77px; z-index: 13; }
+
+/* 컨트롤 바 80px */
+.ctrl {
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(#2a1f10, #1a1208);
+  border-top: 2px solid #5a4020;
+  z-index: 100;
+  display: flex; gap: 6px; padding: 6px;
+}
+.ctrl .slot {
+  flex: 1;
+  background: rgba(80, 55, 30, 0.5);
+  border: 1px solid #6a4525;
+  border-radius: 4px;
+}
+
+/* 가이드 라벨 */
+.guide {
+  position: absolute;
+  font-size: 9px;
+  color: #ffcc77;
+  text-shadow: 1px 1px 0 #000;
+  z-index: 200;
+  pointer-events: none;
+}
+
+/* 통로 가이드 (반투명 사각형) */
+.path-h, .path-v {
+  position: absolute;
+  background: rgba(255, 200, 80, 0.08);
+  border: 1px dashed rgba(255, 200, 80, 0.35);
+  z-index: 9;
+  pointer-events: none;
+}
+/* 세로 통로 20px (x=230~250, y=90~370) */
+.path-v.center { left: 230px; top: 90px; width: 20px; height: 280px; }
+/* 가로 통로 40px (x=130~350, y=210~250) */
+.path-h.center { left: 130px; top: 210px; width: 220px; height: 40px; }
+
+/* 대기열 영역 가이드 (하단 여백 190px 활용) */
+.queue-area {
+  position: absolute;
+  left: 130px; top: 380px; width: 220px; height: 100px;
+  background: rgba(80, 200, 255, 0.05);
+  border: 1px dashed rgba(80, 200, 255, 0.3);
+  z-index: 8;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="label">V12 — 4분면 세로 테이블 (AD 검수 REVISE 반영)</div>
+  <div class="viewport v12">
+    <div class="hud">
+      <span>골드 1,250</span>
+      <span>웨이브 3/5</span>
+      <span>★★★</span>
+    </div>
+    <div class="wall"></div>
+    <div class="room"></div>
+    <div class="kitchen"></div>
+
+    <!-- 통로 가이드 -->
+    <div class="path-v center"></div>
+    <div class="path-h center"></div>
+    <div class="queue-area"></div>
+
+    <!-- 카운터 V12 (40x100) -->
+    <img src="travellers/counter_v12.png" class="counter-v12">
+
+    <!-- 셰프 2명 (둘 다 카운터 범위 내) -->
+    <img src="travellers/chef_side.png" class="chef-1">
+    <img src="travellers/chef_side.png" class="chef-2">
+
+    <!-- 입구 -->
+    <img src="travellers/entrance_v12.png" class="entrance">
+
+    <!-- 4분면 -->
+    <div class="quad tl">
+      <img src="travellers/bench_vertical_l_v12.png" class="bench-l">
+      <img src="travellers/bench_vertical_r_v12.png" class="bench-r">
+      <img src="travellers/table_vertical_v12.png" class="table-v">
+      <img src="travellers/customer_facing_right.png" class="cust-l1">
+      <img src="travellers/customer_facing_right.png" class="cust-l2">
+      <img src="travellers/customer_facing_right.png" class="cust-l3">
+      <img src="travellers/customer_facing_left.png" class="cust-r1">
+      <img src="travellers/customer_facing_left.png" class="cust-r2">
+      <img src="travellers/customer_facing_left.png" class="cust-r3">
+    </div>
+
+    <div class="quad tr">
+      <img src="travellers/bench_vertical_l_v12.png" class="bench-l">
+      <img src="travellers/bench_vertical_r_v12.png" class="bench-r">
+      <img src="travellers/table_vertical_v12.png" class="table-v">
+      <img src="travellers/customer_facing_right.png" class="cust-l1">
+      <img src="travellers/customer_facing_right.png" class="cust-l2">
+      <img src="travellers/customer_facing_left.png" class="cust-r2">
+      <img src="travellers/customer_facing_left.png" class="cust-r3">
+    </div>
+
+    <div class="quad bl">
+      <img src="travellers/bench_vertical_l_v12.png" class="bench-l">
+      <img src="travellers/bench_vertical_r_v12.png" class="bench-r">
+      <img src="travellers/table_vertical_v12.png" class="table-v">
+      <img src="travellers/customer_facing_right.png" class="cust-l1">
+      <img src="travellers/customer_facing_left.png" class="cust-r1">
+      <img src="travellers/customer_facing_left.png" class="cust-r2">
+    </div>
+
+    <div class="quad br">
+      <img src="travellers/bench_vertical_l_v12.png" class="bench-l">
+      <img src="travellers/bench_vertical_r_v12.png" class="bench-r">
+      <img src="travellers/table_vertical_v12.png" class="table-v">
+      <img src="travellers/customer_facing_right.png" class="cust-l2">
+      <img src="travellers/customer_facing_right.png" class="cust-l3">
+      <img src="travellers/customer_facing_left.png" class="cust-r1">
+      <img src="travellers/customer_facing_left.png" class="cust-r2">
+      <img src="travellers/customer_facing_left.png" class="cust-r3">
+    </div>
+
+    <!-- 가이드 라벨 -->
+    <div class="guide" style="left: 232px; top: 222px;">+자 통로</div>
+    <div class="guide" style="left: 200px; top: 388px;">대기열/소품</div>
+    <div class="guide" style="left: 80px; top: 472px;">입구</div>
+    <div class="guide" style="left: 84px; top: 88px;">카운터</div>
+
+    <div class="ctrl">
+      <div class="slot"></div>
+      <div class="slot"></div>
+      <div class="slot"></div>
+      <div class="slot"></div>
+    </div>
+  </div>
+</div>
+
+<div style="max-width: 380px; font-size: 13px; line-height: 1.6;">
+  <h3 style="color: #ffcc77;">V12 — AD 검수 REVISE 반영</h3>
+  <table style="border-collapse:collapse;font-size:12px;margin-top:8px;">
+    <thead><tr style="background:#333"><th style="padding:4px 8px;text-align:left">항목</th><th style="padding:4px 8px">V11</th><th style="padding:4px 8px;color:#8f8">V12</th></tr></thead>
+    <tbody>
+      <tr><td style="padding:3px 8px">table</td><td style="padding:3px 8px;text-align:center">50×80</td><td style="padding:3px 8px;text-align:center;color:#8f8">44×72</td></tr>
+      <tr><td style="padding:3px 8px">bench (높이)</td><td style="padding:3px 8px;text-align:center">70</td><td style="padding:3px 8px;text-align:center;color:#8f8">76</td></tr>
+      <tr><td style="padding:3px 8px">quad</td><td style="padding:3px 8px;text-align:center">100×110</td><td style="padding:3px 8px;text-align:center;color:#8f8">100×120</td></tr>
+      <tr><td style="padding:3px 8px">세로 통로</td><td style="padding:3px 8px;text-align:center;color:#f88">2px</td><td style="padding:3px 8px;text-align:center;color:#8f8">20px</td></tr>
+      <tr><td style="padding:3px 8px">가로 통로</td><td style="padding:3px 8px;text-align:center">130</td><td style="padding:3px 8px;text-align:center;color:#8f8">40 (균형)</td></tr>
+      <tr><td style="padding:3px 8px">bench-table 갭</td><td style="padding:3px 8px;text-align:center;color:#f88">-6px 겹침</td><td style="padding:3px 8px;text-align:center;color:#8f8">+8/+4px</td></tr>
+      <tr><td style="padding:3px 8px">카운터</td><td style="padding:3px 8px;text-align:center">24×120</td><td style="padding:3px 8px;text-align:center;color:#8f8">40×100</td></tr>
+      <tr><td style="padding:3px 8px">셰프-2 위치</td><td style="padding:3px 8px;text-align:center;color:#f88">250 (이탈)</td><td style="padding:3px 8px;text-align:center;color:#8f8">148 (범위 내)</td></tr>
+      <tr><td style="padding:3px 8px">입구</td><td style="padding:3px 8px;text-align:center;color:#f88">없음</td><td style="padding:3px 8px;text-align:center;color:#8f8">좌하단</td></tr>
+      <tr><td style="padding:3px 8px">하단 여백</td><td style="padding:3px 8px;text-align:center;color:#f88">110 빈공간</td><td style="padding:3px 8px;text-align:center;color:#8f8">대기열 활용</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px;color:#aaa;font-size:11px;">총 좌석 24석 (4테이블 × 6석) 동일. AD 검수 FAIL 5건 모두 해소.</p>
+</div>
+
+</body>
+</html>
