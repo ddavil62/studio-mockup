@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Kitchen Chaos · Travellers Rest 스타일 시안 (V10)</title>
+<style>
+  body {
+    margin: 0;
+    padding: 24px;
+    background: #15151c;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  h1 { font-size: 18px; margin: 0 0 4px 0; }
+  .lead { font-size: 12px; color: #aaa; margin-bottom: 20px; }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .variant {
+    background: #1f1f2a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffd166;
+    margin-bottom: 4px;
+  }
+  .desc {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 8px;
+    width: 360px;
+  }
+  .frame {
+    position: relative;
+    width: 360px;
+    height: 640px;
+    background: #1a1410;
+    overflow: hidden;
+    border: 2px solid #444;
+  }
+
+  /* HUD */
+  .hud-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 32px;
+    background: rgba(20, 14, 8, 0.92);
+    border-bottom: 2px solid #5a3a20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    font-size: 11px;
+    z-index: 100;
+    color: #ffd166;
+  }
+
+  /* 식당 공간 (목재 마룻바닥) */
+  .room {
+    position: absolute;
+    top: 32px; left: 0; right: 0; bottom: 80px;
+    background-image: url('travellers/floor_wood.png');
+    background-repeat: repeat;
+    background-size: 32px 32px;
+    image-rendering: pixelated;
+    overflow: hidden;
+  }
+
+  /* 위쪽 벽 */
+  .wall-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 24px;
+    background-image: url('travellers/wall_horizontal.png');
+    background-repeat: repeat-x;
+    background-size: 64px 24px;
+    image-rendering: pixelated;
+    z-index: 5;
+  }
+
+  /* 벽 장식 그림 */
+  .wall-decor {
+    position: absolute;
+    width: 32px; height: 28px;
+    image-rendering: pixelated;
+    z-index: 6;
+  }
+  .wall-decor.d1 { top: -2px; left: 80px; }
+  .wall-decor.d2 { top: -2px; left: 200px; }
+  .wall-decor.d3 { top: -2px; left: 280px; }
+
+  /* 주방 카운터 (좌측 상단, 벽 바로 아래) */
+  .kitchen {
+    position: absolute;
+    top: 28px; left: 8px;
+    width: 192px;
+    height: 64px;
+    z-index: 10;
+  }
+  .kitchen img.counter {
+    position: absolute;
+    top: 0; left: 0;
+    width: 192px; height: 64px;
+    image-rendering: pixelated;
+  }
+  /* 셰프 (카운터 뒤쪽에 서있음 - 사이드뷰) */
+  .kitchen img.chef {
+    position: absolute;
+    top: -8px; left: 60px;
+    width: 32px; height: 48px;
+    image-rendering: pixelated;
+    z-index: 12;
+  }
+  .kitchen img.chef.c2 {
+    left: 130px;
+    top: -6px;
+  }
+
+  /* 술통 장식 */
+  .barrel {
+    position: absolute;
+    width: 32px; height: 40px;
+    image-rendering: pixelated;
+    z-index: 7;
+  }
+  .barrel.b1 { top: 100px; left: 12px; }
+  .barrel.b2 { top: 100px; left: 50px; }
+
+  /* 입구 (우측 상단) */
+  .door {
+    position: absolute;
+    top: 28px; right: 12px;
+    width: 64px; height: 48px;
+    image-rendering: pixelated;
+    z-index: 6;
+  }
+
+  /* ─── 테이블 + 벤치 세트 ─── */
+  /* 가로 테이블, 위/아래 벤치 (각 4명씩) */
+  .seat-set {
+    position: absolute;
+    width: 192px;
+    height: 92px;
+    z-index: 20;
+  }
+  .seat-set .bench-top {
+    position: absolute;
+    top: 0; left: 0;
+    width: 192px; height: 28px;
+    background-image: url('travellers/bench_long.png');
+    background-repeat: no-repeat;
+    background-size: 192px 28px;
+    image-rendering: pixelated;
+    z-index: 21;
+  }
+  .seat-set .table {
+    position: absolute;
+    top: 18px; left: 0;
+    width: 192px; height: 60px;
+    background-image: url('travellers/table_long.png');
+    background-repeat: no-repeat;
+    background-size: 192px 60px;
+    image-rendering: pixelated;
+    z-index: 22;
+  }
+  .seat-set .bench-bot {
+    position: absolute;
+    top: 64px; left: 0;
+    width: 192px; height: 28px;
+    background-image: url('travellers/bench_long.png');
+    background-repeat: no-repeat;
+    background-size: 192px 28px;
+    image-rendering: pixelated;
+    z-index: 23;
+  }
+
+  /* 위쪽 벤치 손님 (등이 위로, 앞쪽이 테이블) */
+  .seat-set .cust-top {
+    position: absolute;
+    top: -22px;
+    width: 32px; height: 44px;
+    image-rendering: pixelated;
+    transform: scaleY(1);
+    z-index: 22;
+  }
+  .seat-set .cust-top.c1 { left: 16px; }
+  .seat-set .cust-top.c2 { left: 56px; }
+  .seat-set .cust-top.c3 { left: 96px; }
+  .seat-set .cust-top.c4 { left: 144px; }
+
+  /* 아래쪽 벤치 손님 (등이 아래로 - Y축 뒤집어 등이 아래쪽으로) */
+  .seat-set .cust-bot {
+    position: absolute;
+    top: 50px;
+    width: 32px; height: 44px;
+    image-rendering: pixelated;
+    transform: scaleY(-1);
+    z-index: 24;
+  }
+  .seat-set .cust-bot.c1 { left: 16px; }
+  .seat-set .cust-bot.c2 { left: 56px; }
+  .seat-set .cust-bot.c3 { left: 96px; }
+  .seat-set .cust-bot.c4 { left: 144px; }
+
+  /* 테이블 위 음식/잔 (장식) */
+  .seat-set .plate {
+    position: absolute;
+    width: 24px; height: 24px;
+    background-image: url('travellers/table_food_plate.png');
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    image-rendering: pixelated;
+    z-index: 23;
+    top: 36px;
+  }
+  .seat-set .plate.p1 { left: 18px; }
+  .seat-set .plate.p2 { left: 58px; }
+  .seat-set .plate.p3 { left: 98px; }
+  .seat-set .plate.p4 { left: 146px; }
+  .seat-set .mug {
+    position: absolute;
+    width: 12px; height: 16px;
+    background-image: url('travellers/table_mug.png');
+    background-repeat: no-repeat;
+    background-size: 12px 16px;
+    image-rendering: pixelated;
+    z-index: 23;
+    top: 40px;
+  }
+  .seat-set .mug.m1 { left: 44px; }
+  .seat-set .mug.m2 { left: 124px; }
+
+  /* 만족도 게이지 */
+  .seat-set .gauge {
+    position: absolute;
+    width: 24px; height: 4px;
+    background: #2a2a35;
+    border: 1px solid #888;
+    z-index: 30;
+  }
+  .seat-set .gauge .fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50, #ffd166);
+  }
+  .seat-set .gauge.warn .fill { background: linear-gradient(90deg, #ffd166, #ff7043); }
+  .seat-set .gauge.danger .fill { background: linear-gradient(90deg, #ff7043, #d32f2f); }
+
+  /* 말풍선 */
+  .seat-set .bubble {
+    position: absolute;
+    background: #fff;
+    color: #000;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 1px 4px;
+    font-size: 9px;
+    font-weight: 700;
+    z-index: 35;
+    white-space: nowrap;
+  }
+
+  /* 좌석 세트 배치 */
+  .seat-set.t1 {
+    top: 200px;
+    left: 84px;
+  }
+  .seat-set.t2 {
+    top: 320px;
+    left: 84px;
+  }
+  .seat-set.t3 {
+    top: 440px;
+    left: 84px;
+  }
+
+  /* 대기 손님 (입구 근처 줄서기 - 풀바디 사이드뷰) */
+  .waiting {
+    position: absolute;
+    width: 32px; height: 48px;
+    image-rendering: pixelated;
+    z-index: 8;
+  }
+  .waiting.w1 { top: 88px; right: 32px; }
+  .waiting.w2 { top: 88px; right: 64px; }
+  .waiting.w3 { top: 88px; right: 96px; opacity: 0.85; }
+
+  /* 운반 중 셰프 (트레이 들고 이동) */
+  .chef-running {
+    position: absolute;
+    width: 32px; height: 48px;
+    image-rendering: pixelated;
+    z-index: 25;
+  }
+  .chef-running.r1 { top: 240px; left: 30px; }
+
+  /* 하단 컨트롤 바 */
+  .ctrl-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, #2a1a10, #15100a);
+    border-top: 2px solid #5a3a20;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 8px;
+    z-index: 50;
+  }
+  .ctrl-bar .menu-card {
+    width: 56px;
+    height: 64px;
+    background: linear-gradient(180deg, #4a3020, #20140a);
+    border: 2px solid #8b6440;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    position: relative;
+  }
+  .ctrl-bar .menu-card.ready {
+    border-color: #ffd166;
+    box-shadow: 0 0 8px rgba(255,209,102,0.5);
+  }
+  .ctrl-bar .menu-card .mname {
+    position: absolute;
+    bottom: 2px;
+    font-size: 8px;
+    color: #fff;
+  }
+
+  /* 주석 */
+  .annot {
+    position: absolute;
+    background: rgba(255, 209, 102, 0.92);
+    color: #000;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 2px;
+    z-index: 200;
+  }
+
+  .legend {
+    margin-top: 16px;
+    font-size: 11px;
+    color: #aaa;
+    width: 360px;
+  }
+  .legend ul { padding-left: 16px; margin: 4px 0; }
+  .legend li { margin-bottom: 2px; }
+</style>
+</head>
+<body>
+
+<h1>Kitchen Chaos · Travellers Rest 스타일 시험 시안 (V10)</h1>
+<p class="lead">탑다운 가구 + 사이드뷰 캐릭터(Stardew/Travellers Rest 패턴). 긴 벤치에 측면 캐릭터 정합 → 다리·하반신이 자연스럽게 박힘. <strong>placeholder 도형 에셋(PIL 생성).</strong></p>
+
+<div class="grid">
+
+  <div class="variant v10">
+    <div class="label">V10 · Travellers Rest 스타일 펍/식당 (시험)</div>
+    <div class="desc">탑다운 + 사이드뷰. 벤치 1개당 4명, 테이블 3개 = 동시 24명. 셰프 트레이 운반 동선 포함. 주방 좌측 / 다이닝홀 중앙·우측 / 입구 우측 상단 / 대기열은 풀바디 사이드뷰.</div>
+
+    <div class="frame">
+      <div class="hud-top">
+        <span>⭐ 1-2 비스트로</span>
+        <span>⏱ 02:14</span>
+        <span>💰 1,240</span>
+      </div>
+
+      <div class="room">
+        <!-- 위쪽 벽 -->
+        <div class="wall-top"></div>
+
+        <!-- 벽 장식 -->
+        <img class="wall-decor d1" src="travellers/wall_decor_painting.png" alt="">
+        <img class="wall-decor d2" src="travellers/wall_decor_painting.png" alt="">
+        <img class="wall-decor d3" src="travellers/wall_decor_painting.png" alt="">
+
+        <!-- 주방 영역 (좌측 상단) -->
+        <div class="kitchen">
+          <img class="counter" src="travellers/counter_topdown.png" alt="">
+          <img class="chef" src="travellers/chef_side.png" alt="">
+          <img class="chef c2" src="travellers/chef_side.png" alt="">
+        </div>
+
+        <!-- 술통 장식 (주방 옆 바닥) -->
+        <img class="barrel b1" src="travellers/barrel.png" alt="">
+        <img class="barrel b2" src="travellers/barrel.png" alt="">
+
+        <!-- 입구 (우측 상단) -->
+        <img class="door" src="travellers/door_frame.png" alt="">
+
+        <!-- 대기 손님 (입구 근처 풀바디) -->
+        <img class="waiting w1" src="travellers/customer_side_walking.png" alt="">
+        <img class="waiting w2" src="travellers/customer_side_walking.png" alt="">
+        <img class="waiting w3" src="travellers/customer_side_walking.png" alt="">
+
+        <!-- 운반 중 셰프 (테이블로 음식 운반) -->
+        <img class="chef-running r1" src="travellers/chef_side.png" alt="">
+
+        <!-- 좌석 세트 1 (상단) -->
+        <div class="seat-set t1">
+          <div class="bench-top"></div>
+          <img class="cust-top c1" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-top c2" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-top c3" src="travellers/customer_side_seated.png" alt="">
+          <!-- c4 비어있음 -->
+          <div class="table"></div>
+          <div class="plate p1"></div>
+          <div class="plate p2"></div>
+          <div class="mug m1"></div>
+          <div class="plate p4"></div>
+          <div class="bench-bot"></div>
+          <img class="cust-bot c1" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-bot c2" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-bot c4" src="travellers/customer_side_seated.png" alt="">
+
+          <div class="gauge" style="top: -28px; left: 22px;"><div class="fill" style="width: 75%"></div></div>
+          <div class="gauge warn" style="top: -28px; left: 62px;"><div class="fill" style="width: 45%"></div></div>
+          <div class="gauge" style="top: -28px; left: 102px;"><div class="fill" style="width: 90%"></div></div>
+          <div class="bubble" style="top: -38px; left: 18px;">🍔</div>
+        </div>
+
+        <!-- 좌석 세트 2 (중간) -->
+        <div class="seat-set t2">
+          <div class="bench-top"></div>
+          <img class="cust-top c1" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-top c2" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-top c4" src="travellers/customer_side_seated.png" alt="">
+          <div class="table"></div>
+          <div class="plate p2"></div>
+          <div class="mug m2"></div>
+          <div class="plate p4"></div>
+          <div class="bench-bot"></div>
+          <img class="cust-bot c1" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-bot c3" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-bot c4" src="travellers/customer_side_seated.png" alt="">
+
+          <div class="gauge danger" style="top: -28px; left: 22px;"><div class="fill" style="width: 20%"></div></div>
+          <div class="gauge" style="top: -28px; left: 62px;"><div class="fill" style="width: 60%"></div></div>
+          <div class="bubble" style="top: -38px; left: 50px;">🍕!</div>
+        </div>
+
+        <!-- 좌석 세트 3 (하단) -->
+        <div class="seat-set t3">
+          <div class="bench-top"></div>
+          <img class="cust-top c1" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-top c3" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-top c4" src="travellers/customer_side_seated.png" alt="">
+          <div class="table"></div>
+          <div class="plate p1"></div>
+          <div class="plate p3"></div>
+          <div class="mug m1"></div>
+          <div class="bench-bot"></div>
+          <img class="cust-bot c2" src="travellers/customer_side_seated.png" alt="">
+          <img class="cust-bot c3" src="travellers/customer_side_seated.png" alt="">
+
+          <div class="gauge" style="top: -28px; left: 22px;"><div class="fill" style="width: 80%"></div></div>
+          <div class="gauge warn" style="top: -28px; left: 102px;"><div class="fill" style="width: 35%"></div></div>
+          <div class="gauge" style="top: -28px; left: 142px;"><div class="fill" style="width: 70%"></div></div>
+        </div>
+
+        <!-- 주석 -->
+        <span class="annot" style="top:36px; left:6px;">주방 카운터 (셰프×2)</span>
+        <span class="annot" style="top:140px; left:8px;">술통 장식</span>
+        <span class="annot" style="top:36px; right:80px;">입구</span>
+        <span class="annot" style="top:88px; right:6px; max-width:120px;">대기열<br>(풀바디 사이드뷰)</span>
+        <span class="annot" style="top:240px; left:80px; background: rgba(80,200,80,0.92);">운반중 셰프</span>
+        <span class="annot" style="top:200px; left:282px;">동시 24석<br>(8×3 테이블)</span>
+      </div>
+
+      <div class="ctrl-bar">
+        <div class="menu-card ready">🍝<span class="mname">파스타 ×2</span></div>
+        <div class="menu-card">🍕<span class="mname">피자 ×0</span></div>
+        <div class="menu-card ready">🍔<span class="mname">버거 ×3</span></div>
+        <div class="menu-card">🍣<span class="mname">스시 ×1</span></div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <strong>Travellers Rest 스타일 핵심 요소 (시뮬레이션):</strong>
+      <ul>
+        <li><strong>탑다운 가구</strong>: 윗면 평면 + 짧은 측면 1~3px(table_long.png). 디메트릭 대비 발주 단순.</li>
+        <li><strong>긴 벤치</strong>: 1벤치 = 4슬롯, 1테이블 양옆 8명 동시 착석.</li>
+        <li><strong>사이드뷰 캐릭터</strong>: 풀바디(다리·하반신 보임). 측면 캐릭터가 벤치 위에 정확히 정합 — 카이로식 회피 트릭 불필요.</li>
+        <li><strong>아래쪽 벤치 손님 미러링</strong>: <code>transform: scaleY(-1)</code>로 같은 스프라이트 재사용.</li>
+        <li><strong>동시 처리량</strong>: 24석 = V9(11석) 대비 2배+, 카오스 분위기 강함.</li>
+        <li><strong>운반 중 셰프</strong>: 카운터→테이블 동선이 시각적으로 보임 (Travellers Rest의 핵심 동적 연출).</li>
+        <li><strong>벽 장식·술통</strong>: 디테일 소품으로 펍 분위기 살림.</li>
+      </ul>
+      <strong>V9(카이로) 대비 장점:</strong>
+      <ul>
+        <li>의자 정합이 자연스러움 (다리 회피 트릭 불필요)</li>
+        <li>가구 발주 단순화 (모든 면이 아닌 윗면+측면만)</li>
+        <li>동시 좌석 수 ↑ (24 vs 11)</li>
+        <li>사이드뷰 캐릭터는 픽셀아트 표준 패턴 → PixelLab/SD 발주 정확도 ↑</li>
+      </ul>
+      <strong>V9(카이로) 대비 단점:</strong>
+      <ul>
+        <li>GatheringScene(아이소메트릭)과 시점 어긋남 — 두 씬 톤 불일치</li>
+        <li>외부 풍경(거리·창문) 노출 어려움 (탑다운이라 위에서 봄)</li>
+        <li>벽이 짧은 띠라 공간감/인테리어 분위기 약함 (벽 두께/장식으로 보완 필요)</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
