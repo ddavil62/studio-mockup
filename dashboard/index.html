@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spec Dashboard – Lazy Slime Studio</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ── 상단 헤더 ── -->
+  <header class="dash-header">
+    <div class="dash-header-left">
+      <a href="../index.html" class="logo">Lazy Slime Studio</a>
+      <span class="separator">/</span>
+      <h1>Spec Dashboard</h1>
+    </div>
+    <div class="dash-header-right">
+      <span id="total-count" class="total-pill">0 items</span>
+      <span id="generated-at" class="generated-text"></span>
+    </div>
+  </header>
+
+  <!-- ── 필터 바 ── -->
+  <section id="filter-bar" class="dash-filter-bar">
+    <!-- 프로젝트 필터 (멀티 체크박스) -->
+    <div class="filter-group">
+      <label class="filter-label">프로젝트</label>
+      <div id="project-filter" class="checkbox-row"></div>
+    </div>
+
+    <!-- 에이전트 필터 (토글 버튼) -->
+    <div class="filter-group">
+      <label class="filter-label">에이전트</label>
+      <div id="agent-filter" class="toggle-row">
+        <button class="toggle-btn" data-agent="planner">planner</button>
+        <button class="toggle-btn" data-agent="coder">coder</button>
+        <button class="toggle-btn" data-agent="qa">qa</button>
+        <button class="toggle-btn" data-agent="art-director">art-director</button>
+        <button class="toggle-btn" data-agent="other">other</button>
+      </div>
+    </div>
+
+    <!-- 상태 필터 -->
+    <div class="filter-group">
+      <label class="filter-label" for="status-filter">상태</label>
+      <select id="status-filter">
+        <option value="all">전체</option>
+        <option value="PASS">PASS</option>
+        <option value="FAIL">FAIL</option>
+        <option value="APPROVED">APPROVED</option>
+        <option value="REVISE">REVISE</option>
+        <option value="NA">N/A</option>
+      </select>
+    </div>
+
+    <!-- 날짜 범위 -->
+    <div class="filter-group">
+      <label class="filter-label">기간</label>
+      <div class="date-row">
+        <input type="date" id="date-from">
+        <span class="dash">~</span>
+        <input type="date" id="date-to">
+      </div>
+    </div>
+
+    <!-- 빠른 기간 필터 -->
+    <div class="filter-group">
+      <label class="filter-label">빠른 필터</label>
+      <div class="toggle-row">
+        <button class="quick-btn" data-days="7">최근 7일</button>
+        <button class="quick-btn" data-days="30">최근 30일</button>
+        <button class="quick-btn" data-days="0">전체</button>
+      </div>
+    </div>
+
+    <!-- 키워드 검색 -->
+    <div class="filter-group filter-grow">
+      <label class="filter-label" for="keyword-input">파일명 검색</label>
+      <input type="text" id="keyword-input" placeholder="예: phase87, neon-exodus, qa">
+    </div>
+
+    <!-- 초기화 -->
+    <div class="filter-group filter-end">
+      <button id="reset-btn" class="reset-btn">필터 초기화</button>
+    </div>
+  </section>
+
+  <!-- ── 카드 리스트 ── -->
+  <main id="card-list" class="dash-card-list">
+    <div class="empty-state">로딩 중…</div>
+  </main>
+
+  <!-- ── 상세 사이드 패널 ── -->
+  <aside id="detail-panel" class="detail-panel hidden">
+    <div class="panel-header">
+      <div class="panel-title-row">
+        <span id="panel-project" class="badge"></span>
+        <span id="panel-agent" class="badge"></span>
+        <span id="panel-status" class="badge"></span>
+      </div>
+      <button id="panel-close" aria-label="닫기">✕</button>
+    </div>
+    <div class="panel-meta">
+      <div id="panel-filename" class="panel-filename"></div>
+      <div id="panel-date" class="panel-date"></div>
+    </div>
+    <div id="panel-content" class="panel-content markdown-body"></div>
+  </aside>
+  <div id="panel-overlay" class="panel-overlay hidden"></div>
+
+  <!-- ── 외부 의존성 ── -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@15.0.0/marked.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
