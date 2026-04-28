@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Exodus — 사이버펑크 뱀서라이크</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    /* ── Neon Exodus 전용 컬러 토큰 ── */
+    :root {
+      --neon-cyan: #4ae8e8;
+      --neon-magenta: #ff4a8a;
+      --neon-purple: #9a6aff;
+    }
+
+    .page-header h1 { color: var(--neon-cyan); }
+    nav.sidebar a:hover,
+    nav.sidebar a.active {
+      color: var(--neon-cyan);
+      background: rgba(74, 232, 232, 0.08);
+    }
+
+    /* ── 인트로 ── */
+    .intro {
+      background: linear-gradient(135deg, rgba(74,232,232,0.05), rgba(154,106,255,0.05));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 28px;
+    }
+    .intro h2 {
+      color: var(--neon-cyan);
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+    }
+    .intro p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .intro .meta {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .intro .meta .tag {
+      background: rgba(74,232,232,0.1);
+      border: 1px solid rgba(74,232,232,0.3);
+      color: var(--neon-cyan);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+    }
+
+    /* ── 섹션 헤더 ── */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .section-head h3 { font-size: 1.1rem; color: var(--text-primary); }
+    .section-head .sub { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ── 아이콘 그리드 ── */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .icon-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      transition: all 0.2s;
+    }
+    .icon-card:hover {
+      border-color: var(--neon-cyan);
+      transform: translateY(-2px);
+    }
+    .icon-card .icon-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .icon-card .icon-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .icon-card .icon-size {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--neon-cyan);
+      background: rgba(74,232,232,0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* 다크/라이트 비교 슬롯 */
+    .icon-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .icon-slot {
+      aspect-ratio: 1;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--border);
+    }
+    .icon-slot.dark { background: #0a0a0f; }
+    .icon-slot.light { background: #f0f0f5; }
+    .icon-slot img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+      image-rendering: auto;
+    }
+    .icon-slot .bg-label {
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    .icon-slot.light .bg-label { color: #888; }
+
+    /* 1024 대형 카드 */
+    .icon-card.large {
+      grid-column: span 2;
+    }
+    .icon-card.large .icon-compare {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── 픽셀 비교 (크기 시각화) ── */
+    .size-strip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .size-strip .pixel-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .size-strip .pixel-block .px {
+      background: #0a0a0f;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .size-strip .pixel-block .px img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .size-strip .pixel-block .lbl {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    /* ── 향후 콘텐츠 placeholder ── */
+    .placeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .placeholder-card {
+      background: var(--bg-secondary);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .placeholder-card .ph-title {
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .icon-card.large { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Neon Exodus</h1>
+    <div class="breadcrumb">
+      <a href="../index.html">Studio</a> / Neon Exodus
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Pages</div>
+    <a href="index.html" class="active">Overview</a>
+    <a href="#icons">App Icons</a>
+    <div class="section-title" style="margin-top:12px;">Coming Soon</div>
+    <a href="#sprites" style="opacity:0.5;">Sprites</a>
+    <a href="#ui" style="opacity:0.5;">UI</a>
+    <a href="#vfx" style="opacity:0.5;">VFX</a>
+  </nav>
+
+  <main class="content">
+    <!-- ── 프로젝트 인트로 ── -->
+    <div class="intro">
+      <h2>Neon Exodus</h2>
+      <p>
+        사이버펑크 도시를 배경으로 한 뱀서라이크 서바이벌 액션. 네온 안개 속에서 끊임없이 몰려오는 적들을 헤쳐나가며,
+        강력한 빌드를 조합해 끝없는 웨이브에서 살아남는다.
+      </p>
+      <div class="meta">
+        <span class="tag">Phaser.js 3</span>
+        <span class="tag">Mobile Portrait</span>
+        <span class="tag">사이버펑크</span>
+        <span class="tag">뱀서라이크</span>
+      </div>
+    </div>
+
+    <!-- ── 아이콘 사이즈 비교 스트립 ── -->
+    <section id="icons">
+      <div class="section-head">
+        <h3>App Icons — 사이즈 스트립</h3>
+        <div class="sub">실제 픽셀 크기 비교 (1:1)</div>
+      </div>
+      <div class="size-strip">
+        <div class="pixel-block">
+          <div class="px" style="width:48px;height:48px;"><img src="assets/icons/ic_launcher_mdpi_48x48.png" alt="48"></div>
+          <div class="lbl">48 · mdpi</div>
+        </div>
+        <div class="pixel-block">
+          <div class="px" style="width:72px;height:72px;"><img src="assets/icons/ic_launcher_hdpi_72x72.png" alt="72"></div>
+          <div class="lbl">72 · hdpi</div>
+        </div>
+        <div class="pixel-block">
+          <div class="px" style="width:96px;height:96px;"><img src="assets/icons/ic_launcher_xhdpi_96x96.png" alt="96"></div>
+          <div class="lbl">96 · xhdpi</div>
+        </div>
+        <div class="pixel-block">
+          <div class="px" style="width:144px;height:144px;"><img src="assets/icons/ic_launcher_xxhdpi_144x144.png" alt="144"></div>
+          <div class="lbl">144 · xxhdpi</div>
+        </div>
+        <div class="pixel-block">
+          <div class="px" style="width:192px;height:192px;"><img src="assets/icons/ic_launcher_xxxhdpi_192x192.png" alt="192"></div>
+          <div class="lbl">192 · xxxhdpi</div>
+        </div>
+      </div>
+
+      <!-- ── 다크/라이트 비교 그리드 ── -->
+      <div class="section-head">
+        <h3>App Icons — 다크 / 라이트 배경 비교</h3>
+        <div class="sub">전 사이즈 7종 + Web 1024</div>
+      </div>
+      <div class="icon-grid">
+
+        <!-- mdpi 48 -->
+        <div class="icon-card">
+          <div class="icon-label">
+            <span class="icon-name">mdpi</span>
+            <span class="icon-size">48×48</span>
+          </div>
+          <div class="icon-compare">
+            <div class="icon-slot dark"><img src="assets/icons/ic_launcher_mdpi_48x48.png" alt="mdpi dark"><span class="bg-label">DARK</span></div>
+            <div class="icon-slot light"><img src="assets/icons/ic_launcher_mdpi_48x48.png" alt="mdpi light"><span class="bg-label">LIGHT</span></div>
+          </div>
+        </div>
+
+        <!-- hdpi 72 -->
+        <div class="icon-card">
+          <div class="icon-label">
+            <span class="icon-name">hdpi</span>
+            <span class="icon-size">72×72</span>
+          </div>
+          <div class="icon-compare">
+            <div class="icon-slot dark"><img src="assets/icons/ic_launcher_hdpi_72x72.png" alt="hdpi dark"><span class="bg-label">DARK</span></div>
+            <div class="icon-slot light"><img src="assets/icons/ic_launcher_hdpi_72x72.png" alt="hdpi light"><span class="bg-label">LIGHT</span></div>
+          </div>
+        </div>
+
+        <!-- xhdpi 96 -->
+        <div class="icon-card">
+          <div class="icon-label">
+            <span class="icon-name">xhdpi</span>
+            <span class="icon-size">96×96</span>
+          </div>
+          <div class="icon-compare">
+            <div class="icon-slot dark"><img src="assets/icons/ic_launcher_xhdpi_96x96.png" alt="xhdpi dark"><span class="bg-label">DARK</span></div>
+            <div class="icon-slot light"><img src="assets/icons/ic_launcher_xhdpi_96x96.png" alt="xhdpi light"><span class="bg-label">LIGHT</span></div>
+          </div>
+        </div>
+
+        <!-- xxhdpi 144 -->
+        <div class="icon-card">
+          <div class="icon-label">
+            <span class="icon-name">xxhdpi</span>
+            <span class="icon-size">144×144</span>
+          </div>
+          <div class="icon-compare">
+            <div class="icon-slot dark"><img src="assets/icons/ic_launcher_xxhdpi_144x144.png" alt="xxhdpi dark"><span class="bg-label">DARK</span></div>
+            <div class="icon-slot light"><img src="assets/icons/ic_launcher_xxhdpi_144x144.png" alt="xxhdpi light"><span class="bg-label">LIGHT</span></div>
+          </div>
+        </div>
+
+        <!-- xxxhdpi 192 -->
+        <div class="icon-card">
+          <div class="icon-label">
+            <span class="icon-name">xxxhdpi</span>
+            <span class="icon-size">192×192</span>
+          </div>
+          <div class="icon-compare">
+            <div class="icon-slot dark"><img src="assets/icons/ic_launcher_xxxhdpi_192x192.png" alt="xxxhdpi dark"><span class="bg-label">DARK</span></div>
+            <div class="icon-slot light"><img src="assets/icons/ic_launcher_xxxhdpi_192x192.png" alt="xxxhdpi light"><span class="bg-label">LIGHT</span></div>
+          </div>
+        </div>
+
+        <!-- ic_launcher (default) -->
+        <div class="icon-card">
+          <div class="icon-label">
+            <span class="icon-name">ic_launcher</span>
+            <span class="icon-size">default</span>
+          </div>
+          <div class="icon-compare">
+            <div class="icon-slot dark"><img src="assets/icons/ic_launcher.png" alt="default dark"><span class="bg-label">DARK</span></div>
+            <div class="icon-slot light"><img src="assets/icons/ic_launcher.png" alt="default light"><span class="bg-label">LIGHT</span></div>
+          </div>
+        </div>
+
+        <!-- Play Store 512 -->
+        <div class="icon-card">
+          <div class="icon-label">
+            <span class="icon-name">Play Store</span>
+            <span class="icon-size">512×512</span>
+          </div>
+          <div class="icon-compare">
+            <div class="icon-slot dark"><img src="assets/icons/ic_launcher_playstore_512x512.png" alt="playstore dark"><span class="bg-label">DARK</span></div>
+            <div class="icon-slot light"><img src="assets/icons/ic_launcher_playstore_512x512.png" alt="playstore light"><span class="bg-label">LIGHT</span></div>
+          </div>
+        </div>
+
+        <!-- Web 1024 (large) -->
+        <div class="icon-card large">
+          <div class="icon-label">
+            <span class="icon-name">Web / Master</span>
+            <span class="icon-size">1024×1024</span>
+          </div>
+          <div class="icon-compare">
+            <div class="icon-slot dark"><img src="assets/icons/ic_launcher_web_1024x1024.png" alt="web dark"><span class="bg-label">DARK</span></div>
+            <div class="icon-slot light"><img src="assets/icons/ic_launcher_web_1024x1024.png" alt="web light"><span class="bg-label">LIGHT</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 향후 추가 예정 콘텐츠 ── -->
+    <section style="margin-top: 36px;">
+      <div class="section-head">
+        <h3>Coming Soon</h3>
+        <div class="sub">향후 추가될 에셋 카테고리</div>
+      </div>
+      <div class="placeholder-grid">
+        <div class="placeholder-card" id="sprites">
+          <div class="ph-title">Sprites</div>
+          캐릭터 / 적 / 보스 스프라이트
+        </div>
+        <div class="placeholder-card" id="ui">
+          <div class="ph-title">UI</div>
+          HUD / 메뉴 / 패널 / 9-slice
+        </div>
+        <div class="placeholder-card" id="vfx">
+          <div class="ph-title">VFX</div>
+          스킬 이펙트 / 파티클 / 셰이더
+        </div>
+        <div class="placeholder-card">
+          <div class="ph-title">Backgrounds</div>
+          맵 타일 / 배경 일러스트
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
