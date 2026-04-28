@@ -90,7 +90,6 @@
   letter-spacing: 0.5px;
 }
 
-.checkbox-row,
 .toggle-row,
 .date-row {
   display: flex;
@@ -122,34 +121,6 @@
 .date-row .dash {
   color: var(--text-muted);
   font-size: 0.85rem;
-}
-
-/* 프로젝트 체크박스 형태 (실제로는 토글 버튼으로 구현) */
-.proj-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: all 0.15s;
-  user-select: none;
-}
-
-.proj-chip:hover { border-color: var(--accent-gold); }
-.proj-chip.active {
-  border-color: currentColor;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.proj-chip .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: currentColor;
 }
 
 /* 에이전트 토글 버튼 */

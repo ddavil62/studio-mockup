@@ -9,17 +9,6 @@
   'use strict';
 
   // ── 정적 메타 데이터 ──
-  /** 프로젝트 칩에 표시될 순서/표시명 */
-  const PROJECT_LIST = [
-    'kitchen-chaos',
-    'neon-exodus',
-    'ember-throne',
-    'fantasydefence',
-    'neon-factory',
-    'contrail',
-    'unknown',
-  ];
-
   /** 에이전트 표시 순서 (HTML과 동일) */
   const AGENT_LIST = ['planner', 'coder', 'qa', 'art-director', 'other'];
 
@@ -27,9 +16,13 @@
   /** 전체 항목 (서버 응답) */
   let allItems = [];
 
-  /** 필터 상태. 빈 배열은 "해당 차원 미적용"을 의미한다. */
+  /**
+   * 필터 상태.
+   * - project: 빈 문자열 ''은 "전체"를 의미한다 (단일 선택 드롭다운).
+   * - agents: 빈 배열은 "해당 차원 미적용"을 의미한다 (여전히 다중 토글).
+   */
   const filters = {
-    projects: [],
+    project: '',
     agents: [],
     status: 'all',
     dateFrom: '',
@@ -131,28 +124,12 @@
   }
 
   /**
-   * 프로젝트 칩들을 동적으로 그리고 토글 이벤트를 바인딩한다.
+   * 프로젝트 단일 선택 드롭다운(`<select>`)에 change 이벤트를 바인딩한다.
+   * 옵션 enum은 HTML에 하드코딩되어 있으며, 빈 문자열 값은 "전체"를 의미한다.
    */
-  function renderProjectChips() {
-    const html = PROJECT_LIST.map((proj) => `
-      <span class="proj-chip badge-proj-${proj}" data-project="${esc(proj)}">
-        <span class="dot"></span>${esc(proj)}
-      </span>
-    `).join('');
-    dom.projectFilter.innerHTML = html;
-
-    dom.projectFilter.addEventListener('click', (e) => {
-      const chip = e.target.closest('.proj-chip');
-      if (!chip) return;
-      const proj = chip.dataset.project;
-      const idx = filters.projects.indexOf(proj);
-      if (idx >= 0) {
-        filters.projects.splice(idx, 1);
-        chip.classList.remove('active');
-      } else {
-        filters.projects.push(proj);
-        chip.classList.add('active');
-      }
+  function bindProjectFilter() {
+    dom.projectFilter.addEventListener('change', () => {
+      filters.project = dom.projectFilter.value;
       applyAndRender();
     });
   }
@@ -253,16 +230,16 @@
    * 모든 필터를 초기 상태로 되돌리고 UI도 리셋한다.
    */
   function resetFilters() {
-    filters.projects = [];
+    filters.project = '';
     filters.agents = [];
     filters.status = 'all';
     filters.dateFrom = '';
     filters.dateTo = '';
     filters.keyword = '';
 
-    document.querySelectorAll('.proj-chip.active').forEach((c) => c.classList.remove('active'));
     document.querySelectorAll('.toggle-btn.active').forEach((c) => c.classList.remove('active'));
     clearQuickButtons();
+    dom.projectFilter.value = '';
     dom.statusFilter.value = 'all';
     dom.dateFrom.value = '';
     dom.dateTo.value = '';
@@ -322,8 +299,8 @@
     const toD = parseDate(filters.dateTo);
 
     return allItems.filter((item) => {
-      // 프로젝트 필터 (빈 배열은 전체 허용)
-      if (filters.projects.length > 0 && !filters.projects.includes(item.project)) {
+      // 프로젝트 필터 (빈 문자열은 전체 허용)
+      if (filters.project && item.project !== filters.project) {
         return false;
       }
       // 에이전트 필터
@@ -488,7 +465,7 @@
   // ── 부트스트랩 ──
   document.addEventListener('DOMContentLoaded', async () => {
     bindDom();
-    renderProjectChips();
+    bindProjectFilter();
     bindFilterEvents();
 
     // 빠른 필터 "전체" 기본 선택

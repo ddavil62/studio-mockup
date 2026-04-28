@@ -23,10 +23,19 @@
 
   <!-- ── 필터 바 ── -->
   <section id="filter-bar" class="dash-filter-bar">
-    <!-- 프로젝트 필터 (멀티 체크박스) -->
+    <!-- 프로젝트 필터 (단일 선택 드롭다운) -->
     <div class="filter-group">
-      <label class="filter-label">프로젝트</label>
-      <div id="project-filter" class="checkbox-row"></div>
+      <label class="filter-label" for="project-filter">프로젝트</label>
+      <select id="project-filter">
+        <option value="">전체</option>
+        <option value="kitchen-chaos">kitchen-chaos</option>
+        <option value="neon-exodus">neon-exodus</option>
+        <option value="ember-throne">ember-throne</option>
+        <option value="fantasydefence">fantasydefence</option>
+        <option value="neon-factory">neon-factory</option>
+        <option value="contrail">contrail</option>
+        <option value="unknown">unknown</option>
+      </select>
     </div>
 
     <!-- 에이전트 필터 (토글 버튼) -->
