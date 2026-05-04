@@ -45,6 +45,32 @@
     .status-dot.ready { background: var(--accent-green); }
     .status-dot.wip { background: var(--accent-gold); }
     .status-dot.empty { background: var(--text-muted); }
+    .app-icon-showcase {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0 8px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+    }
+    .app-icon-showcase img {
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+    .app-icon-showcase h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: #ff6b35;
+    }
+    .app-icon-showcase p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
   </style>
 </head>
 <body>
@@ -78,6 +104,14 @@
   <main class="content">
     <h2 style="margin-bottom: 4px;">Project Overview</h2>
     <p class="text-muted" style="font-size: 0.85rem;">TD + Restaurant Tycoon Hybrid | Phaser.js 3 | Mobile 360x640</p>
+
+    <section class="app-icon-showcase">
+      <img src="assets/ui/app_icon_512.png" alt="Kitchen Chaos app icon">
+      <div>
+        <h3>App Icon</h3>
+        <p>2026-05-04 신규 런처 아이콘. 셰프 캐릭터, 프라이팬, 요리 재료를 중심으로 적용.</p>
+      </div>
+    </section>
 
     <div class="overview-grid">
       <a href="enemies/index.html" class="overview-card">
