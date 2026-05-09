@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Action Tool — Lazy Slime Studio</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── 상단 헤더 ── -->
+  <header class="atool-header">
+    <div class="atool-header-left">
+      <a href="../index.html" class="logo">Lazy Slime Studio</a>
+      <span class="separator">/</span>
+      <h1>Action Tool <span class="wireframe-badge">와이어프레임 시안</span></h1>
+    </div>
+    <div class="atool-header-right">
+      <span class="meta-pill" id="move-name">단죄 베기 (Linear 12)</span>
+      <span class="meta-pill ghost">Wuxia · 사이드뷰</span>
+      <span class="meta-pill ghost" title="P1 본 구현 완료 — lazyslimestudio/tools/action-tool/ (FastAPI)">✅ 본 구현 완료 (P1)</span>
+    </div>
+  </header>
+
+  <!-- ── 시안 안내 배너 (본 구현 진입 후 추가) ── -->
+  <div class="impl-banner" role="note" style="
+    background: rgba(74, 232, 138, 0.08);
+    border-bottom: 1px solid rgba(74, 232, 138, 0.3);
+    color: var(--text-primary);
+    padding: 8px 24px;
+    font-size: 0.82rem;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  ">
+    <strong style="color: var(--accent-green);">이 페이지는 시안(검증용)입니다.</strong>
+    <span>본 구현은 별도 도구(<code>lazyslimestudio/tools/action-tool/</code>, FastAPI 기반)로 가동 중이며, 무브 데이터는 게임 레포(<code>{game}/moves/*.json</code>)에 영속 저장됩니다.</span>
+    <span style="color: var(--text-muted);">P3 완료 · P4-A(변종 발주) 진행 예정</span>
+  </div>
+
+  <!-- ── 메인 3패널 레이아웃 ── -->
+  <main class="atool-main">
+
+    <!-- ── 좌측 패널: 베이스 + 본 라벨 ── -->
+    <aside class="atool-left">
+      <section class="panel">
+        <div class="panel-title">Reference (베이스)</div>
+        <div class="reference-frame">
+          <img id="reference-image" src="mock/base.png" alt="base reference">
+        </div>
+        <div class="panel-meta">
+          <div><span>이미지 크기</span><b>64 × 64</b></div>
+          <div><span>좌표 시스템</span><b>0 ~ 1 정규화</b></div>
+          <div><span>본 라벨</span><b>18종</b></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">본 표시 옵션</div>
+        <label class="check-row"><input type="checkbox" id="opt-show-labels" checked> 라벨 표시</label>
+        <label class="check-row"><input type="checkbox" id="opt-show-bones" checked> 본 연결선 표시</label>
+        <label class="check-row"><input type="checkbox" id="opt-show-base" checked> 베이스 이미지 표시</label>
+        <label class="check-row"><input type="checkbox" id="opt-snap-grid"> 0.05 그리드 스냅</label>
+        <div class="panel-meta">
+          <div><span>드래그</span><b>좌클릭 + 이동</b></div>
+          <div><span>nudge</span><b>Shift+화살표 = ±0.01</b></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          본 하이어라키
+          <span class="panel-title-aux">
+            <button class="tiny-btn" id="bone-tree-all-on">전체 표시</button>
+            <button class="tiny-btn" id="bone-tree-all-off">전체 숨김</button>
+          </span>
+        </div>
+        <div id="bone-tree" class="bone-tree"></div>
+      </section>
+    </aside>
+
+    <!-- ── 중앙: 본 좌표 캔버스 ── -->
+    <section class="atool-canvas-wrap">
+      <div class="canvas-toolbar">
+        <span class="canvas-zoom-label">캔버스 8× (512 × 512)</span>
+        <span class="canvas-info" id="cursor-info">x: -.--- / y: -.---</span>
+        <span class="canvas-info" id="active-bone-info">선택된 본: 없음</span>
+      </div>
+      <div class="canvas-stage">
+        <canvas id="bone-canvas" width="512" height="512"></canvas>
+        <div class="canvas-overlay-hint" id="overlay-hint">
+          본 점을 드래그하여 좌표를 조정 · 키프레임 K01 ~ K12 선택은 우측 타임라인
+        </div>
+      </div>
+      <div class="canvas-coord-table-wrap">
+        <table class="coord-table">
+          <thead>
+            <tr><th>라벨</th><th>x</th><th>y</th><th>z</th><th></th></tr>
+          </thead>
+          <tbody id="coord-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── 우측 패널: 키프레임 + Export ── -->
+    <aside class="atool-right">
+      <section class="panel">
+        <div class="panel-title">
+          키프레임 타임라인
+          <span class="panel-title-aux">
+            <button class="tiny-btn" id="frame-decr" title="1프레임 삭제 (Shift+클릭 = −3)">−</button>
+            <input type="number" class="frame-count-input" id="frame-count-input" min="3" max="48" step="1" value="12">
+            <button class="tiny-btn" id="frame-incr" title="1프레임 추가 (Shift+클릭 = +3)">+</button>
+          </span>
+        </div>
+        <div class="keyframe-track" id="keyframe-track"></div>
+        <div class="panel-meta">
+          <div><span>현재 K</span><b id="current-frame-label">K01</b></div>
+          <div><span>의도</span><b id="current-frame-intent" contenteditable="true" spellcheck="false">idle</b></div>
+          <div><span>발주 set</span><b id="frame-set-count">4 set (12 ÷ 3)</b></div>
+          <div><span>Anchor ★</span><label class="anchor-toggle"><input type="checkbox" id="anchor-checkbox"> 정점 자세</label></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">Frame 가중치 (보유 시간)</div>
+        <div class="weight-row">
+          <input type="range" id="weight-slider" min="1" max="8" value="2" step="1">
+          <span class="weight-value" id="weight-value">2 frames</span>
+        </div>
+        <div class="weight-bar" id="weight-bar"></div>
+        <div class="panel-meta">
+          <div><span>총 길이</span><b id="total-frames">24 frames</b></div>
+          <div><span>@ 24fps</span><b id="total-seconds">1.00s</b></div>
+          <div><span>페이스</span><b id="pace-label">중간 콤보</b></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">PixelLab 발주 (mock)</div>
+        <div class="action-row">
+          <button class="btn primary" id="btn-order">12 자세 발주 <span class="kbd">⌘⏎</span></button>
+        </div>
+        <div class="order-status" id="order-status">대기 — 발주 시 4 set × 3 키프레임 분할</div>
+        <div class="result-frame">
+          <img id="result-sheet" src="mock/stage4_12fL_sheet.png" alt="result sheet (mock)">
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">Export</div>
+        <div class="action-row column">
+          <button class="btn ghost" data-export="json">📄 JSON (중간 포맷)</button>
+          <button class="btn ghost" data-export="godot">🎮 Godot SpriteFrames (.tres)</button>
+          <button class="btn ghost" data-export="phaser">🌐 Phaser Atlas (.json + .png)</button>
+        </div>
+        <div class="export-status" id="export-status">중간 포맷 → 게임 엔진별 어댑터로 변환</div>
+      </section>
+    </aside>
+
+  </main>
+
+  <!-- ── 하단 status bar ── -->
+  <footer class="atool-footer">
+    <span class="footer-section">
+      <b>워크플로우</b>
+      <span class="step active">1. 본 좌표 입력</span>
+      <span class="step">2. PixelLab 발주</span>
+      <span class="step">3. 가중치 조정</span>
+      <span class="step">4. Export</span>
+    </span>
+    <span class="footer-section right">
+      <span class="footer-note">시안 — Mock 동작 · 실제 발주 비활성</span>
+    </span>
+  </footer>
+
+  <!-- ── 모달: Export 결과 미리보기 ── -->
+  <div class="modal" id="export-modal" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="export-modal-title">Export</h3>
+        <button class="modal-close" id="modal-close">×</button>
+      </div>
+      <pre class="modal-body" id="export-modal-body"></pre>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
