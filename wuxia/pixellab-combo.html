@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>무현 (無絃) — PixelLab 콤보 루트 테스트</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0 }
+body { background:#0a0c1c; color:#ccc; font-family:'Segoe UI',sans-serif; padding:24px }
+h1 { color:#ffa032; font-size:1.4rem; margin-bottom:6px }
+p.sub { color:#666; font-size:.82rem; margin-bottom:8px }
+.meta { color:#444; font-size:.75rem; margin-bottom:28px; padding:8px; background:#0f1220; border-radius:4px; border-left:2px solid #1e2a40 }
+.meta span { color:#555 }
+h2 { color:#50b4ff; font-size:1rem; margin:24px 0 12px; border-bottom:1px solid #1e2040; padding-bottom:6px }
+.grid { display:flex; flex-wrap:wrap; gap:20px; margin-bottom:32px }
+.card { background:#12152a; border:1px solid #1e2040; border-radius:6px; padding:12px; text-align:center; transition:border .15s }
+.card:hover { border-color:#ffa032 }
+.card img { display:block; image-rendering:pixelated }
+.card img.combo { width:296px; height:auto }
+.card img.sheet { width:100%; height:auto; max-width:600px }
+.combo-id { font-size:.8rem; color:#ffa032; margin-top:8px; font-weight:bold }
+.lbl { font-size:.85rem; color:#ddd; margin-top:4px }
+.moves { font-size:.7rem; color:#888; margin-top:4px; line-height:1.6 }
+.nav { margin-bottom:28px; font-size:.85rem }
+.nav a { color:#50b4ff; text-decoration:none; margin-right:16px }
+.nav a:hover { color:#ffa032 }
+.badge { display:inline-block; padding:2px 8px; border-radius:3px; font-size:.68rem; margin-right:4px }
+.badge-base { background:#2a2a2a; color:#aaa }
+.badge-chain { background:#0e3030; color:#50dcca }
+.note { color:#555; font-size:.75rem; margin-top:6px; line-height:1.5 }
+</style>
+</head>
+<body>
+<h1>무현 (無絃) — PixelLab 콤보 루트 테스트</h1>
+<p class="sub">검술 A루트 (횡참2단 / 횡참3단) PixelLab 픽셀아트 애니메이션 테스트</p>
+<div class="meta">
+  캐릭터 ID: <span>1cc02977-3e88-4d1f-a52c-7ee5fcdb928f</span> &nbsp;|&nbsp;
+  스타일: <span>92×92px, side view, medium shading, high detail</span> &nbsp;|&nbsp;
+  템플릿: <span>cross-punch(횡참) + lead-jab(이단참) + roundhouse-kick(삼단참)</span> &nbsp;|&nbsp;
+  비용: <span>4 gen</span>
+</div>
+<div class="nav">
+  <a href="index.html">← 스켈레톤 무브 목록</a>
+  <a href="combo.html">← 스켈레톤 콤보 루트</a>
+</div>
+
+<h2>콤보 루트 애니메이션 (3× 확대)</h2>
+<div class="grid">
+  <div class="card">
+    <img class="combo" src="pixellab-combo/a1_pixellab.gif" alt="A-1 횡참2단">
+    <div class="combo-id">A-1</div>
+    <div class="lbl">횡참 2단</div>
+    <div class="moves">
+      <span style="color:#aaa">횡참(橫斬)</span> →
+      <span style="color:#50dcca">이단참</span>
+    </div>
+    <div class="note">cross-punch (6f) + lead-jab (3f)</div>
+  </div>
+  <div class="card">
+    <img class="combo" src="pixellab-combo/a2_pixellab.gif" alt="A-2 횡참3단">
+    <div class="combo-id">A-2</div>
+    <div class="lbl">횡참 3단</div>
+    <div class="moves">
+      <span style="color:#aaa">횡참(橫斬)</span> →
+      <span style="color:#50dcca">이단참</span> →
+      <span style="color:#50dcca">삼단참</span>
+    </div>
+    <div class="note">cross-punch (6f) + lead-jab (3f) + roundhouse-kick (7f)</div>
+  </div>
+</div>
+
+<h2>개별 무브 스프라이트시트</h2>
+<div class="grid" style="flex-direction:column; gap:12px">
+  <div class="card" style="max-width:700px">
+    <span class="badge badge-base">기본기</span><strong>횡참 (hoeng_cham)</strong>
+    <img class="sheet" src="pixellab-combo/hoeng_cham_east_3x.png" alt="hoeng_cham 스프라이트시트" style="margin-top:8px">
+    <div class="note">cross-punch 템플릿 · 6프레임 · east 방향</div>
+  </div>
+  <div class="card" style="max-width:400px">
+    <span class="badge badge-chain">체인기</span><strong>이단참 (idan_cham)</strong>
+    <img class="sheet" src="pixellab-combo/idan_cham_east_3x.png" alt="idan_cham 스프라이트시트" style="margin-top:8px">
+    <div class="note">lead-jab 템플릿 · 3프레임 · east 방향</div>
+  </div>
+  <div class="card" style="max-width:700px">
+    <span class="badge badge-chain">체인기</span><strong>삼단참 (samdan_cham)</strong>
+    <img class="sheet" src="pixellab-combo/samdan_cham_east_3x.png" alt="samdan_cham 스프라이트시트" style="margin-top:8px">
+    <div class="note">roundhouse-kick 템플릿 · 7프레임 · east 방향</div>
+  </div>
+</div>
+
+<h2 style="margin-top:32px">캐릭터 방향뷰 (4방향)</h2>
+<div class="grid">
+  <div class="card">
+    <img style="width:138px; height:138px; image-rendering:pixelated"
+         src="https://backblaze.pixellab.ai/file/pixellab-characters/9c962f05-aa18-4c36-be48-05131efc4354/1cc02977-3e88-4d1f-a52c-7ee5fcdb928f/rotations/east.png"
+         alt="east">
+    <div class="lbl">East (게임 내 좌향)</div>
+  </div>
+  <div class="card">
+    <img style="width:138px; height:138px; image-rendering:pixelated"
+         src="https://backblaze.pixellab.ai/file/pixellab-characters/9c962f05-aa18-4c36-be48-05131efc4354/1cc02977-3e88-4d1f-a52c-7ee5fcdb928f/rotations/west.png"
+         alt="west">
+    <div class="lbl">West</div>
+  </div>
+  <div class="card">
+    <img style="width:138px; height:138px; image-rendering:pixelated"
+         src="https://backblaze.pixellab.ai/file/pixellab-characters/9c962f05-aa18-4c36-be48-05131efc4354/1cc02977-3e88-4d1f-a52c-7ee5fcdb928f/rotations/south.png"
+         alt="south">
+    <div class="lbl">South</div>
+  </div>
+  <div class="card">
+    <img style="width:138px; height:138px; image-rendering:pixelated"
+         src="https://backblaze.pixellab.ai/file/pixellab-characters/9c962f05-aa18-4c36-be48-05131efc4354/1cc02977-3e88-4d1f-a52c-7ee5fcdb928f/rotations/north.png"
+         alt="north">
+    <div class="lbl">North</div>
+  </div>
+</div>
+
+</body>
+</html>
