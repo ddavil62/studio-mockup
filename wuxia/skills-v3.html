@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>무현 (無絃) — v3 스킬 애니메이션</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0 }
+body { background:#0a0c1c; color:#ccc; font-family:'Segoe UI',sans-serif; padding:24px }
+
+h1 { color:#ffa032; font-size:1.5rem; margin-bottom:6px }
+p.sub { color:#666; font-size:.85rem; margin-bottom:32px }
+a { color:#ffa032; }
+
+/* 섹션 */
+.section { margin-bottom:48px }
+.section-title {
+  font-size:1rem; font-weight:700; margin-bottom:16px;
+  padding:8px 14px; border-radius:4px;
+  border-left:3px solid currentColor;
+}
+.section-title.confirmed { color:#50e09a; background:#0d2018; border-color:#50e09a }
+.section-title.unselected { color:#778; background:#12141e; border-color:#445 }
+.section-title .badge {
+  font-size:.72rem; font-weight:400; margin-left:8px;
+  padding:2px 7px; border-radius:10px; vertical-align:middle;
+}
+.section-title.confirmed .badge { background:#1a4030; color:#50e09a }
+.section-title.unselected .badge { background:#1e2030; color:#778 }
+
+/* 스킬 그룹 */
+.skill-group { margin-bottom:28px }
+.skill-label {
+  font-size:.8rem; color:#ffa032; font-weight:600;
+  margin-bottom:10px; letter-spacing:.05em;
+}
+.skill-label .ko { color:#ddd; font-weight:400; margin-left:6px; font-size:.75rem }
+
+/* 카드 */
+.cards { display:flex; flex-wrap:wrap; gap:12px }
+.card {
+  background:#12152a; border:1px solid #1e2040; border-radius:6px;
+  padding:8px; text-align:center; transition:border .15s; position:relative;
+}
+.card:hover { border-color:#ffa032 }
+.card img { display:block; image-rendering:pixelated; image-rendering:crisp-edges }
+.card .ver { font-size:.78rem; color:#ddd; margin-top:6px }
+.card .note { font-size:.65rem; color:#556; margin-top:3px }
+
+/* 확정 카드 강조 */
+.card.confirmed-card { border-color:#50e09a33 }
+.card.confirmed-card:hover { border-color:#50e09a }
+.badge-ok {
+  position:absolute; top:6px; right:6px;
+  background:#1a4030; color:#50e09a; font-size:.6rem;
+  padding:2px 5px; border-radius:8px; font-weight:700;
+}
+
+/* 구분자 */
+.divider {
+  border:none; border-top:1px solid #1e2040;
+  margin: 20px 0;
+}
+</style>
+</head>
+<body>
+
+<h1>무현 (無絃) — v3 스킬 애니메이션</h1>
+<p class="sub">
+  PixelLab v3 · east 방향 · 8fps · 3× 스케일 &nbsp;|&nbsp;
+  <a href="index.html">← 메인</a>
+</p>
+
+<!-- ══════════════════════════════════════════
+     확정 스킬
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title confirmed">
+    확정 스킬
+    <span class="badge">4개</span>
+  </div>
+
+  <!-- 음사 -->
+  <div class="skill-group">
+    <div class="skill-label">음사(音射) <span class="ko">sound shot · 구음현 발사</span></div>
+    <div class="cards">
+      <div class="card confirmed-card">
+        <span class="badge-ok">PICK</span>
+        <img src="skills-v3/eum_sa_v3c.gif" alt="음사 v3c" style="width:168px;height:168px">
+        <div class="ver">v3c</div>
+        <div class="note">8fps</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 참현 -->
+  <div class="skill-group">
+    <div class="skill-label">참현(斬玄) <span class="ko">slash-string · 현줄 절단 돌진</span></div>
+    <div class="cards">
+      <div class="card confirmed-card">
+        <span class="badge-ok">PICK</span>
+        <img src="skills-v3/cham_hyeon_v3b.gif" alt="참현 v3b" style="width:168px;height:168px">
+        <div class="ver">v3b</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 무현류 -->
+  <div class="skill-group">
+    <div class="skill-label">무현류(無絃流) <span class="ko">stringless flow · 검류 슬로우 캐스팅</span></div>
+    <div class="cards">
+      <div class="card confirmed-card">
+        <span class="badge-ok">PICK</span>
+        <img src="skills-v3/muhyeon_ryu_v3c.gif" alt="무현류 v3c" style="width:168px;height:168px">
+        <div class="ver">v3c</div>
+        <div class="note">4fps · 2× 시전시간</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 승룡격 -->
+  <div class="skill-group">
+    <div class="skill-label">승룡격(昇龍擊) <span class="ko">rising dragon slash · 호월참 스타일 점프 스핀베기</span></div>
+    <div class="cards">
+      <div class="card confirmed-card">
+        <span class="badge-ok">PICK</span>
+        <img src="skills-v3/seungnyong_gyeok_v3m.gif" alt="승룡격 v3m" style="width:168px;height:168px">
+        <div class="ver">v3m</div>
+        <div class="note">Kogetsuzan style · single sword</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     미선택 (재활용 후보)
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title unselected">
+    미선택 — 재활용 후보
+    <span class="badge">21개</span>
+  </div>
+
+  <!-- 음사 미선택 -->
+  <div class="skill-group">
+    <div class="skill-label">음사(音射)</div>
+    <div class="cards">
+      <div class="card">
+        <img src="skills-v3/eum_sa_v3.gif" alt="음사 v3" style="width:120px;height:120px">
+        <div class="ver">v3</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/eum_sa_v3b.gif" alt="음사 v3b" style="width:120px;height:120px">
+        <div class="ver">v3b</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 참현 미선택 -->
+  <div class="skill-group">
+    <div class="skill-label">참현(斬玄)</div>
+    <div class="cards">
+      <div class="card">
+        <img src="skills-v3/cham_hyeon_v3.gif" alt="참현 v3" style="width:120px;height:120px">
+        <div class="ver">v3</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 무현류 미선택 -->
+  <div class="skill-group">
+    <div class="skill-label">무현류(無絃流)</div>
+    <div class="cards">
+      <div class="card">
+        <img src="skills-v3/muhyeon_ryu_v3.gif" alt="무현류 v3" style="width:120px;height:120px">
+        <div class="ver">v3</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/muhyeon_ryu_v3b.gif" alt="무현류 v3b" style="width:120px;height:120px">
+        <div class="ver">v3b</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 승룡격 미선택 -->
+  <div class="skill-group">
+    <div class="skill-label">승룡격(昇龍擊) <span class="ko">— 이터레이션 히스토리</span></div>
+    <div class="cards">
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3.gif" alt="v3" style="width:96px;height:96px">
+        <div class="ver">v3</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3b.gif" alt="v3b" style="width:96px;height:96px">
+        <div class="ver">v3b</div>
+        <div class="note">no rotation</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3c.gif" alt="v3c" style="width:96px;height:96px">
+        <div class="ver">v3c</div>
+        <div class="note">weak rotation</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3d.gif" alt="v3d" style="width:96px;height:96px">
+        <div class="ver">v3d</div>
+        <div class="note">SF Shoryuken v1</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3e.gif" alt="v3e" style="width:96px;height:96px">
+        <div class="ver">v3e</div>
+        <div class="note">v3d 개선</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3f.gif" alt="v3f" style="width:96px;height:96px">
+        <div class="ver">v3f</div>
+        <div class="note">점프 성공 · 손등 방향 ❌</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3g.gif" alt="v3g" style="width:96px;height:96px">
+        <div class="ver">v3g</div>
+        <div class="note">가슴→카메라 ❌</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3h.gif" alt="v3h" style="width:96px;height:96px">
+        <div class="ver">v3h</div>
+        <div class="note">등→카메라 · 직선 베기</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3i.gif" alt="v3i" style="width:96px;height:96px">
+        <div class="ver">v3i</div>
+        <div class="note">원심력 좋음 · 점프 없음 ❌</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3j.gif" alt="v3j" style="width:96px;height:96px">
+        <div class="ver">v3j</div>
+        <div class="note">3요소 결합 시도</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3k.gif" alt="v3k" style="width:96px;height:96px">
+        <div class="ver">v3k</div>
+        <div class="note">점프 재강조</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/seungnyong_gyeok_v3l.gif" alt="v3l" style="width:96px;height:96px">
+        <div class="ver">v3l</div>
+        <div class="note">Kogetsuzan 직접 기술 · 칼 2개 ❌</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 기타 미선택 -->
+  <div class="skill-group">
+    <div class="skill-label">기타 <span class="ko">— 미분류 v3 애니메이션</span></div>
+    <div class="cards">
+      <div class="card">
+        <img src="skills-v3/hoeng_cham_v3.gif" alt="횡참 v3" style="width:120px;height:120px">
+        <div class="ver">횡참 v3</div>
+      </div>
+      <div class="card">
+        <img src="skills-v3/hyeon_roe_v3.gif" alt="현뢰 v3" style="width:120px;height:120px">
+        <div class="ver">현뢰 v3</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
