@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>미니게임천국 - 별빛 우편탑 에셋 프리뷰</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    .preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .preview-card { padding: 24px; border: 1px solid #3E91A3; border-radius: 14px; background: #15213A; }
+    .preview-card img { display: block; width: min(100%, 640px); aspect-ratio: 5 / 3; margin: 0 auto 20px; image-rendering: auto; }
+    .swatches { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .swatch { display: flex; align-items: center; gap: 7px; color: #B9E8E7; font: 0.8rem var(--font-mono); }
+    .swatch::before { content: ""; width: 18px; height: 18px; border-radius: 5px; background: var(--swatch); border: 1px solid #F5E9C9; }
+    .meta { color: var(--text-secondary); line-height: 1.8; }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color:#FFD97A;">미니게임천국</h1>
+    <div class="breadcrumb"><a href="../index.html">Studio</a> / 별빛 우편탑</div>
+  </header>
+  <nav class="sidebar">
+    <div class="section-title">Assets</div>
+    <a class="active" href="index.html">별빛 우편탑</a>
+  </nav>
+  <main class="content">
+    <h2>별빛 우편탑 키아트</h2>
+    <p class="text-muted">LAN 2인 협동 등반 게임 · 160×96 SVG · Canvas/CSS 공통 팔레트</p>
+    <div class="preview-grid" style="margin-top:24px;">
+      <section class="preview-card">
+        <img src="assets/starlight-mail-tower-key-art.svg" alt="별빛 우편탑의 두 정비 로봇과 중앙 우편 발사대">
+        <h3>런처 카드 키아트</h3>
+        <p class="meta">A 로봇은 청록색 삼각 표식, B 로봇은 산호색 원형·두 점 표식으로 역할을 구분합니다. 중앙 발사대와 관측 접시는 두 플레이어의 공동 목표를 나타냅니다.</p>
+        <div class="swatches" aria-label="주요 색상">
+          <span class="swatch" style="--swatch:#15213A">#15213A</span>
+          <span class="swatch" style="--swatch:#62D6E8">#62D6E8</span>
+          <span class="swatch" style="--swatch:#FF8D78">#FF8D78</span>
+          <span class="swatch" style="--swatch:#FFD97A">#FFD97A</span>
+          <span class="swatch" style="--swatch:#64DC96">#64DC96</span>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
