@@ -13,6 +13,9 @@
     .swatch { display: flex; align-items: center; gap: 7px; color: #B9E8E7; font: 0.8rem var(--font-mono); }
     .swatch::before { content: ""; width: 18px; height: 18px; border-radius: 5px; background: var(--swatch); border: 1px solid #F5E9C9; }
     .meta { color: var(--text-secondary); line-height: 1.8; }
+    .asset-preview { object-fit: contain; background: #090D1F; border-radius: 10px; }
+    .asset-preview.source { aspect-ratio: 3 / 2; }
+    .asset-preview.atlas { aspect-ratio: auto; image-rendering: pixelated; }
   </style>
 </head>
 <body>
@@ -52,6 +55,46 @@
           <span class="swatch" style="--swatch:#F4A64A">#F4A64A</span>
           <span class="swatch" style="--swatch:#F5E9C9">#F5E9C9</span>
         </div>
+      </section>
+    </div>
+
+    <h2 style="margin-top:48px;">달빛 주방열차 GPT Image 에셋</h2>
+    <p class="text-muted">재료 상태, 조리 설비, 완성 요리와 두 승무원을 구분하기 쉽도록 생성한 원본 시트와 게임용 atlas입니다.</p>
+    <div class="preview-grid" style="margin-top:24px;">
+      <section class="preview-card">
+        <img class="asset-preview source" src="assets/moonlight-ingredients-source.png" alt="달빛 주방열차 재료 6종과 생·손질·조리·탄 상태 원본 시트">
+        <h3>재료와 조리 상태</h3>
+        <p class="meta">달버섯, 노을고추, 은빛반죽, 등불잎, 혜성무, 별국수의 네 상태를 색과 실루엣으로 구분합니다.</p>
+      </section>
+      <section class="preview-card">
+        <img class="asset-preview source" src="assets/moonlight-stations-source.png" alt="달빛 주방열차 조리 설비와 접시 및 완성 요리 원본 시트">
+        <h3>설비·접시·완성 요리</h3>
+        <p class="meta">재료 상자부터 화로, 찜기, 냄비, 플레이팅, 배식대까지 각 설비의 기능이 한눈에 드러나도록 구성했습니다.</p>
+      </section>
+      <section class="preview-card">
+        <img class="asset-preview source" src="assets/moonlight-crew-source.png" alt="초승달과 별 역할 승무원의 네 방향 원본 시트">
+        <h3>두 승무원과 네 방향</h3>
+        <p class="meta">청록 초승달 P1과 분홍 별 P2를 앞치마 문양과 역할색으로 이중 구분합니다.</p>
+      </section>
+      <section class="preview-card">
+        <img class="asset-preview" src="assets/moonlight-assets-play-1280x720.png" alt="새 GPT Image 에셋이 적용된 달빛 주방열차 게임 화면">
+        <h3>게임 적용 화면</h3>
+        <p class="meta">49개 프레임을 15색 팔레트 WebP atlas로 최적화해 주문, 손에 든 재료, 바닥 아이템, 설비와 승무원에 적용했습니다.</p>
+      </section>
+      <section class="preview-card">
+        <img class="asset-preview atlas" src="assets/moonlight-items-atlas.webp" alt="재료와 완성 요리의 투명 배경 WebP atlas">
+        <h3>재료 atlas</h3>
+        <p class="meta">재료 24상태, 빈 접시 1개, 완성 요리 3개를 담은 게임용 atlas입니다.</p>
+      </section>
+      <section class="preview-card">
+        <img class="asset-preview atlas" src="assets/moonlight-stations-atlas.webp" alt="조리 설비 13종의 투명 배경 WebP atlas">
+        <h3>설비 atlas</h3>
+        <p class="meta">13종 설비를 투명 배경과 8% 이상의 안전 여백으로 정규화했습니다.</p>
+      </section>
+      <section class="preview-card">
+        <img class="asset-preview atlas" src="assets/moonlight-crew-atlas.webp" alt="두 승무원 네 방향의 투명 배경 WebP atlas">
+        <h3>승무원 atlas</h3>
+        <p class="meta">P1·P2 각각 아래, 왼쪽, 위, 오른쪽 방향을 담았습니다.</p>
       </section>
     </div>
   </main>
