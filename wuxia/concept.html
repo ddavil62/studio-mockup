@@ -22,8 +22,11 @@
     .frames { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
     .frames figure { margin: 0; text-align: center; }
     .frames img { width: 156px; max-width: 100%; }
+    .native128 .frames img { width: 256px; }
     .loop-grid { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(220px, 2fr); gap: 18px; }
     .loop-grid .zoom img { width: 624px; image-rendering: pixelated; }
+    .native128 .loop-grid .pixel-stage:first-child img { width: 256px; }
+    .native128 .loop-grid .zoom img { width: 1024px; }
     @media (max-width: 760px) { .frames { grid-template-columns: repeat(2, minmax(0, 1fr)); } .loop-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -37,7 +40,22 @@
       <img src="concept/protagonist-joseon-variants-v1.png" alt="사이버펑크 조선 주인공 디자인 4종 탐색안">
       <figcaption>승인안: 왼쪽에서 두 번째</figcaption>
     </figure>
-    <h2>나전 음공가 4프레임 아이들</h2>
+    <section class="native128">
+      <h2>나전 음공가 128×128 네이티브 아이들</h2>
+      <span class="badge">Phase 11-B2 · AD APPROVED · QA PASS</span>
+      <p>64×64 논리 도트 확대 대신 128×128 그리드에서 얼굴·나전 문양·직검·6현 음현을 직접 정리한 개선판이다. 4프레임 모두 47×118px 실루엣과 접지선 Y=122를 유지하며 흉곽과 도포 자락만 미세하게 호흡한다.</p>
+      <div class="frames">
+        <figure class="pixel-stage"><img src="assets/najeon-idle-v2/najeon-idle-v2-frame-01.png" alt="128×128 나전 음공가 아이들 프레임 1 중립"><figcaption>01 · 중립 · 2배 확대</figcaption></figure>
+        <figure class="pixel-stage"><img src="assets/najeon-idle-v2/najeon-idle-v2-frame-02.png" alt="128×128 나전 음공가 아이들 프레임 2 들숨"><figcaption>02 · 들숨 · 2배 확대</figcaption></figure>
+        <figure class="pixel-stage"><img src="assets/najeon-idle-v2/najeon-idle-v2-frame-03.png" alt="128×128 나전 음공가 아이들 프레임 3 복귀"><figcaption>03 · 복귀 · 2배 확대</figcaption></figure>
+        <figure class="pixel-stage"><img src="assets/najeon-idle-v2/najeon-idle-v2-frame-04.png" alt="128×128 나전 음공가 아이들 프레임 4 날숨"><figcaption>04 · 날숨 · 2배 확대</figcaption></figure>
+      </div>
+      <div class="loop-grid">
+        <figure class="pixel-stage"><img src="assets/najeon-idle-v2/najeon-idle-v2-preview.gif" alt="128×128 나전 음공가 4프레임 아이들 반복 미리보기"><figcaption>128×128 네이티브 · 4프레임 반복 · 160ms/frame · 2배 확대</figcaption></figure>
+        <figure class="pixel-stage zoom"><img src="assets/najeon-idle-v2/najeon-idle-v2-sheet.png" alt="128×128 나전 음공가 4프레임 가로 스프라이트 시트"><figcaption>512×128 스프라이트 시트 · 2배 nearest-neighbor 확대</figcaption></figure>
+      </div>
+    </section>
+    <h2>이전 64×64 논리 도트 버전</h2>
     <span class="badge">Phase 11-B · AD APPROVED · QA PASS</span>
     <p>90° 동쪽 측면 실루엣과 접지·체적을 고정한 4프레임 루프다. 얼굴·손·직검·6현 음현·발은 움직이지 않고, 흉곽과 뒤 자락 내부 명암만 한 픽셀 호흡한다. Godot 런타임 연결은 Phase 11-C에서 진행한다.</p>
     <div class="frames">
