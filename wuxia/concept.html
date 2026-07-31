@@ -16,6 +16,15 @@
     img { display: block; width: 100%; height: auto; border-radius: 7px; }
     figcaption { padding: 12px 4px 3px; color: #bbc1c9; }
     strong { color: #f4f6f8; }
+    h2 { margin: 42px 0 8px; font-size: clamp(20px, 3vw, 30px); }
+    .pixel-stage { background-color: #131821; background-image: linear-gradient(45deg, #1d2430 25%, transparent 25%), linear-gradient(-45deg, #1d2430 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1d2430 75%), linear-gradient(-45deg, transparent 75%, #1d2430 75%); background-position: 0 0, 0 8px, 8px -8px, -8px 0; background-size: 16px 16px; }
+    .pixel-stage img { width: auto; max-width: 100%; margin: 0 auto; image-rendering: pixelated; border-radius: 0; }
+    .frames { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .frames figure { margin: 0; text-align: center; }
+    .frames img { width: 156px; max-width: 100%; }
+    .loop-grid { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(220px, 2fr); gap: 18px; }
+    .loop-grid .zoom img { width: 624px; image-rendering: pixelated; }
+    @media (max-width: 760px) { .frames { grid-template-columns: repeat(2, minmax(0, 1fr)); } .loop-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -28,6 +37,19 @@
       <img src="concept/protagonist-joseon-variants-v1.png" alt="사이버펑크 조선 주인공 디자인 4종 탐색안">
       <figcaption>승인안: 왼쪽에서 두 번째</figcaption>
     </figure>
+    <h2>나전 음공가 4프레임 아이들</h2>
+    <span class="badge">Phase 11-B · AD APPROVED · QA PASS</span>
+    <p>90° 동쪽 측면 실루엣과 접지·체적을 고정한 4프레임 루프다. 얼굴·손·직검·6현 음현·발은 움직이지 않고, 흉곽과 뒤 자락 내부 명암만 한 픽셀 호흡한다. Godot 런타임 연결은 Phase 11-C에서 진행한다.</p>
+    <div class="frames">
+      <figure class="pixel-stage"><img src="assets/najeon-idle-v1/najeon-idle-v1-frame-01.png" alt="나전 음공가 아이들 프레임 1 중립"><figcaption>01 · 중립</figcaption></figure>
+      <figure class="pixel-stage"><img src="assets/najeon-idle-v1/najeon-idle-v1-frame-02.png" alt="나전 음공가 아이들 프레임 2 들숨"><figcaption>02 · 들숨</figcaption></figure>
+      <figure class="pixel-stage"><img src="assets/najeon-idle-v1/najeon-idle-v1-frame-03.png" alt="나전 음공가 아이들 프레임 3 복귀"><figcaption>03 · 복귀</figcaption></figure>
+      <figure class="pixel-stage"><img src="assets/najeon-idle-v1/najeon-idle-v1-frame-04.png" alt="나전 음공가 아이들 프레임 4 날숨"><figcaption>04 · 날숨</figcaption></figure>
+    </div>
+    <div class="loop-grid">
+      <figure class="pixel-stage"><img src="assets/najeon-idle-v1/najeon-idle-v1-preview.gif" alt="나전 음공가 4프레임 아이들 반복 미리보기"><figcaption>4프레임 반복 · 160ms/frame</figcaption></figure>
+      <figure class="pixel-stage zoom"><img src="assets/najeon-idle-v1/najeon-idle-v1-sheet.png" alt="나전 음공가 4프레임 가로 스프라이트 시트"><figcaption>624×156 스프라이트 시트 · nearest-neighbor 확대</figcaption></figure>
+    </div>
   </main>
 </body>
 </html>
