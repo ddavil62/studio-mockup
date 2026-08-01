@@ -27,15 +27,33 @@
     .directions figure { margin: 0; text-align: center; }
     .directions img { width: 256px; max-width: 100%; }
     .direction-preview img { width: 1280px; }
+    .resolution-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; align-items: end; }
+    .resolution-grid figure { margin: 0; text-align: center; }
+    .resolution-grid img { max-width: 100%; }
+    .resolution-grid .size-128 img { width: 128px; }
+    .resolution-grid .size-192 img { width: 192px; }
+    .resolution-grid .size-256 img { width: 256px; }
+    .resolution-screen img { width: 1280px; }
     .loop-grid { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(220px, 2fr); gap: 18px; }
     .loop-grid .zoom img { width: 624px; image-rendering: pixelated; }
     .native128 .loop-grid .pixel-stage:first-child img { width: 256px; }
     .native128 .loop-grid .zoom img { width: 1024px; }
-    @media (max-width: 760px) { .frames, .directions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .loop-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .frames, .directions, .resolution-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .loop-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <main>
+    <section>
+      <h2>나전 음공가 idle 해상도 비교</h2>
+      <span class="badge">Phase 11-B4 · AD APPROVED · QA PASS</span>
+      <p>같은 우측 90도 중립 자세를 1:1 배율로 비교합니다. 192×192는 불투명 높이 156px, 256×256는 183px이며, 256 버전은 720p 화면 세로에 약 3.93명이 들어가는 크기입니다. 현재는 해상도 선택용 정적 샘플로 Godot 런타임에는 연결하지 않았습니다.</p>
+      <div class="resolution-grid">
+        <figure class="pixel-stage size-128"><img src="assets/najeon-idle-v2/najeon-idle-v2-frame-01.png" alt="128×128 나전 음공가 우측 idle"><figcaption>128×128 · 불투명 높이 118px</figcaption></figure>
+        <figure class="pixel-stage size-192"><img src="assets/najeon-idle-resolution-compare-v1/najeon-idle-compare-192.png" alt="192×192 나전 음공가 우측 idle"><figcaption>192×192 · 불투명 높이 156px</figcaption></figure>
+        <figure class="pixel-stage size-256"><img src="assets/najeon-idle-resolution-compare-v1/najeon-idle-compare-256.png" alt="256×256 나전 음공가 우측 idle"><figcaption>256×256 · 불투명 높이 183px</figcaption></figure>
+      </div>
+      <figure class="pixel-stage resolution-screen"><img src="assets/najeon-idle-resolution-compare-v1/phase11b4-najeon-resolution-compare.png" alt="1280×720 화면에서 128, 192, 256 나전 음공가 크기 비교"><figcaption>1280×720 · 동일 접지선 · 1:1 배율 비교</figcaption></figure>
+    </section>
     <a href="index.html">← Wuxia 목업</a>
     <h1>주인공 컨셉 — 사이버펑크 조선</h1>
     <span class="badge">Phase 11-A APPROVED</span>
