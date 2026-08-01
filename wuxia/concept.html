@@ -23,11 +23,15 @@
     .frames figure { margin: 0; text-align: center; }
     .frames img { width: 156px; max-width: 100%; }
     .native128 .frames img { width: 256px; }
+    .directions { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .directions figure { margin: 0; text-align: center; }
+    .directions img { width: 256px; max-width: 100%; }
+    .direction-preview img { width: 1280px; }
     .loop-grid { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(220px, 2fr); gap: 18px; }
     .loop-grid .zoom img { width: 624px; image-rendering: pixelated; }
     .native128 .loop-grid .pixel-stage:first-child img { width: 256px; }
     .native128 .loop-grid .zoom img { width: 1024px; }
-    @media (max-width: 760px) { .frames { grid-template-columns: repeat(2, minmax(0, 1fr)); } .loop-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .frames, .directions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .loop-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -40,6 +44,19 @@
       <img src="concept/protagonist-joseon-variants-v1.png" alt="사이버펑크 조선 주인공 디자인 4종 탐색안">
       <figcaption>승인안: 왼쪽에서 두 번째</figcaption>
     </figure>
+    <section class="native128">
+      <h2>나전 음공가 8방향용 5방향 아이들</h2>
+      <span class="badge">Phase 11-B3 · AD APPROVED · QA PASS</span>
+      <p>애니메이션 없이 북·북동·동·남동·남의 정지 이미지 5장을 제작했다. 북서·서·남서는 각각 북동·동·남동을 좌우 반전해 사용하며, 전 방향이 128×128 캔버스와 접지선 Y=122를 공유한다.</p>
+      <div class="directions">
+        <figure class="pixel-stage"><img src="assets/najeon-idle-8way-v1/najeon-idle-8way-v1-n.png" alt="나전 음공가 북쪽 후면 아이들"><figcaption>N · 상 · 후면</figcaption></figure>
+        <figure class="pixel-stage"><img src="assets/najeon-idle-8way-v1/najeon-idle-8way-v1-ne.png" alt="나전 음공가 북동쪽 후면 3/4 아이들"><figcaption>NE · 상우 · 후면 3/4</figcaption></figure>
+        <figure class="pixel-stage"><img src="assets/najeon-idle-8way-v1/najeon-idle-8way-v1-e.png" alt="나전 음공가 동쪽 측면 아이들"><figcaption>E · 우 · 측면</figcaption></figure>
+        <figure class="pixel-stage"><img src="assets/najeon-idle-8way-v1/najeon-idle-8way-v1-se.png" alt="나전 음공가 남동쪽 전면 3/4 아이들"><figcaption>SE · 하우 · 전면 3/4</figcaption></figure>
+        <figure class="pixel-stage"><img src="assets/najeon-idle-8way-v1/najeon-idle-8way-v1-s.png" alt="나전 음공가 남쪽 정면 아이들"><figcaption>S · 하 · 정면</figcaption></figure>
+      </div>
+      <figure class="pixel-stage direction-preview"><img src="assets/najeon-idle-8way-v1/najeon-idle-8way-v1-preview-8way.png" alt="나전 음공가 미러 포함 8방향 아이들 비교"><figcaption>N → NE → E → SE → S → SW → W → NW · 좌우 반전 포함 전체 방향</figcaption></figure>
+    </section>
     <section class="native128">
       <h2>나전 음공가 128×128 네이티브 아이들</h2>
       <span class="badge">Phase 11-B2 · AD APPROVED · QA PASS</span>
