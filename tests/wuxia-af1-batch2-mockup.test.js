@@ -43,12 +43,15 @@ async function main() {
     });
 
     if (
-      imageCount !== 166
+      imageCount !== 153
       || broken.length > 0
       || errors.length > 0
       || !status.includes('이중음')
       || !status.includes('참족')
-      || headings.length !== 13
+      || !status.includes('이단족')
+      || !status.includes('음사 A')
+      || !status.includes('96프레임')
+      || headings.length !== 12
     ) {
       throw new Error(JSON.stringify({ imageCount, broken, errors, status, headingCount: headings.length }));
     }

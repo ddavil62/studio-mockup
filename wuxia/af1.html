@@ -11,8 +11,8 @@
 <body>
 <a href="index.html">← Wuxia 목업</a>
 <h1>AF-1 Dreamina 영상 스프라이트</h1>
-<p>승인 156프레임 · 512×512 RGBA · pivot (256, 464) · 공격 11종 + Idle + Walk</p>
-<div class="status"><strong>2차 승인:</strong> Idle 1종 + 공격 8종, 108프레임<br><strong>보류:</strong> 이중음(원본에 두 번째 상향 뜯기 없음) · 참족(원본 영상 누락)</div>
+<p>승인 144프레임 · 512×512 RGBA · pivot (256, 464) · 공격 10종 + Idle + Walk</p>
+<div class="status"><strong>2차 승인:</strong> Idle 1종 + 공격 7종, 96프레임<br><strong>교체:</strong> 음사 A 후보 채택<br><strong>보류:</strong> 이단족(원본의 세 번째 발) · 이중음(두 번째 상향 뜯기 없음) · 참족(통합 대기)</div>
 <div class="sheets" id="batchSheets"></div>
 <main id="motions"></main>
 <script>
@@ -20,13 +20,13 @@ const motions=[
   ['idle','Idle','loop'],
   ['jeon_cham','전참'],['idan_cham','이단참'],['samdan_cham','삼단참'],
   ['jeong_jok','정족'],['geom_jok','검족'],['geomjok_cham','검족참'],
-  ['cham_hyeon','참현'],['jok_cham','족참'],['idan_jok','이단족'],
+  ['cham_hyeon','참현'],['jok_cham','족참'],
   ['samdan_jok','삼단족'],['eum_sa','음사']
 ];
 const root=document.getElementById('motions');
 for(const [id,name,type] of motions){const section=document.createElement('section');section.className='motion';section.innerHTML=`<h2>${name} · ${id}</h2><div class="frames"></div>`;const grid=section.querySelector('.frames');for(let i=0;i<12;i+=1){const card=document.createElement('div');card.className=`frame ${type!=='loop'&&i>=4&&i<=6?'active':''}`;const index=String(i).padStart(3,'0');const phase=type==='loop'?'LOOP':i<4?'STARTUP':i<7?'ACTIVE':'RECOVERY';card.innerHTML=`<img loading="lazy" src="assets/af1/${id}/${id}_${index}.png" alt="${id} frame ${i}"><span>${phase} ${index}</span>`;grid.appendChild(card)}root.appendChild(section)}
 
-const batchIds=['idle','idan_cham','samdan_cham','geom_jok','geomjok_cham','cham_hyeon','jok_cham','idan_jok','samdan_jok'];
+const batchIds=['idle','idan_cham','samdan_cham','geom_jok','geomjok_cham','cham_hyeon','jok_cham','samdan_jok'];
 const sheets=document.getElementById('batchSheets');
 for(const id of batchIds){const image=document.createElement('img');image.className='sheet';image.loading='lazy';image.src=`assets/af1/batch2-contact-sheets/${id}-contact-sheet.png`;image.alt=`${id} 12프레임 접촉 시트`;sheets.appendChild(image)}
 </script>
