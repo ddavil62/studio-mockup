@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 131,
+				"x": 191,
+				"y": 214
+			},
+			"file": "idan_cham_000.png",
+			"outputIndex": 0,
+			"sha256": "54a3545233cdc81062b81e4686e4fdc5dedc48ea6cfb646ef3fadb6787acf4cf",
+			"slot": "startup",
+			"sourceTime": 0.0,
+			"trim": {
+				"height": 195,
+				"width": 102,
+				"x": 312,
+				"y": 57
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 243,
+				"width": 161,
+				"x": 176,
+				"y": 221
+			},
+			"file": "idan_cham_001.png",
+			"outputIndex": 1,
+			"sha256": "7a63c0eb2bec432f87a7f7fcbfa3df29142dd8ae578a8bd4a77689221521841f",
+			"slot": "startup",
+			"sourceTime": 0.6,
+			"trim": {
+				"height": 190,
+				"width": 126,
+				"x": 312,
+				"y": 63
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 242,
+				"width": 215,
+				"x": 149,
+				"y": 222
+			},
+			"file": "idan_cham_002.png",
+			"outputIndex": 2,
+			"sha256": "de1bb8a488c801b5b6bccf8d604330ea520a2f93b73a4f6bb3d395c6a630c7b2",
+			"slot": "startup",
+			"sourceTime": 1.0,
+			"trim": {
+				"height": 189,
+				"width": 168,
+				"x": 299,
+				"y": 65
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 242,
+				"width": 186,
+				"x": 163,
+				"y": 222
+			},
+			"file": "idan_cham_003.png",
+			"outputIndex": 3,
+			"sha256": "358f635388ce98228a8a9a462f1d29cbb934eb86ff9fd48bbccf4953f29b3189",
+			"slot": "startup",
+			"sourceTime": 1.2,
+			"trim": {
+				"height": 189,
+				"width": 145,
+				"x": 300,
+				"y": 65
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 218,
+				"width": 362,
+				"x": 75,
+				"y": 246
+			},
+			"file": "idan_cham_004.png",
+			"outputIndex": 4,
+			"sha256": "d0c8b5c27f9e02553ce98dec43c7876de7135479eb981bad27e23476b115ae5b",
+			"slot": "active",
+			"sourceTime": 1.6,
+			"trim": {
+				"height": 170,
+				"width": 283,
+				"x": 298,
+				"y": 84
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 219,
+				"width": 360,
+				"x": 76,
+				"y": 245
+			},
+			"file": "idan_cham_005.png",
+			"outputIndex": 5,
+			"sha256": "c5284a32d0aa8c2b5afda1afe9600577b033b373a7055322d8c104a2b69b24d7",
+			"slot": "active",
+			"sourceTime": 1.8,
+			"trim": {
+				"height": 171,
+				"width": 281,
+				"x": 300,
+				"y": 83
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 219,
+				"width": 361,
+				"x": 76,
+				"y": 245
+			},
+			"file": "idan_cham_006.png",
+			"outputIndex": 6,
+			"sha256": "91e2a28aa7d4b8301fab94fad97541700e6fa40ce6a3baf3f1bb90dc800830e6",
+			"slot": "active",
+			"sourceTime": 2.0,
+			"trim": {
+				"height": 171,
+				"width": 282,
+				"x": 301,
+				"y": 83
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 219,
+				"width": 361,
+				"x": 76,
+				"y": 245
+			},
+			"file": "idan_cham_007.png",
+			"outputIndex": 7,
+			"sha256": "58dde7066f638eaec9b92465034787b89d33ace90cae82b2edaaa8d792cbbda0",
+			"slot": "recovery",
+			"sourceTime": 2.6,
+			"trim": {
+				"height": 171,
+				"width": 282,
+				"x": 300,
+				"y": 83
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 219,
+				"width": 357,
+				"x": 78,
+				"y": 245
+			},
+			"file": "idan_cham_008.png",
+			"outputIndex": 8,
+			"sha256": "fb4f0b37d770580d85e52afe80dc28322d9c0c8091612cce9acf5c31b6792ca4",
+			"slot": "recovery",
+			"sourceTime": 3.0,
+			"trim": {
+				"height": 171,
+				"width": 279,
+				"x": 300,
+				"y": 83
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 246,
+				"width": 239,
+				"x": 137,
+				"y": 218
+			},
+			"file": "idan_cham_009.png",
+			"outputIndex": 9,
+			"sha256": "0a1f41c930c9eadf220a95afcd0a9b7c988156ce5e4565b0f2a404926a60f5ff",
+			"slot": "recovery",
+			"sourceTime": 3.4,
+			"trim": {
+				"height": 192,
+				"width": 187,
+				"x": 336,
+				"y": 62
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 251,
+				"width": 136,
+				"x": 188,
+				"y": 213
+			},
+			"file": "idan_cham_010.png",
+			"outputIndex": 10,
+			"sha256": "10448c4a235cf2c4d8530d8445d0e7e329d339e36f06299d412a20892cfdd212",
+			"slot": "recovery",
+			"sourceTime": 3.8,
+			"trim": {
+				"height": 196,
+				"width": 106,
+				"x": 319,
+				"y": 57
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 251,
+				"width": 133,
+				"x": 190,
+				"y": 213
+			},
+			"file": "idan_cham_011.png",
+			"outputIndex": 11,
+			"sha256": "42aaccb0299426603f0fa55f063c10c9642b53a541affb27b9b9f8a59fa588a4",
+			"slot": "recovery",
+			"sourceTime": 4.6,
+			"trim": {
+				"height": 196,
+				"width": 104,
+				"x": 311,
+				"y": 56
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "idan_cham",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "이단참.mp4",
+		"height": 630,
+		"projectPath": "assets/video/2차/이단참.mp4",
+		"sha256": "0d10476142eb6a2b0f9cf35173f917a247cee2d80884af771b618b319dc0e925",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

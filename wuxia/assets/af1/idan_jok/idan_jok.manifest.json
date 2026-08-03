@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 258,
+				"width": 141,
+				"x": 182,
+				"y": 199
+			},
+			"file": "idan_jok_000.png",
+			"outputIndex": 0,
+			"sha256": "715b940bb3485201993b07950129d18eb9662840ba4d45fb1305fa083dc19eb9",
+			"slot": "startup",
+			"sourceTime": 0.0,
+			"trim": {
+				"height": 207,
+				"width": 116,
+				"x": 304,
+				"y": 54
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 259,
+				"width": 142,
+				"x": 182,
+				"y": 200
+			},
+			"file": "idan_jok_001.png",
+			"outputIndex": 1,
+			"sha256": "ca1703f846a788dbc0850220c7838b145a273ae984977a9e4b9115da59bad1e2",
+			"slot": "startup",
+			"sourceTime": 0.2,
+			"trim": {
+				"height": 206,
+				"width": 116,
+				"x": 304,
+				"y": 54
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 256,
+				"width": 297,
+				"x": 108,
+				"y": 203
+			},
+			"file": "idan_jok_002.png",
+			"outputIndex": 2,
+			"sha256": "10e7319c4906e4ad56a7cbe9f029084aae14ba449bdd4e9dc6121d019ddf5dfb",
+			"slot": "startup",
+			"sourceTime": 0.6,
+			"trim": {
+				"height": 204,
+				"width": 232,
+				"x": 294,
+				"y": 56
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 253,
+				"width": 229,
+				"x": 142,
+				"y": 209
+			},
+			"file": "idan_jok_003.png",
+			"outputIndex": 3,
+			"sha256": "920e7ad841d075ac351daa3bf3ed79212b1372ae7321e8c5a170ce4e0ee7074b",
+			"slot": "startup",
+			"sourceTime": 1.0,
+			"trim": {
+				"height": 199,
+				"width": 179,
+				"x": 280,
+				"y": 61
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 282,
+				"width": 193,
+				"x": 160,
+				"y": 180
+			},
+			"file": "idan_jok_004.png",
+			"outputIndex": 4,
+			"sha256": "0259f39a4ac114a8f392812fd4a602565f1f931c5cc8b13f07d112b957fc99b9",
+			"slot": "active",
+			"sourceTime": 1.6,
+			"trim": {
+				"height": 222,
+				"width": 151,
+				"x": 294,
+				"y": 40
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 219,
+				"width": 341,
+				"x": 86,
+				"y": 244
+			},
+			"file": "idan_jok_005.png",
+			"outputIndex": 5,
+			"sha256": "53d80c8ce7750ef6545424ff89a71e834682c03b6f627abb75e449fc7758a5da",
+			"slot": "active",
+			"sourceTime": 2.2,
+			"trim": {
+				"height": 172,
+				"width": 267,
+				"x": 244,
+				"y": 35
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 216,
+				"width": 346,
+				"x": 83,
+				"y": 248
+			},
+			"file": "idan_jok_006.png",
+			"outputIndex": 6,
+			"sha256": "96c9f1f98f5ddfb62ee4f76794e00868a9c3787116e15c2f592f9348ad923fa2",
+			"slot": "active",
+			"sourceTime": 3.0,
+			"trim": {
+				"height": 169,
+				"width": 270,
+				"x": 241,
+				"y": 34
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 248,
+				"width": 250,
+				"x": 131,
+				"y": 216
+			},
+			"file": "idan_jok_007.png",
+			"outputIndex": 7,
+			"sha256": "5272700b556cc23a264c63e177457e21eb8df8786e87b46569a32dafeca32677",
+			"slot": "recovery",
+			"sourceTime": 3.4,
+			"trim": {
+				"height": 194,
+				"width": 195,
+				"x": 251,
+				"y": 35
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 257,
+				"width": 229,
+				"x": 142,
+				"y": 202
+			},
+			"file": "idan_jok_008.png",
+			"outputIndex": 8,
+			"sha256": "1636d91fcd2779b1890a115c9a578ee514060331ab596a20cc6f2c8dd1e70838",
+			"slot": "recovery",
+			"sourceTime": 3.6,
+			"trim": {
+				"height": 205,
+				"width": 179,
+				"x": 265,
+				"y": 60
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 253,
+				"width": 173,
+				"x": 170,
+				"y": 208
+			},
+			"file": "idan_jok_009.png",
+			"outputIndex": 9,
+			"sha256": "3f018aa999ebda8e7c053b9e16f7a32d9113d7a8bd306e94f45fa8f7a432746b",
+			"slot": "recovery",
+			"sourceTime": 4.0,
+			"trim": {
+				"height": 200,
+				"width": 135,
+				"x": 295,
+				"y": 60
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 260,
+				"width": 141,
+				"x": 186,
+				"y": 200
+			},
+			"file": "idan_jok_010.png",
+			"outputIndex": 10,
+			"sha256": "5c3b008b9d4505dec1a2af5b2aa0ee2cd3087c68d843ebd7f0ae5b2e7b8b50f4",
+			"slot": "recovery",
+			"sourceTime": 4.4,
+			"trim": {
+				"height": 206,
+				"width": 110,
+				"x": 305,
+				"y": 54
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 260,
+				"width": 144,
+				"x": 184,
+				"y": 200
+			},
+			"file": "idan_jok_011.png",
+			"outputIndex": 11,
+			"sha256": "1c3efb6e0a05c98ef4861705bcb507b76bd2c1c907aa468b6b054a3a2c11e101",
+			"slot": "recovery",
+			"sourceTime": 4.8,
+			"trim": {
+				"height": 206,
+				"width": 113,
+				"x": 302,
+				"y": 54
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "idan_jok",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "이단족.mp4",
+		"height": 630,
+		"projectPath": "assets/video/2차/이단족.mp4",
+		"sha256": "732a9220bf766dab02f6c07241702a8a4bff5e635c84429de439150b3331f426",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

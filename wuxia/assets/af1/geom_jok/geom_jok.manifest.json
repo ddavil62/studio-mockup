@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 266,
+				"width": 321,
+				"x": 96,
+				"y": 196
+			},
+			"file": "geom_jok_000.png",
+			"outputIndex": 0,
+			"sha256": "6430c204a00dfd5f844c8e0aea649cadb2b742c74b9bd238e04129d3b959c1a7",
+			"slot": "startup",
+			"sourceTime": 0.0,
+			"trim": {
+				"height": 209,
+				"width": 251,
+				"x": 304,
+				"y": 55
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 265,
+				"width": 320,
+				"x": 96,
+				"y": 194
+			},
+			"file": "geom_jok_001.png",
+			"outputIndex": 1,
+			"sha256": "f8a5f5a8c33bf97f95668156e52371a6bb3b4a77d283eb7793d95abd9a4a79f1",
+			"slot": "startup",
+			"sourceTime": 0.2,
+			"trim": {
+				"height": 211,
+				"width": 250,
+				"x": 303,
+				"y": 55
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 273,
+				"width": 187,
+				"x": 163,
+				"y": 189
+			},
+			"file": "geom_jok_002.png",
+			"outputIndex": 2,
+			"sha256": "3a94b859746eca41ad167d65991fa329e391d6cb22bd362df2f0861bfc593e4e",
+			"slot": "startup",
+			"sourceTime": 0.4,
+			"trim": {
+				"height": 215,
+				"width": 146,
+				"x": 282,
+				"y": 50
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 276,
+				"width": 184,
+				"x": 164,
+				"y": 184
+			},
+			"file": "geom_jok_003.png",
+			"outputIndex": 3,
+			"sha256": "52ae92688a8858c82c53c25d395161a85f59fe63b4d8955e94e59a52758e7a4b",
+			"slot": "startup",
+			"sourceTime": 0.6,
+			"trim": {
+				"height": 219,
+				"width": 144,
+				"x": 281,
+				"y": 48
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 277,
+				"width": 206,
+				"x": 153,
+				"y": 182
+			},
+			"file": "geom_jok_004.png",
+			"outputIndex": 4,
+			"sha256": "f0e61218e964cf234b203a3c40f2443d35c31b309fc914ca5cd1bfdd43433924",
+			"slot": "active",
+			"sourceTime": 0.8,
+			"trim": {
+				"height": 220,
+				"width": 161,
+				"x": 260,
+				"y": 48
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 274,
+				"width": 314,
+				"x": 99,
+				"y": 188
+			},
+			"file": "geom_jok_005.png",
+			"outputIndex": 5,
+			"sha256": "b1352d122023ecd1cc0bf2c2c7bc10b597bdd260dc284cfb1472e59750bed0dc",
+			"slot": "active",
+			"sourceTime": 1.2,
+			"trim": {
+				"height": 216,
+				"width": 245,
+				"x": 253,
+				"y": 50
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 274,
+				"width": 294,
+				"x": 109,
+				"y": 188
+			},
+			"file": "geom_jok_006.png",
+			"outputIndex": 6,
+			"sha256": "a5535b5d131702da64464943548d522cf1c9a8a6ed38cc932817a3dab7e78fc9",
+			"slot": "active",
+			"sourceTime": 1.8,
+			"trim": {
+				"height": 216,
+				"width": 230,
+				"x": 268,
+				"y": 50
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 276,
+				"width": 216,
+				"x": 148,
+				"y": 184
+			},
+			"file": "geom_jok_007.png",
+			"outputIndex": 7,
+			"sha256": "09a2d1a8a3271c48c7dca0308d2cb5c9c85edb2b52d6d19743db2d0d040e2aae",
+			"slot": "recovery",
+			"sourceTime": 2.8,
+			"trim": {
+				"height": 219,
+				"width": 169,
+				"x": 264,
+				"y": 48
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 257,
+				"width": 221,
+				"x": 146,
+				"y": 205
+			},
+			"file": "geom_jok_008.png",
+			"outputIndex": 8,
+			"sha256": "ac10aa3f8056eaf9bb1ef1f1ee247e7dc4bd57a33b952462c65ea0a95ef40ab1",
+			"slot": "recovery",
+			"sourceTime": 3.2,
+			"trim": {
+				"height": 202,
+				"width": 173,
+				"x": 264,
+				"y": 63
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 262,
+				"width": 166,
+				"x": 173,
+				"y": 200
+			},
+			"file": "geom_jok_009.png",
+			"outputIndex": 9,
+			"sha256": "9099740442386588946385972a11503315b48188e255bcd1f8556dc9918ce95b",
+			"slot": "recovery",
+			"sourceTime": 3.6,
+			"trim": {
+				"height": 207,
+				"width": 130,
+				"x": 304,
+				"y": 57
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 267,
+				"width": 147,
+				"x": 181,
+				"y": 195
+			},
+			"file": "geom_jok_010.png",
+			"outputIndex": 10,
+			"sha256": "1a0db5a4b896e464037dbb9008feea7519165d481534cf34f7d084433c130028",
+			"slot": "recovery",
+			"sourceTime": 4.0,
+			"trim": {
+				"height": 210,
+				"width": 117,
+				"x": 305,
+				"y": 54
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 267,
+				"width": 149,
+				"x": 181,
+				"y": 195
+			},
+			"file": "geom_jok_011.png",
+			"outputIndex": 11,
+			"sha256": "0893f37d34f5189e05b4c4f46a5a1a574c66e63f39f2a26e550da348034d3860",
+			"slot": "recovery",
+			"sourceTime": 4.6,
+			"trim": {
+				"height": 210,
+				"width": 117,
+				"x": 305,
+				"y": 54
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "geom_jok",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "검족.mp4",
+		"height": 630,
+		"projectPath": "assets/video/2차/검족.mp4",
+		"sha256": "29fd5ddf1ec597b7bf9e94c7d679d67070476d7f45d53e53ea138b2a038eba1c",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

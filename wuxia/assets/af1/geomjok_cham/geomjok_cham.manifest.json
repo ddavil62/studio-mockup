@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 268,
+				"width": 271,
+				"x": 121,
+				"y": 196
+			},
+			"file": "geomjok_cham_000.png",
+			"outputIndex": 0,
+			"sha256": "338c16a8f7faa69c2b9a69126285639effaca1133beb4b3dad010dae1902c59f",
+			"slot": "startup",
+			"sourceTime": 0.0,
+			"trim": {
+				"height": 209,
+				"width": 212,
+				"x": 294,
+				"y": 53
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 188,
+				"x": 162,
+				"y": 200
+			},
+			"file": "geomjok_cham_001.png",
+			"outputIndex": 1,
+			"sha256": "3536d961cbe69652ff3df42cc25281b08a7d89224dca150a15e2bb1d0422d1ad",
+			"slot": "startup",
+			"sourceTime": 0.4,
+			"trim": {
+				"height": 206,
+				"width": 147,
+				"x": 302,
+				"y": 57
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 269,
+				"width": 211,
+				"x": 151,
+				"y": 195
+			},
+			"file": "geomjok_cham_002.png",
+			"outputIndex": 2,
+			"sha256": "d47b001e06080de9af0d0f19fa9ecad78c893bb737c1d952e63f5553a7467ad7",
+			"slot": "startup",
+			"sourceTime": 0.6,
+			"trim": {
+				"height": 210,
+				"width": 165,
+				"x": 309,
+				"y": 55
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 329,
+				"width": 172,
+				"x": 171,
+				"y": 135
+			},
+			"file": "geomjok_cham_003.png",
+			"outputIndex": 3,
+			"sha256": "43456e7278f8560ddb89010cef44566a79592c61a4f402015aa4ae2aa01a24ba",
+			"slot": "startup",
+			"sourceTime": 0.8,
+			"trim": {
+				"height": 257,
+				"width": 135,
+				"x": 302,
+				"y": 8
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 275,
+				"width": 165,
+				"x": 174,
+				"y": 189
+			},
+			"file": "geomjok_cham_004.png",
+			"outputIndex": 4,
+			"sha256": "c599b120adfe4b2a6373cbec1c148585ed68ffabbfaf56b65ba16a2f2d956635",
+			"slot": "active",
+			"sourceTime": 1.0,
+			"trim": {
+				"height": 215,
+				"width": 129,
+				"x": 301,
+				"y": 50
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 201,
+				"width": 374,
+				"x": 69,
+				"y": 263
+			},
+			"file": "geomjok_cham_005.png",
+			"outputIndex": 5,
+			"sha256": "c108635dba7b5d16ef3771aaf90780b22fa4dba12664a921e37b6ee15ab7abf8",
+			"slot": "active",
+			"sourceTime": 1.8,
+			"trim": {
+				"height": 157,
+				"width": 292,
+				"x": 266,
+				"y": 110
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 202,
+				"width": 372,
+				"x": 70,
+				"y": 262
+			},
+			"file": "geomjok_cham_006.png",
+			"outputIndex": 6,
+			"sha256": "7b161075f79584d5ec7f7f2c6e9c66440348055d69c181b82301cd2c13f0525c",
+			"slot": "active",
+			"sourceTime": 2.4,
+			"trim": {
+				"height": 158,
+				"width": 291,
+				"x": 267,
+				"y": 109
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 201,
+				"width": 374,
+				"x": 69,
+				"y": 263
+			},
+			"file": "geomjok_cham_007.png",
+			"outputIndex": 7,
+			"sha256": "16949a916a245a7fbe79650808052cb57e2a1dc491660db7b62f204be0e0b8e2",
+			"slot": "recovery",
+			"sourceTime": 3.0,
+			"trim": {
+				"height": 157,
+				"width": 292,
+				"x": 266,
+				"y": 110
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 243,
+				"width": 332,
+				"x": 90,
+				"y": 221
+			},
+			"file": "geomjok_cham_008.png",
+			"outputIndex": 8,
+			"sha256": "91a8508a28c1116a65e33bb9ab31761abad90b336c4917abfa3a15faa8044b25",
+			"slot": "recovery",
+			"sourceTime": 3.4,
+			"trim": {
+				"height": 190,
+				"width": 259,
+				"x": 282,
+				"y": 77
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 271,
+				"width": 229,
+				"x": 142,
+				"y": 193
+			},
+			"file": "geomjok_cham_009.png",
+			"outputIndex": 9,
+			"sha256": "0a02770d0f921b09f988c4a1b05e8ba095678c40dea037b3ffadb1e69dc24a0d",
+			"slot": "recovery",
+			"sourceTime": 3.8,
+			"trim": {
+				"height": 212,
+				"width": 179,
+				"x": 306,
+				"y": 51
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 268,
+				"width": 143,
+				"x": 185,
+				"y": 196
+			},
+			"file": "geomjok_cham_010.png",
+			"outputIndex": 10,
+			"sha256": "c2867c09320309861f45aa72a0359f86554f738488f9e44c6bbb793baedcf1b0",
+			"slot": "recovery",
+			"sourceTime": 4.2,
+			"trim": {
+				"height": 209,
+				"width": 112,
+				"x": 303,
+				"y": 53
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 268,
+				"width": 148,
+				"x": 182,
+				"y": 196
+			},
+			"file": "geomjok_cham_011.png",
+			"outputIndex": 11,
+			"sha256": "be7693ab6592501b013f3b610e8497c9f3dd1b6ab776c1193e4c9450724c9e71",
+			"slot": "recovery",
+			"sourceTime": 4.6,
+			"trim": {
+				"height": 209,
+				"width": 116,
+				"x": 301,
+				"y": 53
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "geomjok_cham",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "검족참.mp4",
+		"height": 630,
+		"projectPath": "assets/video/2차/검족참.mp4",
+		"sha256": "9b171a46dd23994df4aed817f6d81057236514c0f887ee5dc876194dabd81a4a",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

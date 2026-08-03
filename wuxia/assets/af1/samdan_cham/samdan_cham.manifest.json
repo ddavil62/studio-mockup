@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 255,
+				"width": 215,
+				"x": 149,
+				"y": 209
+			},
+			"file": "samdan_cham_000.png",
+			"outputIndex": 0,
+			"sha256": "0b51b59e0c3e79420077ffecd8dcbd38e31e2e8cb34e05c0ab7c12ce01e03c04",
+			"slot": "startup",
+			"sourceTime": 0.0,
+			"trim": {
+				"height": 199,
+				"width": 168,
+				"x": 255,
+				"y": 56
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 220,
+				"width": 223,
+				"x": 145,
+				"y": 244
+			},
+			"file": "samdan_cham_001.png",
+			"outputIndex": 1,
+			"sha256": "e063a428f5d45b5ca9740a17d523df9f60b784aa2ba481131335f52dbc4440b6",
+			"slot": "startup",
+			"sourceTime": 0.4,
+			"trim": {
+				"height": 172,
+				"width": 174,
+				"x": 261,
+				"y": 86
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 219,
+				"width": 241,
+				"x": 136,
+				"y": 245
+			},
+			"file": "samdan_cham_002.png",
+			"outputIndex": 2,
+			"sha256": "01e50577fc68145ea0a5e5c3de44c343bd65580544221bba30345b7b1766260a",
+			"slot": "startup",
+			"sourceTime": 0.8,
+			"trim": {
+				"height": 171,
+				"width": 188,
+				"x": 234,
+				"y": 87
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 219,
+				"width": 184,
+				"x": 164,
+				"y": 245
+			},
+			"file": "samdan_cham_003.png",
+			"outputIndex": 3,
+			"sha256": "3ef07aa53df33144a3bf222d309649c1d31b1e59f5955811061388ad3b8f17d9",
+			"slot": "startup",
+			"sourceTime": 1.15,
+			"trim": {
+				"height": 171,
+				"width": 144,
+				"x": 282,
+				"y": 87
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 303,
+				"width": 273,
+				"x": 120,
+				"y": 161
+			},
+			"file": "samdan_cham_004.png",
+			"outputIndex": 4,
+			"sha256": "33274b2f5959ba0f1b8f7f3ed1c46af6ee22a9ddd3cec9426a58b56653ad7043",
+			"slot": "active",
+			"sourceTime": 1.9,
+			"trim": {
+				"height": 237,
+				"width": 213,
+				"x": 275,
+				"y": 21
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 303,
+				"width": 273,
+				"x": 120,
+				"y": 161
+			},
+			"file": "samdan_cham_005.png",
+			"outputIndex": 5,
+			"sha256": "3a81e6a24ec8483dafb89076a7f551934fcb79e4e47c586540503951e845ce5b",
+			"slot": "active",
+			"sourceTime": 2.05,
+			"trim": {
+				"height": 237,
+				"width": 213,
+				"x": 275,
+				"y": 21
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 314,
+				"width": 278,
+				"x": 117,
+				"y": 150
+			},
+			"file": "samdan_cham_006.png",
+			"outputIndex": 6,
+			"sha256": "12e82cf2dfe0f76c8e4886627d6bfd9edf2b562987a4b18b91ddf13edaa89da0",
+			"slot": "active",
+			"sourceTime": 2.2,
+			"trim": {
+				"height": 245,
+				"width": 217,
+				"x": 275,
+				"y": 13
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 308,
+				"width": 274,
+				"x": 119,
+				"y": 156
+			},
+			"file": "samdan_cham_007.png",
+			"outputIndex": 7,
+			"sha256": "a3f6605a7565ec6d1453be8353e151fd4d8fe40abd278a758efbd6ababc0f52b",
+			"slot": "recovery",
+			"sourceTime": 2.8,
+			"trim": {
+				"height": 241,
+				"width": 214,
+				"x": 275,
+				"y": 18
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 268,
+				"width": 220,
+				"x": 146,
+				"y": 196
+			},
+			"file": "samdan_cham_008.png",
+			"outputIndex": 8,
+			"sha256": "85736afea590b1b7c297c77b1c660e8170ae3cb5dcea31414164208ff21ca2ef",
+			"slot": "recovery",
+			"sourceTime": 3.2,
+			"trim": {
+				"height": 209,
+				"width": 172,
+				"x": 269,
+				"y": 49
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 253,
+				"width": 265,
+				"x": 124,
+				"y": 211
+			},
+			"file": "samdan_cham_009.png",
+			"outputIndex": 9,
+			"sha256": "0f32512a4a60a481a2bb92c2a79d7cad29d1c1f94012667fab794e005843ba30",
+			"slot": "recovery",
+			"sourceTime": 3.6,
+			"trim": {
+				"height": 198,
+				"width": 207,
+				"x": 300,
+				"y": 58
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 257,
+				"width": 138,
+				"x": 187,
+				"y": 207
+			},
+			"file": "samdan_cham_010.png",
+			"outputIndex": 10,
+			"sha256": "647fa955ceda47bd7da8a296f23bf6b79c6138c1561c00e3761bc5873cbee70a",
+			"slot": "recovery",
+			"sourceTime": 4.0,
+			"trim": {
+				"height": 201,
+				"width": 108,
+				"x": 311,
+				"y": 54
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 257,
+				"width": 137,
+				"x": 187,
+				"y": 207
+			},
+			"file": "samdan_cham_011.png",
+			"outputIndex": 11,
+			"sha256": "5763947129340ac7c7980a6893ac8e119d991cff91028ed41aa87d8fc1df535b",
+			"slot": "recovery",
+			"sourceTime": 4.6,
+			"trim": {
+				"height": 201,
+				"width": 108,
+				"x": 310,
+				"y": 54
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "samdan_cham",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "삼단참.mp4",
+		"height": 630,
+		"projectPath": "assets/video/2차/삼단참.mp4",
+		"sha256": "d8ca1f35bcda8354c736f0c06d3aaf8ff80e01022a78554b6b24d06fbc95b1f3",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

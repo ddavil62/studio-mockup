@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 262,
+				"width": 260,
+				"x": 126,
+				"y": 202
+			},
+			"file": "samdan_jok_000.png",
+			"outputIndex": 0,
+			"sha256": "5c179221eb52c71b60916297d97864e555fb92d5d16af1d858b462400cef8d58",
+			"slot": "startup",
+			"sourceTime": 0.0,
+			"trim": {
+				"height": 205,
+				"width": 203,
+				"x": 257,
+				"y": 55
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 197,
+				"width": 195,
+				"x": 159,
+				"y": 267
+			},
+			"file": "samdan_jok_001.png",
+			"outputIndex": 1,
+			"sha256": "606f792ec455a4a165091a8d8a0b98e092dc2fc39889f138c6228875d8bf8078",
+			"slot": "startup",
+			"sourceTime": 0.2,
+			"trim": {
+				"height": 154,
+				"width": 152,
+				"x": 271,
+				"y": 110
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 198,
+				"width": 224,
+				"x": 144,
+				"y": 266
+			},
+			"file": "samdan_jok_002.png",
+			"outputIndex": 2,
+			"sha256": "cdfc3812bea9c67fcda16877cc1a4833dbeec094d7abd695202734c72c5718f6",
+			"slot": "startup",
+			"sourceTime": 0.4,
+			"trim": {
+				"height": 155,
+				"width": 175,
+				"x": 275,
+				"y": 108
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 296,
+				"width": 152,
+				"x": 180,
+				"y": 168
+			},
+			"file": "samdan_jok_003.png",
+			"outputIndex": 3,
+			"sha256": "cde6ebcd9bfda15b982d5eb89fa0f40c8a94f3bd538bcaf0760c143120eb7463",
+			"slot": "startup",
+			"sourceTime": 0.8,
+			"trim": {
+				"height": 231,
+				"width": 119,
+				"x": 318,
+				"y": 28
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 287,
+				"width": 239,
+				"x": 137,
+				"y": 177
+			},
+			"file": "samdan_jok_004.png",
+			"outputIndex": 4,
+			"sha256": "9a019245421d2b6cd19748e952b99db94ae46f1fb1cbbf7172f2b6c4d9ed9e6c",
+			"slot": "active",
+			"sourceTime": 1.4,
+			"trim": {
+				"height": 224,
+				"width": 187,
+				"x": 270,
+				"y": 16
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 265,
+				"width": 347,
+				"x": 83,
+				"y": 199
+			},
+			"file": "samdan_jok_005.png",
+			"outputIndex": 5,
+			"sha256": "5ab374272a7188e2a0bc2d39bb8e9d70657cc8199692a23eb2201743722b9141",
+			"slot": "active",
+			"sourceTime": 2.2,
+			"trim": {
+				"height": 207,
+				"width": 271,
+				"x": 216,
+				"y": 47
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 265,
+				"width": 347,
+				"x": 83,
+				"y": 199
+			},
+			"file": "samdan_jok_006.png",
+			"outputIndex": 6,
+			"sha256": "d03634bd411a70c84d82b1ba0a5e84bbbe6623f4bef758cde55ecec03ded807d",
+			"slot": "active",
+			"sourceTime": 3.0,
+			"trim": {
+				"height": 207,
+				"width": 271,
+				"x": 216,
+				"y": 47
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 266,
+				"width": 348,
+				"x": 82,
+				"y": 198
+			},
+			"file": "samdan_jok_007.png",
+			"outputIndex": 7,
+			"sha256": "6afb8c42b8eb288709e6fb1d4857399d3c034455feb13c1d19c2f188bd760026",
+			"slot": "recovery",
+			"sourceTime": 3.4,
+			"trim": {
+				"height": 208,
+				"width": 272,
+				"x": 215,
+				"y": 46
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 273,
+				"width": 287,
+				"x": 113,
+				"y": 191
+			},
+			"file": "samdan_jok_008.png",
+			"outputIndex": 8,
+			"sha256": "21bd9bf82448af2292d9b73d32491db2743b557ee89808b19a78758d700d8510",
+			"slot": "recovery",
+			"sourceTime": 3.6,
+			"trim": {
+				"height": 213,
+				"width": 224,
+				"x": 237,
+				"y": 47
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 246,
+				"width": 180,
+				"x": 166,
+				"y": 218
+			},
+			"file": "samdan_jok_009.png",
+			"outputIndex": 9,
+			"sha256": "7a9adbb29d0be0b24eea600c7d652a7c445708bad090e1c5ac78f6ba00c7eb0d",
+			"slot": "recovery",
+			"sourceTime": 4.0,
+			"trim": {
+				"height": 192,
+				"width": 141,
+				"x": 290,
+				"y": 68
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 148,
+				"x": 182,
+				"y": 200
+			},
+			"file": "samdan_jok_010.png",
+			"outputIndex": 10,
+			"sha256": "32b90c48b6d906dfae3fd8877543efef1a7281b440e2246ad03365f5908f1b03",
+			"slot": "recovery",
+			"sourceTime": 4.4,
+			"trim": {
+				"height": 206,
+				"width": 116,
+				"x": 305,
+				"y": 53
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 147,
+				"x": 183,
+				"y": 200
+			},
+			"file": "samdan_jok_011.png",
+			"outputIndex": 11,
+			"sha256": "62e0ad48a77ed4ebdf8ec7edcf4ef30c10f721919a97ccaf8ca315499ed4995c",
+			"slot": "recovery",
+			"sourceTime": 4.8,
+			"trim": {
+				"height": 206,
+				"width": 115,
+				"x": 305,
+				"y": 53
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "samdan_jok",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "삼단족.mp4",
+		"height": 630,
+		"projectPath": "assets/video/2차/삼단족.mp4",
+		"sha256": "1dbfa60788e4b70a3c3fc78c2c5edde9a18a2253ad3fb6936df5c755f9bb21c7",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

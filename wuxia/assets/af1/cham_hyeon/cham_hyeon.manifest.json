@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 249,
+				"width": 303,
+				"x": 105,
+				"y": 214
+			},
+			"file": "cham_hyeon_000.png",
+			"outputIndex": 0,
+			"sha256": "58f92980b1ac2153a6c62a6e383ff8bf7e50e34ad09038625e1fa9e9849330fe",
+			"slot": "startup",
+			"sourceTime": 0.0,
+			"trim": {
+				"height": 195,
+				"width": 237,
+				"x": 298,
+				"y": 59
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 252,
+				"width": 183,
+				"x": 165,
+				"y": 212
+			},
+			"file": "cham_hyeon_001.png",
+			"outputIndex": 1,
+			"sha256": "30a889c029516046874a210f224186742a37725a00307f165ac7547cf3514449",
+			"slot": "startup",
+			"sourceTime": 0.4,
+			"trim": {
+				"height": 197,
+				"width": 143,
+				"x": 297,
+				"y": 56
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 276,
+				"width": 202,
+				"x": 155,
+				"y": 188
+			},
+			"file": "cham_hyeon_002.png",
+			"outputIndex": 2,
+			"sha256": "42cc04384ef46dbe4b6d460c7048d6b5709eaebc82ece4da81ab8c6b8ba5e726",
+			"slot": "startup",
+			"sourceTime": 0.8,
+			"trim": {
+				"height": 216,
+				"width": 158,
+				"x": 288,
+				"y": 37
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 270,
+				"width": 204,
+				"x": 154,
+				"y": 194
+			},
+			"file": "cham_hyeon_003.png",
+			"outputIndex": 3,
+			"sha256": "d6be3f4bb325ff0436af6a9559fe4e99e1c3ca376b6576cd34160adf53159ceb",
+			"slot": "startup",
+			"sourceTime": 1.4,
+			"trim": {
+				"height": 211,
+				"width": 159,
+				"x": 302,
+				"y": 42
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 270,
+				"width": 201,
+				"x": 156,
+				"y": 194
+			},
+			"file": "cham_hyeon_004.png",
+			"outputIndex": 4,
+			"sha256": "13d179449bbc0eda83c6786fb3bd02e4058d2e9a6f3ab79c7dacf34aee606d6c",
+			"slot": "active",
+			"sourceTime": 1.8,
+			"trim": {
+				"height": 211,
+				"width": 157,
+				"x": 302,
+				"y": 42
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 270,
+				"width": 201,
+				"x": 156,
+				"y": 194
+			},
+			"file": "cham_hyeon_005.png",
+			"outputIndex": 5,
+			"sha256": "4fb2f0419dd2f76026fb5e7c55c1ebaba43b8716085dfd397d9ef5c7cfce2632",
+			"slot": "active",
+			"sourceTime": 2.0,
+			"trim": {
+				"height": 211,
+				"width": 157,
+				"x": 302,
+				"y": 42
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 270,
+				"width": 200,
+				"x": 156,
+				"y": 194
+			},
+			"file": "cham_hyeon_006.png",
+			"outputIndex": 6,
+			"sha256": "2901a778722d02e86316979d421ef9652f8276d2fded2dc9321b59d587f4084b",
+			"slot": "active",
+			"sourceTime": 2.4,
+			"trim": {
+				"height": 211,
+				"width": 156,
+				"x": 302,
+				"y": 42
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 270,
+				"width": 200,
+				"x": 156,
+				"y": 193
+			},
+			"file": "cham_hyeon_007.png",
+			"outputIndex": 7,
+			"sha256": "cfe2867ec5cf8085f2ecb97a2f4abe605532b8cd16ccc2b64b7e913ccdba3146",
+			"slot": "recovery",
+			"sourceTime": 2.8,
+			"trim": {
+				"height": 212,
+				"width": 156,
+				"x": 302,
+				"y": 42
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 270,
+				"width": 198,
+				"x": 157,
+				"y": 194
+			},
+			"file": "cham_hyeon_008.png",
+			"outputIndex": 8,
+			"sha256": "f46b7712c2641840188b99211b69ffa1fb9c76d61b5282a8aef15c6b70ffdb38",
+			"slot": "recovery",
+			"sourceTime": 3.2,
+			"trim": {
+				"height": 211,
+				"width": 155,
+				"x": 302,
+				"y": 42
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 286,
+				"width": 174,
+				"x": 169,
+				"y": 177
+			},
+			"file": "cham_hyeon_009.png",
+			"outputIndex": 9,
+			"sha256": "7fd036ec0d2394b5c8db80d951e5f42bc5ac89d9540f496edade3bced4e1b74c",
+			"slot": "recovery",
+			"sourceTime": 3.6,
+			"trim": {
+				"height": 224,
+				"width": 136,
+				"x": 303,
+				"y": 30
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 256,
+				"width": 154,
+				"x": 179,
+				"y": 208
+			},
+			"file": "cham_hyeon_010.png",
+			"outputIndex": 10,
+			"sha256": "f0895ac2b6d777cf977803bd6f311437750d2d035a4b353f30638988617db058",
+			"slot": "recovery",
+			"sourceTime": 4.0,
+			"trim": {
+				"height": 200,
+				"width": 120,
+				"x": 309,
+				"y": 54
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 253,
+				"width": 138,
+				"x": 187,
+				"y": 211
+			},
+			"file": "cham_hyeon_011.png",
+			"outputIndex": 11,
+			"sha256": "79b7e377962af7f517b953bcb2e357492f50a18ca670684ec03e0e3fd2be8d12",
+			"slot": "recovery",
+			"sourceTime": 4.6,
+			"trim": {
+				"height": 198,
+				"width": 108,
+				"x": 309,
+				"y": 55
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "cham_hyeon",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "참현.mp4",
+		"height": 630,
+		"projectPath": "assets/video/2차/참현.mp4",
+		"sha256": "cc957c86147edb3858d32f4a5c4d6dd50d2fab9f1b999a444feab1483d173400",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

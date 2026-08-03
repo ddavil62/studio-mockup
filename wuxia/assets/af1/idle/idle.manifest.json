@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 140,
+				"x": 186,
+				"y": 200
+			},
+			"file": "idle_000.png",
+			"outputIndex": 0,
+			"sha256": "28dcf010edd74aebc6324129689ca66867830a225c3044480dae683e5cf27872",
+			"slot": "loop",
+			"sourceTime": 0.2,
+			"trim": {
+				"height": 206,
+				"width": 109,
+				"x": 310,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 143,
+				"x": 185,
+				"y": 200
+			},
+			"file": "idle_001.png",
+			"outputIndex": 1,
+			"sha256": "c30ce28938cc8a3541443eadec47e9f02ad12666ccbd644f98b4971d73004da3",
+			"slot": "loop",
+			"sourceTime": 0.6,
+			"trim": {
+				"height": 206,
+				"width": 112,
+				"x": 307,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 145,
+				"x": 184,
+				"y": 200
+			},
+			"file": "idle_002.png",
+			"outputIndex": 2,
+			"sha256": "c0e9f3ab684cc5d064a4a816f831ae169f1114df941295fb7991b58d9009091e",
+			"slot": "loop",
+			"sourceTime": 1.0,
+			"trim": {
+				"height": 206,
+				"width": 113,
+				"x": 306,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 141,
+				"x": 186,
+				"y": 200
+			},
+			"file": "idle_003.png",
+			"outputIndex": 3,
+			"sha256": "6920bdb8516e41f0f903de710da8bf380fa6a070bac90d94d47e812a07442116",
+			"slot": "loop",
+			"sourceTime": 1.4,
+			"trim": {
+				"height": 206,
+				"width": 110,
+				"x": 310,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 142,
+				"x": 185,
+				"y": 200
+			},
+			"file": "idle_004.png",
+			"outputIndex": 4,
+			"sha256": "cc0f935e7e7529c639d14da007ec01ec321ea43f31ee0fd0edfb8645211b2801",
+			"slot": "loop",
+			"sourceTime": 1.8,
+			"trim": {
+				"height": 206,
+				"width": 111,
+				"x": 311,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 146,
+				"x": 183,
+				"y": 200
+			},
+			"file": "idle_005.png",
+			"outputIndex": 5,
+			"sha256": "4d06df18d72bc48463e42b6fdc56256bd450e1a85af72283ea1e605068e29b7a",
+			"slot": "loop",
+			"sourceTime": 2.2,
+			"trim": {
+				"height": 207,
+				"width": 114,
+				"x": 307,
+				"y": 51
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 145,
+				"x": 184,
+				"y": 200
+			},
+			"file": "idle_006.png",
+			"outputIndex": 6,
+			"sha256": "a0bb898ad908c18837cf43acfcc628bc232ea3bfba87908ba4bbbd957d10452d",
+			"slot": "loop",
+			"sourceTime": 2.6,
+			"trim": {
+				"height": 206,
+				"width": 113,
+				"x": 306,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 262,
+				"width": 145,
+				"x": 184,
+				"y": 202
+			},
+			"file": "idle_007.png",
+			"outputIndex": 7,
+			"sha256": "8d67a4fe6ed5b111f36d41d51fb8a4e7130c322b404b9aab2c8316486e4f24fd",
+			"slot": "loop",
+			"sourceTime": 3.0,
+			"trim": {
+				"height": 205,
+				"width": 113,
+				"x": 307,
+				"y": 53
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 140,
+				"x": 186,
+				"y": 200
+			},
+			"file": "idle_008.png",
+			"outputIndex": 8,
+			"sha256": "6f13968599d6fffddbd2e2e68c1b97dbb1657051e7c4a9d22bb6c593d414b208",
+			"slot": "loop",
+			"sourceTime": 3.4,
+			"trim": {
+				"height": 206,
+				"width": 109,
+				"x": 310,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 142,
+				"x": 185,
+				"y": 200
+			},
+			"file": "idle_009.png",
+			"outputIndex": 9,
+			"sha256": "03cf93b05b8fee50c9b2b27c4dfd24e4b772cc93f4a8353ad3d14a3ea781a52c",
+			"slot": "loop",
+			"sourceTime": 3.8,
+			"trim": {
+				"height": 206,
+				"width": 111,
+				"x": 309,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 145,
+				"x": 184,
+				"y": 200
+			},
+			"file": "idle_010.png",
+			"outputIndex": 10,
+			"sha256": "934129313a0e802ae5c2b87e7017ac81b4e86fde780dbf62cd39c3d189312d18",
+			"slot": "loop",
+			"sourceTime": 4.2,
+			"trim": {
+				"height": 206,
+				"width": 113,
+				"x": 306,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 264,
+				"width": 142,
+				"x": 185,
+				"y": 200
+			},
+			"file": "idle_011.png",
+			"outputIndex": 11,
+			"sha256": "362693ed29fa8526f63b0a9a53bc8c29a9fc948c6de6cc1c769879b0bd10618c",
+			"slot": "loop",
+			"sourceTime": 4.6,
+			"trim": {
+				"height": 206,
+				"width": 111,
+				"x": 309,
+				"y": 52
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": true,
+	"name": "idle",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "Idle.mp4",
+		"height": 630,
+		"projectPath": "assets/video/2차/Idle.mp4",
+		"sha256": "394191a85fcb43acc20473677bcae0d18fb20a2504c342c83acad1ff22db09ca",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}
