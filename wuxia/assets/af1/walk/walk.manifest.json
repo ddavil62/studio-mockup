@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.2,
+	"fps": 10,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 267,
+				"width": 159,
+				"x": 177,
+				"y": 190
+			},
+			"file": "walk_000.png",
+			"outputIndex": 0,
+			"sha256": "09e1c4d3be24186f3411c98f76f178172bec132ed4bc3c72cf7ebaf6ff50486f",
+			"slot": "loop",
+			"sourceTime": 2.319,
+			"trim": {
+				"height": 721,
+				"width": 418,
+				"x": 192,
+				"y": 220
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 265,
+				"width": 169,
+				"x": 172,
+				"y": 192
+			},
+			"file": "walk_001.png",
+			"outputIndex": 1,
+			"sha256": "e5b7e0a141060d51f30ac2e3714feb6a49690d3dc4f4f586e9c486dfdf3607e0",
+			"slot": "loop",
+			"sourceTime": 2.443,
+			"trim": {
+				"height": 716,
+				"width": 445,
+				"x": 173,
+				"y": 225
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 269,
+				"width": 161,
+				"x": 176,
+				"y": 188
+			},
+			"file": "walk_002.png",
+			"outputIndex": 2,
+			"sha256": "db08b50033f3c1c30487dce9391f07db1693f265bf80e6b2d0c9364002644bef",
+			"slot": "loop",
+			"sourceTime": 2.609,
+			"trim": {
+				"height": 726,
+				"width": 423,
+				"x": 176,
+				"y": 218
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 270,
+				"width": 174,
+				"x": 169,
+				"y": 187
+			},
+			"file": "walk_003.png",
+			"outputIndex": 3,
+			"sha256": "9eb5f7b080a1aa8015bf4076502169c6bf90f097f2228e2821414811b7be0c36",
+			"slot": "loop",
+			"sourceTime": 2.733,
+			"trim": {
+				"height": 728,
+				"width": 458,
+				"x": 188,
+				"y": 214
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 269,
+				"width": 162,
+				"x": 175,
+				"y": 188
+			},
+			"file": "walk_004.png",
+			"outputIndex": 4,
+			"sha256": "02e338e95da7565bdc681e399fd528eda3317a8f24817507df439c15a95784ef",
+			"slot": "loop",
+			"sourceTime": 2.857,
+			"trim": {
+				"height": 726,
+				"width": 426,
+				"x": 194,
+				"y": 216
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 266,
+				"width": 169,
+				"x": 172,
+				"y": 191
+			},
+			"file": "walk_005.png",
+			"outputIndex": 5,
+			"sha256": "724ce77f2fa9de2941f48595f6cc23f28366f5f757f51ca4a9014f0ffe566814",
+			"slot": "loop",
+			"sourceTime": 3.023,
+			"trim": {
+				"height": 718,
+				"width": 444,
+				"x": 194,
+				"y": 223
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 267,
+				"width": 202,
+				"x": 155,
+				"y": 190
+			},
+			"file": "walk_006.png",
+			"outputIndex": 6,
+			"sha256": "7f55c9274d4da0f225524fb90b6c6305a0724b4665f405a27c142cce14258342",
+			"slot": "loop",
+			"sourceTime": 3.147,
+			"trim": {
+				"height": 722,
+				"width": 532,
+				"x": 196,
+				"y": 220
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 270,
+				"width": 173,
+				"x": 170,
+				"y": 187
+			},
+			"file": "walk_007.png",
+			"outputIndex": 7,
+			"sha256": "53b8f73a7506c5e4308c6a550c56d49be542daf7d8eacad4720835826f157eb6",
+			"slot": "loop",
+			"sourceTime": 3.271,
+			"trim": {
+				"height": 729,
+				"width": 456,
+				"x": 205,
+				"y": 215
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 268,
+				"width": 156,
+				"x": 178,
+				"y": 189
+			},
+			"file": "walk_008.png",
+			"outputIndex": 8,
+			"sha256": "3fdc39c8ae3c7b8de5f17d222dd0c798320c3f704acbb1d7b7fd21247066365e",
+			"slot": "loop",
+			"sourceTime": 3.437,
+			"trim": {
+				"height": 724,
+				"width": 411,
+				"x": 194,
+				"y": 217
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 265,
+				"width": 168,
+				"x": 172,
+				"y": 192
+			},
+			"file": "walk_009.png",
+			"outputIndex": 9,
+			"sha256": "55238c48a3f93e37da65b802d2300d21e863380006865f3a8813f843199a890a",
+			"slot": "loop",
+			"sourceTime": 3.561,
+			"trim": {
+				"height": 717,
+				"width": 441,
+				"x": 176,
+				"y": 226
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 267,
+				"width": 168,
+				"x": 172,
+				"y": 190
+			},
+			"file": "walk_010.png",
+			"outputIndex": 10,
+			"sha256": "c577894914b8edb249fd6e387a6a2e0b02621b668e200a972603aca27a13a077",
+			"slot": "loop",
+			"sourceTime": 3.685,
+			"trim": {
+				"height": 720,
+				"width": 442,
+				"x": 174,
+				"y": 224
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 269,
+				"width": 162,
+				"x": 175,
+				"y": 188
+			},
+			"file": "walk_011.png",
+			"outputIndex": 11,
+			"sha256": "ecc6bf106163de33cac44492791596695e8e1f4558154c600f66a1177a352dca",
+			"slot": "loop",
+			"sourceTime": 3.851,
+			"trim": {
+				"height": 727,
+				"width": 427,
+				"x": 183,
+				"y": 216
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": true,
+	"name": "walk",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 4.096009,
+		"fileName": "Walk_Right.mp4",
+		"height": 1112,
+		"projectPath": "assets/video/Walk_Right.mp4",
+		"sha256": "8413c4d2e3439a47c78b0ddc74f6022c3e0c22a626a9beb6dd9873e6f12eefbf",
+		"videoFrames": 97,
+		"width": 834
+	}
+}

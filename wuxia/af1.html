@@ -19,5 +19,13 @@ const motions=[['jeon_cham','전참'],['jeong_jok','정족'],['eum_sa','음사']
 const root=document.getElementById('motions');
 for(const [id,name] of motions){const section=document.createElement('section');section.className='motion';section.innerHTML=`<h2>${name} · ${id}</h2><div class="frames"></div>`;const grid=section.querySelector('.frames');for(let i=0;i<12;i+=1){const card=document.createElement('div');card.className=`frame ${i>=4&&i<=6?'active':''}`;const index=String(i).padStart(3,'0');card.innerHTML=`<img loading="lazy" src="assets/af1/${id}/${id}_${index}.png" alt="${id} frame ${i}"><span>${i<4?'STARTUP':i<7?'ACTIVE':'RECOVERY'} ${index}</span>`;grid.appendChild(card)}root.appendChild(section)}
 </script>
+<script>
+const walkSection=document.createElement('section');
+walkSection.className='motion';
+walkSection.innerHTML='<h2>걷기 · walk (10fps loop)</h2><img class="sheet" src="assets/af1/af1-walk-contact-sheet.png" alt="걷기 12프레임 접촉 시트"><div class="frames"></div>';
+const walkGrid=walkSection.querySelector('.frames');
+for(let i=0;i<12;i+=1){const card=document.createElement('div');card.className='frame';const index=String(i).padStart(3,'0');card.innerHTML=`<img loading="lazy" src="assets/af1/walk/walk_${index}.png" alt="walk frame ${i}"><span>LOOP ${index}</span>`;walkGrid.appendChild(card)}
+root.appendChild(walkSection);
+</script>
 </body>
 </html>
