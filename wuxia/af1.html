@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wuxia AF-1 영상 스프라이트</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:24px;background:#0a0f14;color:#dbe8ec;font-family:"Segoe UI",sans-serif}a{color:#73d4de}h1{font-size:1.5rem;margin:16px 0 6px}p{color:#81949b;margin:0 0 24px}.sheet{width:100%;max-width:1536px;background:#172126;border:1px solid #293941}.motion{margin-top:28px}.motion h2{font-size:1rem;color:#efb966}.frames{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:8px}.frame{background:#172126;border:1px solid #293941;padding:6px;text-align:center}.frame img{display:block;width:100%;aspect-ratio:1;object-fit:contain}.frame span{font-size:.72rem;color:#84979e}.active{border-color:#d59b42}@media(max-width:800px){.frames{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<a href="index.html">← Wuxia 목업</a>
+<h1>AF-1 Dreamina 영상 스프라이트</h1>
+<p>512×512 RGBA · pivot (256, 464) · startup 4 / active 3 / recovery 5</p>
+<img class="sheet" src="assets/af1/af1-three-moves-contact-sheet.png" alt="세 동작 36프레임 컨택트시트">
+<main id="motions"></main>
+<script>
+const motions=[['jeon_cham','전참'],['jeong_jok','정족'],['eum_sa','음사']];
+const root=document.getElementById('motions');
+for(const [id,name] of motions){const section=document.createElement('section');section.className='motion';section.innerHTML=`<h2>${name} · ${id}</h2><div class="frames"></div>`;const grid=section.querySelector('.frames');for(let i=0;i<12;i+=1){const card=document.createElement('div');card.className=`frame ${i>=4&&i<=6?'active':''}`;const index=String(i).padStart(3,'0');card.innerHTML=`<img loading="lazy" src="assets/af1/${id}/${id}_${index}.png" alt="${id} frame ${i}"><span>${i<4?'STARTUP':i<7?'ACTIVE':'RECOVERY'} ${index}</span>`;grid.appendChild(card)}root.appendChild(section)}
+</script>
+</body>
+</html>

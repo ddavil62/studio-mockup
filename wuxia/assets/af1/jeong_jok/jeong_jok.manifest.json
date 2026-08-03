@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 248,
+				"width": 141,
+				"x": 186,
+				"y": 216
+			},
+			"file": "jeong_jok_000.png",
+			"outputIndex": 0,
+			"sha256": "e6fc00fbd6e7b39fb646231f2e08efd8339b97d8aec67079f4ca5fcd96e28d95",
+			"slot": "startup",
+			"sourceTime": 0.1,
+			"trim": {
+				"height": 387,
+				"width": 220,
+				"x": 623,
+				"y": 114
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 251,
+				"width": 145,
+				"x": 184,
+				"y": 213
+			},
+			"file": "jeong_jok_001.png",
+			"outputIndex": 1,
+			"sha256": "6d1889a5536031b33aa40bc7ada8e84a095ccee922aefcacaf01c37aca08fc90",
+			"slot": "startup",
+			"sourceTime": 0.7,
+			"trim": {
+				"height": 392,
+				"width": 227,
+				"x": 634,
+				"y": 110
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 254,
+				"width": 177,
+				"x": 168,
+				"y": 210
+			},
+			"file": "jeong_jok_002.png",
+			"outputIndex": 2,
+			"sha256": "3ed428079a7d3778772cf7cb5f4170637751394575c91ec58159d942a2038196",
+			"slot": "startup",
+			"sourceTime": 1.2,
+			"trim": {
+				"height": 397,
+				"width": 277,
+				"x": 606,
+				"y": 105
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 254,
+				"width": 188,
+				"x": 162,
+				"y": 210
+			},
+			"file": "jeong_jok_003.png",
+			"outputIndex": 3,
+			"sha256": "120236b5eb8c043cd1560e4c96f2cea0de8ffe1626f5ac25c88322531f21e28f",
+			"slot": "startup",
+			"sourceTime": 1.8,
+			"trim": {
+				"height": 397,
+				"width": 293,
+				"x": 593,
+				"y": 105
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 245,
+				"width": 293,
+				"x": 110,
+				"y": 219
+			},
+			"file": "jeong_jok_004.png",
+			"outputIndex": 4,
+			"sha256": "005350242928cc69782a2570a5d4d31b09c94d93c3ea52d1a8ef14b353e2d46c",
+			"slot": "active",
+			"sourceTime": 2.2,
+			"trim": {
+				"height": 383,
+				"width": 458,
+				"x": 566,
+				"y": 120
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 245,
+				"width": 271,
+				"x": 121,
+				"y": 219
+			},
+			"file": "jeong_jok_005.png",
+			"outputIndex": 5,
+			"sha256": "8d28ac4e2482410f70fa95f92b5e02045b1b60dc99bc412fb5b4358cb69a1c4b",
+			"slot": "active",
+			"sourceTime": 2.6,
+			"trim": {
+				"height": 383,
+				"width": 424,
+				"x": 598,
+				"y": 120
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 245,
+				"width": 264,
+				"x": 124,
+				"y": 219
+			},
+			"file": "jeong_jok_006.png",
+			"outputIndex": 6,
+			"sha256": "a03d6acb902d2300366136d14890da4cbfbe5efe88ea744ba718727152f44a40",
+			"slot": "active",
+			"sourceTime": 3.0,
+			"trim": {
+				"height": 383,
+				"width": 413,
+				"x": 609,
+				"y": 120
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 247,
+				"width": 248,
+				"x": 132,
+				"y": 217
+			},
+			"file": "jeong_jok_007.png",
+			"outputIndex": 7,
+			"sha256": "604d5141fe8d42ae068a48e69a03ba2b3b808caaf60f099988bcc75a322089c1",
+			"slot": "recovery",
+			"sourceTime": 3.4,
+			"trim": {
+				"height": 386,
+				"width": 388,
+				"x": 609,
+				"y": 117
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 253,
+				"width": 196,
+				"x": 158,
+				"y": 211
+			},
+			"file": "jeong_jok_008.png",
+			"outputIndex": 8,
+			"sha256": "fc071345253ac0b2c807aebc03c5eb393dcedda673942c4fb68232464200d63c",
+			"slot": "recovery",
+			"sourceTime": 3.65,
+			"trim": {
+				"height": 396,
+				"width": 306,
+				"x": 607,
+				"y": 107
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 251,
+				"width": 196,
+				"x": 158,
+				"y": 213
+			},
+			"file": "jeong_jok_009.png",
+			"outputIndex": 9,
+			"sha256": "043b49daed49627417fe0f597259ed1a53984364f4a51a3a7fbf05193ff4f6be",
+			"slot": "recovery",
+			"sourceTime": 3.9,
+			"trim": {
+				"height": 392,
+				"width": 307,
+				"x": 598,
+				"y": 111
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 248,
+				"width": 172,
+				"x": 170,
+				"y": 216
+			},
+			"file": "jeong_jok_010.png",
+			"outputIndex": 10,
+			"sha256": "a9c2e6120e35e5a777e920ccb4cfde377580766b4a9eb2a9a29efd16f934f719",
+			"slot": "recovery",
+			"sourceTime": 4.2,
+			"trim": {
+				"height": 387,
+				"width": 268,
+				"x": 604,
+				"y": 115
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 248,
+				"width": 139,
+				"x": 187,
+				"y": 216
+			},
+			"file": "jeong_jok_011.png",
+			"outputIndex": 11,
+			"sha256": "ba21a6a1d52635f6901cdaafd626197b21f781dddaa12336bad61e8aaa498466",
+			"slot": "recovery",
+			"sourceTime": 4.7,
+			"trim": {
+				"height": 388,
+				"width": 217,
+				"x": 625,
+				"y": 113
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "jeong_jok",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "정족A.mp4",
+		"height": 630,
+		"projectPath": "assets/video/정족A.mp4",
+		"sha256": "5a6ccedb91c0fc4ea40d40b29a24fe5ff5b5b03577ec6a2cfafa1fe682de006c",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

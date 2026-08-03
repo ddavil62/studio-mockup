@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 147,
+				"x": 183,
+				"y": 214
+			},
+			"file": "eum_sa_000.png",
+			"outputIndex": 0,
+			"sha256": "84a52754d288a17953f4e00b73ccf90acd0171ae01047399ee81e9acd29cc4b0",
+			"slot": "startup",
+			"sourceTime": 0.1,
+			"trim": {
+				"height": 391,
+				"width": 229,
+				"x": 622,
+				"y": 112
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 149,
+				"x": 182,
+				"y": 214
+			},
+			"file": "eum_sa_001.png",
+			"outputIndex": 1,
+			"sha256": "df4dd1226b7e6ec3e2ad3ac325d39294e7ac76a3faf02eacc4eb7b0c31abccc5",
+			"slot": "startup",
+			"sourceTime": 0.5,
+			"trim": {
+				"height": 391,
+				"width": 233,
+				"x": 612,
+				"y": 112
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 282,
+				"width": 189,
+				"x": 162,
+				"y": 182
+			},
+			"file": "eum_sa_002.png",
+			"outputIndex": 2,
+			"sha256": "206363f62fd70f9bc8075358bbfd53f1e25359c7971e2018db01eb4d23ea2358",
+			"slot": "startup",
+			"sourceTime": 0.9,
+			"trim": {
+				"height": 440,
+				"width": 296,
+				"x": 591,
+				"y": 63
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 262,
+				"x": 125,
+				"y": 214
+			},
+			"file": "eum_sa_003.png",
+			"outputIndex": 3,
+			"sha256": "0450e3b9dd5d36fff3572bf90746db80216c7961426cdbf8ae3a416b88b0b5aa",
+			"slot": "startup",
+			"sourceTime": 1.1,
+			"trim": {
+				"height": 391,
+				"width": 409,
+				"x": 532,
+				"y": 112
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 262,
+				"x": 125,
+				"y": 214
+			},
+			"file": "eum_sa_004.png",
+			"outputIndex": 4,
+			"sha256": "aa61a3243d99e59226a83acf076f6a3afd293678f8ee49b1e81655b1a4645482",
+			"slot": "active",
+			"sourceTime": 1.3,
+			"trim": {
+				"height": 391,
+				"width": 410,
+				"x": 531,
+				"y": 112
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 263,
+				"x": 125,
+				"y": 214
+			},
+			"file": "eum_sa_005.png",
+			"outputIndex": 5,
+			"sha256": "63e153bd101192876ac6e0887661c80037b94fd56245a08a1c12d1acc7852d1e",
+			"slot": "active",
+			"sourceTime": 1.7,
+			"trim": {
+				"height": 391,
+				"width": 411,
+				"x": 530,
+				"y": 112
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 263,
+				"x": 125,
+				"y": 214
+			},
+			"file": "eum_sa_006.png",
+			"outputIndex": 6,
+			"sha256": "f628e4164c3558dbee690566455c2b09e75c0c05b47d1bd339639fce4b9c0c52",
+			"slot": "active",
+			"sourceTime": 2.05,
+			"trim": {
+				"height": 391,
+				"width": 411,
+				"x": 530,
+				"y": 112
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 254,
+				"width": 263,
+				"x": 125,
+				"y": 209
+			},
+			"file": "eum_sa_007.png",
+			"outputIndex": 7,
+			"sha256": "855509ca13a3a8cd9e98b21448126c442b6e8db687afa10705c2681507e0143b",
+			"slot": "recovery",
+			"sourceTime": 2.5,
+			"trim": {
+				"height": 399,
+				"width": 411,
+				"x": 530,
+				"y": 113
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 264,
+				"x": 124,
+				"y": 214
+			},
+			"file": "eum_sa_008.png",
+			"outputIndex": 8,
+			"sha256": "714a4ee0f5659b48942d8d2c11c21e943da05bdc049c4604eb268475195c0721",
+			"slot": "recovery",
+			"sourceTime": 2.9,
+			"trim": {
+				"height": 391,
+				"width": 412,
+				"x": 529,
+				"y": 112
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 253,
+				"width": 227,
+				"x": 143,
+				"y": 211
+			},
+			"file": "eum_sa_009.png",
+			"outputIndex": 9,
+			"sha256": "8ec419633ce4069e100418d11fd7f90f10a380f6c0e883283e89d2aa1ba3059c",
+			"slot": "recovery",
+			"sourceTime": 3.3,
+			"trim": {
+				"height": 395,
+				"width": 355,
+				"x": 568,
+				"y": 108
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 273,
+				"width": 155,
+				"x": 179,
+				"y": 191
+			},
+			"file": "eum_sa_010.png",
+			"outputIndex": 10,
+			"sha256": "ac5bc5a90e782a8aa64db4866965b6ceed576a8ab2ab154d36218399443ecce3",
+			"slot": "recovery",
+			"sourceTime": 3.8,
+			"trim": {
+				"height": 427,
+				"width": 242,
+				"x": 614,
+				"y": 77
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 142,
+				"x": 185,
+				"y": 214
+			},
+			"file": "eum_sa_011.png",
+			"outputIndex": 11,
+			"sha256": "ca6761f32aa5b121eaec2840c104060b0a3b13d4e7dea3802abb48037c351515",
+			"slot": "recovery",
+			"sourceTime": 4.7,
+			"trim": {
+				"height": 391,
+				"width": 222,
+				"x": 623,
+				"y": 113
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "eum_sa",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "음사B.mp4",
+		"height": 630,
+		"projectPath": "assets/video/음사B.mp4",
+		"sha256": "b6f2ec203dfe3b544a4e1a4b43ad3934b778dc5ab63c758394225e4f6613ceaa",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

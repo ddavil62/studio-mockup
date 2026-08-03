@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 259,
+				"width": 147,
+				"x": 183,
+				"y": 205
+			},
+			"file": "jeon_cham_000.png",
+			"outputIndex": 0,
+			"sha256": "8935b99f1843ee8c86266c1ddc32d305e77bfc1e5d21814e4361ed04f13e35a8",
+			"slot": "startup",
+			"sourceTime": 0.1,
+			"trim": {
+				"height": 405,
+				"width": 229,
+				"x": 619,
+				"y": 110
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 260,
+				"width": 204,
+				"x": 154,
+				"y": 204
+			},
+			"file": "jeon_cham_001.png",
+			"outputIndex": 1,
+			"sha256": "c9aa8d8f3fd8aadfbe6a107bbb1158591040795a4e13152e397a12758c176104",
+			"slot": "startup",
+			"sourceTime": 0.75,
+			"trim": {
+				"height": 406,
+				"width": 319,
+				"x": 525,
+				"y": 110
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 260,
+				"width": 204,
+				"x": 154,
+				"y": 204
+			},
+			"file": "jeon_cham_002.png",
+			"outputIndex": 2,
+			"sha256": "7e73d632442d3c72e81c268b9159fdf4b01cfa5f15905d93de05d089e31dfb69",
+			"slot": "startup",
+			"sourceTime": 1.4,
+			"trim": {
+				"height": 407,
+				"width": 319,
+				"x": 523,
+				"y": 109
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 259,
+				"width": 204,
+				"x": 154,
+				"y": 205
+			},
+			"file": "jeon_cham_003.png",
+			"outputIndex": 3,
+			"sha256": "658a47cae332efa7102d89ad5a228503d54c7bb724fdf0c23c4aa039c22a91c9",
+			"slot": "startup",
+			"sourceTime": 1.8,
+			"trim": {
+				"height": 404,
+				"width": 319,
+				"x": 527,
+				"y": 112
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 222,
+				"width": 383,
+				"x": 65,
+				"y": 242
+			},
+			"file": "jeon_cham_004.png",
+			"outputIndex": 4,
+			"sha256": "ecdabff83cfd023ed097e6d2874ec8526130839f6bdf8aaca88d6b465d7f6480",
+			"slot": "active",
+			"sourceTime": 2.2,
+			"trim": {
+				"height": 347,
+				"width": 598,
+				"x": 595,
+				"y": 172
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 224,
+				"width": 380,
+				"x": 66,
+				"y": 240
+			},
+			"file": "jeon_cham_005.png",
+			"outputIndex": 5,
+			"sha256": "d3e1668cc52885d0c0fb8f43dd6353f7f90cb79460a9c0d527cbcc529c8bbab5",
+			"slot": "active",
+			"sourceTime": 2.6,
+			"trim": {
+				"height": 350,
+				"width": 594,
+				"x": 591,
+				"y": 170
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 224,
+				"width": 380,
+				"x": 66,
+				"y": 240
+			},
+			"file": "jeon_cham_006.png",
+			"outputIndex": 6,
+			"sha256": "66cb8ef5c3299c51e4dad875f763166f29ed093fd21dc7f8d05dce5490346d37",
+			"slot": "active",
+			"sourceTime": 3.0,
+			"trim": {
+				"height": 350,
+				"width": 594,
+				"x": 591,
+				"y": 170
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 224,
+				"width": 380,
+				"x": 66,
+				"y": 240
+			},
+			"file": "jeon_cham_007.png",
+			"outputIndex": 7,
+			"sha256": "49e7ae3787b1e5a4e834b16b033965226f5a9d41a49f0d4a3657efb786192fa1",
+			"slot": "recovery",
+			"sourceTime": 3.4,
+			"trim": {
+				"height": 350,
+				"width": 594,
+				"x": 591,
+				"y": 170
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 228,
+				"width": 369,
+				"x": 72,
+				"y": 236
+			},
+			"file": "jeon_cham_008.png",
+			"outputIndex": 8,
+			"sha256": "4029be93c98695a35e7e817973ebc5169af355dc03f58dcc59364a76cf8a36a3",
+			"slot": "recovery",
+			"sourceTime": 3.7,
+			"trim": {
+				"height": 356,
+				"width": 577,
+				"x": 593,
+				"y": 164
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 252,
+				"width": 275,
+				"x": 119,
+				"y": 212
+			},
+			"file": "jeon_cham_009.png",
+			"outputIndex": 9,
+			"sha256": "05c98e3e69866f3d83faecd89a0365fcf2fc188e456ea377fd9b82c6853ebbbe",
+			"slot": "recovery",
+			"sourceTime": 4.0,
+			"trim": {
+				"height": 394,
+				"width": 429,
+				"x": 657,
+				"y": 124
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 260,
+				"width": 166,
+				"x": 173,
+				"y": 204
+			},
+			"file": "jeon_cham_010.png",
+			"outputIndex": 10,
+			"sha256": "fc73c03ea796494b48797c52ca055278fb6e96740fc613c1e850061d0618a058",
+			"slot": "recovery",
+			"sourceTime": 4.3,
+			"trim": {
+				"height": 407,
+				"width": 260,
+				"x": 647,
+				"y": 110
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 260,
+				"width": 147,
+				"x": 183,
+				"y": 204
+			},
+			"file": "jeon_cham_011.png",
+			"outputIndex": 11,
+			"sha256": "8f9a8897062a6e654ef6122c31944149cc4ae5e80c9a9c848723a690706a2b16",
+			"slot": "recovery",
+			"sourceTime": 4.7,
+			"trim": {
+				"height": 407,
+				"width": 230,
+				"x": 618,
+				"y": 109
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "jeon_cham",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "전참A.mp4",
+		"height": 630,
+		"projectPath": "assets/video/전참A.mp4",
+		"sha256": "68dbfeef2c13d78416896fc2e63b5f0b2a8d0bfb066e128830540b2b24855954",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}
