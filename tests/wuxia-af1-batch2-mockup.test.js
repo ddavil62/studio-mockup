@@ -21,7 +21,8 @@ async function main() {
   page.on('pageerror', (error) => errors.push(error.message));
 
   try {
-    await page.goto('http://127.0.0.1:8123/wuxia/af1.html', { waitUntil: 'networkidle' });
+    const baseUrl = process.env.MOCKUP_BASE_URL || 'http://127.0.0.1:8123';
+    await page.goto(`${baseUrl}/wuxia/af1.html`, { waitUntil: 'networkidle' });
     // 화면 아래 lazy 이미지까지 실제 요청해 전체 경로를 검증한다.
     await page.locator('img').evaluateAll((images) => images.forEach((image) => {
       image.loading = 'eager';
@@ -43,15 +44,15 @@ async function main() {
     });
 
     if (
-      imageCount !== 153
+      imageCount !== 179
       || broken.length > 0
       || errors.length > 0
       || !status.includes('이중음')
       || !status.includes('참족')
       || !status.includes('이단족')
       || !status.includes('음사 A')
-      || !status.includes('96프레임')
-      || headings.length !== 12
+      || !status.includes('120프레임')
+      || headings.length !== 14
     ) {
       throw new Error(JSON.stringify({ imageCount, broken, errors, status, headingCount: headings.length }));
     }
