@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 321,
+				"width": 193,
+				"x": 160,
+				"y": 95
+			},
+			"file": "idan_jok_000.png",
+			"outputIndex": 0,
+			"sha256": "c19982df2254afa4e0b3d76c70e5522e8fe16e69e4a9190d870b80753d931ac7",
+			"slot": "startup",
+			"sourceTime": 0.75,
+			"trim": {
+				"height": 251,
+				"width": 151,
+				"x": 318,
+				"y": 37
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 315,
+				"width": 187,
+				"x": 163,
+				"y": 93
+			},
+			"file": "idan_jok_001.png",
+			"outputIndex": 1,
+			"sha256": "c574b4a0e8f61d87145fd0f5119e9d892c3babe9b01d2c43f6b448a6d24bfff5",
+			"slot": "startup",
+			"sourceTime": 0.8,
+			"trim": {
+				"height": 246,
+				"width": 146,
+				"x": 322,
+				"y": 30
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 315,
+				"width": 184,
+				"x": 164,
+				"y": 85
+			},
+			"file": "idan_jok_002.png",
+			"outputIndex": 2,
+			"sha256": "63f51382c35b3a11d346abeb6751fedfdb0b6823c73560756b9a8d8b5ca948a5",
+			"slot": "startup",
+			"sourceTime": 0.85,
+			"trim": {
+				"height": 246,
+				"width": 144,
+				"x": 323,
+				"y": 23
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 314,
+				"width": 195,
+				"x": 159,
+				"y": 78
+			},
+			"file": "idan_jok_003.png",
+			"outputIndex": 3,
+			"sha256": "e5fa9ac8f0f7d13fe18b2ef2e667fe5fda1af2167559d109d3072dd08ffd5cfd",
+			"slot": "startup",
+			"sourceTime": 0.9,
+			"trim": {
+				"height": 245,
+				"width": 152,
+				"x": 313,
+				"y": 16
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 314,
+				"width": 205,
+				"x": 154,
+				"y": 70
+			},
+			"file": "idan_jok_004.png",
+			"outputIndex": 4,
+			"sha256": "6b6b40641081d7071526388867d68c58c531f1eb4764d97a937a55c0d58b3260",
+			"slot": "active",
+			"sourceTime": 0.95,
+			"trim": {
+				"height": 245,
+				"width": 160,
+				"x": 309,
+				"y": 16
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 314,
+				"width": 292,
+				"x": 110,
+				"y": 62
+			},
+			"file": "idan_jok_005.png",
+			"outputIndex": 5,
+			"sha256": "57f008c0055752ddcaa86200645537eacfc3b093b06f96892cac6f57016eb0e3",
+			"slot": "active",
+			"sourceTime": 1.0,
+			"trim": {
+				"height": 245,
+				"width": 228,
+				"x": 305,
+				"y": 16
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 314,
+				"width": 308,
+				"x": 102,
+				"y": 56
+			},
+			"file": "idan_jok_006.png",
+			"outputIndex": 6,
+			"sha256": "a5921de9aeaf2f5a6d194abd77e383f4874a544f46ab84f5331675c3f4b16bbb",
+			"slot": "active",
+			"sourceTime": 1.05,
+			"trim": {
+				"height": 245,
+				"width": 241,
+				"x": 300,
+				"y": 16
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 312,
+				"width": 317,
+				"x": 98,
+				"y": 54
+			},
+			"file": "idan_jok_007.png",
+			"outputIndex": 7,
+			"sha256": "c7f6fa4bc21db0b6688638e533dd12109d3dd81004bcf99684db8035dfa3b7c0",
+			"slot": "recovery",
+			"sourceTime": 1.12,
+			"trim": {
+				"height": 244,
+				"width": 248,
+				"x": 295,
+				"y": 16
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 311,
+				"width": 236,
+				"x": 138,
+				"y": 53
+			},
+			"file": "idan_jok_008.png",
+			"outputIndex": 8,
+			"sha256": "5e3117d8eca985ddea54c84a19f38c9bad024620a9b87aa1f3b863c163023fc3",
+			"slot": "recovery",
+			"sourceTime": 1.22,
+			"trim": {
+				"height": 243,
+				"width": 184,
+				"x": 292,
+				"y": 16
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 310,
+				"width": 230,
+				"x": 141,
+				"y": 54
+			},
+			"file": "idan_jok_009.png",
+			"outputIndex": 9,
+			"sha256": "377fb1b723e5b48b8fecdabcc4a8a0bddc8493856fa86d23ddc3c2fe69050345",
+			"slot": "recovery",
+			"sourceTime": 1.35,
+			"trim": {
+				"height": 242,
+				"width": 180,
+				"x": 292,
+				"y": 16
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 310,
+				"width": 223,
+				"x": 145,
+				"y": 56
+			},
+			"file": "idan_jok_010.png",
+			"outputIndex": 10,
+			"sha256": "3f30850b7db8ab6f293d8a34d22f13df83a18c4d55149be2cf3578b0905350e1",
+			"slot": "recovery",
+			"sourceTime": 1.55,
+			"trim": {
+				"height": 242,
+				"width": 174,
+				"x": 290,
+				"y": 17
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 310,
+				"width": 242,
+				"x": 135,
+				"y": 60
+			},
+			"file": "idan_jok_011.png",
+			"outputIndex": 11,
+			"sha256": "82e68b8bd6ff4b03dc88a403a4923c5a0be9a12875ecd6dfb6e1eb1711adde7f",
+			"slot": "recovery",
+			"sourceTime": 1.8,
+			"trim": {
+				"height": 242,
+				"width": 189,
+				"x": 287,
+				"y": 18
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "idan_jok",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "발 기준 마스터 3차.mp4",
+		"height": 630,
+		"projectPath": "assets/video/3차/발 기준 마스터 3차.mp4",
+		"sha256": "6b0ca283907eb77dc6307f70d48d860db9d1367e93af7365c232f62636997381",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

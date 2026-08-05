@@ -20,67 +20,21 @@
 	"frames": [
 		{
 			"alphaBounds": {
-				"height": 249,
-				"width": 303,
-				"x": 105,
-				"y": 214
+				"height": 353,
+				"width": 259,
+				"x": 127,
+				"y": 111
 			},
 			"file": "cham_hyeon_000.png",
 			"outputIndex": 0,
-			"sha256": "58f92980b1ac2153a6c62a6e383ff8bf7e50e34ad09038625e1fa9e9849330fe",
-			"slot": "startup",
-			"sourceTime": 0.0,
-			"trim": {
-				"height": 195,
-				"width": 237,
-				"x": 298,
-				"y": 59
-			},
-			"validation": {
-				"clipped": false,
-				"emptyAlpha": false
-			}
-		},
-		{
-			"alphaBounds": {
-				"height": 252,
-				"width": 183,
-				"x": 165,
-				"y": 212
-			},
-			"file": "cham_hyeon_001.png",
-			"outputIndex": 1,
-			"sha256": "30a889c029516046874a210f224186742a37725a00307f165ac7547cf3514449",
-			"slot": "startup",
-			"sourceTime": 0.4,
-			"trim": {
-				"height": 197,
-				"width": 143,
-				"x": 297,
-				"y": 56
-			},
-			"validation": {
-				"clipped": false,
-				"emptyAlpha": false
-			}
-		},
-		{
-			"alphaBounds": {
-				"height": 276,
-				"width": 202,
-				"x": 155,
-				"y": 188
-			},
-			"file": "cham_hyeon_002.png",
-			"outputIndex": 2,
-			"sha256": "42cc04384ef46dbe4b6d460c7048d6b5709eaebc82ece4da81ab8c6b8ba5e726",
+			"sha256": "b85868a5028a176100f405dc998c0b307bb35c455ed7b3b0564c9b4a9c553780",
 			"slot": "startup",
 			"sourceTime": 0.8,
 			"trim": {
-				"height": 216,
-				"width": 158,
-				"x": 288,
-				"y": 37
+				"height": 276,
+				"width": 202,
+				"x": 201,
+				"y": 39
 			},
 			"validation": {
 				"clipped": false,
@@ -89,21 +43,67 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 270,
-				"width": 204,
-				"x": 154,
-				"y": 194
+				"height": 353,
+				"width": 270,
+				"x": 121,
+				"y": 111
+			},
+			"file": "cham_hyeon_001.png",
+			"outputIndex": 1,
+			"sha256": "c7bff8c51a0fea47aff286c9db400e804db046c1593b17e6cf7761ab21ce91f8",
+			"slot": "startup",
+			"sourceTime": 1.15,
+			"trim": {
+				"height": 276,
+				"width": 211,
+				"x": 211,
+				"y": 39
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 353,
+				"width": 242,
+				"x": 135,
+				"y": 111
+			},
+			"file": "cham_hyeon_002.png",
+			"outputIndex": 2,
+			"sha256": "15c95f7371292a09ebbdaebe190b1a1ff1099ea729ed1706bbac99f0b7275bce",
+			"slot": "startup",
+			"sourceTime": 1.5,
+			"trim": {
+				"height": 276,
+				"width": 189,
+				"x": 211,
+				"y": 39
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 353,
+				"width": 228,
+				"x": 142,
+				"y": 111
 			},
 			"file": "cham_hyeon_003.png",
 			"outputIndex": 3,
-			"sha256": "d6be3f4bb325ff0436af6a9559fe4e99e1c3ca376b6576cd34160adf53159ceb",
+			"sha256": "e3d501cfe5c9b14f771fd7b6ee291f41c819394a683f4225e7d592d2f9b8da6a",
 			"slot": "startup",
-			"sourceTime": 1.4,
+			"sourceTime": 1.85,
 			"trim": {
-				"height": 211,
-				"width": 159,
-				"x": 302,
-				"y": 42
+				"height": 276,
+				"width": 178,
+				"x": 220,
+				"y": 39
 			},
 			"validation": {
 				"clipped": false,
@@ -112,21 +112,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 270,
-				"width": 201,
-				"x": 156,
-				"y": 194
+				"height": 355,
+				"width": 220,
+				"x": 146,
+				"y": 109
 			},
 			"file": "cham_hyeon_004.png",
 			"outputIndex": 4,
-			"sha256": "13d179449bbc0eda83c6786fb3bd02e4058d2e9a6f3ab79c7dacf34aee606d6c",
+			"sha256": "b7d06e2391d1cfa7d8aed56fd734cd1d7e90b90683899fe98b5ee3ca9f308512",
 			"slot": "active",
-			"sourceTime": 1.8,
+			"sourceTime": 2.2,
 			"trim": {
-				"height": 211,
-				"width": 157,
-				"x": 302,
-				"y": 42
+				"height": 277,
+				"width": 172,
+				"x": 224,
+				"y": 38
 			},
 			"validation": {
 				"clipped": false,
@@ -135,21 +135,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 270,
-				"width": 201,
-				"x": 156,
-				"y": 194
+				"height": 399,
+				"width": 232,
+				"x": 140,
+				"y": 65
 			},
 			"file": "cham_hyeon_005.png",
 			"outputIndex": 5,
-			"sha256": "4fb2f0419dd2f76026fb5e7c55c1ebaba43b8716085dfd397d9ef5c7cfce2632",
+			"sha256": "09efbe7e08023be6fdaad7a5bf36ea6f40547960ae42665249c93565dfc1b25a",
 			"slot": "active",
-			"sourceTime": 2.0,
+			"sourceTime": 2.6,
 			"trim": {
-				"height": 211,
-				"width": 157,
-				"x": 302,
-				"y": 42
+				"height": 312,
+				"width": 181,
+				"x": 220,
+				"y": 3
 			},
 			"validation": {
 				"clipped": false,
@@ -158,21 +158,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 270,
-				"width": 200,
-				"x": 156,
-				"y": 194
+				"height": 378,
+				"width": 278,
+				"x": 117,
+				"y": 86
 			},
 			"file": "cham_hyeon_006.png",
 			"outputIndex": 6,
-			"sha256": "2901a778722d02e86316979d421ef9652f8276d2fded2dc9321b59d587f4084b",
+			"sha256": "1bc7682f387a484cbf543443f56e59b5b8d194e2c0538083d69f3fdd8db466fa",
 			"slot": "active",
-			"sourceTime": 2.4,
+			"sourceTime": 3.05,
 			"trim": {
-				"height": 211,
-				"width": 156,
-				"x": 302,
-				"y": 42
+				"height": 295,
+				"width": 217,
+				"x": 213,
+				"y": 20
 			},
 			"validation": {
 				"clipped": false,
@@ -181,21 +181,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 270,
-				"width": 200,
-				"x": 156,
-				"y": 193
+				"height": 355,
+				"width": 305,
+				"x": 104,
+				"y": 109
 			},
 			"file": "cham_hyeon_007.png",
 			"outputIndex": 7,
-			"sha256": "cfe2867ec5cf8085f2ecb97a2f4abe605532b8cd16ccc2b64b7e913ccdba3146",
+			"sha256": "8804d3363bc24b05e0358f40b2e1e97ad344accfe09f1e1601e4176d23728b32",
 			"slot": "recovery",
-			"sourceTime": 2.8,
+			"sourceTime": 3.55,
 			"trim": {
-				"height": 212,
-				"width": 156,
-				"x": 302,
-				"y": 42
+				"height": 277,
+				"width": 238,
+				"x": 216,
+				"y": 38
 			},
 			"validation": {
 				"clipped": false,
@@ -204,21 +204,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 270,
-				"width": 198,
-				"x": 157,
-				"y": 194
+				"height": 355,
+				"width": 301,
+				"x": 106,
+				"y": 109
 			},
 			"file": "cham_hyeon_008.png",
 			"outputIndex": 8,
-			"sha256": "f46b7712c2641840188b99211b69ffa1fb9c76d61b5282a8aef15c6b70ffdb38",
+			"sha256": "4eceb5f7080ae642f3b0d92bed7837b17643bd0f37dd00ae5799b2b4a3c6bf4d",
 			"slot": "recovery",
-			"sourceTime": 3.2,
+			"sourceTime": 4.1,
 			"trim": {
-				"height": 211,
-				"width": 155,
-				"x": 302,
-				"y": 42
+				"height": 277,
+				"width": 235,
+				"x": 219,
+				"y": 38
 			},
 			"validation": {
 				"clipped": false,
@@ -227,21 +227,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 286,
-				"width": 174,
-				"x": 169,
-				"y": 177
+				"height": 355,
+				"width": 301,
+				"x": 106,
+				"y": 109
 			},
 			"file": "cham_hyeon_009.png",
 			"outputIndex": 9,
-			"sha256": "7fd036ec0d2394b5c8db80d951e5f42bc5ac89d9540f496edade3bced4e1b74c",
+			"sha256": "6f41fa54b35f99e7fb6e276f1f85b24534457bf9a89dd8ed7257f3368c459caa",
 			"slot": "recovery",
-			"sourceTime": 3.6,
+			"sourceTime": 4.75,
 			"trim": {
-				"height": 224,
-				"width": 136,
-				"x": 303,
-				"y": 30
+				"height": 277,
+				"width": 235,
+				"x": 218,
+				"y": 38
 			},
 			"validation": {
 				"clipped": false,
@@ -250,21 +250,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 256,
-				"width": 154,
-				"x": 179,
-				"y": 208
+				"height": 355,
+				"width": 301,
+				"x": 106,
+				"y": 109
 			},
 			"file": "cham_hyeon_010.png",
 			"outputIndex": 10,
-			"sha256": "f0895ac2b6d777cf977803bd6f311437750d2d035a4b353f30638988617db058",
+			"sha256": "f09101237117026d8019f81cc939e0f7e113257339acf2283bc5519b16668e0b",
 			"slot": "recovery",
-			"sourceTime": 4.0,
+			"sourceTime": 5.5,
 			"trim": {
-				"height": 200,
-				"width": 120,
-				"x": 309,
-				"y": 54
+				"height": 277,
+				"width": 235,
+				"x": 218,
+				"y": 38
 			},
 			"validation": {
 				"clipped": false,
@@ -273,21 +273,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 253,
-				"width": 138,
-				"x": 187,
-				"y": 211
+				"height": 355,
+				"width": 301,
+				"x": 106,
+				"y": 109
 			},
 			"file": "cham_hyeon_011.png",
 			"outputIndex": 11,
-			"sha256": "79b7e377962af7f517b953bcb2e357492f50a18ca670684ec03e0e3fd2be8d12",
+			"sha256": "14d68130871d6a3142f4bcb0db012a471c67e9d14c32077c89191b1f593ff967",
 			"slot": "recovery",
-			"sourceTime": 4.6,
+			"sourceTime": 6.5,
 			"trim": {
-				"height": 198,
-				"width": 108,
-				"x": 309,
-				"y": 55
+				"height": 277,
+				"width": 235,
+				"x": 218,
+				"y": 38
 			},
 			"validation": {
 				"clipped": false,
@@ -303,12 +303,12 @@
 	},
 	"schemaVersion": 2,
 	"source": {
-		"duration": 5.088005,
-		"fileName": "참현.mp4",
+		"duration": 10.08,
+		"fileName": "검 1타 음공 분기.mp4",
 		"height": 630,
-		"projectPath": "assets/video/2차/참현.mp4",
-		"sha256": "cc957c86147edb3858d32f4a5c4d6dd50d2fab9f1b999a444feab1483d173400",
-		"videoFrames": 121,
+		"projectPath": "assets/video/3차/검 1타 음공 분기.mp4",
+		"sha256": "a81ff18114e6c4cffd2f5156596a6db84e5c5ef36ffad4d0f2c45e265f066ca3",
+		"videoFrames": 241,
 		"width": 1470
 	}
 }

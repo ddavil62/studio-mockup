@@ -20,21 +20,21 @@
 	"frames": [
 		{
 			"alphaBounds": {
-				"height": 248,
-				"width": 141,
-				"x": 186,
-				"y": 216
+				"height": 302,
+				"width": 179,
+				"x": 167,
+				"y": 161
 			},
 			"file": "jeong_jok_000.png",
 			"outputIndex": 0,
-			"sha256": "e6fc00fbd6e7b39fb646231f2e08efd8339b97d8aec67079f4ca5fcd96e28d95",
+			"sha256": "76c18dbeebe8453541a56b7abf850caddb014dd5b2862850b76c824dcf462375",
 			"slot": "startup",
-			"sourceTime": 0.1,
+			"sourceTime": 0.02,
 			"trim": {
-				"height": 387,
-				"width": 220,
-				"x": 623,
-				"y": 114
+				"height": 237,
+				"width": 144,
+				"x": 287,
+				"y": 52
 			},
 			"validation": {
 				"clipped": false,
@@ -43,21 +43,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 251,
-				"width": 145,
-				"x": 184,
-				"y": 213
+				"height": 302,
+				"width": 179,
+				"x": 169,
+				"y": 161
 			},
 			"file": "jeong_jok_001.png",
 			"outputIndex": 1,
-			"sha256": "6d1889a5536031b33aa40bc7ada8e84a095ccee922aefcacaf01c37aca08fc90",
+			"sha256": "7f635efaa9ea0ddd4548840585ce88872d73dac184e1a21d3a6161d2d6b7f395",
 			"slot": "startup",
-			"sourceTime": 0.7,
+			"sourceTime": 0.1,
 			"trim": {
-				"height": 392,
-				"width": 227,
-				"x": 634,
-				"y": 110
+				"height": 237,
+				"width": 144,
+				"x": 287,
+				"y": 52
 			},
 			"validation": {
 				"clipped": false,
@@ -66,21 +66,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 254,
-				"width": 177,
-				"x": 168,
-				"y": 210
+				"height": 301,
+				"width": 186,
+				"x": 163,
+				"y": 163
 			},
 			"file": "jeong_jok_002.png",
 			"outputIndex": 2,
-			"sha256": "3ed428079a7d3778772cf7cb5f4170637751394575c91ec58159d942a2038196",
+			"sha256": "a788682efb410650ad0016b26b855479ef55a36a18bee3c1d62e8f95db514d54",
 			"slot": "startup",
-			"sourceTime": 1.2,
+			"sourceTime": 0.18,
 			"trim": {
-				"height": 397,
-				"width": 277,
-				"x": 606,
-				"y": 105
+				"height": 235,
+				"width": 145,
+				"x": 293,
+				"y": 53
 			},
 			"validation": {
 				"clipped": false,
@@ -89,21 +89,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 254,
-				"width": 188,
-				"x": 162,
-				"y": 210
+				"height": 295,
+				"width": 226,
+				"x": 144,
+				"y": 166
 			},
 			"file": "jeong_jok_003.png",
 			"outputIndex": 3,
-			"sha256": "120236b5eb8c043cd1560e4c96f2cea0de8ffe1626f5ac25c88322531f21e28f",
+			"sha256": "b498b3df0c5a482c3711c6a6b6c2e2afdeb11802834953cd13fa16668753f78a",
 			"slot": "startup",
-			"sourceTime": 1.8,
+			"sourceTime": 0.26,
 			"trim": {
-				"height": 397,
-				"width": 293,
-				"x": 593,
-				"y": 105
+				"height": 233,
+				"width": 178,
+				"x": 292,
+				"y": 55
 			},
 			"validation": {
 				"clipped": false,
@@ -112,21 +112,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 245,
-				"width": 293,
-				"x": 110,
-				"y": 219
+				"height": 290,
+				"width": 314,
+				"x": 99,
+				"y": 170
 			},
 			"file": "jeong_jok_004.png",
 			"outputIndex": 4,
-			"sha256": "005350242928cc69782a2570a5d4d31b09c94d93c3ea52d1a8ef14b353e2d46c",
+			"sha256": "77b345c324010a010fa34ecafec61a9923225c2f47455b053e2075e8ae39638e",
 			"slot": "active",
-			"sourceTime": 2.2,
+			"sourceTime": 0.34,
 			"trim": {
-				"height": 383,
-				"width": 458,
-				"x": 566,
-				"y": 120
+				"height": 230,
+				"width": 245,
+				"x": 293,
+				"y": 58
 			},
 			"validation": {
 				"clipped": false,
@@ -135,21 +135,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 245,
-				"width": 271,
-				"x": 121,
-				"y": 219
+				"height": 290,
+				"width": 302,
+				"x": 105,
+				"y": 171
 			},
 			"file": "jeong_jok_005.png",
 			"outputIndex": 5,
-			"sha256": "8d28ac4e2482410f70fa95f92b5e02045b1b60dc99bc412fb5b4358cb69a1c4b",
+			"sha256": "3d3c9ac61f15f7eb41ef302a7d2e46c8657d736764c2224f7c4e3975f8fe01c4",
 			"slot": "active",
-			"sourceTime": 2.6,
+			"sourceTime": 0.42,
 			"trim": {
-				"height": 383,
-				"width": 424,
-				"x": 598,
-				"y": 120
+				"height": 229,
+				"width": 236,
+				"x": 297,
+				"y": 58
 			},
 			"validation": {
 				"clipped": false,
@@ -158,21 +158,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 245,
-				"width": 264,
-				"x": 124,
-				"y": 219
+				"height": 290,
+				"width": 302,
+				"x": 105,
+				"y": 171
 			},
 			"file": "jeong_jok_006.png",
 			"outputIndex": 6,
-			"sha256": "a03d6acb902d2300366136d14890da4cbfbe5efe88ea744ba718727152f44a40",
+			"sha256": "53d532fe8a8cbd17968e5aabbcf6884cf0818536d919f5c3b09e0acb06a4dee2",
 			"slot": "active",
-			"sourceTime": 3.0,
+			"sourceTime": 0.5,
 			"trim": {
-				"height": 383,
-				"width": 413,
-				"x": 609,
-				"y": 120
+				"height": 229,
+				"width": 236,
+				"x": 297,
+				"y": 58
 			},
 			"validation": {
 				"clipped": false,
@@ -181,21 +181,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 247,
-				"width": 248,
-				"x": 132,
-				"y": 217
+				"height": 291,
+				"width": 305,
+				"x": 104,
+				"y": 162
 			},
 			"file": "jeong_jok_007.png",
 			"outputIndex": 7,
-			"sha256": "604d5141fe8d42ae068a48e69a03ba2b3b808caaf60f099988bcc75a322089c1",
+			"sha256": "de4bc261ff3cfb091e5f60aff0d70a4c5bac3c7cba22c2c3b3472ff1b18db47c",
 			"slot": "recovery",
-			"sourceTime": 3.4,
+			"sourceTime": 0.58,
 			"trim": {
-				"height": 386,
-				"width": 388,
-				"x": 609,
-				"y": 117
+				"height": 230,
+				"width": 238,
+				"x": 294,
+				"y": 57
 			},
 			"validation": {
 				"clipped": false,
@@ -204,21 +204,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 253,
-				"width": 196,
-				"x": 158,
-				"y": 211
+				"height": 293,
+				"width": 307,
+				"x": 103,
+				"y": 153
 			},
 			"file": "jeong_jok_008.png",
 			"outputIndex": 8,
-			"sha256": "fc071345253ac0b2c807aebc03c5eb393dcedda673942c4fb68232464200d63c",
+			"sha256": "eae6503a6105a4c468b0a81339708f4e4d56081de4598d45dd6ce38015101131",
 			"slot": "recovery",
-			"sourceTime": 3.65,
+			"sourceTime": 0.66,
 			"trim": {
-				"height": 396,
-				"width": 306,
-				"x": 607,
-				"y": 107
+				"height": 229,
+				"width": 240,
+				"x": 292,
+				"y": 58
 			},
 			"validation": {
 				"clipped": false,
@@ -227,21 +227,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 251,
-				"width": 196,
-				"x": 158,
-				"y": 213
+				"height": 321,
+				"width": 193,
+				"x": 160,
+				"y": 113
 			},
 			"file": "jeong_jok_009.png",
 			"outputIndex": 9,
-			"sha256": "043b49daed49627417fe0f597259ed1a53984364f4a51a3a7fbf05193ff4f6be",
+			"sha256": "54b5c07f5fe89eed6bebd0fcfa04e5bda5c4942a1af1f71c7a9170e898378c72",
 			"slot": "recovery",
-			"sourceTime": 3.9,
+			"sourceTime": 0.74,
 			"trim": {
-				"height": 392,
-				"width": 307,
-				"x": 598,
-				"y": 111
+				"height": 251,
+				"width": 151,
+				"x": 318,
+				"y": 37
 			},
 			"validation": {
 				"clipped": false,
@@ -250,21 +250,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 248,
-				"width": 172,
-				"x": 170,
-				"y": 216
+				"height": 314,
+				"width": 186,
+				"x": 163,
+				"y": 106
 			},
 			"file": "jeong_jok_010.png",
 			"outputIndex": 10,
-			"sha256": "a9c2e6120e35e5a777e920ccb4cfde377580766b4a9eb2a9a29efd16f934f719",
+			"sha256": "988a0641eb7bdb8b9df888cbaf3d9cbe0ed5ba9466e85a61f29361aa47eb3268",
 			"slot": "recovery",
-			"sourceTime": 4.2,
+			"sourceTime": 0.82,
 			"trim": {
-				"height": 387,
-				"width": 268,
-				"x": 604,
-				"y": 115
+				"height": 245,
+				"width": 145,
+				"x": 323,
+				"y": 30
 			},
 			"validation": {
 				"clipped": false,
@@ -273,21 +273,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 248,
-				"width": 139,
-				"x": 187,
-				"y": 216
+				"height": 314,
+				"width": 195,
+				"x": 159,
+				"y": 92
 			},
 			"file": "jeong_jok_011.png",
 			"outputIndex": 11,
-			"sha256": "ba21a6a1d52635f6901cdaafd626197b21f781dddaa12336bad61e8aaa498466",
+			"sha256": "ea5e6090f748c7d04c8629cc5b35cbb2993c3debe106755e65739a6a99dabc92",
 			"slot": "recovery",
-			"sourceTime": 4.7,
+			"sourceTime": 0.9,
 			"trim": {
-				"height": 388,
-				"width": 217,
-				"x": 625,
-				"y": 113
+				"height": 245,
+				"width": 152,
+				"x": 313,
+				"y": 16
 			},
 			"validation": {
 				"clipped": false,
@@ -304,10 +304,10 @@
 	"schemaVersion": 2,
 	"source": {
 		"duration": 5.088005,
-		"fileName": "정족A.mp4",
+		"fileName": "발 기준 마스터 3차.mp4",
 		"height": 630,
-		"projectPath": "assets/video/정족A.mp4",
-		"sha256": "5a6ccedb91c0fc4ea40d40b29a24fe5ff5b5b03577ec6a2cfafa1fe682de006c",
+		"projectPath": "assets/video/3차/발 기준 마스터 3차.mp4",
+		"sha256": "6b0ca283907eb77dc6307f70d48d860db9d1367e93af7365c232f62636997381",
 		"videoFrames": 121,
 		"width": 1470
 	}

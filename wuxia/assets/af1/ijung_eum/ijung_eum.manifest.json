@@ -1,0 +1,314 @@
+{
+	"canvas": {
+		"axisX": 256.0,
+		"groundY": 464.0,
+		"height": 512.0,
+		"width": 512.0
+	},
+	"chromaKey": {
+		"alphaThreshold": 8.0,
+		"despill": false,
+		"feather": 12.0,
+		"keepLargestConnectedComponent": true,
+		"method": "corner_rgb_rms",
+		"tolerance": 28.0,
+		"unmatteWhiteBackground": true
+	},
+	"duration": 1.0,
+	"fps": 12,
+	"frameCount": 12,
+	"frames": [
+		{
+			"alphaBounds": {
+				"height": 247,
+				"width": 200,
+				"x": 156,
+				"y": 216
+			},
+			"file": "ijung_eum_000.png",
+			"outputIndex": 0,
+			"sha256": "9aee22ca7b3550fe0f32da51b266fb4d78dc0022f0924a98677649e42576b6a9",
+			"slot": "startup",
+			"sourceTime": 2.2,
+			"trim": {
+				"height": 194,
+				"width": 156,
+				"x": 310,
+				"y": 57
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 245,
+				"width": 205,
+				"x": 154,
+				"y": 218
+			},
+			"file": "ijung_eum_001.png",
+			"outputIndex": 1,
+			"sha256": "650c3322e14b63a2c9c67ec56976ecd716b3836cf8aec5efa6d9691a8d2444f9",
+			"slot": "startup",
+			"sourceTime": 2.4,
+			"trim": {
+				"height": 192,
+				"width": 160,
+				"x": 306,
+				"y": 59
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 243,
+				"width": 211,
+				"x": 151,
+				"y": 220
+			},
+			"file": "ijung_eum_002.png",
+			"outputIndex": 2,
+			"sha256": "ec1b9d568841c05f116e396fd6a581a5638e7e40ad86d1a1d5b9d3f301a5bfa8",
+			"slot": "startup",
+			"sourceTime": 2.6,
+			"trim": {
+				"height": 191,
+				"width": 165,
+				"x": 301,
+				"y": 60
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 243,
+				"width": 215,
+				"x": 149,
+				"y": 220
+			},
+			"file": "ijung_eum_003.png",
+			"outputIndex": 3,
+			"sha256": "047eaac6dc16e3c1b3ba97e808b56fe04c2cb552498bd018d55cdf497a62a86c",
+			"slot": "startup",
+			"sourceTime": 2.8,
+			"trim": {
+				"height": 191,
+				"width": 168,
+				"x": 300,
+				"y": 60
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 250,
+				"width": 216,
+				"x": 148,
+				"y": 214
+			},
+			"file": "ijung_eum_004.png",
+			"outputIndex": 4,
+			"sha256": "a5c9325ea6191a9f9647a1450df50cae48e5d890dc4104b22e14c6739111f53f",
+			"slot": "active",
+			"sourceTime": 3.0,
+			"trim": {
+				"height": 195,
+				"width": 169,
+				"x": 302,
+				"y": 56
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 261,
+				"width": 219,
+				"x": 147,
+				"y": 202
+			},
+			"file": "ijung_eum_005.png",
+			"outputIndex": 5,
+			"sha256": "f728901d238343d05c897f935c2a96f452e396d6263081ae2bbe83b0b9e345d4",
+			"slot": "active",
+			"sourceTime": 3.2,
+			"trim": {
+				"height": 205,
+				"width": 171,
+				"x": 296,
+				"y": 46
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 261,
+				"width": 224,
+				"x": 144,
+				"y": 202
+			},
+			"file": "ijung_eum_006.png",
+			"outputIndex": 6,
+			"sha256": "f88cb63485dc599a9f0112ea8545a5efd4d4d7599aacd07b11a4d1f216b6e829",
+			"slot": "active",
+			"sourceTime": 3.4,
+			"trim": {
+				"height": 205,
+				"width": 175,
+				"x": 292,
+				"y": 46
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 259,
+				"width": 219,
+				"x": 147,
+				"y": 204
+			},
+			"file": "ijung_eum_007.png",
+			"outputIndex": 7,
+			"sha256": "9be5547e0732b682e6453408cf18659fe9d9a805a86fec687188cf264c923e79",
+			"slot": "recovery",
+			"sourceTime": 3.6,
+			"trim": {
+				"height": 203,
+				"width": 171,
+				"x": 296,
+				"y": 48
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 256,
+				"width": 211,
+				"x": 151,
+				"y": 207
+			},
+			"file": "ijung_eum_008.png",
+			"outputIndex": 8,
+			"sha256": "c6218fa3d83a77127d9dcc07ecb9f724b2009d66433cb8c5b28492148feba434",
+			"slot": "recovery",
+			"sourceTime": 3.8,
+			"trim": {
+				"height": 201,
+				"width": 165,
+				"x": 302,
+				"y": 50
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 247,
+				"width": 206,
+				"x": 153,
+				"y": 216
+			},
+			"file": "ijung_eum_009.png",
+			"outputIndex": 9,
+			"sha256": "8b33d3dc5099c81a0fa5a432a5f0f406d8dd5db4fdb6d4036e24f6a443a7d1d6",
+			"slot": "recovery",
+			"sourceTime": 4.05,
+			"trim": {
+				"height": 194,
+				"width": 161,
+				"x": 313,
+				"y": 57
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 286,
+				"width": 157,
+				"x": 178,
+				"y": 177
+			},
+			"file": "ijung_eum_010.png",
+			"outputIndex": 10,
+			"sha256": "48dd0f3f27fdf7836894a6c12303643655a473050954f8ca0081cd841339b051",
+			"slot": "recovery",
+			"sourceTime": 4.3,
+			"trim": {
+				"height": 224,
+				"width": 123,
+				"x": 315,
+				"y": 27
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 247,
+				"width": 151,
+				"x": 181,
+				"y": 217
+			},
+			"file": "ijung_eum_011.png",
+			"outputIndex": 11,
+			"sha256": "d88d409d5c3c890e0045822185f1b0b0f7354db34457002eaf4dcfecab5e3bee",
+			"slot": "recovery",
+			"sourceTime": 4.6,
+			"trim": {
+				"height": 193,
+				"width": 118,
+				"x": 312,
+				"y": 57
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		}
+	],
+	"loop": false,
+	"name": "ijung_eum",
+	"pivot": {
+		"x": 256,
+		"y": 464
+	},
+	"schemaVersion": 2,
+	"source": {
+		"duration": 5.088005,
+		"fileName": "음공 기준 마스터.mp4",
+		"height": 630,
+		"projectPath": "assets/video/3차/음공 기준 마스터.mp4",
+		"sha256": "eb872627918a31d4d8232a9d87bc6928ed23016067323ef02a1f38f09d9b28a6",
+		"videoFrames": 121,
+		"width": 1470
+	}
+}

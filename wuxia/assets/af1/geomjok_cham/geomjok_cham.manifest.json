@@ -20,21 +20,21 @@
 	"frames": [
 		{
 			"alphaBounds": {
-				"height": 268,
-				"width": 271,
-				"x": 121,
-				"y": 196
+				"height": 251,
+				"width": 132,
+				"x": 190,
+				"y": 213
 			},
 			"file": "geomjok_cham_000.png",
 			"outputIndex": 0,
-			"sha256": "338c16a8f7faa69c2b9a69126285639effaca1133beb4b3dad010dae1902c59f",
+			"sha256": "0d19e3c1fc8702c2e3c25fd22333153b63b6a7168946e5e5e358fd118b82c0b5",
 			"slot": "startup",
-			"sourceTime": 0.0,
+			"sourceTime": 4.2,
 			"trim": {
-				"height": 209,
-				"width": 212,
-				"x": 294,
-				"y": 53
+				"height": 196,
+				"width": 103,
+				"x": 312,
+				"y": 56
 			},
 			"validation": {
 				"clipped": false,
@@ -43,21 +43,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 264,
-				"width": 188,
-				"x": 162,
-				"y": 200
+				"height": 251,
+				"width": 132,
+				"x": 190,
+				"y": 213
 			},
 			"file": "geomjok_cham_001.png",
 			"outputIndex": 1,
-			"sha256": "3536d961cbe69652ff3df42cc25281b08a7d89224dca150a15e2bb1d0422d1ad",
+			"sha256": "d17482f4dd154548a2c97e5803f5825cac4a92c4d6efd6ce3f7f082e1425e22c",
 			"slot": "startup",
-			"sourceTime": 0.4,
+			"sourceTime": 4.5,
 			"trim": {
-				"height": 206,
-				"width": 147,
-				"x": 302,
-				"y": 57
+				"height": 196,
+				"width": 103,
+				"x": 312,
+				"y": 56
 			},
 			"validation": {
 				"clipped": false,
@@ -66,21 +66,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 269,
-				"width": 211,
-				"x": 151,
-				"y": 195
+				"height": 330,
+				"width": 208,
+				"x": 152,
+				"y": 134
 			},
 			"file": "geomjok_cham_002.png",
 			"outputIndex": 2,
-			"sha256": "d47b001e06080de9af0d0f19fa9ecad78c893bb737c1d952e63f5553a7467ad7",
+			"sha256": "513ac88c4fb8a1c369f4c73cc08dec7eb664ffaeddcda5ea5dda2d6e8d563886",
 			"slot": "startup",
-			"sourceTime": 0.6,
+			"sourceTime": 4.8,
 			"trim": {
-				"height": 210,
-				"width": 165,
-				"x": 309,
-				"y": 55
+				"height": 258,
+				"width": 163,
+				"x": 315,
+				"y": 0
 			},
 			"validation": {
 				"clipped": false,
@@ -89,21 +89,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 329,
-				"width": 172,
-				"x": 171,
-				"y": 135
+				"height": 274,
+				"width": 202,
+				"x": 155,
+				"y": 190
 			},
 			"file": "geomjok_cham_003.png",
 			"outputIndex": 3,
-			"sha256": "43456e7278f8560ddb89010cef44566a79592c61a4f402015aa4ae2aa01a24ba",
+			"sha256": "37e790983318d7003552bf876928e8a2b9c762d142741a141ba0a5899774231c",
 			"slot": "startup",
-			"sourceTime": 0.8,
+			"sourceTime": 5.1,
 			"trim": {
-				"height": 257,
-				"width": 135,
-				"x": 302,
-				"y": 8
+				"height": 214,
+				"width": 158,
+				"x": 319,
+				"y": 44
 			},
 			"validation": {
 				"clipped": false,
@@ -112,21 +112,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 275,
-				"width": 165,
-				"x": 174,
-				"y": 189
+				"height": 274,
+				"width": 184,
+				"x": 164,
+				"y": 190
 			},
 			"file": "geomjok_cham_004.png",
 			"outputIndex": 4,
-			"sha256": "c599b120adfe4b2a6373cbec1c148585ed68ffabbfaf56b65ba16a2f2d956635",
+			"sha256": "8712afa7eb6a5c21e1d9d23710ad64b434ede08b65dee16d729e024affa2b545",
 			"slot": "active",
-			"sourceTime": 1.0,
+			"sourceTime": 5.4,
 			"trim": {
-				"height": 215,
-				"width": 129,
-				"x": 301,
-				"y": 50
+				"height": 214,
+				"width": 144,
+				"x": 336,
+				"y": 44
 			},
 			"validation": {
 				"clipped": false,
@@ -135,21 +135,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 201,
-				"width": 374,
-				"x": 69,
-				"y": 263
+				"height": 279,
+				"width": 180,
+				"x": 166,
+				"y": 185
 			},
 			"file": "geomjok_cham_005.png",
 			"outputIndex": 5,
-			"sha256": "c108635dba7b5d16ef3771aaf90780b22fa4dba12664a921e37b6ee15ab7abf8",
+			"sha256": "43a0e7192ef2d944ad4fd72dc0b06d2dcba8c2166c3def59f60b188be6c30f24",
 			"slot": "active",
-			"sourceTime": 1.8,
+			"sourceTime": 5.7,
 			"trim": {
-				"height": 157,
-				"width": 292,
-				"x": 266,
-				"y": 110
+				"height": 218,
+				"width": 141,
+				"x": 337,
+				"y": 40
 			},
 			"validation": {
 				"clipped": false,
@@ -158,21 +158,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 202,
-				"width": 372,
-				"x": 70,
-				"y": 262
+				"height": 282,
+				"width": 177,
+				"x": 167,
+				"y": 182
 			},
 			"file": "geomjok_cham_006.png",
 			"outputIndex": 6,
-			"sha256": "7b161075f79584d5ec7f7f2c6e9c66440348055d69c181b82301cd2c13f0525c",
+			"sha256": "66ac8a2e5a3d9334e13313018de5da664d6ffbf620c6ce83b5aa88a1b91bf464",
 			"slot": "active",
-			"sourceTime": 2.4,
+			"sourceTime": 6.05,
 			"trim": {
-				"height": 158,
-				"width": 291,
-				"x": 267,
-				"y": 109
+				"height": 220,
+				"width": 139,
+				"x": 337,
+				"y": 38
 			},
 			"validation": {
 				"clipped": false,
@@ -181,21 +181,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 201,
-				"width": 374,
-				"x": 69,
-				"y": 263
+				"height": 242,
+				"width": 357,
+				"x": 78,
+				"y": 222
 			},
 			"file": "geomjok_cham_007.png",
 			"outputIndex": 7,
-			"sha256": "16949a916a245a7fbe79650808052cb57e2a1dc491660db7b62f204be0e0b8e2",
+			"sha256": "1958fb92dc77cb5b8704d34a7e749b961475e370c92e9f5ad57cdf00c364342a",
 			"slot": "recovery",
-			"sourceTime": 3.0,
+			"sourceTime": 6.4,
 			"trim": {
-				"height": 157,
-				"width": 292,
-				"x": 266,
-				"y": 110
+				"height": 189,
+				"width": 279,
+				"x": 313,
+				"y": 68
 			},
 			"validation": {
 				"clipped": false,
@@ -205,20 +205,20 @@
 		{
 			"alphaBounds": {
 				"height": 243,
-				"width": 332,
-				"x": 90,
+				"width": 342,
+				"x": 85,
 				"y": 221
 			},
 			"file": "geomjok_cham_008.png",
 			"outputIndex": 8,
-			"sha256": "91a8508a28c1116a65e33bb9ab31761abad90b336c4917abfa3a15faa8044b25",
+			"sha256": "a295c41175761aa4f75a65fefa4d443458119143e814ab565ae8265cebbb06dd",
 			"slot": "recovery",
-			"sourceTime": 3.4,
+			"sourceTime": 6.8,
 			"trim": {
 				"height": 190,
-				"width": 259,
-				"x": 282,
-				"y": 77
+				"width": 267,
+				"x": 318,
+				"y": 67
 			},
 			"validation": {
 				"clipped": false,
@@ -227,21 +227,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 271,
-				"width": 229,
-				"x": 142,
-				"y": 193
+				"height": 243,
+				"width": 334,
+				"x": 89,
+				"y": 220
 			},
 			"file": "geomjok_cham_009.png",
 			"outputIndex": 9,
-			"sha256": "0a02770d0f921b09f988c4a1b05e8ba095678c40dea037b3ffadb1e69dc24a0d",
+			"sha256": "e80002e4eea5cc2543fe11e8baa3dd0f49d1c267f750ea61d7309cc9672973f9",
 			"slot": "recovery",
-			"sourceTime": 3.8,
+			"sourceTime": 7.25,
 			"trim": {
-				"height": 212,
-				"width": 179,
-				"x": 306,
-				"y": 51
+				"height": 191,
+				"width": 261,
+				"x": 318,
+				"y": 67
 			},
 			"validation": {
 				"clipped": false,
@@ -250,21 +250,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 268,
-				"width": 143,
-				"x": 185,
-				"y": 196
+				"height": 243,
+				"width": 344,
+				"x": 84,
+				"y": 221
 			},
 			"file": "geomjok_cham_010.png",
 			"outputIndex": 10,
-			"sha256": "c2867c09320309861f45aa72a0359f86554f738488f9e44c6bbb793baedcf1b0",
+			"sha256": "9979ffe9e9461d0abcc3998e48662bb7b32039d4896cb3223aa9a410791fcc81",
 			"slot": "recovery",
-			"sourceTime": 4.2,
+			"sourceTime": 7.75,
 			"trim": {
-				"height": 209,
-				"width": 112,
-				"x": 303,
-				"y": 53
+				"height": 190,
+				"width": 269,
+				"x": 318,
+				"y": 67
 			},
 			"validation": {
 				"clipped": false,
@@ -273,21 +273,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 268,
-				"width": 148,
-				"x": 182,
-				"y": 196
+				"height": 247,
+				"width": 260,
+				"x": 126,
+				"y": 217
 			},
 			"file": "geomjok_cham_011.png",
 			"outputIndex": 11,
-			"sha256": "be7693ab6592501b013f3b610e8497c9f3dd1b6ab776c1193e4c9450724c9e71",
+			"sha256": "2a373b568485ec2eb69672d38dd05e4ecdfabb61ca13ac59cdfe04b3a5efcd53",
 			"slot": "recovery",
-			"sourceTime": 4.6,
+			"sourceTime": 8.4,
 			"trim": {
-				"height": 209,
-				"width": 116,
-				"x": 301,
-				"y": 53
+				"height": 193,
+				"width": 203,
+				"x": 320,
+				"y": 63
 			},
 			"validation": {
 				"clipped": false,
@@ -303,12 +303,12 @@
 	},
 	"schemaVersion": 2,
 	"source": {
-		"duration": 5.088005,
-		"fileName": "검족참.mp4",
+		"duration": 10.08,
+		"fileName": "검 1타 분기.mp4",
 		"height": 630,
-		"projectPath": "assets/video/2차/검족참.mp4",
-		"sha256": "9b171a46dd23994df4aed817f6d81057236514c0f887ee5dc876194dabd81a4a",
-		"videoFrames": 121,
+		"projectPath": "assets/video/3차/검 1타 분기.mp4",
+		"sha256": "89a228047bccd9dac91e39a59003826b82d6857dd7fec72604b0b866a5ba19cd",
+		"videoFrames": 241,
 		"width": 1470
 	}
 }

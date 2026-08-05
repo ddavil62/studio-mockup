@@ -20,21 +20,21 @@
 	"frames": [
 		{
 			"alphaBounds": {
-				"height": 250,
-				"width": 141,
-				"x": 186,
-				"y": 214
+				"height": 247,
+				"width": 131,
+				"x": 191,
+				"y": 217
 			},
 			"file": "eum_sa_000.png",
 			"outputIndex": 0,
-			"sha256": "00ad52dc7560b8f5141983467a23b8b869dca3c75071bdc6d697fd7eba05dc84",
+			"sha256": "d397a4ae44ace159654a676d59ac05be07d59b46be1f12d1269e7926351511fa",
 			"slot": "startup",
-			"sourceTime": 0.1,
+			"sourceTime": 0.05,
 			"trim": {
-				"height": 390,
-				"width": 220,
-				"x": 621,
-				"y": 113
+				"height": 193,
+				"width": 102,
+				"x": 312,
+				"y": 57
 			},
 			"validation": {
 				"clipped": false,
@@ -43,21 +43,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 250,
-				"width": 143,
-				"x": 185,
-				"y": 214
+				"height": 252,
+				"width": 145,
+				"x": 184,
+				"y": 212
 			},
 			"file": "eum_sa_001.png",
 			"outputIndex": 1,
-			"sha256": "289f9e1531ce4d89068d85f1ad0403649e7395e94e45ca304f634dcd878b81bd",
+			"sha256": "83d06075f37a303e683370722080c1c40313ca1bdaad97af2ce0670e7382dafe",
 			"slot": "startup",
-			"sourceTime": 0.6,
+			"sourceTime": 0.25,
 			"trim": {
-				"height": 391,
-				"width": 223,
-				"x": 620,
-				"y": 113
+				"height": 197,
+				"width": 113,
+				"x": 313,
+				"y": 53
 			},
 			"validation": {
 				"clipped": false,
@@ -66,21 +66,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 252,
-				"width": 157,
-				"x": 178,
-				"y": 212
+				"height": 282,
+				"width": 182,
+				"x": 165,
+				"y": 182
 			},
 			"file": "eum_sa_002.png",
 			"outputIndex": 2,
-			"sha256": "a2db8362e017c20f0c8fa8af16c3dc70401e736545f6e808ad0613872d013f3f",
+			"sha256": "227e5361446fbd45258553142fb2ff5258f76ec4597e36beb5bee9e49b557a20",
 			"slot": "startup",
-			"sourceTime": 1.0,
+			"sourceTime": 0.45,
 			"trim": {
-				"height": 394,
-				"width": 245,
-				"x": 620,
-				"y": 110
+				"height": 220,
+				"width": 142,
+				"x": 314,
+				"y": 30
 			},
 			"validation": {
 				"clipped": false,
@@ -89,21 +89,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 253,
-				"width": 170,
-				"x": 171,
-				"y": 211
+				"height": 248,
+				"width": 211,
+				"x": 151,
+				"y": 216
 			},
 			"file": "eum_sa_003.png",
 			"outputIndex": 3,
-			"sha256": "328ecd7a2941e8194f8c4c1c0b585df2f36eeebc336bc8430a33e478112b7fcb",
+			"sha256": "1a04d17a44aae1a81bd09073b60bd1dec8f52a7ebc53658ea91a593b151ac1b4",
 			"slot": "startup",
-			"sourceTime": 1.4,
+			"sourceTime": 0.65,
 			"trim": {
-				"height": 396,
-				"width": 265,
-				"x": 614,
-				"y": 108
+				"height": 194,
+				"width": 165,
+				"x": 311,
+				"y": 56
 			},
 			"validation": {
 				"clipped": false,
@@ -112,21 +112,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 253,
-				"width": 164,
-				"x": 174,
-				"y": 211
+				"height": 246,
+				"width": 207,
+				"x": 153,
+				"y": 217
 			},
 			"file": "eum_sa_004.png",
 			"outputIndex": 4,
-			"sha256": "f086c7d6dbe12dec669a32ac5916bfe9736dca655e2b7613873f5b57b3ade164",
+			"sha256": "28de90ac81fbbf7acf99bc146d803a8cd8ca1764c4f00e8503c9754ff472d3b8",
 			"slot": "active",
-			"sourceTime": 1.8,
+			"sourceTime": 0.85,
 			"trim": {
-				"height": 395,
-				"width": 257,
-				"x": 621,
-				"y": 109
+				"height": 193,
+				"width": 162,
+				"x": 306,
+				"y": 58
 			},
 			"validation": {
 				"clipped": false,
@@ -135,21 +135,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 253,
-				"width": 164,
-				"x": 174,
-				"y": 211
+				"height": 246,
+				"width": 211,
+				"x": 151,
+				"y": 218
 			},
 			"file": "eum_sa_005.png",
 			"outputIndex": 5,
-			"sha256": "50233c2cc8d1ef269a2fcfd1c05d4da9d3f39bead35f76710a2443de7246417f",
+			"sha256": "b5ede40992fb25beb0f2165e5c8ebe999fcb914f8ccfa2108de8d16824ae27ba",
 			"slot": "active",
-			"sourceTime": 2.0,
+			"sourceTime": 1.05,
 			"trim": {
-				"height": 395,
-				"width": 257,
-				"x": 620,
-				"y": 109
+				"height": 192,
+				"width": 165,
+				"x": 302,
+				"y": 58
 			},
 			"validation": {
 				"clipped": false,
@@ -158,21 +158,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 253,
-				"width": 173,
-				"x": 170,
-				"y": 211
+				"height": 247,
+				"width": 262,
+				"x": 125,
+				"y": 217
 			},
 			"file": "eum_sa_006.png",
 			"outputIndex": 6,
-			"sha256": "9d05b0225119a1da9d5695112617c7578e4de9ac608b6d20ab56166369a813a9",
+			"sha256": "31fa33d85d89c82bb35d745bf0fd8e0d8f2d4fc432fe881048fec48ba21ea983",
 			"slot": "active",
-			"sourceTime": 2.6,
+			"sourceTime": 1.25,
 			"trim": {
-				"height": 395,
-				"width": 270,
-				"x": 606,
-				"y": 109
+				"height": 193,
+				"width": 205,
+				"x": 261,
+				"y": 57
 			},
 			"validation": {
 				"clipped": false,
@@ -181,21 +181,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 253,
-				"width": 170,
-				"x": 171,
-				"y": 211
+				"height": 247,
+				"width": 261,
+				"x": 126,
+				"y": 217
 			},
 			"file": "eum_sa_007.png",
 			"outputIndex": 7,
-			"sha256": "7c46659e9580cb992a0b0d1d90ccc953274beea9d15fb26aaa9f677f715b49ca",
+			"sha256": "3e1cb79d1cc06355cd3cf605e44e5b0d742442e8eae52f57dc7922cef38ace1c",
 			"slot": "recovery",
-			"sourceTime": 2.9,
+			"sourceTime": 1.45,
 			"trim": {
-				"height": 395,
-				"width": 266,
-				"x": 608,
-				"y": 109
+				"height": 193,
+				"width": 205,
+				"x": 261,
+				"y": 57
 			},
 			"validation": {
 				"clipped": false,
@@ -204,21 +204,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 252,
-				"width": 161,
-				"x": 176,
-				"y": 212
+				"height": 247,
+				"width": 229,
+				"x": 142,
+				"y": 217
 			},
 			"file": "eum_sa_008.png",
 			"outputIndex": 8,
-			"sha256": "59cc123c076423086e6fdafc0fb1f81f889849274104d83f08d230396aa490fa",
+			"sha256": "ebe5cb0cb5cedb0c67840f23993e47a320cfbb6e5a751200aff70c8ea8873f79",
 			"slot": "recovery",
-			"sourceTime": 3.2,
+			"sourceTime": 1.65,
 			"trim": {
-				"height": 394,
-				"width": 252,
-				"x": 613,
-				"y": 110
+				"height": 193,
+				"width": 179,
+				"x": 287,
+				"y": 57
 			},
 			"validation": {
 				"clipped": false,
@@ -227,21 +227,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 251,
-				"width": 144,
-				"x": 184,
-				"y": 213
+				"height": 247,
+				"width": 229,
+				"x": 142,
+				"y": 217
 			},
 			"file": "eum_sa_009.png",
 			"outputIndex": 9,
-			"sha256": "63ebfdd525891ba89514241c3e6abe13773d9d5e691605a0b96464ac3d466ea8",
+			"sha256": "986757f15fe890c486a9dc3048a7ed26353647804d4c6d6c09bffc3fe240923d",
 			"slot": "recovery",
-			"sourceTime": 3.6,
+			"sourceTime": 1.85,
 			"trim": {
-				"height": 392,
-				"width": 225,
-				"x": 617,
-				"y": 112
+				"height": 193,
+				"width": 179,
+				"x": 287,
+				"y": 57
 			},
 			"validation": {
 				"clipped": false,
@@ -250,21 +250,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 251,
-				"width": 140,
-				"x": 186,
-				"y": 213
+				"height": 247,
+				"width": 238,
+				"x": 137,
+				"y": 217
 			},
 			"file": "eum_sa_010.png",
 			"outputIndex": 10,
-			"sha256": "387491c88b080253fad4a32557683b3bc3ff6db8a336f1a15991af63196ba16d",
+			"sha256": "bc691902329811f0b06dc7268eb325dc171107545e46dce330c10e5448072fc2",
 			"slot": "recovery",
-			"sourceTime": 4.1,
+			"sourceTime": 2.1,
 			"trim": {
-				"height": 392,
-				"width": 219,
-				"x": 622,
-				"y": 112
+				"height": 193,
+				"width": 186,
+				"x": 280,
+				"y": 57
 			},
 			"validation": {
 				"clipped": false,
@@ -273,21 +273,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 250,
-				"width": 144,
-				"x": 184,
-				"y": 214
+				"height": 245,
+				"width": 204,
+				"x": 154,
+				"y": 218
 			},
 			"file": "eum_sa_011.png",
 			"outputIndex": 11,
-			"sha256": "8a5dc475ee6ed3ace524d3c0a660d418b104968e1d783a09148bb233464f3096",
+			"sha256": "cb8f2fd4eea370d5dfb66334f3cb458d8f74dba99b2505549636415ed8df88ad",
 			"slot": "recovery",
-			"sourceTime": 4.7,
+			"sourceTime": 2.35,
 			"trim": {
-				"height": 391,
-				"width": 225,
-				"x": 617,
-				"y": 113
+				"height": 192,
+				"width": 159,
+				"x": 307,
+				"y": 59
 			},
 			"validation": {
 				"clipped": false,
@@ -304,10 +304,10 @@
 	"schemaVersion": 2,
 	"source": {
 		"duration": 5.088005,
-		"fileName": "음사A.mp4",
+		"fileName": "음공 기준 마스터.mp4",
 		"height": 630,
-		"projectPath": "assets/video/음사A.mp4",
-		"sha256": "1e4aa36acaba13d538e594598f280b34648763d3ddf02927b6b43cc6dc2b0051",
+		"projectPath": "assets/video/3차/음공 기준 마스터.mp4",
+		"sha256": "eb872627918a31d4d8232a9d87bc6928ed23016067323ef02a1f38f09d9b28a6",
 		"videoFrames": 121,
 		"width": 1470
 	}

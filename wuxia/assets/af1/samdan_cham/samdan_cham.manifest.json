@@ -20,21 +20,21 @@
 	"frames": [
 		{
 			"alphaBounds": {
-				"height": 255,
-				"width": 215,
-				"x": 149,
-				"y": 209
+				"height": 232,
+				"width": 284,
+				"x": 96,
+				"y": 231
 			},
 			"file": "samdan_cham_000.png",
 			"outputIndex": 0,
-			"sha256": "0b51b59e0c3e79420077ffecd8dcbd38e31e2e8cb34e05c0ab7c12ce01e03c04",
+			"sha256": "194bc31f8026e4115c307060962d3451e166f21a70106903a18ab3b7f6aa8bfe",
 			"slot": "startup",
-			"sourceTime": 0.0,
+			"sourceTime": 5.15,
 			"trim": {
-				"height": 199,
-				"width": 168,
-				"x": 255,
-				"y": 56
+				"height": 182,
+				"width": 250,
+				"x": 226,
+				"y": 82
 			},
 			"validation": {
 				"clipped": false,
@@ -43,21 +43,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 220,
-				"width": 223,
-				"x": 145,
-				"y": 244
+				"height": 232,
+				"width": 284,
+				"x": 96,
+				"y": 231
 			},
 			"file": "samdan_cham_001.png",
 			"outputIndex": 1,
-			"sha256": "e063a428f5d45b5ca9740a17d523df9f60b784aa2ba481131335f52dbc4440b6",
+			"sha256": "63713102f15b168d4ee654a08dd8655985ce01bead4667dc9ffb3c0d3e4cba5e",
 			"slot": "startup",
-			"sourceTime": 0.4,
+			"sourceTime": 5.4,
 			"trim": {
-				"height": 172,
-				"width": 174,
-				"x": 261,
-				"y": 86
+				"height": 182,
+				"width": 250,
+				"x": 226,
+				"y": 82
 			},
 			"validation": {
 				"clipped": false,
@@ -66,21 +66,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 219,
-				"width": 241,
-				"x": 136,
-				"y": 245
+				"height": 232,
+				"width": 284,
+				"x": 96,
+				"y": 231
 			},
 			"file": "samdan_cham_002.png",
 			"outputIndex": 2,
-			"sha256": "01e50577fc68145ea0a5e5c3de44c343bd65580544221bba30345b7b1766260a",
+			"sha256": "2cb91c42944bf090e3f864cf236fe3339ad438e52dbe24abdd3f09dccc8baf30",
 			"slot": "startup",
-			"sourceTime": 0.8,
+			"sourceTime": 5.65,
 			"trim": {
-				"height": 171,
-				"width": 188,
-				"x": 234,
-				"y": 87
+				"height": 182,
+				"width": 250,
+				"x": 226,
+				"y": 82
 			},
 			"validation": {
 				"clipped": false,
@@ -89,21 +89,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 219,
-				"width": 184,
-				"x": 164,
-				"y": 245
+				"height": 236,
+				"width": 232,
+				"x": 123,
+				"y": 228
 			},
 			"file": "samdan_cham_003.png",
 			"outputIndex": 3,
-			"sha256": "3ef07aa53df33144a3bf222d309649c1d31b1e59f5955811061388ad3b8f17d9",
+			"sha256": "81ea532f1ef3088009fe066388e1c1c4b26d260303ce136ae02456c64c5801a4",
 			"slot": "startup",
-			"sourceTime": 1.15,
+			"sourceTime": 5.9,
 			"trim": {
-				"height": 171,
-				"width": 144,
-				"x": 282,
-				"y": 87
+				"height": 184,
+				"width": 219,
+				"x": 257,
+				"y": 81
 			},
 			"validation": {
 				"clipped": false,
@@ -112,21 +112,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 303,
-				"width": 273,
-				"x": 120,
-				"y": 161
+				"height": 279,
+				"width": 318,
+				"x": 119,
+				"y": 184
 			},
 			"file": "samdan_cham_004.png",
 			"outputIndex": 4,
-			"sha256": "33274b2f5959ba0f1b8f7f3ed1c46af6ee22a9ddd3cec9426a58b56653ad7043",
+			"sha256": "5af74101ce5263c54b7a1c5228b5abd3d4d3172c61af17832503253118b2e781",
 			"slot": "active",
-			"sourceTime": 1.9,
+			"sourceTime": 6.15,
 			"trim": {
-				"height": 237,
-				"width": 213,
-				"x": 275,
-				"y": 21
+				"height": 219,
+				"width": 283,
+				"x": 257,
+				"y": 46
 			},
 			"validation": {
 				"clipped": false,
@@ -136,20 +136,20 @@
 		{
 			"alphaBounds": {
 				"height": 303,
-				"width": 273,
-				"x": 120,
+				"width": 349,
+				"x": 99,
 				"y": 161
 			},
 			"file": "samdan_cham_005.png",
 			"outputIndex": 5,
-			"sha256": "3a81e6a24ec8483dafb89076a7f551934fcb79e4e47c586540503951e845ce5b",
+			"sha256": "dc3849972a69c3010f33df5ff0367a30a9c7db5c5e98667bf6e523a4b5a90e89",
 			"slot": "active",
-			"sourceTime": 2.05,
+			"sourceTime": 6.4,
 			"trim": {
 				"height": 237,
-				"width": 213,
-				"x": 275,
-				"y": 21
+				"width": 300,
+				"x": 257,
+				"y": 27
 			},
 			"validation": {
 				"clipped": false,
@@ -158,21 +158,67 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 314,
-				"width": 278,
-				"x": 117,
-				"y": 150
+				"height": 302,
+				"width": 340,
+				"x": 108,
+				"y": 162
 			},
 			"file": "samdan_cham_006.png",
 			"outputIndex": 6,
-			"sha256": "12e82cf2dfe0f76c8e4886627d6bfd9edf2b562987a4b18b91ddf13edaa89da0",
+			"sha256": "c57278b7d38d475e7ca206651d47ae11b99adc87ecfb0469452a5d6169b5fdd5",
 			"slot": "active",
-			"sourceTime": 2.2,
+			"sourceTime": 6.7,
 			"trim": {
-				"height": 245,
-				"width": 217,
-				"x": 275,
-				"y": 13
+				"height": 236,
+				"width": 299,
+				"x": 257,
+				"y": 28
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 306,
+				"width": 331,
+				"x": 117,
+				"y": 158
+			},
+			"file": "samdan_cham_007.png",
+			"outputIndex": 7,
+			"sha256": "e4b0fb7df38691598319cf77f440595258d7af0f18454e21fa388d56c514a853",
+			"slot": "recovery",
+			"sourceTime": 7.0,
+			"trim": {
+				"height": 239,
+				"width": 299,
+				"x": 257,
+				"y": 27
+			},
+			"validation": {
+				"clipped": false,
+				"emptyAlpha": false
+			}
+		},
+		{
+			"alphaBounds": {
+				"height": 302,
+				"width": 329,
+				"x": 118,
+				"y": 162
+			},
+			"file": "samdan_cham_008.png",
+			"outputIndex": 8,
+			"sha256": "16a467d70d4fccc2ce1c70e1034d8f36f27f5cdb0bd10861daef0e2f8da46305",
+			"slot": "recovery",
+			"sourceTime": 7.35,
+			"trim": {
+				"height": 236,
+				"width": 298,
+				"x": 258,
+				"y": 28
 			},
 			"validation": {
 				"clipped": false,
@@ -182,66 +228,20 @@
 		{
 			"alphaBounds": {
 				"height": 308,
-				"width": 274,
-				"x": 119,
+				"width": 331,
+				"x": 117,
 				"y": 156
-			},
-			"file": "samdan_cham_007.png",
-			"outputIndex": 7,
-			"sha256": "a3f6605a7565ec6d1453be8353e151fd4d8fe40abd278a758efbd6ababc0f52b",
-			"slot": "recovery",
-			"sourceTime": 2.8,
-			"trim": {
-				"height": 241,
-				"width": 214,
-				"x": 275,
-				"y": 18
-			},
-			"validation": {
-				"clipped": false,
-				"emptyAlpha": false
-			}
-		},
-		{
-			"alphaBounds": {
-				"height": 268,
-				"width": 220,
-				"x": 146,
-				"y": 196
-			},
-			"file": "samdan_cham_008.png",
-			"outputIndex": 8,
-			"sha256": "85736afea590b1b7c297c77b1c660e8170ae3cb5dcea31414164208ff21ca2ef",
-			"slot": "recovery",
-			"sourceTime": 3.2,
-			"trim": {
-				"height": 209,
-				"width": 172,
-				"x": 269,
-				"y": 49
-			},
-			"validation": {
-				"clipped": false,
-				"emptyAlpha": false
-			}
-		},
-		{
-			"alphaBounds": {
-				"height": 253,
-				"width": 265,
-				"x": 124,
-				"y": 211
 			},
 			"file": "samdan_cham_009.png",
 			"outputIndex": 9,
-			"sha256": "0f32512a4a60a481a2bb92c2a79d7cad29d1c1f94012667fab794e005843ba30",
+			"sha256": "bc551990c72b1fe27702ecc04ee7c12c8a59c5b055ea8cd53a7ca9e9674862ba",
 			"slot": "recovery",
-			"sourceTime": 3.6,
+			"sourceTime": 7.75,
 			"trim": {
-				"height": 198,
-				"width": 207,
-				"x": 300,
-				"y": 58
+				"height": 241,
+				"width": 301,
+				"x": 257,
+				"y": 25
 			},
 			"validation": {
 				"clipped": false,
@@ -250,21 +250,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 257,
-				"width": 138,
-				"x": 187,
-				"y": 207
+				"height": 264,
+				"width": 228,
+				"x": 183,
+				"y": 200
 			},
 			"file": "samdan_cham_010.png",
 			"outputIndex": 10,
-			"sha256": "647fa955ceda47bd7da8a296f23bf6b79c6138c1561c00e3761bc5873cbee70a",
+			"sha256": "4bc94fd1a951db39a6b7f0a0c78acb75db09d9dd8ec126f71063ac8c91334808",
 			"slot": "recovery",
-			"sourceTime": 4.0,
+			"sourceTime": 8.2,
 			"trim": {
-				"height": 201,
-				"width": 108,
-				"x": 311,
-				"y": 54
+				"height": 206,
+				"width": 242,
+				"x": 257,
+				"y": 57
 			},
 			"validation": {
 				"clipped": false,
@@ -273,21 +273,21 @@
 		},
 		{
 			"alphaBounds": {
-				"height": 257,
-				"width": 137,
-				"x": 187,
-				"y": 207
+				"height": 274,
+				"width": 168,
+				"x": 173,
+				"y": 189
 			},
 			"file": "samdan_cham_011.png",
 			"outputIndex": 11,
-			"sha256": "5763947129340ac7c7980a6893ac8e119d991cff91028ed41aa87d8fc1df535b",
+			"sha256": "5daa294b15038de9fe6f95a268e2dad475b254f63ace77cabe88dc5decd5bf66",
 			"slot": "recovery",
-			"sourceTime": 4.6,
+			"sourceTime": 8.8,
 			"trim": {
-				"height": 201,
-				"width": 108,
-				"x": 310,
-				"y": 54
+				"height": 215,
+				"width": 220,
+				"x": 256,
+				"y": 48
 			},
 			"validation": {
 				"clipped": false,
@@ -303,12 +303,12 @@
 	},
 	"schemaVersion": 2,
 	"source": {
-		"duration": 5.088005,
-		"fileName": "삼단참.mp4",
+		"duration": 10.08,
+		"fileName": "검 기준 마스터.mp4",
 		"height": 630,
-		"projectPath": "assets/video/2차/삼단참.mp4",
-		"sha256": "d8ca1f35bcda8354c736f0c06d3aaf8ff80e01022a78554b6b24d06fbc95b1f3",
-		"videoFrames": 121,
+		"projectPath": "assets/video/3차/검 기준 마스터.mp4",
+		"sha256": "bf9287564b92151e94653c8d573a299781112776c25eab9c46dee73c07a7cc79",
+		"videoFrames": 241,
 		"width": 1470
 	}
 }
