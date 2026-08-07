@@ -1,5 +1,5 @@
 /**
- * @fileoverview Wuxia AF-1 목업의 승인 프레임과 보류 상태 렌더링을 검증한다.
+ * @fileoverview Wuxia AF-1 c04 목업의 13종 기술과 승인 상태 렌더링을 검증한다.
  */
 
 'use strict';
@@ -8,7 +8,7 @@ const path = require('path');
 const { chromium } = require('playwright');
 
 /**
- * AF-1 목업의 이미지 로드와 상태 문구를 검증한다.
+ * AF-1 목업의 이미지 로드와 최신 승인 문구를 검증한다.
  * @returns {Promise<void>}
  */
 async function main() {
@@ -23,7 +23,6 @@ async function main() {
   try {
     const baseUrl = process.env.MOCKUP_BASE_URL || 'http://127.0.0.1:8123';
     await page.goto(`${baseUrl}/wuxia/af1.html`, { waitUntil: 'networkidle' });
-    // 화면 아래 lazy 이미지까지 실제 요청해 전체 경로를 검증한다.
     await page.locator('img').evaluateAll((images) => images.forEach((image) => {
       image.loading = 'eager';
     }));
@@ -39,20 +38,18 @@ async function main() {
     const status = await page.locator('.status').innerText();
     const headings = await page.locator('.motion h2').allTextContents();
     await page.screenshot({
-      path: path.join(__dirname, 'screenshots', 'wuxia-af1-batch2-mockup.png'),
+      path: path.join(__dirname, 'screenshots', 'wuxia-af1-c04-mockup.png'),
       fullPage: false,
     });
 
     if (
-      imageCount !== 179
+      imageCount !== 169
       || broken.length > 0
       || errors.length > 0
-      || !status.includes('이중음')
-      || !status.includes('참족')
-      || !status.includes('이단족')
-      || !status.includes('음사 A')
-      || !status.includes('120프레임')
-      || headings.length !== 14
+      || !status.includes('승인 감사 42건')
+      || !status.includes('미해소 REVIEW 0')
+      || !status.includes('QA PASS')
+      || headings.length !== 13
     ) {
       throw new Error(JSON.stringify({ imageCount, broken, errors, status, headingCount: headings.length }));
     }
