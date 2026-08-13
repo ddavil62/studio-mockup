@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carrot Goblin: PixelLab vs GPT Image</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    .compare-wrap {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .compare-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      padding: 16px;
+    }
+    .compare-card h2 {
+      margin: 0 0 12px;
+      color: #ff9f2f;
+      font-size: 1rem;
+    }
+    .sprite-stage {
+      display: grid;
+      place-items: center;
+      min-height: 300px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(45deg, #17100d 25%, transparent 25%),
+        linear-gradient(-45deg, #17100d 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #17100d 75%),
+        linear-gradient(-45deg, transparent 75%, #17100d 75%);
+      background-color: #100b09;
+      background-size: 24px 24px;
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+    }
+    .sprite {
+      width: 276px;
+      height: 276px;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+    .strip {
+      width: 100%;
+      max-width: 552px;
+      margin-top: 12px;
+      image-rendering: pixelated;
+    }
+    .verdict {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Carrot Goblin: PixelLab vs GPT Image</h1>
+    <div class="breadcrumb">
+      <a href="../index.html">Studio</a> / <a href="index.html">Kitchen Chaos</a> / GPT Image Experiment
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="section-title">Kitchen Chaos</div>
+    <a href="index.html">Overview</a>
+    <a href="enemies/index.html">Enemies</a>
+    <a href="carrot-goblin-gpt-vs-pixellab.html" class="active">GPT vs PixelLab</a>
+  </nav>
+
+  <main class="content">
+    <p class="text-muted">남향 걷기 6프레임 비교. 두 스프라이트 모두 92x92 캔버스와 140ms 재생 간격으로 맞췄다.</p>
+
+    <section class="compare-wrap">
+      <article class="compare-card">
+        <h2>PixelLab current</h2>
+        <div class="sprite-stage">
+          <img id="pixellab" class="sprite" alt="PixelLab carrot goblin">
+        </div>
+        <img class="strip" src="assets/experiments/gpt-image/carrot_goblin/pixellab_carrot_goblin_walk_south_92_sheet.png" alt="PixelLab sprite sheet">
+      </article>
+
+      <article class="compare-card">
+        <h2>GPT Image experiment</h2>
+        <div class="sprite-stage">
+          <img id="gpt" class="sprite" alt="GPT Image carrot goblin">
+        </div>
+        <img class="strip" src="assets/experiments/gpt-image/carrot_goblin/gpt_carrot_goblin_walk_south_92_sheet.png" alt="GPT Image sprite sheet">
+      </article>
+    </section>
+
+    <section class="verdict">
+      <strong>초기 판단:</strong>
+      PixelLab은 프레임 정합성, 앵커, 다방향 확장성이 안정적이다.
+      GPT Image는 캐릭터성, 표정, 포즈 임팩트가 더 좋지만 프레임별 크기와 마젠타 잔여 픽셀 보정이 필요하다.
+      단일 아이콘/초상화는 GPT Image가 강하고, 게임 내 다방향 반복 애니메이션은 아직 PixelLab이 더 안전하다.
+    </section>
+  </main>
+
+  <script>
+    const pixellabFrames = Array.from({ length: 6 }, (_, index) =>
+      `assets/experiments/gpt-image/carrot_goblin/pixellab_south/frame_${String(index).padStart(3, '0')}.png`
+    );
+    const gptFrames = Array.from({ length: 6 }, (_, index) =>
+      `assets/experiments/gpt-image/carrot_goblin/walking_south/frame_${String(index).padStart(3, '0')}.png`
+    );
+    const pixellab = document.getElementById('pixellab');
+    const gpt = document.getElementById('gpt');
+    let frame = 0;
+
+    function tick() {
+      pixellab.src = pixellabFrames[frame];
+      gpt.src = gptFrames[frame];
+      frame = (frame + 1) % 6;
+    }
+
+    tick();
+    setInterval(tick, 140);
+  </script>
+</body>
+</html>
