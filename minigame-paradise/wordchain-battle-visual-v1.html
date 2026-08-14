@@ -118,7 +118,7 @@
     .menu-value small { margin-left: 2px; color: #9a8c6a; font-size: .53rem; letter-spacing: .08em; }
     .menu-formula { grid-column: 1 / -1; margin-top: -5px; color: #706954; text-align: right; font: .54rem Consolas,monospace; }
 
-    .action-dock { margin-top: 12px; }
+    .action-dock { position: relative; margin-top: 12px; }
     .word-console { border: 1px solid #39345b; border-radius: 15px; background: linear-gradient(135deg, #151428, #111120); }
     .word-console { display: flex; align-items: center; gap: 12px; padding: 13px 15px; }
     .input-symbol { display: grid; width: 43px; height: 43px; flex: 0 0 auto; place-items: center; border: 1px solid var(--gold); border-radius: 10px; background: rgba(247,189,79,.08); color: #ffe7a4; font-size: 1.4rem; font-weight: 950; }
@@ -129,6 +129,10 @@
     .input-timer small { max-width: 36px; color: #a99b7c; font-size: .55rem; font-weight: 900; line-height: 1.15; }
     .input-timer .timer-number { color: #ffe3a0; font-size: 2.15rem; text-shadow: 0 0 18px rgba(247,189,79,.42); }
     .input-timer .timer-number.danger { color: #ff7a8d; }
+    .word-console.timeout { animation: console-timeout 1s ease-out; }
+    .input-timer.timeout-zero { animation: timer-burst .85s cubic-bezier(.2,.8,.2,1); border-color: var(--danger); background: radial-gradient(circle,#fff 0 3%,rgba(251,93,114,.5) 5%,#2a1019 45%); }
+    .timeout-banner { position: absolute; z-index: 35; top: -34px; left: 50%; padding: 7px 14px; opacity: 0; border: 1px solid var(--danger); border-radius: 999px; background: #2b101d; color: #ffd8df; font-size: .72rem; font-weight: 950; letter-spacing: .06em; box-shadow: 0 0 25px rgba(251,93,114,.35); pointer-events: none; transform: translate(-50%,12px) scale(.8); }
+    .timeout-banner.active { animation: timeout-banner 1.35s ease-out forwards; }
     .submit-demo { padding: 10px 17px; border: 0; border-radius: 9px; background: linear-gradient(135deg, #9b4cf1, #6e3bdd); color: white; font-weight: 950; cursor: pointer; box-shadow: 0 7px 22px rgba(139,73,230,.25); }
     .reward-modal-backdrop { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 18px; visibility: hidden; opacity: 0; background: rgba(5,5,14,.76); backdrop-filter: blur(9px); transition: opacity .2s, visibility .2s; }
     .reward-modal-backdrop.active { visibility: visible; opacity: 1; }
@@ -154,7 +158,13 @@
     .damage-float.active { animation: damage-pop .8s ease-out; }
     .impact-ring { position: absolute; z-index: 19; top: 50%; right: 19%; width: 30px; height: 30px; border: 3px solid var(--gold); border-radius: 50%; opacity: 0; pointer-events: none; }
     .impact-ring.active { animation: impact .55s ease-out; }
+    .damage-float.timeout-damage { right: auto; left: 15%; color: #ffd8df; text-shadow: 0 0 18px var(--danger),2px 2px #5b1729; }
+    .damage-float.timeout-damage.active { animation: timeout-damage-pop 1.25s ease-out; }
+    .impact-ring.timeout-impact { right: auto; left: 19%; border-color: var(--danger); }
+    .impact-ring.timeout-impact.active { animation: timeout-impact .8s ease-out; }
     .player-zone.hit { animation: zone-hit .42s ease-out; }
+    .player-zone.timeout-hit { animation: timeout-hit .65s ease-out; }
+    .player-zone.timeout-hit::after { content: ''; position: absolute; z-index: 12; inset: 0; pointer-events: none; background: linear-gradient(115deg,transparent 25%,rgba(255,255,255,.72) 43%,rgba(251,93,114,.78) 48%,rgba(123,22,47,.58) 54%,transparent 72%); animation: timeout-scan 1.05s ease-out both; }
     .player-zone.charge { animation: zone-charge .55s ease-out; }
     .player-zone.defeated { animation: defeat-collapse .72s .15s cubic-bezier(.2,.75,.25,1); }
     .player-zone.defeated > :not(.defeat-fx) { animation: defeated-content 1.1s .3s ease-out forwards; }
@@ -184,6 +194,13 @@
     @keyframes damage-pop { 0% { opacity: 0; transform: translateY(18px) scale(.55); } 28% { opacity: 1; transform: translateY(0) scale(1.18); } 100% { opacity: 0; transform: translateY(-45px) scale(.92); } }
     @keyframes impact { 0% { opacity: 1; transform: scale(.2); } 100% { opacity: 0; transform: scale(7); } }
     @keyframes zone-hit { 18% { transform: translateX(8px); filter: brightness(1.65); } 36% { transform: translateX(-7px); } 58% { transform: translateX(4px); } 100% { transform: none; filter: none; } }
+    @keyframes timeout-hit { 12% { transform: translateY(5px); filter: brightness(2) saturate(.3); box-shadow: inset 0 0 80px rgba(251,93,114,.75); } 28% { transform: translate(-6px,-2px); } 48% { transform: translate(5px,1px); } 72% { transform: translate(-2px,0); } 100% { transform: none; filter: none; } }
+    @keyframes timeout-scan { 0% { opacity: 0; transform: translateX(-40%) scaleX(.45); } 12%,62% { opacity: 1; } 100% { opacity: 0; transform: translateX(38%) scaleX(1.1); } }
+    @keyframes timeout-damage-pop { 0% { opacity: 0; transform: translateY(18px) scale(.5); } 16% { opacity: 1; transform: translateY(0) scale(1.22); } 68% { opacity: 1; transform: translateY(-20px) scale(1); } 100% { opacity: 0; transform: translateY(-52px) scale(.88); } }
+    @keyframes timeout-impact { 0% { opacity: 1; transform: scale(.2); } 55% { opacity: .75; } 100% { opacity: 0; transform: scale(8); } }
+    @keyframes timer-burst { 0% { transform: scale(1); } 18% { transform: scale(1.18); filter: brightness(2.2); box-shadow: 0 0 45px rgba(251,93,114,.8); } 38% { transform: scale(.92) rotate(-2deg); } 58% { transform: scale(1.06) rotate(2deg); } 100% { transform: none; } }
+    @keyframes console-timeout { 0%,100% { border-color: #39345b; } 16%,46% { border-color: var(--danger); box-shadow: inset 0 0 35px rgba(251,93,114,.18),0 0 24px rgba(251,93,114,.2); } 31%,62% { border-color: #6a2638; } }
+    @keyframes timeout-banner { 0% { opacity: 0; transform: translate(-50%,12px) scale(.8); } 18%,72% { opacity: 1; transform: translate(-50%,0) scale(1); } 100% { opacity: 0; transform: translate(-50%,-15px) scale(.95); } }
     @keyframes zone-charge { 40% { filter: brightness(1.45); box-shadow: inset 0 0 55px rgba(168,85,247,.3); } }
     @keyframes stat-gain { 0% { transform: scale(1); } 40% { border-color: var(--gold); transform: scale(1.07); box-shadow: 0 0 28px rgba(247,189,79,.34); } 100% { transform: scale(1); } }
     @keyframes heal { 40% { filter: brightness(1.5) drop-shadow(0 0 25px rgba(74,222,128,.55)); } }
@@ -258,6 +275,7 @@
       .projectile { top: 43%; left: 17%; gap: 2px; }
       .projectile span { width: 25px; height: 25px; border-radius: 6px; font-size: .75rem; }
       .damage-float { top: 26%; right: 7%; font-size: 1.8rem; }
+      .damage-float.timeout-damage { right: auto; left: 7%; }
       .notes { grid-template-columns: 1fr; }
       .note { font-size: .66rem; }
       @keyframes word-flight { 0% { opacity: 0; transform: translate(-20px,15px) scale(.65); } 18% { opacity: 1; } 72% { opacity: 1; } 100% { left: 64%; opacity: 0; transform: translateY(-5px) scale(1.08); } }
@@ -270,6 +288,7 @@
     <div class="prototype-title"><b>끝말잇기 배틀 · 전장 분리 시안</b><span class="prototype-badge">INTERACTIVE V1</span></div>
     <div class="prototype-actions">
       <button class="demo-btn primary" id="play-attack">⚔ 턴 시퀀스 재생</button>
+      <button class="demo-btn ko" id="play-timeout">⏱ 시간초과 재생</button>
       <button class="demo-btn ko" id="play-finisher">☠ KO 피니시 재생</button>
       <button class="demo-btn" id="reset-demo">↻ 초기화</button>
     </div>
@@ -341,6 +360,8 @@
       <div class="projectile" id="projectile"><span>라</span><span>벤</span><span>더</span><span>빛</span></div>
       <div class="impact-ring" id="impact-ring"></div>
       <div class="damage-float" id="damage-float">−14</div>
+      <div class="impact-ring timeout-impact" id="timeout-impact"></div>
+      <div class="damage-float timeout-damage" id="timeout-damage">−20</div>
       <div class="finish-result" id="finish-result" aria-hidden="true"><div class="finish-card"><small>BATTLE FINISHED</small><strong>VICTORY</strong><p>마지막 단어가 상대 전장을 무너뜨렸습니다.</p></div></div>
     </section>
 
@@ -358,12 +379,13 @@
     </section>
 
     <section class="action-dock">
-      <div class="word-console">
+      <div class="word-console" id="word-console">
         <div class="input-symbol">라</div>
         <div class="fake-input"><small>반격 단어</small><strong>라벤더빛</strong></div>
-        <div class="input-timer"><small>남은<br>시간</small><b class="timer-number" data-turn-time>10</b></div>
+        <div class="input-timer" id="input-timer"><small>남은<br>시간</small><b class="timer-number" data-turn-time>10</b></div>
         <button class="submit-demo" id="submit-demo">공격</button>
       </div>
+      <div class="timeout-banner" id="timeout-banner">TIME OUT · HP −20</div>
     </section>
 
     <div class="reward-modal-backdrop" id="reward-modal" aria-hidden="true">
@@ -385,13 +407,13 @@
     <section class="notes">
       <div class="note"><b>① 양쪽 전장 분리</b>내 영역과 상대 영역을 색·광원·정렬 방향으로 분리해 공격의 출발점과 도착점을 명확하게 했습니다.</div>
       <div class="note"><b>② 능력치 시각화</b>정확한 숫자를 유지하면서 ATK는 금색 에너지, DEF는 청록 방어층, 시간은 원형 게이지로 보조합니다.</div>
-      <div class="note"><b>③ 전투 피드백</b>단어 타일 비행, 상대 영역 충격, Damage 숫자, HP 잔상 바를 하나의 짧은 시퀀스로 연결했습니다.</div>
+      <div class="note"><b>③ 전투 피드백</b>일반 공격은 단어 타일 비행으로, 시간초과는 타이머 폭발과 붉은 충격파로 원인을 구분합니다. 시간초과 피해는 HP 20입니다.</div>
     </section>
   </main>
 
   <script>
     const $ = (selector) => document.querySelector(selector);
-    const state = { meHp: 92, oppHp: 88, attack: 3, defense: 1, opponentDefense: 1, busy: false, rewardOpen: false, rewardTimer: null, rewardRemaining: 10, turnRemaining: 10, turnTimer: null };
+    const state = { meHp: 92, oppHp: 88, attack: 3, defense: 1, opponentDefense: 1, busy: false, rewardOpen: false, rewardTimer: null, rewardRemaining: 10, turnRemaining: 10, turnTimer: null, timeoutTimer: null };
     function renderTurnTimer(animate = true) {
       document.querySelectorAll('[data-turn-time]').forEach((timer) => {
         timer.textContent = state.turnRemaining;
@@ -473,6 +495,42 @@
       $('#damage-float').textContent = '−14';
       playAttack(true);
     }
+    function playTimeout() {
+      if (state.busy || state.rewardOpen) return;
+      state.busy = true;
+      clearInterval(state.turnTimer);
+      clearInterval(state.timeoutTimer);
+      state.meHp = 92;
+      state.turnRemaining = 3;
+      updateStats();
+      renderTurnTimer(true);
+      state.timeoutTimer = setInterval(() => {
+        state.turnRemaining -= 1;
+        renderTurnTimer(true);
+        if (state.turnRemaining > 0) return;
+        clearInterval(state.timeoutTimer); state.timeoutTimer = null;
+        restartAnimation($('#word-console'), 'timeout');
+        restartAnimation($('#input-timer'), 'timeout-zero');
+        restartAnimation($('#timeout-banner'), 'active');
+        setTimeout(() => {
+          state.meHp = Math.max(0, state.meHp - 20);
+          $('#me-hp').style.width = `${state.meHp}%`;
+          $('#me-hp-text').textContent = `${state.meHp} / 100`;
+          setTimeout(() => { $('#me-hp-ghost').style.width = `${state.meHp}%`; }, 90);
+          restartAnimation($('#me-zone'), 'timeout-hit');
+          restartAnimation($('#timeout-impact'), 'active');
+          restartAnimation($('#timeout-damage'), 'active');
+        }, 150);
+        setTimeout(() => {
+          state.busy = false;
+          $('#word-console').classList.remove('timeout');
+          $('#input-timer').classList.remove('timeout-zero');
+          $('#timeout-banner').classList.remove('active');
+          $('#me-zone').classList.remove('timeout-hit');
+          startTurnTimer();
+        }, 1800);
+      }, 1000);
+    }
     function playReward(type) {
       if (type === 'attack') { state.attack += 1; updateStats(); restartAnimation($('#me-attack-stat'), 'gain'); }
       if (type === 'defense') { state.defense += 1; updateStats(); restartAnimation($('#me-defense-stat'), 'gain'); }
@@ -485,6 +543,7 @@
     function resolveReward(type) {
       if (!state.rewardOpen) return;
       closeRewardModal();
+      clearInterval(state.timeoutTimer); state.timeoutTimer = null;
       if (type) playReward(type);
       setTimeout(playAttack, 180);
     }
@@ -503,10 +562,11 @@
       $('#opp-zone').classList.remove('defeated', 'hit');
       $('#defeat-fx').classList.remove('active'); $('#defeat-fx').setAttribute('aria-hidden', 'true');
       $('#finish-result').classList.remove('active'); $('#finish-result').setAttribute('aria-hidden', 'true');
+      $('#word-console').classList.remove('timeout'); $('#input-timer').classList.remove('timeout-zero'); $('#timeout-banner').classList.remove('active'); $('#me-zone').classList.remove('timeout-hit');
       $('#attack-formula').innerHTML = '4글자 12 + ATK 3 − DEF 1<br><b>= 14 DAMAGE</b>'; $('#damage-float').textContent = '−14'; updateStats();
       startTurnTimer();
     }
-    $('#play-attack').addEventListener('click', startRewardState); $('#play-finisher').addEventListener('click', playFinisher); $('#submit-demo').addEventListener('click', startRewardState); $('#reset-demo').addEventListener('click', reset);
+    $('#play-attack').addEventListener('click', startRewardState); $('#play-timeout').addEventListener('click', playTimeout); $('#play-finisher').addEventListener('click', playFinisher); $('#submit-demo').addEventListener('click', startRewardState); $('#reset-demo').addEventListener('click', reset);
     document.querySelectorAll('[data-reward]').forEach((button) => button.addEventListener('click', () => resolveReward(button.dataset.reward)));
     document.addEventListener('keydown', (event) => { if (event.key === '1') resolveReward('attack'); if (event.key === '2') resolveReward('defense'); if (event.key === '3') resolveReward('heal'); });
     updateStats(); startTurnTimer();

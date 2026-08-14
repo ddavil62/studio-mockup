@@ -47,6 +47,17 @@ test('390px 모바일에서 전장과 액션 UI가 가로로 넘치지 않는다
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 
+test('시간초과 시안은 0초 뒤 내 HP에 20 피해와 전용 피격 연출을 표시한다', async ({ page }) => {
+  await page.goto('/minigame-paradise/wordchain-battle-visual-v1.html');
+  await page.locator('#play-timeout').click();
+  await expect(page.locator('[data-turn-time]')).toHaveText('0', { timeout: 4_000 });
+  await expect(page.locator('#timeout-banner')).toHaveClass(/active/);
+  await expect(page.locator('#me-zone')).toHaveClass(/timeout-hit/);
+  await expect(page.locator('#timeout-damage')).toHaveClass(/active/);
+  await expect(page.locator('#me-hp-text')).toHaveText('72 / 100');
+  await page.screenshot({ path: 'tests/screenshots/wordchain-timeout-damage-v1.png', fullPage: true });
+});
+
 test('미니게임천국 목업 인덱스에서 시안으로 진입할 수 있다', async ({ page }) => {
   await page.goto('/minigame-paradise/index.html');
   const link = page.locator('a[href="wordchain-battle-visual-v1.html"]');
