@@ -21,6 +21,7 @@
     .prototype-actions { display: flex; flex-wrap: wrap; gap: 7px; }
     .demo-btn { padding: 7px 11px; border: 1px solid #49436d; border-radius: 8px; background: #1a1930; color: #d8d4e8; cursor: pointer; font-size: .78rem; font-weight: 800; }
     .demo-btn.primary { border-color: var(--gold); background: rgba(247,189,79,.12); color: #ffe2a1; box-shadow: 0 0 18px rgba(247,189,79,.12); }
+    .demo-btn.ko { border-color: var(--danger); background: rgba(251,93,114,.12); color: #ffacb8; box-shadow: 0 0 18px rgba(251,93,114,.1); }
     .demo-btn.active { border-color: var(--me); background: rgba(168,85,247,.2); color: #f0dcff; box-shadow: 0 0 18px rgba(168,85,247,.16); }
     .demo-btn:hover { transform: translateY(-1px); filter: brightness(1.18); }
     .mockup { width: min(1380px, 100%); margin: auto; padding: 18px 22px 28px; }
@@ -161,6 +162,24 @@
     .impact-ring.active { animation: impact .55s ease-out; }
     .player-zone.hit { animation: zone-hit .42s ease-out; }
     .player-zone.charge { animation: zone-charge .55s ease-out; }
+    .player-zone.defeated { animation: defeat-collapse .72s .15s cubic-bezier(.2,.75,.25,1); }
+    .player-zone.defeated > :not(.defeat-fx) { animation: defeated-content 1.1s .3s ease-out forwards; }
+    .defeat-fx { position: absolute; z-index: 30; inset: 0; overflow: hidden; pointer-events: none; visibility: hidden; }
+    .defeat-fx.active { visibility: visible; }
+    .defeat-flash { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 38% 44%, #fff 0 2%, #ff8ab5 3%, rgba(236,72,153,.65) 9%, transparent 30%); }
+    .defeat-fx.active .defeat-flash { animation: defeat-flash .72s ease-out; }
+    .crack-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 5px #ff73aa); }
+    .crack-svg path { fill: none; stroke: #ffd8e8; stroke-width: .8; stroke-linecap: round; stroke-dasharray: 170; stroke-dashoffset: 170; }
+    .defeat-fx.active .crack-svg path { animation: crack-draw .72s cubic-bezier(.15,.8,.2,1) forwards; animation-delay: var(--delay,0s); }
+    .ko-stamp { position: absolute; top: 42%; left: 50%; opacity: 0; color: #fff0f5; font-size: clamp(2.8rem,7vw,5.4rem); font-weight: 1000; letter-spacing: -.08em; text-shadow: 0 0 12px #ec4899, 0 0 32px #ec4899, 4px 4px #68163b; transform: translate(-50%,-50%) rotate(-8deg) scale(2.4); }
+    .defeat-fx.active .ko-stamp { animation: ko-stamp .75s .52s cubic-bezier(.15,.85,.2,1) forwards; }
+    .finish-result { position: absolute; z-index: 45; inset: 0; display: grid; place-items: center; visibility: hidden; opacity: 0; background: rgba(7,6,16,.74); backdrop-filter: blur(5px); transition: opacity .35s,visibility .35s; pointer-events: none; }
+    .finish-result.active { visibility: visible; opacity: 1; }
+    .finish-card { min-width: min(380px,calc(100% - 30px)); padding: 22px 28px; border: 1px solid var(--gold); border-radius: 18px; background: radial-gradient(circle at 50% 0,rgba(247,189,79,.18),transparent 48%),#171426; text-align: center; box-shadow: 0 25px 80px rgba(0,0,0,.6),0 0 35px rgba(247,189,79,.16); transform: translateY(14px) scale(.96); }
+    .finish-result.active .finish-card { animation: finish-card .48s .08s ease-out both; }
+    .finish-card small { color: var(--gold); font-size: .65rem; font-weight: 900; letter-spacing: .2em; }
+    .finish-card strong { display: block; margin-top: 4px; color: #fff0bd; font-size: 2rem; }
+    .finish-card p { margin-top: 7px; color: var(--muted); font-size: .72rem; }
     .visual-stat.gain { animation: stat-gain .7s ease-out; }
     .heal-glow { animation: heal .8s ease-out; }
 
@@ -177,6 +196,12 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes breathe { 50% { opacity: .35; transform: scale(.75); } }
     @keyframes second-pop { 0% { opacity: .25; transform: translateY(-12px) scale(1.35); filter: blur(2px); } 48% { opacity: 1; transform: translateY(2px) scale(.9); filter: none; } 100% { transform: none; } }
+    @keyframes defeat-flash { 0% { opacity: 0; transform: scale(.4); } 18% { opacity: 1; } 100% { opacity: 0; transform: scale(1.5); } }
+    @keyframes crack-draw { to { stroke-dashoffset: 0; } }
+    @keyframes ko-stamp { 55% { opacity: 1; transform: translate(-50%,-50%) rotate(-8deg) scale(.82); } 75% { transform: translate(-50%,-50%) rotate(-8deg) scale(1.08); } 100% { opacity: 1; transform: translate(-50%,-50%) rotate(-8deg) scale(1); } }
+    @keyframes defeat-collapse { 18% { transform: translateX(-8px); } 32% { transform: translateX(7px); } 52% { transform: translateX(-3px); } 100% { transform: none; } }
+    @keyframes defeated-content { to { opacity: .28; filter: grayscale(.85) brightness(.48) saturate(.4); transform: translateY(8px); } }
+    @keyframes finish-card { to { transform: none; } }
 
     @media (max-width: 800px) {
       .prototype-bar { align-items: flex-start; padding: 8px 10px; }
@@ -253,6 +278,7 @@
       <button class="demo-btn active" data-timer-variant="central">A · 중앙 크게</button>
       <button class="demo-btn" data-timer-variant="input">B · 입력창 옆</button>
       <button class="demo-btn primary" id="play-attack">⚔ 턴 시퀀스 재생</button>
+      <button class="demo-btn ko" id="play-finisher">☠ KO 피니시 재생</button>
       <button class="demo-btn" id="reset-demo">↻ 초기화</button>
     </div>
   </header>
@@ -311,11 +337,22 @@
           <div class="visual-stat time-stat"><div class="clock-ring" style="--progress:47%"></div><span class="clock-value">7</span><div><strong>7초</strong><small>기본 답변시간</small></div><span class="pressure">다음 턴 −5초</span></div>
         </div>
         <div class="zone-footer">다음 반격 준비 중</div>
+        <div class="defeat-fx" id="defeat-fx" aria-hidden="true">
+          <div class="defeat-flash"></div>
+          <svg class="crack-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path style="--delay:.02s" d="M39 44 L27 31 L18 27 L10 13 M27 31 L29 16 L24 5 M18 27 L4 32"/>
+            <path style="--delay:.08s" d="M39 44 L52 31 L59 18 L72 8 M52 31 L69 34 L82 27 L97 30 M59 18 L55 3"/>
+            <path style="--delay:.13s" d="M39 44 L31 57 L15 66 L3 82 M31 57 L33 75 L24 95 M15 66 L3 61"/>
+            <path style="--delay:.18s" d="M39 44 L53 54 L67 53 L79 63 L98 67 M53 54 L58 71 L72 83 L74 98 M67 53 L73 40 L91 39"/>
+          </svg>
+          <div class="ko-stamp">K.O.</div>
+        </div>
       </article>
 
       <div class="projectile" id="projectile"><span>라</span><span>벤</span><span>더</span><span>빛</span></div>
       <div class="impact-ring" id="impact-ring"></div>
       <div class="damage-float" id="damage-float">−14</div>
+      <div class="finish-result" id="finish-result" aria-hidden="true"><div class="finish-card"><small>BATTLE FINISHED</small><strong>VICTORY</strong><p>마지막 단어가 상대 전장을 무너뜨렸습니다.</p></div></div>
     </section>
 
     <section class="damage-menu" aria-label="글자 수별 예상 Damage 족보">
@@ -419,7 +456,7 @@
       });
     }
     function restartAnimation(el, className) { el.classList.remove(className); void el.offsetWidth; el.classList.add(className); }
-    function playAttack() {
+    function playAttack(lethal = false) {
       if (state.busy) return;
       state.busy = true;
       const damage = Math.max(1, 12 + state.attack - state.opponentDefense);
@@ -428,13 +465,32 @@
       const projectile = $('#projectile'); const opponent = $('#opp-zone');
       restartAnimation($('#me-zone'), 'charge'); restartAnimation(projectile, 'active');
       setTimeout(() => {
-        state.oppHp = Math.max(0, state.oppHp - damage);
+        state.oppHp = lethal ? 0 : Math.max(0, state.oppHp - damage);
         $('#opp-hp').style.width = `${state.oppHp}%`;
         $('#opp-hp-text').textContent = `${state.oppHp} / 100`;
         setTimeout(() => { $('#opp-hp-ghost').style.width = `${state.oppHp}%`; }, 60);
         restartAnimation(opponent, 'hit'); restartAnimation($('#impact-ring'), 'active'); restartAnimation($('#damage-float'), 'active');
+        if (lethal) {
+          setTimeout(() => {
+            opponent.classList.add('defeated');
+            $('#defeat-fx').classList.add('active');
+            $('#defeat-fx').setAttribute('aria-hidden', 'false');
+          }, 120);
+          setTimeout(() => {
+            $('#finish-result').classList.add('active');
+            $('#finish-result').setAttribute('aria-hidden', 'false');
+          }, 1550);
+        }
       }, 620);
-      setTimeout(() => { state.busy = false; }, 1450);
+      setTimeout(() => { state.busy = false; }, lethal ? 2600 : 1450);
+    }
+    function playFinisher() {
+      if (state.busy) return;
+      closeRewardModal();
+      state.oppHp = 14;
+      updateStats();
+      $('#damage-float').textContent = '−14';
+      playAttack(true);
     }
     function playReward(type) {
       if (type === 'attack') { state.attack += 1; updateStats(); restartAnimation($('#me-attack-stat'), 'gain'); }
@@ -463,10 +519,13 @@
     function reset() {
       closeRewardModal();
       Object.assign(state, { meHp: 92, oppHp: 88, attack: 3, defense: 1, opponentDefense: 1, busy: false, rewardRemaining: 10 });
+      $('#opp-zone').classList.remove('defeated', 'hit');
+      $('#defeat-fx').classList.remove('active'); $('#defeat-fx').setAttribute('aria-hidden', 'true');
+      $('#finish-result').classList.remove('active'); $('#finish-result').setAttribute('aria-hidden', 'true');
       $('#attack-formula').innerHTML = '4글자 12 + ATK 3 − DEF 1<br><b>= 14 DAMAGE</b>'; $('#damage-float').textContent = '−14'; updateStats();
       startTurnTimer();
     }
-    $('#play-attack').addEventListener('click', startRewardState); $('#submit-demo').addEventListener('click', startRewardState); $('#reset-demo').addEventListener('click', reset);
+    $('#play-attack').addEventListener('click', startRewardState); $('#play-finisher').addEventListener('click', playFinisher); $('#submit-demo').addEventListener('click', startRewardState); $('#reset-demo').addEventListener('click', reset);
     document.querySelectorAll('[data-reward]').forEach((button) => button.addEventListener('click', () => resolveReward(button.dataset.reward)));
     document.querySelectorAll('[data-timer-variant]').forEach((button) => button.addEventListener('click', () => setTimerVariant(button.dataset.timerVariant)));
     document.addEventListener('keydown', (event) => { if (event.key === '1') resolveReward('attack'); if (event.key === '2') resolveReward('defense'); if (event.key === '3') resolveReward('heal'); });

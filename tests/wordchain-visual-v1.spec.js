@@ -31,6 +31,14 @@ test('끝말잇기 전장 분리 시안의 공격·보상 연출이 동작한다
   await page.locator('#submit-demo').click();
   await page.locator('[data-reward="defense"]').click();
   await expect(page.locator('#me-def')).toHaveText('2');
+
+  await page.locator('#reset-demo').click();
+  await page.locator('#play-finisher').click();
+  await expect(page.locator('#projectile')).toHaveClass(/active/);
+  await expect(page.locator('#opp-hp-text')).toHaveText('0 / 100', { timeout: 2_000 });
+  await expect(page.locator('#defeat-fx')).toHaveClass(/active/);
+  await expect(page.locator('#finish-result')).toHaveClass(/active/, { timeout: 3_000 });
+  await expect(page.locator('#finish-result')).toContainText('VICTORY');
 });
 
 test('390px 모바일에서 전장과 액션 UI가 가로로 넘치지 않는다', async ({ page }) => {
