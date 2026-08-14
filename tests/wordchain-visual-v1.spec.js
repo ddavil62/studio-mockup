@@ -5,6 +5,8 @@ test('끝말잇기 전장 분리 시안의 공격·보상 연출이 동작한다
   await expect(page.locator('#battle-stage')).toBeVisible();
   await expect(page.locator('.player-zone')).toHaveCount(2);
   await expect(page.locator('.reward')).toHaveCount(3);
+  await expect(page.locator('.menu-item')).toHaveCount(4);
+  await expect(page.locator('[data-base-damage="4"] .menu-value span')).toHaveText('6');
   await expect(page.locator('#reward-modal')).not.toHaveClass(/active/);
 
   await page.locator('#play-attack').click();
@@ -12,6 +14,8 @@ test('끝말잇기 전장 분리 시안의 공격·보상 연출이 동작한다
   await page.locator('[data-reward="attack"]').click();
   await expect(page.locator('#reward-modal')).not.toHaveClass(/active/);
   await expect(page.locator('#me-atk')).toHaveText('4');
+  await expect(page.locator('[data-base-damage="4"] .menu-value span')).toHaveText('7');
+  await expect(page.locator('[data-base-damage="12"] .menu-value span')).toHaveText('15');
   await expect(page.locator('#opp-hp-text')).toHaveText('73 / 100');
 
   await page.locator('#reset-demo').click();

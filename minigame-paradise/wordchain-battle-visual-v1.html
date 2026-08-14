@@ -98,6 +98,23 @@
     .chain-word b { color: var(--dim); font-size: .65rem; }
     .attack-formula { margin-top: 24px; padding: 8px 10px; border: 1px solid #332f4a; border-radius: 8px; color: var(--dim); text-align: center; font: .63rem/1.5 Consolas, monospace; }
 
+    .damage-menu { position: relative; margin-top: 12px; padding: 13px 16px 15px; overflow: hidden; border: 1px solid #6c5730; border-radius: 15px; background: linear-gradient(145deg,#181711,#11110f); box-shadow: inset 0 0 38px rgba(247,189,79,.035); }
+    .damage-menu::before, .damage-menu::after { position: absolute; width: 36px; height: 36px; border: solid rgba(247,189,79,.28); content: ""; }
+    .damage-menu::before { top: 7px; left: 7px; border-width: 1px 0 0 1px; }
+    .damage-menu::after { right: 7px; bottom: 7px; border-width: 0 1px 1px 0; }
+    .menu-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; padding: 0 3px; }
+    .menu-title { display: flex; align-items: center; gap: 8px; color: #ffe4a3; font-size: .82rem; font-weight: 950; letter-spacing: .08em; }
+    .menu-title::before { color: var(--gold); content: "✦"; }
+    .menu-context { color: #9a9079; font-size: .68rem; }
+    .menu-context b { color: #ddd2b9; }
+    .menu-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+    .menu-item { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 9px; min-width: 0; padding: 10px 12px; border: 1px dashed #51482f; border-radius: 9px; background: rgba(247,189,79,.025); }
+    .menu-length { color: #f2e7cd; font-size: .76rem; font-weight: 900; white-space: nowrap; }
+    .menu-dots { height: 1px; min-width: 8px; border-top: 1px dotted #655b43; }
+    .menu-value { color: var(--gold); text-align: right; font-size: 1rem; font-weight: 950; white-space: nowrap; text-shadow: 0 0 12px rgba(247,189,79,.18); }
+    .menu-value small { margin-left: 2px; color: #9a8c6a; font-size: .53rem; letter-spacing: .08em; }
+    .menu-formula { grid-column: 1 / -1; margin-top: -5px; color: #706954; text-align: right; font: .54rem Consolas,monospace; }
+
     .action-dock { margin-top: 12px; }
     .word-console { border: 1px solid #39345b; border-radius: 15px; background: linear-gradient(135deg, #151428, #111120); }
     .word-console { display: flex; align-items: center; gap: 12px; padding: 13px 15px; }
@@ -190,6 +207,12 @@
       .chain-word b { transform: rotate(90deg); font-size: .48rem; }
       .chain-word span { max-width: 70px; padding: 3px 5px; overflow: hidden; font-size: .52rem; text-overflow: ellipsis; white-space: nowrap; }
       .attack-formula { display: none; }
+      .damage-menu { padding: 11px 10px 12px; }
+      .menu-head { align-items: flex-start; flex-direction: column; gap: 2px; }
+      .menu-title { font-size: .72rem; } .menu-context { font-size: .58rem; }
+      .menu-grid { grid-template-columns: repeat(2,1fr); gap: 6px; }
+      .menu-item { padding: 8px; gap: 5px; }
+      .menu-length { font-size: .66rem; } .menu-value { font-size: .85rem; }
       .word-console { padding: 9px; }
       .input-symbol { width: 37px; height: 37px; }
       .fake-input strong { font-size: .85rem; }
@@ -275,6 +298,19 @@
       <div class="damage-float" id="damage-float">−14</div>
     </section>
 
+    <section class="damage-menu" aria-label="글자 수별 예상 Damage 족보">
+      <div class="menu-head">
+        <div class="menu-title">오늘의 전투 족보</div>
+        <div class="menu-context">현재 공격자 <b>ATK <span id="menu-atk">3</span></b> · 대상 <b>DEF <span id="menu-def">1</span></b> 반영</div>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item" data-base-damage="4"><span class="menu-length">2글자</span><span class="menu-dots"></span><strong class="menu-value"><span>6</span><small>DMG</small></strong><small class="menu-formula">4 + 3 − 1</small></div>
+        <div class="menu-item" data-base-damage="8"><span class="menu-length">3글자</span><span class="menu-dots"></span><strong class="menu-value"><span>10</span><small>DMG</small></strong><small class="menu-formula">8 + 3 − 1</small></div>
+        <div class="menu-item" data-base-damage="12"><span class="menu-length">4글자</span><span class="menu-dots"></span><strong class="menu-value"><span>14</span><small>DMG</small></strong><small class="menu-formula">12 + 3 − 1</small></div>
+        <div class="menu-item" data-base-damage="16"><span class="menu-length">5글자+</span><span class="menu-dots"></span><strong class="menu-value"><span>18</span><small>DMG</small></strong><small class="menu-formula">16 + 3 − 1</small></div>
+      </div>
+    </section>
+
     <section class="action-dock">
       <div class="word-console">
         <div class="input-symbol">라</div>
@@ -308,7 +344,7 @@
 
   <script>
     const $ = (selector) => document.querySelector(selector);
-    const state = { meHp: 92, oppHp: 88, attack: 3, defense: 1, busy: false, rewardOpen: false, rewardTimer: null, rewardRemaining: 10 };
+    const state = { meHp: 92, oppHp: 88, attack: 3, defense: 1, opponentDefense: 1, busy: false, rewardOpen: false, rewardTimer: null, rewardRemaining: 10 };
     function renderPips(container, value, kind) {
       container.innerHTML = '';
       for (let i = 0; i < 6; i += 1) {
@@ -327,13 +363,23 @@
       renderPips($('#me-atk-pips'), state.attack, 'attack');
       renderPips($('#me-def-pips'), state.defense, 'defense');
       document.querySelectorAll('[data-pips]').forEach((el) => renderPips(el, Number(el.dataset.pips), el.closest('.attack-stat') ? 'attack' : 'defense'));
+      updateDamageMenu();
+    }
+    function updateDamageMenu() {
+      $('#menu-atk').textContent = state.attack; $('#menu-def').textContent = state.opponentDefense;
+      document.querySelectorAll('[data-base-damage]').forEach((item) => {
+        const base = Number(item.dataset.baseDamage);
+        const damage = Math.max(1, base + state.attack - state.opponentDefense);
+        item.querySelector('.menu-value span').textContent = damage;
+        item.querySelector('.menu-formula').textContent = `${base} + ${state.attack} − ${state.opponentDefense}`;
+      });
     }
     function restartAnimation(el, className) { el.classList.remove(className); void el.offsetWidth; el.classList.add(className); }
     function playAttack() {
       if (state.busy) return;
       state.busy = true;
-      const damage = Math.max(1, 12 + state.attack - 1);
-      $('#attack-formula').innerHTML = `4글자 12 + ATK ${state.attack} − DEF 1<br><b>= ${damage} DAMAGE</b>`;
+      const damage = Math.max(1, 12 + state.attack - state.opponentDefense);
+      $('#attack-formula').innerHTML = `4글자 12 + ATK ${state.attack} − DEF ${state.opponentDefense}<br><b>= ${damage} DAMAGE</b>`;
       $('#damage-float').textContent = `−${damage}`;
       const projectile = $('#projectile'); const opponent = $('#opp-zone');
       restartAnimation($('#me-zone'), 'charge'); restartAnimation(projectile, 'active');
@@ -372,7 +418,7 @@
     }
     function reset() {
       closeRewardModal();
-      Object.assign(state, { meHp: 92, oppHp: 88, attack: 3, defense: 1, busy: false, rewardRemaining: 10 });
+      Object.assign(state, { meHp: 92, oppHp: 88, attack: 3, defense: 1, opponentDefense: 1, busy: false, rewardRemaining: 10 });
       $('#attack-formula').innerHTML = '4글자 12 + ATK 3 − DEF 1<br><b>= 14 DAMAGE</b>'; $('#damage-float').textContent = '−14'; updateStats();
     }
     $('#play-attack').addEventListener('click', startRewardState); $('#submit-demo').addEventListener('click', startRewardState); $('#reset-demo').addEventListener('click', reset);
