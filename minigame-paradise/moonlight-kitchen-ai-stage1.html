@@ -46,35 +46,37 @@
   <main class="content">
     <section class="hero-copy">
       <span class="badge badge-wip">SERVER AI · STAGE 1</span>
-      <h1>두 AI가 첫 주문을<br>끝까지 완주하는 장면</h1>
-      <p>실제 서버 권위 세션에서 P1 루나 AI와 P2 별콩 AI가 사람 입력 없이 움직입니다. 첫 주문 공개부터 재료 수급, 손질, 조리, 플레이팅, 1번 역 배식까지 66초를 그대로 녹화했습니다.</p>
+      <h1>첫 주문부터<br>두 AI의 병렬 플레이까지</h1>
+      <p>실제 서버 권위 세션에서 P1 루나 AI와 P2 별콩 AI가 사람 입력 없이 움직입니다. 첫 주문 완주 후 두 번째 웨이브에서 서로 다른 주문을 맡아 동시에 조리하고, 2번 역에서 누적 3개 주문을 배식하는 2분 16초를 그대로 녹화했습니다.</p>
     </section>
 
     <section class="screen" aria-label="Stage 1 AI 플레이 영상">
-      <video id="stage-video" controls autoplay muted loop playsinline preload="metadata" poster="assets/moonlight-kitchen-ai-stage1-poster.png">
-        <source src="assets/moonlight-kitchen-ai-stage1-1280x720.mp4" type="video/mp4">
+      <video id="stage-video" controls autoplay muted loop playsinline preload="metadata" poster="assets/moonlight-kitchen-ai-stage1-poster.png?v=duo-2">
+        <source src="assets/moonlight-kitchen-ai-stage1-1280x720.mp4?v=duo-2" type="video/mp4">
         브라우저가 MP4 영상을 지원하지 않습니다.
       </video>
       <div class="moments" aria-label="주요 장면 바로가기">
         <button type="button" data-time="8">00:08 · 첫 재료 수급</button>
         <button type="button" data-time="25">00:25 · 손질·조리</button>
-        <button type="button" data-time="43">00:43 · 플레이팅 완료</button>
         <button type="button" data-time="61">01:01 · 1번 역 배식</button>
+        <button type="button" data-time="78">01:18 · 두 AI 병렬 작업</button>
+        <button type="button" data-time="129">02:09 · 2번 역 첫 배식</button>
+        <button type="button" data-time="135">02:15 · 누적 3개 배식</button>
       </div>
     </section>
 
     <section class="facts" aria-label="녹화 정보">
       <article class="fact"><b>1280 × 720 · 25 FPS</b><p>브라우저 Canvas와 관전 HUD를 포함한 실제 플레이 화면입니다.</p></article>
       <article class="fact"><b>SERVER AUTHORITATIVE</b><p>AI도 사람과 같은 이동·상호작용·작업 입력 경로만 사용합니다.</p></article>
-      <article class="fact"><b>ORDER 01 · SERVED</b><p>첫 달버섯 꼬치를 1번 역 정차 중 배식하는 데 성공합니다.</p></article>
+      <article class="fact"><b>ORDERS 01–03 · SERVED</b><p>첫 주문 이후 두 AI가 병렬 작업해 2번 역 주문 두 개까지 배식합니다.</p></article>
     </section>
 
     <section class="legend">
       <article class="agent"><h2>☾ P1 · 루나 AI</h2><p>공용 주문을 예약하고 달버섯·노을고추 손질부터 화로 조리, 접시 회수와 배식을 담당합니다. 화면 왼쪽 아래에서 현재 판단을 확인할 수 있습니다.</p></article>
-      <article class="agent star"><h2>★ P2 · 별콩 AI</h2><p>중복 주문을 피하고 완수 가능한 다음 작업을 기다립니다. 두 번째 주문 웨이브부터 별도 주문을 예약해 병렬로 움직입니다.</p></article>
+      <article class="agent star"><h2>★ P2 · 별콩 AI</h2><p>첫 웨이브에서는 중복 작업을 피하고 대기하지만, 두 번째 웨이브부터 `order_3`을 예약해 P1과 동시에 재료 수급·손질·조리·배식을 수행합니다.</p></article>
     </section>
 
-    <p class="source">녹화 버전: 2026-08-14 Stage 1 · 길이 01:06 · 무음. <a href="assets/moonlight-kitchen-ai-stage1-1280x720.mp4">MP4 원본 열기</a></p>
+    <p class="source">녹화 버전: 2026-08-14 Stage 1 Duo · 길이 02:16 · 무음. <a href="assets/moonlight-kitchen-ai-stage1-1280x720.mp4?v=duo-2">MP4 원본 열기</a></p>
   </main>
   <script>
     const video=document.getElementById('stage-video');
