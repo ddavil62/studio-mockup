@@ -95,22 +95,33 @@
     .chain-word { display: flex; align-items: center; justify-content: center; gap: 6px; }
     .chain-word span { padding: 5px 8px; border: 1px solid #3e385d; border-radius: 7px; background: #171527; color: var(--muted); font-size: .68rem; }
     .chain-word span.active { border-color: var(--gold); color: #ffe9b2; }
+    .chain-word b { color: var(--dim); font-size: .65rem; }
     .attack-formula { margin-top: 24px; padding: 8px 10px; border: 1px solid #332f4a; border-radius: 8px; color: var(--dim); text-align: center; font: .63rem/1.5 Consolas, monospace; }
 
-    .action-dock { display: grid; grid-template-columns: minmax(0,1fr) 340px; gap: 12px; margin-top: 12px; }
-    .word-console, .reward-console { border: 1px solid #39345b; border-radius: 15px; background: linear-gradient(135deg, #151428, #111120); }
+    .action-dock { margin-top: 12px; }
+    .word-console { border: 1px solid #39345b; border-radius: 15px; background: linear-gradient(135deg, #151428, #111120); }
     .word-console { display: flex; align-items: center; gap: 12px; padding: 13px 15px; }
     .input-symbol { display: grid; width: 43px; height: 43px; flex: 0 0 auto; place-items: center; border: 1px solid var(--gold); border-radius: 10px; background: rgba(247,189,79,.08); color: #ffe7a4; font-size: 1.4rem; font-weight: 950; }
     .fake-input { min-width: 0; flex: 1; }
     .fake-input small { display: block; color: var(--dim); font-size: .62rem; font-weight: 900; }
     .fake-input strong { display: block; margin-top: 2px; font-size: 1rem; letter-spacing: .04em; }
     .submit-demo { padding: 10px 17px; border: 0; border-radius: 9px; background: linear-gradient(135deg, #9b4cf1, #6e3bdd); color: white; font-weight: 950; cursor: pointer; box-shadow: 0 7px 22px rgba(139,73,230,.25); }
-    .reward-console { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; padding: 8px; }
-    .reward { position: relative; min-width: 0; padding: 9px 4px 7px; border: 1px solid #3b3757; border-radius: 9px; background: #1b1a31; color: white; text-align: center; cursor: pointer; }
+    .reward-modal-backdrop { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 18px; visibility: hidden; opacity: 0; background: rgba(5,5,14,.76); backdrop-filter: blur(9px); transition: opacity .2s, visibility .2s; }
+    .reward-modal-backdrop.active { visibility: visible; opacity: 1; }
+    .reward-modal { width: min(620px,100%); padding: 24px; border: 1px solid #8b5ec6; border-radius: 20px; background: radial-gradient(circle at 50% 0, #33204d, #171528 48%, #11111e); box-shadow: 0 25px 90px rgba(0,0,0,.62), 0 0 45px rgba(168,85,247,.2); transform: translateY(18px) scale(.97); transition: transform .22s ease; }
+    .reward-modal-backdrop.active .reward-modal { transform: none; }
+    .reward-modal-head { text-align: center; }
+    .reward-modal-head small { color: var(--me-soft); font-size: .65rem; font-weight: 900; letter-spacing: .18em; }
+    .reward-modal-head h2 { margin-top: 4px; font-size: 1.2rem; }
+    .reward-modal-head p { margin-top: 4px; color: var(--muted); font-size: .74rem; }
+    .reward-modal-timer { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; padding: 5px 9px; border: 1px solid #514675; border-radius: 999px; color: #ddd4f4; font-size: .7rem; }
+    .reward-modal-timer b { color: white; font-size: .9rem; }
+    .reward-options { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 18px; }
+    .reward { position: relative; min-width: 0; min-height: 116px; padding: 17px 8px 12px; border: 1px solid #4a4268; border-radius: 12px; background: linear-gradient(145deg,#25213d,#19172b); color: white; text-align: center; cursor: pointer; }
     .reward:hover { border-color: var(--me); transform: translateY(-2px); }
-    .reward i { display: block; font-style: normal; font-size: 1.25rem; }
-    .reward span { display: block; margin-top: 3px; overflow: hidden; color: var(--muted); font-size: .61rem; text-overflow: ellipsis; white-space: nowrap; }
-    .reward kbd { position: absolute; top: 4px; left: 5px; color: var(--dim); font-size: .55rem; }
+    .reward i { display: block; font-style: normal; font-size: 2rem; }
+    .reward span { display: block; margin-top: 8px; color: var(--muted); font-size: .72rem; }
+    .reward kbd { position: absolute; top: 8px; left: 9px; color: var(--dim); font-size: .62rem; }
 
     .projectile { position: absolute; z-index: 20; top: 43%; left: 25%; display: flex; gap: 5px; opacity: 0; pointer-events: none; }
     .projectile span { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #ffe0a1; border-radius: 9px; background: linear-gradient(145deg, #ffe69b, #e9972f); color: #251709; font-size: 1.15rem; font-weight: 950; box-shadow: 0 0 20px rgba(247,189,79,.6); }
@@ -176,15 +187,16 @@
       .turn-timer { gap: 3px; font-size: .52rem; } .turn-timer b { font-size: .74rem; }
       .chain-track { margin-top: 18px; } .chain-title { font-size: .48rem; }
       .chain-word { flex-direction: column; gap: 4px; }
+      .chain-word b { transform: rotate(90deg); font-size: .48rem; }
       .chain-word span { max-width: 70px; padding: 3px 5px; overflow: hidden; font-size: .52rem; text-overflow: ellipsis; white-space: nowrap; }
       .attack-formula { display: none; }
-      .action-dock { grid-template-columns: 1fr; gap: 7px; }
       .word-console { padding: 9px; }
       .input-symbol { width: 37px; height: 37px; }
       .fake-input strong { font-size: .85rem; }
       .submit-demo { padding: 9px 12px; font-size: .75rem; }
-      .reward-console { min-height: 70px; }
-      .reward { padding: 7px 3px 5px; } .reward i { font-size: 1.05rem; }
+      .reward-modal { padding: 18px 12px; border-radius: 16px; }
+      .reward-options { gap: 6px; }
+      .reward { min-height: 98px; padding: 14px 4px 8px; } .reward i { font-size: 1.55rem; } .reward span { font-size: .63rem; }
       .projectile { top: 43%; left: 17%; gap: 2px; }
       .projectile span { width: 25px; height: 25px; border-radius: 6px; font-size: .75rem; }
       .damage-float { top: 26%; right: 7%; font-size: 1.8rem; }
@@ -199,7 +211,7 @@
   <header class="prototype-bar">
     <div class="prototype-title"><b>끝말잇기 배틀 · 전장 분리 시안</b><span class="prototype-badge">INTERACTIVE V1</span></div>
     <div class="prototype-actions">
-      <button class="demo-btn primary" id="play-attack">⚔ 공격 연출 재생</button>
+      <button class="demo-btn primary" id="play-attack">⚔ 턴 시퀀스 재생</button>
       <button class="demo-btn" id="reset-demo">↻ 초기화</button>
     </div>
   </header>
@@ -234,10 +246,10 @@
         <div class="syllable-orb"><small>START</small><strong>라</strong></div>
         <div class="turn-timer">남은 시간 <b>8.4</b>초</div>
         <div class="chain-track">
-          <div class="chain-title">SHARED CHAIN</div>
-          <div class="chain-word"><span>나라</span><span class="active">라디오</span><span>오리</span></div>
+          <div class="chain-title">최근 단어 흐름</div>
+          <div class="chain-word"><span>나라</span><b>→</b><span class="active">라디오</span><b>→</b><span>오리</span></div>
         </div>
-        <div class="attack-formula">4글자 12 + ATK 3 − DEF 1<br><b>= 14 DAMAGE</b></div>
+        <div class="attack-formula" id="attack-formula">4글자 12 + ATK 3 − DEF 1<br><b>= 14 DAMAGE</b></div>
       </section>
 
       <article class="player-zone opponent" id="opp-zone">
@@ -269,12 +281,23 @@
         <div class="fake-input"><small>반격 단어</small><strong>라벤더빛</strong></div>
         <button class="submit-demo" id="submit-demo">공격</button>
       </div>
-      <div class="reward-console" aria-label="보상 연출 체험">
-        <button class="reward" data-reward="attack"><kbd>1</kbd><i>⚔️</i><span>ATK +1</span></button>
-        <button class="reward" data-reward="defense"><kbd>2</kbd><i>🛡️</i><span>DEF +1</span></button>
-        <button class="reward" data-reward="heal"><kbd>3</kbd><i>💚</i><span>HP +5</span></button>
-      </div>
     </section>
+
+    <div class="reward-modal-backdrop" id="reward-modal" aria-hidden="true">
+      <section class="reward-modal" role="dialog" aria-modal="true" aria-labelledby="reward-modal-title">
+        <div class="reward-modal-head">
+          <small>REWARD STATE</small>
+          <h2 id="reward-modal-title">보상을 선택하세요</h2>
+          <p>선택한 효과를 적용한 뒤 공격이 시작됩니다.</p>
+          <div class="reward-modal-timer">⏱ 남은 시간 <b id="reward-time">10</b>초</div>
+        </div>
+        <div class="reward-options" aria-label="보상 선택">
+          <button class="reward" data-reward="attack"><kbd>1</kbd><i>⚔️</i><span>ATK +1</span></button>
+          <button class="reward" data-reward="defense"><kbd>2</kbd><i>🛡️</i><span>DEF +1</span></button>
+          <button class="reward" data-reward="heal"><kbd>3</kbd><i>💚</i><span>HP +5</span></button>
+        </div>
+      </section>
+    </div>
 
     <section class="notes">
       <div class="note"><b>① 양쪽 전장 분리</b>내 영역과 상대 영역을 색·광원·정렬 방향으로 분리해 공격의 출발점과 도착점을 명확하게 했습니다.</div>
@@ -285,7 +308,7 @@
 
   <script>
     const $ = (selector) => document.querySelector(selector);
-    const state = { meHp: 92, oppHp: 88, attack: 3, defense: 1, busy: false };
+    const state = { meHp: 92, oppHp: 88, attack: 3, defense: 1, busy: false, rewardOpen: false, rewardTimer: null, rewardRemaining: 10 };
     function renderPips(container, value, kind) {
       container.innerHTML = '';
       for (let i = 0; i < 6; i += 1) {
@@ -309,10 +332,13 @@
     function playAttack() {
       if (state.busy) return;
       state.busy = true;
+      const damage = Math.max(1, 12 + state.attack - 1);
+      $('#attack-formula').innerHTML = `4글자 12 + ATK ${state.attack} − DEF 1<br><b>= ${damage} DAMAGE</b>`;
+      $('#damage-float').textContent = `−${damage}`;
       const projectile = $('#projectile'); const opponent = $('#opp-zone');
       restartAnimation($('#me-zone'), 'charge'); restartAnimation(projectile, 'active');
       setTimeout(() => {
-        state.oppHp = Math.max(0, state.oppHp - 14);
+        state.oppHp = Math.max(0, state.oppHp - damage);
         $('#opp-hp').style.width = `${state.oppHp}%`;
         $('#opp-hp-text').textContent = `${state.oppHp} / 100`;
         setTimeout(() => { $('#opp-hp-ghost').style.width = `${state.oppHp}%`; }, 60);
@@ -325,10 +351,33 @@
       if (type === 'defense') { state.defense += 1; updateStats(); restartAnimation($('#me-defense-stat'), 'gain'); }
       if (type === 'heal') { state.meHp = Math.min(100, state.meHp + 5); updateStats(); restartAnimation($('#me-hp-block'), 'heal-glow'); }
     }
-    function reset() { Object.assign(state, { meHp: 92, oppHp: 88, attack: 3, defense: 1, busy: false }); updateStats(); }
-    $('#play-attack').addEventListener('click', playAttack); $('#submit-demo').addEventListener('click', playAttack); $('#reset-demo').addEventListener('click', reset);
-    document.querySelectorAll('[data-reward]').forEach((button) => button.addEventListener('click', () => playReward(button.dataset.reward)));
-    document.addEventListener('keydown', (event) => { if (event.key === '1') playReward('attack'); if (event.key === '2') playReward('defense'); if (event.key === '3') playReward('heal'); });
+    function closeRewardModal() {
+      clearInterval(state.rewardTimer); state.rewardTimer = null; state.rewardOpen = false;
+      $('#reward-modal').classList.remove('active'); $('#reward-modal').setAttribute('aria-hidden', 'true');
+    }
+    function resolveReward(type) {
+      if (!state.rewardOpen) return;
+      closeRewardModal();
+      if (type) playReward(type);
+      setTimeout(playAttack, 180);
+    }
+    function startRewardState() {
+      if (state.busy || state.rewardOpen) return;
+      state.rewardOpen = true; state.rewardRemaining = 10; $('#reward-time').textContent = state.rewardRemaining;
+      $('#reward-modal').classList.add('active'); $('#reward-modal').setAttribute('aria-hidden', 'false');
+      state.rewardTimer = setInterval(() => {
+        state.rewardRemaining -= 1; $('#reward-time').textContent = state.rewardRemaining;
+        if (state.rewardRemaining <= 0) resolveReward(null);
+      }, 1000);
+    }
+    function reset() {
+      closeRewardModal();
+      Object.assign(state, { meHp: 92, oppHp: 88, attack: 3, defense: 1, busy: false, rewardRemaining: 10 });
+      $('#attack-formula').innerHTML = '4글자 12 + ATK 3 − DEF 1<br><b>= 14 DAMAGE</b>'; $('#damage-float').textContent = '−14'; updateStats();
+    }
+    $('#play-attack').addEventListener('click', startRewardState); $('#submit-demo').addEventListener('click', startRewardState); $('#reset-demo').addEventListener('click', reset);
+    document.querySelectorAll('[data-reward]').forEach((button) => button.addEventListener('click', () => resolveReward(button.dataset.reward)));
+    document.addEventListener('keydown', (event) => { if (event.key === '1') resolveReward('attack'); if (event.key === '2') resolveReward('defense'); if (event.key === '3') resolveReward('heal'); });
     updateStats();
   </script>
 </body>
