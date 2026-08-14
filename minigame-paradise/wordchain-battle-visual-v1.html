@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>끝말잇기 배틀 - 전장 분리 비주얼 시안 V1</title>
+  <style>
+    :root {
+      --bg: #090914; --panel: #131326; --panel-2: #1c1c35; --line: #34345d;
+      --me: #a855f7; --me-soft: #d8b4fe; --opp: #ec4899; --opp-soft: #f9a8d4;
+      --gold: #f7bd4f; --hp: #4ade80; --danger: #fb5d72; --cyan: #67e8f9;
+      --text: #f7f4ff; --muted: #aaa6c2; --dim: #716d8a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { min-height: 100vh; overflow-x: hidden; background: radial-gradient(circle at 50% -10%, #251344 0, var(--bg) 43%); color: var(--text); font-family: "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif; }
+    button { font: inherit; }
+    .prototype-bar { display: flex; min-height: 52px; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 20px; border-bottom: 1px solid #2b2850; background: rgba(8,8,19,.88); backdrop-filter: blur(18px); }
+    .prototype-title { display: flex; align-items: center; gap: 10px; font-weight: 900; }
+    .prototype-title b { color: var(--gold); letter-spacing: -.03em; }
+    .prototype-badge { padding: 4px 8px; border: 1px solid #5b477a; border-radius: 999px; color: var(--me-soft); font-size: .7rem; letter-spacing: .08em; }
+    .prototype-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+    .demo-btn { padding: 7px 11px; border: 1px solid #49436d; border-radius: 8px; background: #1a1930; color: #d8d4e8; cursor: pointer; font-size: .78rem; font-weight: 800; }
+    .demo-btn.primary { border-color: var(--gold); background: rgba(247,189,79,.12); color: #ffe2a1; box-shadow: 0 0 18px rgba(247,189,79,.12); }
+    .demo-btn:hover { transform: translateY(-1px); filter: brightness(1.18); }
+    .mockup { width: min(1380px, 100%); margin: auto; padding: 18px 22px 28px; }
+    .game-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .game-logo { font-size: clamp(1.05rem, 2vw, 1.45rem); font-weight: 950; letter-spacing: -.04em; }
+    .game-logo span { color: var(--gold); }
+    .round-info { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: .78rem; }
+    .turn-pill { padding: 5px 10px; border: 1px solid var(--me); border-radius: 999px; background: rgba(168,85,247,.13); color: var(--me-soft); font-weight: 900; }
+
+    .battle-stage { position: relative; display: grid; min-height: 540px; grid-template-columns: minmax(300px,1fr) minmax(210px,280px) minmax(300px,1fr); overflow: hidden; border: 1px solid #37315a; border-radius: 20px; background: #0d0d1d; box-shadow: 0 28px 80px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.04); isolation: isolate; }
+    .battle-stage::before { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(168,85,247,.08), transparent 38%, transparent 62%, rgba(236,72,153,.08)); content: ""; }
+    .player-zone { position: relative; display: flex; min-width: 0; flex-direction: column; padding: 24px; overflow: hidden; }
+    .player-zone::before { position: absolute; width: 310px; height: 310px; border-radius: 50%; opacity: .17; filter: blur(55px); content: ""; }
+    .player-zone.me::before { top: -130px; left: -90px; background: var(--me); }
+    .player-zone.opponent::before { top: -130px; right: -90px; background: var(--opp); }
+    .player-zone.me { border-right: 1px solid rgba(168,85,247,.2); }
+    .player-zone.opponent { border-left: 1px solid rgba(236,72,153,.2); }
+    .zone-label { display: flex; align-items: center; gap: 9px; margin-bottom: 20px; color: var(--muted); font-size: .72rem; font-weight: 900; letter-spacing: .14em; }
+    .zone-label::after { height: 1px; flex: 1; background: linear-gradient(90deg, currentColor, transparent); opacity: .3; content: ""; }
+    .opponent .zone-label { flex-direction: row-reverse; }
+    .opponent .zone-label::after { background: linear-gradient(-90deg, currentColor, transparent); }
+    .fighter { display: flex; align-items: center; gap: 14px; }
+    .opponent .fighter { flex-direction: row-reverse; text-align: right; }
+    .avatar { position: relative; display: grid; width: 72px; height: 72px; flex: 0 0 auto; place-items: center; border: 2px solid currentColor; border-radius: 22px; background: linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.02)); font-size: 1.8rem; font-weight: 950; box-shadow: 0 0 25px color-mix(in srgb, currentColor 28%, transparent); }
+    .me .avatar { color: var(--me-soft); transform: rotate(-3deg); }
+    .opponent .avatar { color: var(--opp-soft); transform: rotate(3deg); }
+    .level-dot { position: absolute; right: -7px; bottom: -7px; display: grid; width: 27px; height: 27px; place-items: center; border: 2px solid var(--bg); border-radius: 50%; background: var(--gold); color: #21170a; font-size: .68rem; font-weight: 950; }
+    .fighter-name { font-size: 1.08rem; font-weight: 950; }
+    .fighter-sub { margin-top: 3px; color: var(--dim); font-size: .72rem; }
+
+    .hp-block { margin-top: 25px; }
+    .stat-heading { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 7px; }
+    .stat-heading span { color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .08em; }
+    .stat-heading strong { font-size: 1.18rem; font-variant-numeric: tabular-nums; }
+    .hp-track { position: relative; height: 18px; overflow: hidden; border: 1px solid #34344f; border-radius: 7px; background: #090912; }
+    .hp-ghost, .hp-fill { position: absolute; inset: 0 auto 0 0; width: 88%; border-radius: inherit; transform-origin: left; }
+    .hp-ghost { background: #fff0a1; transition: width 1s .42s ease; }
+    .hp-fill { background: linear-gradient(90deg, #18a85a, var(--hp)); box-shadow: 0 0 16px rgba(74,222,128,.35); transition: width .24s ease; }
+    .opponent .hp-ghost, .opponent .hp-fill { right: 0; left: auto; transform-origin: right; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+    .visual-stat { position: relative; padding: 13px; border: 1px solid #32314e; border-radius: 12px; background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012)); transition: .25s ease; }
+    .visual-stat .top { display: flex; align-items: center; justify-content: space-between; }
+    .stat-icon { font-size: 1.2rem; filter: drop-shadow(0 0 8px currentColor); }
+    .visual-stat strong { font-size: 1.22rem; }
+    .visual-stat small { display: block; margin-top: 7px; color: var(--dim); font-size: .66rem; font-weight: 800; }
+    .pips { display: flex; gap: 4px; margin-top: 9px; }
+    .pip { width: 17px; height: 5px; border-radius: 99px; background: #302e4a; }
+    .attack-stat .pip.on { background: var(--gold); box-shadow: 0 0 8px rgba(247,189,79,.55); }
+    .defense-stat .pip.on { background: var(--cyan); box-shadow: 0 0 8px rgba(103,232,249,.5); }
+    .time-stat { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; }
+    .clock-ring { --progress: 72%; display: grid; width: 45px; height: 45px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: conic-gradient(var(--me) var(--progress), #2a2941 0); }
+    .opponent .clock-ring { background: conic-gradient(var(--opp) var(--progress), #2a2941 0); }
+    .clock-ring::before { width: 33px; height: 33px; border-radius: 50%; background: #151526; content: ""; }
+    .clock-value { position: absolute; left: 29px; font-size: .68rem; font-weight: 950; }
+    .opponent .clock-value { left: auto; right: 29px; }
+    .pressure { margin-left: auto; padding: 4px 7px; border: 1px solid rgba(251,93,114,.45); border-radius: 6px; background: rgba(251,93,114,.1); color: #ff91a0; font-size: .64rem; font-weight: 900; }
+    .zone-footer { display: flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 22px; color: var(--dim); font-size: .68rem; }
+    .opponent .zone-footer { justify-content: flex-end; }
+    .turn-light { width: 8px; height: 8px; border-radius: 50%; background: var(--me); box-shadow: 0 0 14px var(--me); animation: breathe 1.5s ease-in-out infinite; }
+
+    .battle-lane { position: relative; z-index: 2; display: flex; min-width: 0; flex-direction: column; align-items: center; justify-content: center; padding: 20px 16px; background: linear-gradient(180deg, rgba(8,8,19,.72), rgba(20,15,37,.92)); }
+    .battle-lane::before, .battle-lane::after { position: absolute; top: 0; bottom: 0; width: 1px; background: linear-gradient(transparent, #60558d 30%, #60558d 70%, transparent); opacity: .45; content: ""; }
+    .battle-lane::before { left: 0; } .battle-lane::after { right: 0; }
+    .phase-label { color: var(--me-soft); font-size: .7rem; font-weight: 900; letter-spacing: .16em; }
+    .syllable-orb { position: relative; display: grid; width: 126px; height: 126px; margin: 16px 0; place-items: center; border: 1px solid #7458a0; border-radius: 50%; background: radial-gradient(circle, #32204f 0, #171328 60%, #0c0b16 100%); box-shadow: 0 0 55px rgba(168,85,247,.23), inset 0 0 25px rgba(216,180,254,.08); }
+    .syllable-orb::before { position: absolute; inset: -9px; border: 1px dashed rgba(247,189,79,.3); border-radius: 50%; content: ""; animation: spin 13s linear infinite; }
+    .syllable-orb small { position: absolute; top: 25px; color: var(--dim); font-size: .58rem; letter-spacing: .12em; }
+    .syllable-orb strong { margin-top: 12px; color: #fff1ba; font-size: 3rem; line-height: 1; text-shadow: 0 0 25px rgba(247,189,79,.45); }
+    .turn-timer { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: .73rem; }
+    .turn-timer b { color: white; font-size: 1rem; }
+    .chain-track { width: 100%; margin-top: 26px; }
+    .chain-title { margin-bottom: 8px; color: var(--dim); text-align: center; font-size: .62rem; font-weight: 900; letter-spacing: .12em; }
+    .chain-word { display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .chain-word span { padding: 5px 8px; border: 1px solid #3e385d; border-radius: 7px; background: #171527; color: var(--muted); font-size: .68rem; }
+    .chain-word span.active { border-color: var(--gold); color: #ffe9b2; }
+    .attack-formula { margin-top: 24px; padding: 8px 10px; border: 1px solid #332f4a; border-radius: 8px; color: var(--dim); text-align: center; font: .63rem/1.5 Consolas, monospace; }
+
+    .action-dock { display: grid; grid-template-columns: minmax(0,1fr) 340px; gap: 12px; margin-top: 12px; }
+    .word-console, .reward-console { border: 1px solid #39345b; border-radius: 15px; background: linear-gradient(135deg, #151428, #111120); }
+    .word-console { display: flex; align-items: center; gap: 12px; padding: 13px 15px; }
+    .input-symbol { display: grid; width: 43px; height: 43px; flex: 0 0 auto; place-items: center; border: 1px solid var(--gold); border-radius: 10px; background: rgba(247,189,79,.08); color: #ffe7a4; font-size: 1.4rem; font-weight: 950; }
+    .fake-input { min-width: 0; flex: 1; }
+    .fake-input small { display: block; color: var(--dim); font-size: .62rem; font-weight: 900; }
+    .fake-input strong { display: block; margin-top: 2px; font-size: 1rem; letter-spacing: .04em; }
+    .submit-demo { padding: 10px 17px; border: 0; border-radius: 9px; background: linear-gradient(135deg, #9b4cf1, #6e3bdd); color: white; font-weight: 950; cursor: pointer; box-shadow: 0 7px 22px rgba(139,73,230,.25); }
+    .reward-console { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; padding: 8px; }
+    .reward { position: relative; min-width: 0; padding: 9px 4px 7px; border: 1px solid #3b3757; border-radius: 9px; background: #1b1a31; color: white; text-align: center; cursor: pointer; }
+    .reward:hover { border-color: var(--me); transform: translateY(-2px); }
+    .reward i { display: block; font-style: normal; font-size: 1.25rem; }
+    .reward span { display: block; margin-top: 3px; overflow: hidden; color: var(--muted); font-size: .61rem; text-overflow: ellipsis; white-space: nowrap; }
+    .reward kbd { position: absolute; top: 4px; left: 5px; color: var(--dim); font-size: .55rem; }
+
+    .projectile { position: absolute; z-index: 20; top: 43%; left: 25%; display: flex; gap: 5px; opacity: 0; pointer-events: none; }
+    .projectile span { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #ffe0a1; border-radius: 9px; background: linear-gradient(145deg, #ffe69b, #e9972f); color: #251709; font-size: 1.15rem; font-weight: 950; box-shadow: 0 0 20px rgba(247,189,79,.6); }
+    .projectile.active { animation: word-flight .82s cubic-bezier(.2,.72,.27,1) forwards; }
+    .damage-float { position: absolute; z-index: 25; top: 33%; right: 15%; opacity: 0; color: #fff1c0; font-size: 2.5rem; font-weight: 950; text-shadow: 0 0 18px var(--danger), 2px 2px #5b1729; pointer-events: none; }
+    .damage-float.active { animation: damage-pop .8s ease-out; }
+    .impact-ring { position: absolute; z-index: 19; top: 50%; right: 19%; width: 30px; height: 30px; border: 3px solid var(--gold); border-radius: 50%; opacity: 0; pointer-events: none; }
+    .impact-ring.active { animation: impact .55s ease-out; }
+    .player-zone.hit { animation: zone-hit .42s ease-out; }
+    .player-zone.charge { animation: zone-charge .55s ease-out; }
+    .visual-stat.gain { animation: stat-gain .7s ease-out; }
+    .heal-glow { animation: heal .8s ease-out; }
+
+    .notes { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 14px; }
+    .note { padding: 11px 13px; border: 1px solid #292741; border-radius: 10px; background: rgba(18,18,34,.72); color: var(--muted); font-size: .7rem; line-height: 1.55; }
+    .note b { display: block; margin-bottom: 3px; color: white; }
+    @keyframes word-flight { 0% { opacity: 0; transform: translate(-50px,20px) scale(.7) rotate(-6deg); } 18% { opacity: 1; } 72% { opacity: 1; } 100% { left: 69%; opacity: 0; transform: translateY(-8px) scale(1.16) rotate(5deg); } }
+    @keyframes damage-pop { 0% { opacity: 0; transform: translateY(18px) scale(.55); } 28% { opacity: 1; transform: translateY(0) scale(1.18); } 100% { opacity: 0; transform: translateY(-45px) scale(.92); } }
+    @keyframes impact { 0% { opacity: 1; transform: scale(.2); } 100% { opacity: 0; transform: scale(7); } }
+    @keyframes zone-hit { 18% { transform: translateX(8px); filter: brightness(1.65); } 36% { transform: translateX(-7px); } 58% { transform: translateX(4px); } 100% { transform: none; filter: none; } }
+    @keyframes zone-charge { 40% { filter: brightness(1.45); box-shadow: inset 0 0 55px rgba(168,85,247,.3); } }
+    @keyframes stat-gain { 0% { transform: scale(1); } 40% { border-color: var(--gold); transform: scale(1.07); box-shadow: 0 0 28px rgba(247,189,79,.34); } 100% { transform: scale(1); } }
+    @keyframes heal { 40% { filter: brightness(1.5) drop-shadow(0 0 25px rgba(74,222,128,.55)); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes breathe { 50% { opacity: .35; transform: scale(.75); } }
+
+    @media (max-width: 800px) {
+      .prototype-bar { align-items: flex-start; padding: 8px 10px; }
+      .prototype-title { flex-direction: column; align-items: flex-start; gap: 2px; font-size: .82rem; }
+      .prototype-actions { justify-content: flex-end; }
+      .demo-btn { padding: 6px 8px; font-size: .66rem; }
+      .mockup { padding: 10px 7px 18px; }
+      .game-head { padding: 0 3px; }
+      .round-info span:first-child { display: none; }
+      .battle-stage { min-height: 500px; grid-template-columns: 1fr 82px 1fr; border-radius: 15px; }
+      .player-zone { padding: 12px 8px; }
+      .zone-label { margin-bottom: 12px; font-size: .58rem; }
+      .fighter { gap: 7px; }
+      .avatar { width: 44px; height: 44px; border-radius: 14px; font-size: 1.1rem; }
+      .level-dot { right: -5px; bottom: -5px; width: 20px; height: 20px; font-size: .52rem; }
+      .fighter-name { max-width: 74px; overflow: hidden; font-size: .78rem; text-overflow: ellipsis; white-space: nowrap; }
+      .fighter-sub { display: none; }
+      .hp-block { margin-top: 17px; }
+      .stat-heading span { font-size: .58rem; } .stat-heading strong { font-size: .8rem; }
+      .hp-track { height: 13px; }
+      .stat-grid { grid-template-columns: 1fr; gap: 7px; margin-top: 10px; }
+      .visual-stat { padding: 8px; }
+      .visual-stat .top { justify-content: flex-start; gap: 7px; }
+      .visual-stat strong { margin-left: auto; font-size: .9rem; }
+      .visual-stat small { display: none; }
+      .pips { gap: 2px; margin-top: 6px; } .pip { width: 11px; height: 4px; }
+      .time-stat { grid-column: auto; padding: 6px; gap: 6px; }
+      .clock-ring { width: 34px; height: 34px; } .clock-ring::before { width: 25px; height: 25px; }
+      .clock-value { left: 18px; font-size: .52rem; } .opponent .clock-value { right: 18px; }
+      .pressure { display: none; }
+      .zone-footer { padding-top: 10px; font-size: .55rem; }
+      .battle-lane { padding: 12px 5px; }
+      .phase-label { font-size: .52rem; text-align: center; }
+      .syllable-orb { width: 66px; height: 66px; margin: 12px 0; }
+      .syllable-orb::before { inset: -5px; }
+      .syllable-orb small { top: 12px; font-size: .4rem; }
+      .syllable-orb strong { margin-top: 9px; font-size: 1.8rem; }
+      .turn-timer { gap: 3px; font-size: .52rem; } .turn-timer b { font-size: .74rem; }
+      .chain-track { margin-top: 18px; } .chain-title { font-size: .48rem; }
+      .chain-word { flex-direction: column; gap: 4px; }
+      .chain-word span { max-width: 70px; padding: 3px 5px; overflow: hidden; font-size: .52rem; text-overflow: ellipsis; white-space: nowrap; }
+      .attack-formula { display: none; }
+      .action-dock { grid-template-columns: 1fr; gap: 7px; }
+      .word-console { padding: 9px; }
+      .input-symbol { width: 37px; height: 37px; }
+      .fake-input strong { font-size: .85rem; }
+      .submit-demo { padding: 9px 12px; font-size: .75rem; }
+      .reward-console { min-height: 70px; }
+      .reward { padding: 7px 3px 5px; } .reward i { font-size: 1.05rem; }
+      .projectile { top: 43%; left: 17%; gap: 2px; }
+      .projectile span { width: 25px; height: 25px; border-radius: 6px; font-size: .75rem; }
+      .damage-float { top: 26%; right: 7%; font-size: 1.8rem; }
+      .notes { grid-template-columns: 1fr; }
+      .note { font-size: .66rem; }
+      @keyframes word-flight { 0% { opacity: 0; transform: translate(-20px,15px) scale(.65); } 18% { opacity: 1; } 72% { opacity: 1; } 100% { left: 64%; opacity: 0; transform: translateY(-5px) scale(1.08); } }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="prototype-bar">
+    <div class="prototype-title"><b>끝말잇기 배틀 · 전장 분리 시안</b><span class="prototype-badge">INTERACTIVE V1</span></div>
+    <div class="prototype-actions">
+      <button class="demo-btn primary" id="play-attack">⚔ 공격 연출 재생</button>
+      <button class="demo-btn" id="reset-demo">↻ 초기화</button>
+    </div>
+  </header>
+
+  <main class="mockup">
+    <div class="game-head">
+      <div class="game-logo">끝말잇기 <span>BATTLE</span></div>
+      <div class="round-info"><span>ROUND 1</span><span class="turn-pill">나의 반격 턴</span></div>
+    </div>
+
+    <section class="battle-stage" id="battle-stage">
+      <article class="player-zone me" id="me-zone">
+        <div class="zone-label">MY ARENA</div>
+        <div class="fighter">
+          <div class="avatar">나<span class="level-dot">P1</span></div>
+          <div><div class="fighter-name">보라슬라임</div><div class="fighter-sub">단어를 마력으로 바꾸는 결투사</div></div>
+        </div>
+        <div class="hp-block" id="me-hp-block">
+          <div class="stat-heading"><span>HEALTH</span><strong id="me-hp-text">92 / 100</strong></div>
+          <div class="hp-track"><div class="hp-ghost" id="me-hp-ghost" style="width:92%"></div><div class="hp-fill" id="me-hp" style="width:92%"></div></div>
+        </div>
+        <div class="stat-grid">
+          <div class="visual-stat attack-stat" id="me-attack-stat"><div class="top"><span class="stat-icon">⚔</span><strong id="me-atk">3</strong></div><small>ATTACK POWER</small><div class="pips" id="me-atk-pips"></div></div>
+          <div class="visual-stat defense-stat" id="me-defense-stat"><div class="top"><span class="stat-icon">🛡</span><strong id="me-def">1</strong></div><small>DEFENSE LAYER</small><div class="pips" id="me-def-pips"></div></div>
+          <div class="visual-stat time-stat"><div class="clock-ring" style="--progress:67%"></div><span class="clock-value">10</span><div><strong>10초</strong><small>기본 답변시간</small></div></div>
+        </div>
+        <div class="zone-footer"><span class="turn-light"></span>현재 행동 중 · 단어 입력</div>
+      </article>
+
+      <section class="battle-lane">
+        <div class="phase-label">COUNTER WORD</div>
+        <div class="syllable-orb"><small>START</small><strong>라</strong></div>
+        <div class="turn-timer">남은 시간 <b>8.4</b>초</div>
+        <div class="chain-track">
+          <div class="chain-title">SHARED CHAIN</div>
+          <div class="chain-word"><span>나라</span><span class="active">라디오</span><span>오리</span></div>
+        </div>
+        <div class="attack-formula">4글자 12 + ATK 3 − DEF 1<br><b>= 14 DAMAGE</b></div>
+      </section>
+
+      <article class="player-zone opponent" id="opp-zone">
+        <div class="zone-label">RIVAL ARENA</div>
+        <div class="fighter">
+          <div class="avatar">AI<span class="level-dot">P2</span></div>
+          <div><div class="fighter-name">분홍마도사</div><div class="fighter-sub">시간을 조작하는 끝말술사</div></div>
+        </div>
+        <div class="hp-block">
+          <div class="stat-heading"><span>HEALTH</span><strong id="opp-hp-text">88 / 100</strong></div>
+          <div class="hp-track"><div class="hp-ghost" id="opp-hp-ghost" style="width:88%"></div><div class="hp-fill" id="opp-hp" style="width:88%"></div></div>
+        </div>
+        <div class="stat-grid">
+          <div class="visual-stat attack-stat"><div class="top"><span class="stat-icon">⚔</span><strong>2</strong></div><small>ATTACK POWER</small><div class="pips" data-pips="2"></div></div>
+          <div class="visual-stat defense-stat"><div class="top"><span class="stat-icon">🛡</span><strong>1</strong></div><small>DEFENSE LAYER</small><div class="pips" data-pips="1"></div></div>
+          <div class="visual-stat time-stat"><div class="clock-ring" style="--progress:47%"></div><span class="clock-value">7</span><div><strong>7초</strong><small>기본 답변시간</small></div><span class="pressure">다음 턴 −5초</span></div>
+        </div>
+        <div class="zone-footer">다음 반격 준비 중</div>
+      </article>
+
+      <div class="projectile" id="projectile"><span>라</span><span>벤</span><span>더</span><span>빛</span></div>
+      <div class="impact-ring" id="impact-ring"></div>
+      <div class="damage-float" id="damage-float">−14</div>
+    </section>
+
+    <section class="action-dock">
+      <div class="word-console">
+        <div class="input-symbol">라</div>
+        <div class="fake-input"><small>반격 단어</small><strong>라벤더빛</strong></div>
+        <button class="submit-demo" id="submit-demo">공격</button>
+      </div>
+      <div class="reward-console" aria-label="보상 연출 체험">
+        <button class="reward" data-reward="attack"><kbd>1</kbd><i>⚔️</i><span>ATK +1</span></button>
+        <button class="reward" data-reward="defense"><kbd>2</kbd><i>🛡️</i><span>DEF +1</span></button>
+        <button class="reward" data-reward="heal"><kbd>3</kbd><i>💚</i><span>HP +5</span></button>
+      </div>
+    </section>
+
+    <section class="notes">
+      <div class="note"><b>① 양쪽 전장 분리</b>내 영역과 상대 영역을 색·광원·정렬 방향으로 분리해 공격의 출발점과 도착점을 명확하게 했습니다.</div>
+      <div class="note"><b>② 능력치 시각화</b>정확한 숫자를 유지하면서 ATK는 금색 에너지, DEF는 청록 방어층, 시간은 원형 게이지로 보조합니다.</div>
+      <div class="note"><b>③ 전투 피드백</b>단어 타일 비행, 상대 영역 충격, Damage 숫자, HP 잔상 바를 하나의 짧은 시퀀스로 연결했습니다.</div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (selector) => document.querySelector(selector);
+    const state = { meHp: 92, oppHp: 88, attack: 3, defense: 1, busy: false };
+    function renderPips(container, value, kind) {
+      container.innerHTML = '';
+      for (let i = 0; i < 6; i += 1) {
+        const pip = document.createElement('span');
+        pip.className = `pip${i < Math.min(value, 6) ? ` on ${kind}` : ''}`;
+        container.append(pip);
+      }
+    }
+    function updateStats() {
+      $('#me-atk').textContent = state.attack;
+      $('#me-def').textContent = state.defense;
+      $('#me-hp-text').textContent = `${state.meHp} / 100`;
+      $('#opp-hp-text').textContent = `${state.oppHp} / 100`;
+      $('#me-hp').style.width = `${state.meHp}%`; $('#me-hp-ghost').style.width = `${state.meHp}%`;
+      $('#opp-hp').style.width = `${state.oppHp}%`; $('#opp-hp-ghost').style.width = `${state.oppHp}%`;
+      renderPips($('#me-atk-pips'), state.attack, 'attack');
+      renderPips($('#me-def-pips'), state.defense, 'defense');
+      document.querySelectorAll('[data-pips]').forEach((el) => renderPips(el, Number(el.dataset.pips), el.closest('.attack-stat') ? 'attack' : 'defense'));
+    }
+    function restartAnimation(el, className) { el.classList.remove(className); void el.offsetWidth; el.classList.add(className); }
+    function playAttack() {
+      if (state.busy) return;
+      state.busy = true;
+      const projectile = $('#projectile'); const opponent = $('#opp-zone');
+      restartAnimation($('#me-zone'), 'charge'); restartAnimation(projectile, 'active');
+      setTimeout(() => {
+        state.oppHp = Math.max(0, state.oppHp - 14);
+        $('#opp-hp').style.width = `${state.oppHp}%`;
+        $('#opp-hp-text').textContent = `${state.oppHp} / 100`;
+        setTimeout(() => { $('#opp-hp-ghost').style.width = `${state.oppHp}%`; }, 60);
+        restartAnimation(opponent, 'hit'); restartAnimation($('#impact-ring'), 'active'); restartAnimation($('#damage-float'), 'active');
+      }, 620);
+      setTimeout(() => { state.busy = false; }, 1450);
+    }
+    function playReward(type) {
+      if (type === 'attack') { state.attack += 1; updateStats(); restartAnimation($('#me-attack-stat'), 'gain'); }
+      if (type === 'defense') { state.defense += 1; updateStats(); restartAnimation($('#me-defense-stat'), 'gain'); }
+      if (type === 'heal') { state.meHp = Math.min(100, state.meHp + 5); updateStats(); restartAnimation($('#me-hp-block'), 'heal-glow'); }
+    }
+    function reset() { Object.assign(state, { meHp: 92, oppHp: 88, attack: 3, defense: 1, busy: false }); updateStats(); }
+    $('#play-attack').addEventListener('click', playAttack); $('#submit-demo').addEventListener('click', playAttack); $('#reset-demo').addEventListener('click', reset);
+    document.querySelectorAll('[data-reward]').forEach((button) => button.addEventListener('click', () => playReward(button.dataset.reward)));
+    document.addEventListener('keydown', (event) => { if (event.key === '1') playReward('attack'); if (event.key === '2') playReward('defense'); if (event.key === '3') playReward('heal'); });
+    updateStats();
+  </script>
+</body>
+</html>
