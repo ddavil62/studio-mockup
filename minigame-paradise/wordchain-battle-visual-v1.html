@@ -90,8 +90,6 @@
     .syllable-orb::before { position: absolute; inset: -9px; border: 1px dashed rgba(247,189,79,.3); border-radius: 50%; content: ""; animation: spin 13s linear infinite; }
     .syllable-orb small { position: absolute; top: 25px; color: var(--dim); font-size: .58rem; letter-spacing: .12em; }
     .syllable-orb strong { margin-top: 12px; color: #fff1ba; font-size: 3rem; line-height: 1; text-shadow: 0 0 25px rgba(247,189,79,.45); }
-    .turn-timer { display: flex; min-width: 106px; align-items: center; justify-content: center; gap: 6px; margin-top: 1px; padding: 8px 12px; border: 1px solid #514675; border-radius: 13px; background: linear-gradient(145deg,rgba(168,85,247,.13),rgba(12,11,24,.72)); color: var(--muted); box-shadow: 0 0 25px rgba(168,85,247,.1); }
-    .turn-timer .timer-copy { display: flex; flex-direction: column; color: var(--dim); font-size: .57rem; font-weight: 800; line-height: 1.2; }
     .timer-number { display: inline-block; min-width: 1.25em; color: #fff; font-size: 2.5rem; font-weight: 950; font-variant-numeric: tabular-nums; line-height: 1; text-align: center; text-shadow: 0 0 18px rgba(216,180,254,.45); transform-origin: center; }
     .timer-number.tick { animation: second-pop .45s cubic-bezier(.2,.9,.3,1); }
     .timer-number.danger { color: #ff7a8d; text-shadow: 0 0 22px rgba(251,93,114,.65); }
@@ -131,10 +129,6 @@
     .input-timer small { max-width: 36px; color: #a99b7c; font-size: .55rem; font-weight: 900; line-height: 1.15; }
     .input-timer .timer-number { color: #ffe3a0; font-size: 2.15rem; text-shadow: 0 0 18px rgba(247,189,79,.42); }
     .input-timer .timer-number.danger { color: #ff7a8d; }
-    body[data-timer-mode="central"] .input-timer { display: none; }
-    body[data-timer-mode="input"] .central-timer { display: none; }
-    .variant-explainer { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; padding: 9px 12px; border: 1px solid #302b4c; border-radius: 10px; background: rgba(18,16,34,.76); color: var(--muted); font-size: .72rem; }
-    .variant-explainer b { color: var(--gold); }
     .submit-demo { padding: 10px 17px; border: 0; border-radius: 9px; background: linear-gradient(135deg, #9b4cf1, #6e3bdd); color: white; font-weight: 950; cursor: pointer; box-shadow: 0 7px 22px rgba(139,73,230,.25); }
     .reward-modal-backdrop { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 18px; visibility: hidden; opacity: 0; background: rgba(5,5,14,.76); backdrop-filter: blur(9px); transition: opacity .2s, visibility .2s; }
     .reward-modal-backdrop.active { visibility: visible; opacity: 1; }
@@ -239,7 +233,7 @@
       .syllable-orb::before { inset: -5px; }
       .syllable-orb small { top: 12px; font-size: .4rem; }
       .syllable-orb strong { margin-top: 9px; font-size: 1.8rem; }
-      .turn-timer { min-width: 68px; gap: 2px; padding: 6px 4px; } .turn-timer .timer-copy { font-size: .42rem; } .timer-number { font-size: 1.65rem; }
+      .timer-number { font-size: 1.65rem; }
       .chain-track { margin-top: 18px; } .chain-title { font-size: .48rem; }
       .chain-word { flex-direction: column; gap: 4px; }
       .chain-word b { transform: rotate(90deg); font-size: .48rem; }
@@ -271,12 +265,10 @@
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
   </style>
 </head>
-<body data-timer-mode="central">
+<body>
   <header class="prototype-bar">
     <div class="prototype-title"><b>끝말잇기 배틀 · 전장 분리 시안</b><span class="prototype-badge">INTERACTIVE V1</span></div>
     <div class="prototype-actions">
-      <button class="demo-btn active" data-timer-variant="central">A · 중앙 크게</button>
-      <button class="demo-btn" data-timer-variant="input">B · 입력창 옆</button>
       <button class="demo-btn primary" id="play-attack">⚔ 턴 시퀀스 재생</button>
       <button class="demo-btn ko" id="play-finisher">☠ KO 피니시 재생</button>
       <button class="demo-btn" id="reset-demo">↻ 초기화</button>
@@ -288,8 +280,6 @@
       <div class="game-logo">끝말잇기 <span>BATTLE</span></div>
       <div class="round-info"><span>ROUND 1</span><span class="turn-pill">나의 반격 턴</span></div>
     </div>
-
-    <div class="variant-explainer" id="variant-explainer"><b>A안 · 중앙 강조</b><span>기존 위치를 유지하되 숫자를 크게 키우고 매초 교체 애니메이션을 적용합니다.</span></div>
 
     <section class="battle-stage" id="battle-stage">
       <article class="player-zone me" id="me-zone">
@@ -313,7 +303,6 @@
       <section class="battle-lane">
         <div class="phase-label">COUNTER WORD</div>
         <div class="syllable-orb"><small>START</small><strong>라</strong></div>
-        <div class="turn-timer central-timer"><span class="timer-copy">남은<br>시간</span><b class="timer-number" data-turn-time>10</b></div>
         <div class="chain-track">
           <div class="chain-title">최근 단어 흐름</div>
           <div class="chain-word"><span>나라</span><b>→</b><span class="active">라디오</span><b>→</b><span>오리</span></div>
@@ -418,14 +407,6 @@
         renderTurnTimer(true);
       }, 1000);
     }
-    function setTimerVariant(mode) {
-      document.body.dataset.timerMode = mode;
-      document.querySelectorAll('[data-timer-variant]').forEach((button) => button.classList.toggle('active', button.dataset.timerVariant === mode));
-      $('#variant-explainer').innerHTML = mode === 'central'
-        ? '<b>A안 · 중앙 강조</b><span>기존 위치를 유지하되 숫자를 크게 키우고 매초 교체 애니메이션을 적용합니다.</span>'
-        : '<b>B안 · 입력창 옆</b><span>타이핑 시선에서 벗어나지 않도록 입력 단어와 공격 버튼 사이에 타이머를 붙입니다.</span>';
-      renderTurnTimer(true);
-    }
     function renderPips(container, value, kind) {
       container.innerHTML = '';
       for (let i = 0; i < 6; i += 1) {
@@ -527,7 +508,6 @@
     }
     $('#play-attack').addEventListener('click', startRewardState); $('#play-finisher').addEventListener('click', playFinisher); $('#submit-demo').addEventListener('click', startRewardState); $('#reset-demo').addEventListener('click', reset);
     document.querySelectorAll('[data-reward]').forEach((button) => button.addEventListener('click', () => resolveReward(button.dataset.reward)));
-    document.querySelectorAll('[data-timer-variant]').forEach((button) => button.addEventListener('click', () => setTimerVariant(button.dataset.timerVariant)));
     document.addEventListener('keydown', (event) => { if (event.key === '1') resolveReward('attack'); if (event.key === '2') resolveReward('defense'); if (event.key === '3') resolveReward('heal'); });
     updateStats(); startTurnTimer();
   </script>
