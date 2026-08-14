@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>달빛 주방열차 · Stage 1 AI 플레이</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    :root { --moon:#49C9BE; --star:#D977A8; --rail:#FFD97A; --night:#090D1F; }
+    .content { max-width: 1180px; }
+    .hero-copy { max-width: 820px; margin-bottom: 24px; }
+    .hero-copy h1 { margin: 8px 0 12px; color: var(--rail); font-size: clamp(2rem,5vw,3.6rem); line-height: 1.04; }
+    .hero-copy p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.75; }
+    .screen { overflow: hidden; padding: 12px; border: 1px solid #50637A; border-radius: 18px; background: #111A36; box-shadow: 0 24px 80px #0008; }
+    video { display: block; width: 100%; aspect-ratio: 16/9; border-radius: 10px; background: var(--night); }
+    .moments { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+    .moments button { padding: 9px 12px; border: 1px solid #50637A; border-radius: 999px; background: #1B2A45; color: #F5E9C9; cursor: pointer; }
+    .moments button:hover,.moments button:focus-visible { border-color: var(--rail); outline: none; }
+    .facts { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 28px 0; }
+    .fact { min-height: 132px; padding: 20px; border: 1px solid #3E516C; border-radius: 14px; background: #15213A; }
+    .fact b { display: block; margin-bottom: 8px; color: var(--rail); font: 800 1.1rem var(--font-mono); }
+    .fact p { margin: 0; color: var(--text-secondary); line-height: 1.6; }
+    .legend { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .agent { padding: 20px; border: 1px solid var(--moon); border-radius: 14px; background: linear-gradient(135deg,#15213A,#12273A); }
+    .agent.star { border-color: var(--star); background: linear-gradient(135deg,#15213A,#2A1B35); }
+    .agent h2 { margin-top: 0; color: var(--moon); }.agent.star h2 { color: var(--star); }
+    .agent p { margin-bottom: 0; color: var(--text-secondary); line-height: 1.65; }
+    .source { margin-top: 28px; padding: 18px 20px; border-left: 4px solid var(--rail); background: #15213A; color: var(--text-secondary); }
+    .source a { color: var(--rail); }
+    @media(max-width:760px){.facts,.legend{grid-template-columns:1fr}.content{padding-inline:16px}.screen{padding:6px}}
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color:#FFD97A;">미니게임천국</h1>
+    <div class="breadcrumb"><a href="../index.html">Studio</a> / <a href="index.html">미니게임천국</a> / AI Stage 1</div>
+  </header>
+  <nav class="sidebar">
+    <div class="section-title">AI PLAYTEST</div>
+    <a class="active" href="moonlight-kitchen-ai-stage1.html">달빛 주방열차 Stage 1</a>
+    <div class="section-title">Assets</div>
+    <a href="index.html">협동 게임 키아트</a>
+    <div class="section-title">UI Concepts</div>
+    <a href="wordchain-battle-visual-v1.html">끝말잇기 전장 V1</a>
+  </nav>
+  <main class="content">
+    <section class="hero-copy">
+      <span class="badge badge-wip">SERVER AI · STAGE 1</span>
+      <h1>두 AI가 첫 주문을<br>끝까지 완주하는 장면</h1>
+      <p>실제 서버 권위 세션에서 P1 루나 AI와 P2 별콩 AI가 사람 입력 없이 움직입니다. 첫 주문 공개부터 재료 수급, 손질, 조리, 플레이팅, 1번 역 배식까지 66초를 그대로 녹화했습니다.</p>
+    </section>
+
+    <section class="screen" aria-label="Stage 1 AI 플레이 영상">
+      <video id="stage-video" controls autoplay muted loop playsinline preload="metadata" poster="assets/moonlight-kitchen-ai-stage1-poster.png">
+        <source src="assets/moonlight-kitchen-ai-stage1-1280x720.mp4" type="video/mp4">
+        브라우저가 MP4 영상을 지원하지 않습니다.
+      </video>
+      <div class="moments" aria-label="주요 장면 바로가기">
+        <button type="button" data-time="8">00:08 · 첫 재료 수급</button>
+        <button type="button" data-time="25">00:25 · 손질·조리</button>
+        <button type="button" data-time="43">00:43 · 플레이팅 완료</button>
+        <button type="button" data-time="61">01:01 · 1번 역 배식</button>
+      </div>
+    </section>
+
+    <section class="facts" aria-label="녹화 정보">
+      <article class="fact"><b>1280 × 720 · 25 FPS</b><p>브라우저 Canvas와 관전 HUD를 포함한 실제 플레이 화면입니다.</p></article>
+      <article class="fact"><b>SERVER AUTHORITATIVE</b><p>AI도 사람과 같은 이동·상호작용·작업 입력 경로만 사용합니다.</p></article>
+      <article class="fact"><b>ORDER 01 · SERVED</b><p>첫 달버섯 꼬치를 1번 역 정차 중 배식하는 데 성공합니다.</p></article>
+    </section>
+
+    <section class="legend">
+      <article class="agent"><h2>☾ P1 · 루나 AI</h2><p>공용 주문을 예약하고 달버섯·노을고추 손질부터 화로 조리, 접시 회수와 배식을 담당합니다. 화면 왼쪽 아래에서 현재 판단을 확인할 수 있습니다.</p></article>
+      <article class="agent star"><h2>★ P2 · 별콩 AI</h2><p>중복 주문을 피하고 완수 가능한 다음 작업을 기다립니다. 두 번째 주문 웨이브부터 별도 주문을 예약해 병렬로 움직입니다.</p></article>
+    </section>
+
+    <p class="source">녹화 버전: 2026-08-14 Stage 1 · 길이 01:06 · 무음. <a href="assets/moonlight-kitchen-ai-stage1-1280x720.mp4">MP4 원본 열기</a></p>
+  </main>
+  <script>
+    const video=document.getElementById('stage-video');
+    document.querySelectorAll('[data-time]').forEach(button=>button.addEventListener('click',()=>{video.currentTime=Number(button.dataset.time);video.play();}));
+  </script>
+</body>
+</html>
