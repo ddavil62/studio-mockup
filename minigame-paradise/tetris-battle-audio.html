@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>테트리스 배틀 · BGM & SFX 프리뷰</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    :root { --neon:#00f0f0; --pink:#ff466e; --panel:#101326; }
+    body { min-height:100vh; background:radial-gradient(circle at 50% 10%,#18204a 0,#090b16 48%,#05060c 100%); }
+    .audio-shell { width:min(920px,calc(100% - 32px)); margin:0 auto; padding:48px 0 72px; }
+    .audio-hero { text-align:center; padding:36px 20px 28px; }
+    .eyebrow { color:var(--neon); font:700 .76rem var(--font-mono); letter-spacing:.22em; }
+    h1 { margin:10px 0 8px; color:#fff; font:800 clamp(2rem,7vw,4.4rem) var(--font-mono); letter-spacing:.08em; text-shadow:0 0 22px rgba(0,240,240,.28); }
+    .subtitle { color:#a7b0ce; line-height:1.7; }
+    .player { padding:28px; border:1px solid rgba(0,240,240,.28); border-radius:18px; background:linear-gradient(145deg,rgba(19,24,53,.96),rgba(10,12,28,.96)); box-shadow:0 22px 70px rgba(0,0,0,.35); }
+    .transport { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; }
+    button { border:1px solid rgba(0,240,240,.3); border-radius:10px; padding:12px 17px; background:rgba(0,240,240,.08); color:#dff; font:700 .88rem var(--font-mono); cursor:pointer; transition:.18s ease; }
+    button:hover,button:focus-visible { transform:translateY(-2px); border-color:var(--neon); box-shadow:0 0 20px rgba(0,240,240,.16); }
+    button.primary { background:var(--neon); color:#061013; border-color:var(--neon); }
+    button.stop { border-color:rgba(255,70,110,.35); color:#ff9bb0; background:rgba(255,70,110,.08); }
+    .now-playing { display:flex; align-items:center; justify-content:center; gap:12px; min-height:42px; margin:22px 0 8px; color:#8df9f3; font:700 .82rem var(--font-mono); }
+    .bars { display:flex; align-items:center; gap:3px; height:26px; }
+    .bars i { display:block; width:4px; height:5px; border-radius:2px; background:var(--neon); opacity:.35; }
+    .playing .bars i { animation:level .65s ease-in-out infinite alternate; opacity:1; }
+    .playing .bars i:nth-child(2){animation-delay:-.25s}.playing .bars i:nth-child(3){animation-delay:-.4s}.playing .bars i:nth-child(4){animation-delay:-.12s}.playing .bars i:nth-child(5){animation-delay:-.32s}
+    @keyframes level { to { height:25px; box-shadow:0 0 9px var(--neon); } }
+    .section-title { margin:30px 0 14px; color:#fff; font-size:1.05rem; }
+    .sfx-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+    .sfx-grid button { text-align:left; min-height:64px; }
+    .sfx-grid small { display:block; margin-top:5px; color:#77809f; font-weight:400; }
+    .note { margin-top:22px; padding:15px 17px; border-left:3px solid #7c5cff; background:rgba(124,92,255,.08); color:#aeb6d1; font-size:.83rem; line-height:1.65; }
+    .back { display:inline-block; margin-top:24px; color:#8df9f3; }
+    @media(max-width:520px){.audio-shell{padding-top:20px}.audio-hero{padding-inline:4px}.player{padding:20px 14px}.transport button{flex:1 1 130px}.sfx-grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <main class="audio-shell">
+    <header class="audio-hero">
+      <div class="eyebrow">LAZY SLIME STUDIO · AUDIO LAB</div>
+      <h1>TETRIS BATTLE</h1>
+      <p class="subtitle">실제 게임에 적용된 네온 아케이드 BGM과 효과음을 바로 들어보세요.<br>브라우저 정책상 아래 재생 버튼을 눌러야 소리가 시작됩니다.</p>
+    </header>
+
+    <section id="player" class="player" aria-label="테트리스 배틀 오디오 플레이어">
+      <div class="transport">
+        <button id="play-battle" class="primary" type="button">▶ 배틀 BGM</button>
+        <button id="play-lobby" type="button">♫ 대기실 BGM</button>
+        <button id="stop-music" class="stop" type="button">■ 정지</button>
+      </div>
+      <div class="now-playing" aria-live="polite">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <span id="status">재생할 BGM을 선택하세요</span>
+      </div>
+
+      <h2 class="section-title">게임 효과음</h2>
+      <div class="sfx-grid">
+        <button type="button" data-sfx="move">↔ 이동<small>블록 좌우 이동</small></button>
+        <button type="button" data-sfx="rotate">↻ 회전<small>블록 회전</small></button>
+        <button type="button" data-sfx="hold">▣ 홀드<small>블록 보관</small></button>
+        <button type="button" data-sfx="drop" data-detail="16">▼ 하드드롭<small>즉시 낙하·고정</small></button>
+        <button type="button" data-sfx="clear" data-detail="4">✦ 테트리스<small>4줄 동시 클리어</small></button>
+        <button type="button" data-sfx="garbage" data-detail="4">▥ 가비지<small>공격 라인 수신</small></button>
+        <button type="button" data-sfx="item">◆ 아이템<small>획득·사용</small></button>
+        <button type="button" data-sfx="win">★ 승리<small>라운드 승리 팡파르</small></button>
+        <button type="button" data-sfx="lose">× 패배<small>라운드 패배</small></button>
+      </div>
+      <p class="note">외부 음원 파일을 재생하는 방식이 아니라 Web Audio로 실시간 합성합니다. 그래서 게임 로딩이 가볍고, BGM과 조작음의 타이밍도 즉시 반응합니다.</p>
+    </section>
+    <a class="back" href="index.html">← 미니게임천국 목업으로 돌아가기</a>
+  </main>
+
+  <script type="module">
+    import { createAudio } from './tetris-audio.js';
+
+    const audio = createAudio();
+    const player = document.getElementById('player');
+    const status = document.getElementById('status');
+
+    async function playTheme(theme, label) {
+      if (audio.isMuted()) audio.setMuted(false);
+      await audio.unlock();
+      audio.startMusic(theme);
+      player.classList.add('playing');
+      status.textContent = `${label} 재생 중`;
+    }
+
+    document.getElementById('play-battle').addEventListener('click', () => playTheme('battle', '배틀 BGM'));
+    document.getElementById('play-lobby').addEventListener('click', () => playTheme('lobby', '대기실 BGM'));
+    document.getElementById('stop-music').addEventListener('click', () => {
+      audio.stopMusic();
+      player.classList.remove('playing');
+      status.textContent = 'BGM 정지';
+    });
+    document.querySelectorAll('[data-sfx]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        if (audio.isMuted()) audio.setMuted(false);
+        await audio.unlock();
+        audio.play(button.dataset.sfx, Number(button.dataset.detail || 0));
+        status.textContent = `${button.childNodes[0].textContent.trim()} 효과음 재생`;
+      });
+    });
+  </script>
+</body>
+</html>
