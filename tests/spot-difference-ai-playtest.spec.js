@@ -7,10 +7,11 @@ test('틀린그림찾기 Humanlike AI 영상이 목업 페이지에서 재생된
   await expect(page.getByRole('heading', { name: /정답을 아는 AI가/ })).toBeVisible();
   const video = page.locator('#spot-video');
   await expect(video).toBeVisible();
-  await expect.poll(() => video.evaluate((element) => element.duration)).toBeGreaterThan(66);
-  await expect(video.locator('source')).toHaveAttribute('src', 'assets/spot-difference-humanlike-ai-1280x720.mp4?v=humanlike-2');
+  await expect.poll(() => video.evaluate((element) => element.duration)).toBeGreaterThan(73);
+  await expect(video.locator('source')).toHaveAttribute('src', 'assets/spot-difference-humanlike-ai-1280x720.mp4?v=humanlike-3');
   await expect(page.getByRole('button', { name: '00:12 · 상대 오답 X 공유' })).toHaveAttribute('data-time', '12');
-  await expect(page.getByRole('button', { name: '00:37 · 랜덤 정답 하나 힌트' })).toHaveAttribute('data-time', '37');
+  await expect(page.getByRole('button', { name: '00:37 · ? 위치 힌트 표시' })).toHaveAttribute('data-time', '37');
+  await expect(page.getByRole('button', { name: '00:42 · 힌트 위치 클릭 → O' })).toHaveAttribute('data-time', '42');
   await expect.poll(() => video.evaluate((element) => element.currentTime)).toBeGreaterThan(.5);
   await expect(page.getByAltText('틀린그림찾기 달빛 야시장 원본 A')).toBeVisible();
   await expect(page.getByAltText('틀린그림찾기 달빛 야시장 변형 B')).toBeVisible();
