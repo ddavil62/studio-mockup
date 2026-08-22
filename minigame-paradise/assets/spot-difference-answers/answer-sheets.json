@@ -1206,15 +1206,15 @@
       "description": "구름 위 마법학교의 달빛 천문탑에서 아기 용과 견습생들 사이 다섯 가지 변화를 찾아보세요.",
       "collectionId": "dragon-academy",
       "collectionName": "드래곤 아카데미",
-      "difficulty": "보통",
+      "difficulty": "어려움",
       "stageType": "classic",
       "differenceCount": 5,
       "labels": [
-        "노란색으로 바뀐 아기 용의 목도리",
-        "하나 사라진 황금 별 등불",
-        "빨간 하트로 바뀐 망원경 문양",
+        "짧아진 아기 용 목도리의 오른쪽 꼬리",
+        "네 꼭짓점으로 바뀐 왼쪽 황금 별 등불",
+        "청록색 별로 바뀐 망원경 문양",
         "원 모양으로 바뀐 부엉이 선생님의 포인터",
-        "노란 별로 바뀐 천문 관측 가방 문양"
+        "청록색 별로 바뀐 천문 관측 가방 문양"
       ],
       "image": "assets/spot-difference-answers/64-dragon-academy-moon-observatory-04.webp"
     },
@@ -1225,15 +1225,15 @@
       "description": "구름 위 마법학교의 별빛 졸업 축제에서 아기 용과 견습생들 사이 다섯 가지 변화를 찾아보세요.",
       "collectionId": "dragon-academy",
       "collectionName": "드래곤 아카데미",
-      "difficulty": "보통",
+      "difficulty": "어려움",
       "stageType": "classic",
       "differenceCount": 5,
       "labels": [
         "초승달 모양으로 바뀐 아기 용의 졸업 망토 장식",
-        "가운데 하나가 사라진 졸업 축제 등불",
-        "청록색으로 바뀐 부엉이 선생님의 종",
-        "청록색으로 바뀐 졸업 배너의 꼬리",
-        "노란 하트로 바뀐 졸업 기념 상자 문양"
+        "가운데 등불에서 사라진 작은 받침 장식",
+        "동그랗게 바뀐 부엉이 선생님의 종 추",
+        "제비꼬리 모양으로 바뀐 졸업 배너",
+        "청록색 하트로 바뀐 졸업 기념 상자 문양"
       ],
       "image": "assets/spot-difference-answers/65-dragon-academy-starlight-graduation-05.webp"
     }

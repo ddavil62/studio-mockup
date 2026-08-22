@@ -52,3 +52,28 @@ test('모바일 상세 화면에서도 피드백 버튼을 표시한다', async 
   await page.waitForLoadState('networkidle');
   await page.screenshot({ path: 'tests/screenshots/spot-difference-answer-sheet-detail-mobile.png' });
 });
+
+test('난이도 피드백을 반영한 64·65 스테이지 정답지를 표시한다', async ({ page }) => {
+  for (const stage of [
+    {
+      id: 'dragon-academy-moon-observatory-04',
+      title: '달빛 천문탑 관측 수업',
+      image: /64-dragon-academy-moon-observatory-04\.webp$/,
+      answer: '네 꼭짓점으로 바뀐 왼쪽 황금 별 등불',
+    },
+    {
+      id: 'dragon-academy-starlight-graduation-05',
+      title: '별구름 졸업 축제',
+      image: /65-dragon-academy-starlight-graduation-05\.webp$/,
+      answer: '가운데 등불에서 사라진 작은 받침 장식',
+    },
+  ]) {
+    await page.goto(`/minigame-paradise/spot-difference-answer-sheet.html?stage=${stage.id}`);
+    await expect(page.locator('.stage-head h1')).toHaveText(stage.title);
+    await expect(page.locator('.stage-meta')).toContainText('어려움');
+    await expect(page.locator('.answer-list li')).toHaveCount(5);
+    await expect(page.locator('.answer-list')).toContainText(stage.answer);
+    await expect(page.locator('.sheet img')).toHaveAttribute('src', stage.image);
+    await expect(page.locator('.sheet img')).toBeVisible();
+  }
+});
