@@ -77,3 +77,27 @@ test('난이도 피드백을 반영한 64·65 스테이지 정답지를 표시�
     await expect(page.locator('.sheet img')).toBeVisible();
   }
 });
+
+test('난이도 피드백을 반영한 장난감 왕국 56~60 정답지를 표시한다', async ({ page }) => {
+  const stages = [
+    ['toy-kingdom-block-castle-01', '블록 왕국 성문', '가운데 톱니가 사라진 성문 꼭대기 블록'],
+    ['toy-kingdom-windup-train-station-02', '태엽 기차역', '짧아진 역 시계의 오른쪽 바늘'],
+    ['toy-kingdom-music-box-plaza-03', '오르골 광장', '추가 사라진 가운데 황동 종'],
+    ['toy-kingdom-patchwork-dragon-bridge-04', '봉제 용 다리', '아래 금빛 받침이 사라진 가운데 등불'],
+    ['toy-kingdom-star-crown-palace-05', '별왕관 궁전', '왼쪽 아래 꼭짓점이 짧아진 가운데 별 등불'],
+  ];
+
+  for (const [id, title, answer] of stages) {
+    await page.goto(`/minigame-paradise/spot-difference-answer-sheet.html?stage=${id}`);
+    await expect(page.locator('.stage-head h1')).toHaveText(title);
+    await expect(page.locator('.stage-meta')).toContainText('어려움');
+    await expect(page.locator('.answer-list li')).toHaveCount(5);
+    await expect(page.locator('.answer-list')).toContainText(answer);
+    await expect(page.locator('.sheet img')).toBeVisible();
+  }
+});
+
+test('64번 첫 차이는 짧아진 목도리 꼬리로 안내한다', async ({ page }) => {
+  await page.goto('/minigame-paradise/spot-difference-answer-sheet.html?stage=dragon-academy-moon-observatory-04');
+  await expect(page.locator('.answer-list li').first()).toContainText('짧아진 아기 용 목도리의 오른쪽 꼬리');
+});

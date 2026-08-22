@@ -1054,15 +1054,15 @@
       "description": "알록달록한 나무 블록 성문 앞에서 파란 망토의 병정과 장난감 주민들이 환영 행렬을 열며 다섯 가지 변화를 찾아냅니다.",
       "collectionId": "toy-kingdom",
       "collectionName": "장난감 왕국",
-      "difficulty": "보통",
+      "difficulty": "어려움",
       "stageType": "classic",
       "differenceCount": 5,
       "labels": [
-        "보라색으로 바뀐 성문 꼭대기 블록",
-        "빨간 별 문양으로 바뀐 병정 방패",
-        "뾰족한 제비꼬리 모양으로 바뀐 성문 깃발",
-        "주황색으로 바뀐 구슬 수레 바퀴",
-        "한 개만 남은 토끼 악사의 북채"
+        "가운데 톱니가 사라진 성문 꼭대기 블록",
+        "방향이 반대로 바뀐 병정 방패의 청록 초승달",
+        "하나가 사라진 토끼 악사의 조끼 단추",
+        "하나가 사라진 양철 코끼리 안장 장식",
+        "짙은 청록색으로 바뀐 수레 구슬 하나"
       ],
       "image": "assets/spot-difference-answers/56-toy-kingdom-block-castle-01.webp"
     },
@@ -1073,15 +1073,15 @@
       "description": "장난감 왕국의 태엽 기차가 출발을 준비하는 나무 승강장에서 파란 망토의 병정과 승객들 사이 다섯 가지 변화를 찾아냅니다.",
       "collectionId": "toy-kingdom",
       "collectionName": "장난감 왕국",
-      "difficulty": "보통",
+      "difficulty": "어려움",
       "stageType": "classic",
       "differenceCount": 5,
       "labels": [
-        "보라색으로 바뀐 역무원 신호판 중앙",
-        "하나만 남은 역 시계 바늘",
-        "네모 모양으로 바뀐 산호색 역 깃발",
-        "초록색으로 바뀐 가운데 여행가방",
-        "주황색으로 바뀐 굴뚝 위 양철 새"
+        "코발트색으로 바뀐 역무원 신호판 중앙",
+        "짧아진 역 시계의 오른쪽 바늘",
+        "끝에 작은 홈이 생긴 산호색 역 깃발",
+        "황토색으로 바뀐 가운데 여행가방",
+        "산호색으로 바뀐 굴뚝 위 양철 새의 부리"
       ],
       "image": "assets/spot-difference-answers/57-toy-kingdom-windup-train-station-02.webp"
     },
@@ -1092,15 +1092,15 @@
       "description": "장난감 왕국의 거대한 오르골이 연주를 시작한 축제 광장에서 춤추는 인형과 악단 사이 다섯 가지 변화를 찾아냅니다.",
       "collectionId": "toy-kingdom",
       "collectionName": "장난감 왕국",
-      "difficulty": "보통",
+      "difficulty": "어려움",
       "stageType": "classic",
       "differenceCount": 5,
       "labels": [
-        "보라색으로 바뀐 오르골 별 장식",
-        "파란색으로 바뀐 발레리나 치마",
-        "주황색으로 바뀐 양철 코끼리 귀",
-        "가운데 하나가 사라진 황동 종",
-        "산호색 원으로 바뀐 북 문양"
+        "윗 꼭짓점이 짧아진 오르골 별 장식",
+        "하나가 사라진 발레리나 치마의 금빛 장식",
+        "한 땀이 사라진 양철 코끼리 귀의 바느질",
+        "추가 사라진 가운데 황동 종",
+        "정사각형으로 바뀐 북의 청록 문양"
       ],
       "image": "assets/spot-difference-answers/58-toy-kingdom-music-box-plaza-03.webp"
     },
@@ -1111,15 +1111,15 @@
       "description": "장난감 왕국의 저녁, 거대한 봉제 용이 지키는 나무 다리를 건너는 파란 망토 병정과 장난감 행렬 사이 다섯 가지 변화를 찾아냅니다.",
       "collectionId": "toy-kingdom",
       "collectionName": "장난감 왕국",
-      "difficulty": "보통",
+      "difficulty": "어려움",
       "stageType": "classic",
       "differenceCount": 5,
       "labels": [
-        "보라색으로 바뀐 봉제 용의 뿔",
-        "별 모양으로 바뀐 병정의 방패 문양",
-        "가운데 하나가 사라진 붉은 등불",
-        "주황색으로 바뀐 수레 바퀴",
-        "네모 모양으로 바뀐 다리 깃발"
+        "한 줄이 사라진 봉제 용 뿔의 이음매",
+        "거꾸로 뒤집힌 병정 방패의 청록 하트",
+        "아래 금빛 받침이 사라진 가운데 등불",
+        "짙은 청록색으로 바뀐 수레 바퀴",
+        "끝에 작은 홈이 생긴 다리 깃발"
       ],
       "image": "assets/spot-difference-answers/59-toy-kingdom-patchwork-dragon-bridge-04.webp"
     },
@@ -1130,15 +1130,15 @@
       "description": "장난감 왕국의 밤, 별왕관 궁전에서 열리는 축하 대관식에 도착한 파란 망토 병정과 장난감 친구들 사이 다섯 가지 변화를 찾아냅니다.",
       "collectionId": "toy-kingdom",
       "collectionName": "장난감 왕국",
-      "difficulty": "보통",
+      "difficulty": "어려움",
       "stageType": "classic",
       "differenceCount": 5,
       "labels": [
-        "보라색으로 바뀐 궁전 초승달 장식",
-        "왕관 모양으로 바뀐 병정의 방패 문양",
-        "파란색으로 바뀐 사자 나비넥타이",
-        "가운데 하나가 사라진 별 등불",
-        "주황색 원으로 바뀐 깜짝상자 문양"
+        "소용돌이 하나가 사라진 궁전 초승달 장식",
+        "가운데 톱니가 사라진 병정 방패의 성 문양",
+        "한 땀이 사라진 사자 나비넥타이",
+        "왼쪽 아래 꼭짓점이 짧아진 가운데 별 등불",
+        "정사각형으로 바뀐 깜짝상자의 청록 문양"
       ],
       "image": "assets/spot-difference-answers/60-toy-kingdom-star-crown-palace-05.webp"
     },
