@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>틀린그림찾기 스테이지 정답지</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    :root { --answer-red:#ff4655; --answer-gold:#ffd97a; --answer-panel:#111b31; }
+    .content { max-width: 1500px; }
+    .stage-head { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:18px; }
+    .stage-head h1 { margin:8px 0 6px; color:var(--answer-gold); font-size:clamp(2rem,4vw,3.35rem); }
+    .stage-meta { margin:0; color:#a9bdd8; }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; }
+    .action { min-height:46px; display:inline-flex; align-items:center; justify-content:center; padding:0 16px; border:1px solid #526783; border-radius:11px; color:#edf4ff; background:#15213a; font-weight:900; text-decoration:none; }
+    .action:hover { border-color:var(--answer-gold); }
+    .action.feedback { border-color:var(--answer-red); background:#4b1929; color:#fff; }
+    .action.feedback:hover { background:#672138; }
+    .action:focus-visible { outline:3px solid var(--answer-gold); outline-offset:3px; }
+    .sheet { overflow:hidden; padding:12px; border:1px solid #415675; border-radius:18px; background:#0b1122; box-shadow:0 20px 64px #0005; }
+    .sheet img { display:block; width:100%; height:auto; border-radius:10px; }
+    .answer-list { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin:16px 0 0; padding:0; list-style:none; }
+    .answer-list li { min-height:54px; display:flex; align-items:center; gap:9px; padding:9px 12px; border:1px solid #31445f; border-radius:12px; background:var(--answer-panel); color:#edf4ff; font-weight:800; }
+    .answer-list b { flex:0 0 30px; width:30px; height:30px; display:grid; place-items:center; border-radius:50%; background:var(--answer-red); color:#fff; }
+    .stage-nav { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:22px; }
+    .stage-nav a { padding:16px; border:1px solid #415675; border-radius:12px; color:#dce8f8; background:#111b31; text-decoration:none; font-weight:800; }
+    .stage-nav a:last-child { text-align:right; }
+    .stage-nav a:hover { border-color:var(--answer-gold); }
+    .error { padding:50px 24px; border:1px dashed #526783; border-radius:16px; color:#dce8f8; text-align:center; }
+    @media(max-width:800px){.content{padding-inline:12px}.stage-head{align-items:flex-start;flex-direction:column}.actions{display:grid;grid-template-columns:1fr 1fr;width:100%}.action.feedback{grid-column:1/-1}.answer-list{grid-template-columns:1fr}.stage-nav{grid-template-columns:1fr}.stage-nav a:last-child{text-align:left}}
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color:#FFD97A;">미니게임천국</h1>
+    <div class="breadcrumb"><a href="../index.html">Studio</a> / <a href="index.html">미니게임천국</a> / <a href="spot-difference-answer-sheets.html">전체 정답지</a> / 스테이지</div>
+  </header>
+  <nav class="sidebar">
+    <div class="section-title">SPOT THE DIFFERENCE</div>
+    <a class="active" href="spot-difference-answer-sheets.html">전체 스테이지 정답지</a>
+    <a href="spot-difference-ai-playtest.html">Humanlike AI</a>
+    <div class="section-title">Assets</div>
+    <a href="index.html">협동 게임 에셋</a>
+  </nav>
+  <main class="content" id="content">
+    <p class="error" id="loading">스테이지 정답지를 불러오는 중입니다.</p>
+  </main>
+  <script>
+    const content=document.getElementById('content');
+    const stageId=new URLSearchParams(location.search).get('stage');
+    const feedbackIssueUrl='https://github.com/ddavil62/studio-mockup/issues/new';
+    const deployedDetailUrl='https://ddavil62.github.io/studio-mockup/minigame-paradise/spot-difference-answer-sheet.html';
+    function feedbackHref(stage){
+      const number=String(stage.number).padStart(2,'0');
+      const title=`[틀린그림찾기 피드백] ${number} · ${stage.title}`;
+      const body=[
+        '## 스테이지',
+        `- 번호: ${number}`,
+        `- 제목: ${stage.title}`,
+        `- ID: ${stage.id}`,
+        `- 정답지: ${deployedDetailUrl}?stage=${encodeURIComponent(stage.id)}`,
+        '',
+        '## 피드백',
+        '<!-- 아래에 확인이 필요한 위치와 수정 의견을 적어주세요. -->',
+        '',
+      ].join('\n');
+      return `${feedbackIssueUrl}?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+    }
+    function navigation(stages,index){
+      const previous=stages[index-1];
+      const next=stages[index+1];
+      if(!previous&&!next)return '';
+      return `<nav class="stage-nav" aria-label="이전·다음 스테이지">${previous?`<a href="?stage=${encodeURIComponent(previous.id)}">← ${String(previous.number).padStart(2,'0')} · ${previous.title}</a>`:'<span></span>'}${next?`<a href="?stage=${encodeURIComponent(next.id)}">${String(next.number).padStart(2,'0')} · ${next.title} →</a>`:'<span></span>'}</nav>`;
+    }
+    fetch('assets/spot-difference-answers/answer-sheets.json')
+      .then(response=>{if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json();})
+      .then(data=>{
+        const index=data.stages.findIndex(stage=>stage.id===stageId);
+        if(index<0)throw new Error('존재하지 않는 스테이지입니다.');
+        const stage=data.stages[index];
+        const number=String(stage.number).padStart(2,'0');
+        document.title=`${number} · ${stage.title} 정답지`;
+        content.innerHTML=`<section class="stage-head"><div><span class="badge badge-wip">STAGE ${number} · ANSWER SHEET</span><h1>${stage.title}</h1><p class="stage-meta">${stage.collectionName} · ${stage.difficulty} · 정답 ${stage.differenceCount}개</p></div><div class="actions"><a class="action" href="spot-difference-answer-sheets.html#stage-${stage.id}">← 목록으로</a><a class="action" href="${stage.image}" target="_blank" rel="noopener">원본 크기로 보기</a><a class="action feedback" id="feedback-link" href="${feedbackHref(stage)}" target="_blank" rel="noopener">피드백 남기기</a></div></section><figure class="sheet"><img src="${stage.image}" alt="${number}번 ${stage.title} A/B 정답지" width="1600" height="720"></figure><ol class="answer-list">${stage.labels.map((label,labelIndex)=>`<li><b>${labelIndex+1}</b><span>${label}</span></li>`).join('')}</ol>${navigation(data.stages,index)}`;
+      })
+      .catch(error=>{
+        content.innerHTML=`<section class="error"><h1>정답지를 열 수 없습니다</h1><p>${error.message}</p><p><a class="action" href="spot-difference-answer-sheets.html">전체 목록으로 돌아가기</a></p></section>`;
+      });
+  </script>
+</body>
+</html>

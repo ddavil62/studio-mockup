@@ -26,13 +26,12 @@
     .card-copy { display:flex; justify-content:space-between; gap:16px; align-items:center; padding:15px 17px 17px; }
     .card-copy h2 { margin:0 0 5px; color:#fff4d6; font-size:1.08rem; }
     .card-copy p { margin:0; color:#9fb2cf; font-size:.88rem; }
-    .card-actions { display:flex; flex:0 0 auto; align-items:center; gap:8px; }
-    .difficulty { padding:5px 9px; border:1px solid #526783; border-radius:999px; color:#dce8f8; font-size:.76rem; font-weight:800; }
-    .feedback-link { min-height:38px; display:inline-flex; align-items:center; justify-content:center; padding:0 12px; border:1px solid var(--answer-red); border-radius:10px; color:#fff; background:#371825; font-size:.82rem; font-weight:900; text-decoration:none; white-space:nowrap; }
-    .feedback-link:hover { background:#532033; }
-    .feedback-link:focus-visible { outline:3px solid var(--answer-gold); outline-offset:2px; }
+    .difficulty { flex:0 0 auto; padding:5px 9px; border:1px solid #526783; border-radius:999px; color:#dce8f8; font-size:.76rem; font-weight:800; }
+    .details-link { color:var(--answer-gold); font-size:.82rem; font-weight:900; text-decoration:none; white-space:nowrap; }
+    .details-link:hover { text-decoration:underline; }
+    .details-link:focus-visible { outline:3px solid var(--answer-gold); outline-offset:3px; }
     .empty { grid-column:1/-1; padding:50px; border:1px dashed #526783; border-radius:16px; text-align:center; color:#b8c8df; }
-    @media(max-width:720px){.content{padding-inline:12px}.toolbar{grid-template-columns:1fr}.hero{padding:20px}.card-copy{align-items:flex-start;flex-direction:column;padding:12px}.card-actions{width:100%}.feedback-link{flex:1}.answer-grid{grid-template-columns:1fr}}
+    @media(max-width:720px){.content{padding-inline:12px}.toolbar{grid-template-columns:1fr}.hero{padding:20px}.card-copy{padding:12px}.answer-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -51,7 +50,7 @@
     <section class="hero">
       <span class="badge badge-wip">ANSWER SHEET · PUBLISHED STAGES</span>
       <h1>틀린그림찾기 전체 정답지</h1>
-      <p>A/B 원본을 한 장에 나란히 배치하고, 같은 차이를 양쪽에 동일한 번호로 표시했습니다. 이미지를 누르면 원본 크기로 열리고, 각 카드의 피드백 버튼으로 해당 스테이지 의견을 등록할 수 있습니다.</p>
+      <p>A/B 원본을 한 장에 나란히 배치하고, 같은 차이를 양쪽에 동일한 번호로 표시했습니다. 스테이지를 누르면 전용 상세 화면에서 큰 정답지와 피드백 버튼을 확인할 수 있습니다.</p>
       <div class="stats" aria-label="정답지 통계">
         <span class="stat" id="stage-stat">스테이지 불러오는 중</span>
         <span class="stat" id="difference-stat">정답 불러오는 중</span>
@@ -74,31 +73,14 @@
     const collectionFilter=document.getElementById('collection-filter');
     const search=document.getElementById('stage-search');
     const results=document.getElementById('results');
-    const feedbackIssueUrl='https://github.com/ddavil62/studio-mockup/issues/new';
-    const deployedPageUrl='https://ddavil62.github.io/studio-mockup/minigame-paradise/spot-difference-answer-sheets.html';
-    function feedbackHref(stage){
-      const number=String(stage.number).padStart(2,'0');
-      const title=`[틀린그림찾기 피드백] ${number} · ${stage.title}`;
-      const body=[
-        '## 스테이지',
-        `- 번호: ${number}`,
-        `- 제목: ${stage.title}`,
-        `- ID: ${stage.id}`,
-        `- 정답지: ${deployedPageUrl}#stage-${stage.id}`,
-        '',
-        '## 피드백',
-        '<!-- 아래에 확인이 필요한 위치와 수정 의견을 적어주세요. -->',
-        '',
-      ].join('\n');
-      return `${feedbackIssueUrl}?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
-    }
     function card(stage){
       const article=document.createElement('article');
       article.className='answer-card';
       article.id=`stage-${stage.id}`;
       article.dataset.collection=stage.collectionId;
       article.dataset.search=[stage.title,stage.id,stage.collectionName,...stage.labels].join(' ').toLocaleLowerCase('ko');
-      article.innerHTML=`<a class="sheet-link" href="${stage.image}" target="_blank" rel="noopener"><img src="${stage.image}" alt="${stage.number}번 ${stage.title} A/B 정답지" loading="lazy" width="1600" height="720"></a><div class="card-copy"><div><h2>${String(stage.number).padStart(2,'0')} · ${stage.title}</h2><p>${stage.collectionName} · 정답 ${stage.differenceCount}개</p></div><div class="card-actions"><span class="difficulty">${stage.difficulty}</span><a class="feedback-link" href="${feedbackHref(stage)}" target="_blank" rel="noopener">피드백 남기기</a></div></div>`;
+      const detailUrl=`spot-difference-answer-sheet.html?stage=${encodeURIComponent(stage.id)}`;
+      article.innerHTML=`<a class="sheet-link" href="${detailUrl}"><img src="${stage.image}" alt="${stage.number}번 ${stage.title} A/B 정답지" loading="lazy" width="1600" height="720"></a><div class="card-copy"><div><h2>${String(stage.number).padStart(2,'0')} · ${stage.title}</h2><p>${stage.collectionName} · 정답 ${stage.differenceCount}개</p></div><div><span class="difficulty">${stage.difficulty}</span> <a class="details-link" href="${detailUrl}">정답지 보기 →</a></div></div>`;
       return article;
     }
     function applyFilter(){
