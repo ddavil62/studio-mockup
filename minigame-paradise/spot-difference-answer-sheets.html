@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>틀린그림찾기 전체 스테이지 정답지</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    :root { --answer-red:#ff4655; --answer-gold:#ffd97a; --answer-panel:#111b31; }
+    .content { max-width: 1540px; }
+    .hero { padding: 26px; border: 1px solid #415675; border-radius: 18px; background: linear-gradient(135deg,#111b31,#1e1732); }
+    .hero h1 { margin: 10px 0 8px; color: var(--answer-gold); font-size: clamp(2rem,4vw,3.4rem); }
+    .hero p { max-width: 820px; margin: 0; color: var(--text-secondary); line-height: 1.75; }
+    .stats { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .stat { padding:8px 12px; border:1px solid #415675; border-radius:999px; color:#edf4ff; background:#0b1122; font:700 .88rem var(--font-mono); }
+    .toolbar { position:sticky; top:0; z-index:5; display:grid; grid-template-columns:minmax(210px,1fr) minmax(210px,320px); gap:12px; margin:22px 0; padding:14px; border:1px solid #415675; border-radius:14px; background:#0b1122ee; backdrop-filter:blur(14px); }
+    .toolbar label { display:grid; gap:6px; color:#b8c8df; font-size:.78rem; font-weight:800; letter-spacing:.04em; }
+    .toolbar select,.toolbar input { min-height:44px; padding:0 12px; border:1px solid #526783; border-radius:10px; background:#15213a; color:#fff4d6; font:inherit; }
+    .results { margin:0 0 12px; color:#b8c8df; }
+    .answer-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,620px),1fr)); gap:18px; }
+    .answer-card { overflow:hidden; border:1px solid #31445f; border-radius:16px; background:var(--answer-panel); box-shadow:0 16px 48px #0003; }
+    .answer-card[hidden] { display:none; }
+    .sheet-link { display:block; background:#0b1122; }
+    .sheet-link:focus-visible { outline:4px solid var(--answer-gold); outline-offset:-4px; }
+    .sheet-link img { display:block; width:100%; aspect-ratio:20/9; object-fit:cover; }
+    .card-copy { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; padding:15px 17px 17px; }
+    .card-copy h2 { margin:0 0 5px; color:#fff4d6; font-size:1.08rem; }
+    .card-copy p { margin:0; color:#9fb2cf; font-size:.88rem; }
+    .difficulty { flex:0 0 auto; padding:5px 9px; border:1px solid #526783; border-radius:999px; color:#dce8f8; font-size:.76rem; font-weight:800; }
+    .empty { grid-column:1/-1; padding:50px; border:1px dashed #526783; border-radius:16px; text-align:center; color:#b8c8df; }
+    @media(max-width:720px){.content{padding-inline:12px}.toolbar{grid-template-columns:1fr}.hero{padding:20px}.card-copy{padding:12px}.answer-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 style="color:#FFD97A;">미니게임천국</h1>
+    <div class="breadcrumb"><a href="../index.html">Studio</a> / <a href="index.html">미니게임천국</a> / 틀린그림찾기 정답지</div>
+  </header>
+  <nav class="sidebar">
+    <div class="section-title">SPOT THE DIFFERENCE</div>
+    <a class="active" href="spot-difference-answer-sheets.html">전체 스테이지 정답지</a>
+    <a href="spot-difference-ai-playtest.html">Humanlike AI</a>
+    <div class="section-title">Assets</div>
+    <a href="index.html">협동 게임 에셋</a>
+  </nav>
+  <main class="content">
+    <section class="hero">
+      <span class="badge badge-wip">ANSWER SHEET · PUBLISHED STAGES</span>
+      <h1>틀린그림찾기 전체 정답지</h1>
+      <p>A/B 원본을 한 장에 나란히 배치하고, 같은 차이를 양쪽에 동일한 번호로 표시했습니다. 이미지를 누르면 원본 크기의 정답 시트를 바로 열 수 있습니다.</p>
+      <div class="stats" aria-label="정답지 통계">
+        <span class="stat" id="stage-stat">스테이지 불러오는 중</span>
+        <span class="stat" id="difference-stat">정답 불러오는 중</span>
+        <span class="stat">A/B 동시 표시</span>
+      </div>
+    </section>
+    <section class="toolbar" aria-label="정답지 필터">
+      <label>컬렉션
+        <select id="collection-filter"><option value="all">전체 컬렉션</option></select>
+      </label>
+      <label>스테이지 검색
+        <input id="stage-search" type="search" placeholder="제목 또는 정답 항목" autocomplete="off">
+      </label>
+    </section>
+    <p class="results" id="results" role="status" aria-live="polite"></p>
+    <section class="answer-grid" id="answer-grid" aria-label="스테이지 정답지 목록"></section>
+  </main>
+  <script>
+    const grid=document.getElementById('answer-grid');
+    const collectionFilter=document.getElementById('collection-filter');
+    const search=document.getElementById('stage-search');
+    const results=document.getElementById('results');
+    function card(stage){
+      const article=document.createElement('article');
+      article.className='answer-card';
+      article.dataset.collection=stage.collectionId;
+      article.dataset.search=[stage.title,stage.id,stage.collectionName,...stage.labels].join(' ').toLocaleLowerCase('ko');
+      article.innerHTML=`<a class="sheet-link" href="${stage.image}" target="_blank" rel="noopener"><img src="${stage.image}" alt="${stage.number}번 ${stage.title} A/B 정답지" loading="lazy" width="1600" height="720"></a><div class="card-copy"><div><h2>${String(stage.number).padStart(2,'0')} · ${stage.title}</h2><p>${stage.collectionName} · 정답 ${stage.differenceCount}개</p></div><span class="difficulty">${stage.difficulty}</span></div>`;
+      return article;
+    }
+    function applyFilter(){
+      const collection=collectionFilter.value;
+      const query=search.value.trim().toLocaleLowerCase('ko');
+      let visible=0;
+      document.querySelectorAll('.answer-card').forEach(article=>{
+        const show=(collection==='all'||article.dataset.collection===collection)&&(!query||article.dataset.search.includes(query));
+        article.hidden=!show;
+        if(show)visible+=1;
+      });
+      results.textContent=`${visible}개 스테이지 표시 중`;
+    }
+    fetch('assets/spot-difference-answers/answer-sheets.json')
+      .then(response=>{if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json();})
+      .then(data=>{
+        const stages=data.stages;
+        const collections=[...new Map(stages.map(stage=>[stage.collectionId,stage.collectionName]))];
+        collections.forEach(([id,name])=>collectionFilter.add(new Option(`${name} (${stages.filter(stage=>stage.collectionId===id).length})`,id)));
+        grid.replaceChildren(...stages.map(card));
+        document.getElementById('stage-stat').textContent=`${data.stageCount}개 스테이지`;
+        document.getElementById('difference-stat').textContent=`${data.differenceCount}개 정답 표시`;
+        applyFilter();
+      })
+      .catch(error=>{
+        grid.innerHTML=`<p class="empty">정답지를 불러오지 못했습니다. ${error.message}</p>`;
+        results.textContent='불러오기 실패';
+      });
+    collectionFilter.addEventListener('change',applyFilter);
+    search.addEventListener('input',applyFilter);
+  </script>
+</body>
+</html>
