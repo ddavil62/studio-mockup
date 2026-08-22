@@ -5,8 +5,13 @@ test('전체 틀린그림찾기 정답지와 필터를 표시한다', async ({ p
   await expect(page.locator('.answer-card')).toHaveCount(65);
   await expect(page.locator('#stage-stat')).toHaveText('65개 스테이지');
   await expect(page.locator('#difference-stat')).toHaveText('325개 정답 표시');
+  await expect(page.locator('.feedback-link')).toHaveCount(65);
   const firstCard = page.locator('.answer-card').first();
   await expect(firstCard.locator('img')).toHaveAttribute('src', /01-night-market-01\.webp$/);
+  const feedbackUrl = await firstCard.locator('.feedback-link').getAttribute('href');
+  expect(feedbackUrl).toContain('https://github.com/ddavil62/studio-mockup/issues/new?');
+  expect(decodeURIComponent(feedbackUrl)).toContain('[틀린그림찾기 피드백] 01 · 달빛 야시장');
+  expect(decodeURIComponent(feedbackUrl)).toContain('ID: night-market-01');
   await firstCard.scrollIntoViewIfNeeded();
   await expect(firstCard.locator('img')).toBeVisible();
   await page.waitForLoadState('networkidle');
