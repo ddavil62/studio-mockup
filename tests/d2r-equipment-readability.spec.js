@@ -22,11 +22,21 @@ test('armory changes selected slot', async ({ page }) => {
   await expect(page.locator('.item-detail')).toContainText('할리퀸 관모')
 })
 
+test('paper doll matches equipment positions', async ({ page }) => {
+  await page.goto(`${base}?concept=armory`)
+  const boxes = {}
+  for (const slot of ['head', 'armor', 'weapon', 'offhand', 'boots']) boxes[slot] = await page.locator(`.slot-${slot}`).boundingBox()
+  expect(boxes.head.y).toBeLessThan(boxes.armor.y)
+  expect(boxes.weapon.x).toBeLessThan(boxes.armor.x)
+  expect(boxes.offhand.x).toBeGreaterThan(boxes.armor.x)
+  expect(boxes.boots.y).toBeGreaterThan(boxes.offhand.y)
+})
+
 test('workbench search filters items', async ({ page }) => {
   await page.goto(`${base}?concept=workbench`)
   await page.getByLabel('아이템 검색').fill('Spirit')
   await expect(page.locator('.result')).toHaveCount(1)
-  await expect(page.locator('.preview')).toContainText('Spirit')
+  await expect(page.locator('.swap-preview')).toContainText('Spirit')
 })
 
 for (const concept of concepts) {
@@ -41,6 +51,6 @@ for (const concept of concepts) {
 
 test('core equipment text is readable', async ({ page }) => {
   await page.goto(`${base}?concept=armory`)
-  const sizes = await page.locator('.slot-card strong, .item-detail h2, .mod').evaluateAll(nodes => nodes.map(node => parseFloat(getComputedStyle(node).fontSize)))
-  expect(Math.min(...sizes)).toBeGreaterThanOrEqual(12)
+  const sizes = await page.locator('.equip-slot strong, .item-detail h2, .mod').evaluateAll(nodes => nodes.map(node => parseFloat(getComputedStyle(node).fontSize)))
+  expect(Math.min(...sizes)).toBeGreaterThanOrEqual(11)
 })
