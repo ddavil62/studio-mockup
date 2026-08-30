@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>D2R Planner — 스킬 가독성 시안</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="concept-switcher">
+    <a class="studio-back" href="../../index.html"><span>◆</span> Studio Mockup</a>
+    <div class="concept-copy">
+      <strong>D2R 스킬 페이지 리디자인</strong>
+      <span>가독성 우선 시안 3종 · 카드와 + 버튼을 눌러보세요</span>
+    </div>
+    <nav aria-label="디자인 시안 선택">
+      <button data-concept="focus"><b>A</b> 집중 트리</button>
+      <button data-concept="ledger"><b>B</b> 레벨 원장</button>
+      <button data-concept="codex"><b>C</b> 스킬 도감</button>
+    </nav>
+  </header>
+
+  <div class="planner-shell">
+    <header class="planner-topbar">
+      <div class="planner-brand"><span class="brand-rune">S</span><div><strong>성역의 설계서</strong><small>D2R BUILD PLANNER</small></div></div>
+      <div class="version-badges"><span>악마술사의 군림</span><span>3.3</span><span>비래더</span></div>
+      <div class="top-actions"><button>빌드 공유</button><button class="primary">현재 저장</button></div>
+    </header>
+
+    <aside class="planner-sidebar">
+      <nav>
+        <button><i>◆</i> 빌드 요약</button>
+        <button class="active"><i>✦</i> 기술 <em>0/101</em></button>
+        <button><i>▲</i> 능력치</button>
+        <button><i>◇</i> 장비</button>
+        <button><i>▦</i> 인벤토리</button>
+        <button><i>▤</i> 보관함 · 비교</button>
+      </nav>
+      <div class="data-note"><span></span><strong>계산 기준</strong><p>3.3.92947 · 한국어 클라이언트</p></div>
+    </aside>
+
+    <main class="planner-main">
+      <section class="build-bar">
+        <button class="class-card selected"><span>☠</span><div><strong>네크로맨서</strong><small>Necromancer</small></div></button>
+        <button class="class-card"><span>✧</span><div><strong>원소술사</strong><small>Sorceress</small></div></button>
+        <label><span>빌드 이름</span><input value="새 네크로맨서 빌드" readonly></label>
+        <label><span>레벨</span><input value="90" readonly></label>
+      </section>
+
+      <section class="page-heading">
+        <div><small>SKILL PLANNER</small><h1>네크로맨서 기술</h1><p id="concept-summary"></p></div>
+        <div class="budget"><span>사용</span><strong id="spent-total">0</strong><i>/</i><span>보유</span><strong>101</strong><button id="reset-ranks">초기화</button></div>
+      </section>
+
+      <section id="concept-note" class="concept-note"></section>
+      <section id="mockup-root" aria-live="polite"></section>
+    </main>
+
+    <nav class="mobile-nav" aria-label="모바일 메뉴">
+      <button>◆<span>요약</span></button><button class="active">✦<span>기술</span></button><button>▲<span>능력치</span></button><button>◇<span>장비</span></button><button>▦<span>인벤토리</span></button>
+    </nav>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
