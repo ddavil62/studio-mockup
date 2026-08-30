@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark">
+  <title>D2R Planner — 장비 가독성 시안</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="concept-switcher">
+    <a href="../../index.html">◆ Studio Mockup</a>
+    <div><strong>D2R 장비 페이지 리디자인</strong><span>가독성 우선 시안 3종 · 슬롯과 아이템을 눌러보세요</span></div>
+    <nav aria-label="디자인 시안 선택"><button data-concept="armory"><b>A</b> 무기고</button><button data-concept="ledger"><b>B</b> 장비 원장</button><button data-concept="workbench"><b>C</b> 워크벤치</button></nav>
+  </header>
+  <div class="shell">
+    <header class="topbar"><div class="brand"><i>S</i><div><strong>성역의 설계서</strong><small>D2R BUILD PLANNER</small></div></div><div class="badges"><span>악마술사의 군림</span><span>3.3</span><span>비래더</span></div><div class="actions"><button>빌드 공유</button><button>현재 저장</button></div></header>
+    <aside class="sidebar"><nav><button>◆ 빌드 요약</button><button>✦ 기술</button><button>▲ 능력치</button><button class="active">◇ 장비</button><button>▦ 인벤토리</button><button>▤ 보관함 · 비교</button></nav><div class="status">● 계산 기준<br><small>3.3.92947 · 한국어</small></div></aside>
+    <main>
+      <section class="profile"><button class="selected">☠ <span><b>네크로맨서</b><small>Necromancer</small></span></button><button>✧ <span><b>원소술사</b><small>Sorceress</small></span></button><label><span>빌드 이름</span><input value="새 네크로맨서 빌드" readonly></label><label><span>레벨</span><input value="90" readonly></label></section>
+      <section class="heading"><div><small>EQUIPMENT LAB</small><h1>장비 구성</h1><p id="concept-summary"></p></div><div class="weapon"><span>활성 무기</span><button class="active">I</button><button>II</button></div></section>
+      <section class="concept-note" id="concept-note"></section><section id="root"></section>
+    </main>
+    <nav class="mobile-nav"><button>◆<span>요약</span></button><button>✦<span>기술</span></button><button>▲<span>능력치</span></button><button class="active">◇<span>장비</span></button><button>▦<span>인벤토리</span></button></nav>
+  </div><script src="app.js"></script>
+</body></html>
