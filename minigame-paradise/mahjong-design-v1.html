@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마작 - 디자인 시안 V1 | 미니게임천국</title>
+  <style>
+    :root {
+      --page: #0b0b12; --bar: rgba(10,10,18,.92); --line: #2c2b42; --text: #f2efe8; --muted: #a29fb4; --gold: #f2c45a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { min-height: 100vh; background: radial-gradient(circle at 50% -20%, #22213a 0, var(--page) 48%); color: var(--text); font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif; }
+    button { font: inherit; cursor: pointer; }
+    a { color: inherit; }
+
+    /* ── 시안 컨트롤 바 ── */
+    .proto-bar { position: sticky; top: 0; z-index: 50; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 10px 20px; border-bottom: 1px solid var(--line); background: var(--bar); backdrop-filter: blur(16px); }
+    .proto-title { display: flex; align-items: center; gap: 10px; margin-right: auto; font-weight: 900; }
+    .proto-title b { color: var(--gold); }
+    .proto-title a { color: var(--muted); font-size: .75rem; font-weight: 700; text-decoration: none; }
+    .proto-badge { padding: 3px 8px; border: 1px solid #5a5274; border-radius: 99px; color: #cfc6ef; font-size: .66rem; letter-spacing: .08em; }
+    .ctrl { display: flex; align-items: center; gap: 6px; }
+    .ctrl > span { color: var(--muted); font-size: .7rem; font-weight: 800; letter-spacing: .06em; }
+    .seg { display: flex; padding: 3px; border: 1px solid var(--line); border-radius: 10px; background: #14131f; }
+    .seg button { padding: 6px 11px; border: 0; border-radius: 7px; background: transparent; color: #bdb9cf; font-size: .78rem; font-weight: 800; }
+    .seg button.on { background: #f2c45a; color: #1d1608; }
+    .seg button:not(.on):hover { background: #222033; }
+
+    .concept-note { width: min(1240px, 100%); margin: 18px auto 0; padding: 0 20px; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: baseline; }
+    .concept-note h1 { font-size: 1.35rem; letter-spacing: -.03em; }
+    .concept-note p { color: var(--muted); font-size: .88rem; line-height: 1.6; }
+    .concept-note ul { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+    .concept-note li { padding: 4px 10px; border: 1px solid var(--line); border-radius: 99px; color: #d7d3e6; font-size: .74rem; }
+
+    .fit { width: min(1240px, 100%); margin: 14px auto 0; padding: 0 20px; }
+    .fit-inner { position: relative; }
+    .stage { position: absolute; top: 0; left: 0; width: 1200px; height: 760px; overflow: hidden; transform-origin: 0 0; border-radius: 22px; font-family: var(--font); color: var(--ui-text); background: var(--table-bg); box-shadow: var(--stage-shadow); }
+
+    /* ── 테마 변수 ── */
+    .stage[data-theme="classic"] {
+      --font: "Noto Serif KR", "Batang", "Pretendard", serif;
+      --table-bg: radial-gradient(ellipse 60% 55% at 50% 45%, #22865a 0%, #17683f 55%, #0d4429 100%);
+      --stage-shadow: 0 0 0 16px #4a2a13, 0 0 0 19px #2b170a, 0 30px 80px rgba(0,0,0,.6), inset 0 0 120px rgba(0,0,0,.45);
+      --ui-text: #f6eedb; --ui-muted: #cfe2d3; --accent: #e9c46a; --accent-2: #c0392b;
+      --face: linear-gradient(180deg, #fffdf6, #f3ead4); --face-solid: #fbf6e8; --tile-border: #d9cdae; --tile-side: #1f7a4a; --tile-depth: 4px;
+      --back: linear-gradient(160deg, #3fae72, #23784a); --back-mark: rgba(255,255,255,.18);
+      --plate-bg: rgba(8,28,18,.72); --plate-border: rgba(233,196,106,.45);
+      --center-bg: linear-gradient(145deg, #1a1a1a, #070707); --center-border: #3a3a3a; --center-text: #ff6a3d; --center-sub: #c9b98f;
+      --btn-bg: linear-gradient(180deg, #b03026, #7d1a14); --btn-text: #fff1d6; --btn-border: #e9c46a;
+      --btn2-bg: rgba(0,0,0,.45); --btn2-text: #eadfc3;
+      --ink-r: #c62f24; --ink-g: #17703f; --ink-b: #1d4f97; --ink-k: #1b1b1b;
+      --highlight: #ffe27a; --turn: #ffcf4a;
+    }
+    .stage[data-theme="neon"] {
+      --font: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      --table-bg: radial-gradient(circle at 50% 44%, rgba(124,92,255,.32) 0, transparent 34%), repeating-linear-gradient(0deg, rgba(124,92,255,.06) 0 1px, transparent 1px 40px), repeating-linear-gradient(90deg, rgba(124,92,255,.06) 0 1px, transparent 1px 40px), radial-gradient(circle at 50% 45%, #1d1546 0, #0d0a24 55%, #050414 100%);
+      --stage-shadow: 0 0 0 1px #4b3fb0, 0 0 50px rgba(124,92,255,.25), 0 30px 80px rgba(0,0,0,.6);
+      --ui-text: #f3f0ff; --ui-muted: #a9a3d6; --accent: #22d3ee; --accent-2: #f472b6;
+      --face: linear-gradient(180deg, #ffffff, #ebe8ff); --face-solid: #f7f6ff; --tile-border: #c9c2ff; --tile-side: #6d4cff; --tile-depth: 4px;
+      --back: linear-gradient(135deg, #7c5cff 0%, #3b2bb8 55%, #22d3ee 140%); --back-mark: rgba(255,255,255,.22);
+      --plate-bg: rgba(19,14,48,.82); --plate-border: rgba(124,92,255,.55);
+      --center-bg: radial-gradient(circle at 50% 40%, rgba(124,92,255,.35), rgba(13,10,36,.92) 70%); --center-border: #6d5cff; --center-text: #67e8f9; --center-sub: #c4b5fd;
+      --btn-bg: linear-gradient(135deg, #f472b6, #7c5cff); --btn-text: #fff; --btn-border: transparent;
+      --btn2-bg: rgba(255,255,255,.07); --btn2-text: #ddd6fe;
+      --ink-r: #e11d48; --ink-g: #059669; --ink-b: #2563eb; --ink-k: #18122f;
+      --highlight: #67e8f9; --turn: #22d3ee;
+    }
+    .stage[data-theme="paper"] {
+      --font: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      --table-bg: radial-gradient(circle at 50% 44%, #efe7d6 0, #f6f1e7 45%, #fbf8f2 100%);
+      --stage-shadow: 0 0 0 1px #ddd3c0, 0 24px 60px rgba(0,0,0,.35);
+      --ui-text: #2a2722; --ui-muted: #7b7365; --accent: #2f7d6d; --accent-2: #e2574c;
+      --face: #ffffff; --face-solid: #ffffff; --tile-border: #d6cdbb; --tile-side: #d9cfbb; --tile-depth: 2px;
+      --back: repeating-linear-gradient(45deg, #86b2cc 0 6px, #7aa6c2 6px 12px); --back-mark: rgba(255,255,255,.35);
+      --plate-bg: #ffffff; --plate-border: #e3dccd;
+      --center-bg: #ffffff; --center-border: #e0d8c7; --center-text: #2a2722; --center-sub: #7b7365;
+      --btn-bg: #e2574c; --btn-text: #fff; --btn-border: transparent;
+      --btn2-bg: #ffffff; --btn2-text: #4b463d;
+      --ink-r: #d33a2c; --ink-g: #1f7a4d; --ink-b: #2557a7; --ink-k: #222;
+      --highlight: #f2a93b; --turn: #2f7d6d;
+    }
+
+    /* ── 패 ── */
+    .tile { position: relative; flex: 0 0 auto; border: 1px solid var(--tile-border); border-radius: 5px; background: var(--face); box-shadow: 0 var(--tile-depth) 0 var(--tile-side), 0 calc(var(--tile-depth) + 2px) 6px rgba(0,0,0,.35); }
+    .tile svg { display: block; width: 100%; height: 100%; }
+    .tile.back { border-color: rgba(0,0,0,.25); background: var(--back); box-shadow: 0 2px 0 rgba(0,0,0,.35), 0 3px 6px rgba(0,0,0,.3); }
+    .tile.back::after { position: absolute; inset: 22% 26%; border: 1.5px solid var(--back-mark); border-radius: 3px; content: ""; }
+    .tile.side.back::after { inset: 26% 22%; }
+    .t-hand { width: 50px; height: 68px; border-radius: 7px; }
+    .t-pond { width: 28px; height: 38px; border-radius: 4px; --tile-depth: 2px; }
+    .t-meld { width: 30px; height: 40px; border-radius: 4px; --tile-depth: 2px; }
+    .t-mini { width: 18px; height: 24px; border-radius: 3px; --tile-depth: 2px; }
+    .t-res { width: 44px; height: 60px; border-radius: 6px; }
+    .t-top { width: 26px; height: 36px; border-radius: 4px; }
+    .t-side { width: 38px; height: 25px; border-radius: 4px; }
+    .rot { position: relative; flex: 0 0 auto; width: 38px; height: 28px; }
+    .rot > .tile { position: absolute; top: -5px; left: 5px; transform: rotate(-90deg); }
+    .rot.meld { width: 40px; height: 30px; }
+    .rot.meld > .tile { top: -5px; left: 5px; }
+
+    .f-r { fill: var(--ink-r); } .f-g { fill: var(--ink-g); } .f-b { fill: var(--ink-b); } .f-k { fill: var(--ink-k); } .f-face { fill: var(--face-solid); }
+    .s-r { stroke: var(--ink-r); } .s-g { stroke: var(--ink-g); } .s-b { stroke: var(--ink-b); }
+    .kanji { font-family: "Noto Serif CJK KR", "Noto Serif KR", "Batang", "SimSun", "MS Mincho", serif; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+
+    /* ── 손패 ── */
+    .my-hand { position: absolute; left: 222px; top: 642px; display: flex; align-items: flex-end; gap: 3px; }
+    .my-hand .tile { transition: transform .15s ease, filter .15s ease, opacity .15s; }
+    .my-hand .tile:hover { transform: translateY(-8px); }
+    .my-hand .drawn { margin-left: 14px; }
+    .my-hand .tile.lift { transform: translateY(-14px); box-shadow: 0 var(--tile-depth) 0 var(--tile-side), 0 0 0 3px var(--highlight), 0 0 22px var(--highlight); }
+    .my-hand .tile.dim { filter: saturate(.4) brightness(.62); }
+    .my-hand .tile.pair { box-shadow: 0 var(--tile-depth) 0 var(--tile-side), 0 0 0 3px var(--highlight); }
+    .tile .cap { position: absolute; left: 50%; bottom: -24px; transform: translateX(-50%); color: var(--ui-muted); font-size: 11px; font-weight: 800; white-space: nowrap; }
+    .tile .tag { position: absolute; top: -10px; left: 50%; z-index: 2; transform: translateX(-50%); padding: 1px 5px; border-radius: 99px; font-size: 9.5px; font-weight: 900; white-space: nowrap; }
+    .tag.safe { background: #2f7d6d; color: #fff; }
+    .tag.warn { background: #e2574c; color: #fff; }
+
+    .top-hand { position: absolute; top: 18px; left: 50%; display: flex; gap: 2px; transform: translateX(-50%); }
+    .side-hand { position: absolute; top: 186px; display: flex; flex-direction: column; gap: 2px; }
+    .side-hand.left { left: 30px; }
+    .side-hand.right { right: 30px; align-items: flex-end; }
+    .side-hand .meld-col { display: flex; flex-direction: column; gap: 1px; margin-top: 10px; }
+
+    /* ── 중앙 보드 ── */
+    .board { position: absolute; left: 400px; top: 138px; width: 400px; height: 400px; }
+    .layer { position: absolute; inset: 0; }
+    .layer.s1 { transform: rotate(-90deg); } .layer.s2 { transform: rotate(180deg); } .layer.s3 { transform: rotate(90deg); }
+    .pond { position: absolute; left: 111px; top: 292px; width: 178px; display: flex; flex-wrap: wrap; align-content: flex-start; align-items: flex-end; gap: 1px 0; }
+    .pond .tile.called { z-index: 2; transform: translateY(-4px); box-shadow: 0 2px 0 var(--tile-side), 0 0 0 3px var(--highlight), 0 0 18px var(--highlight); }
+    .pond .last { box-shadow: 0 2px 0 var(--tile-side), 0 0 0 2px rgba(255,255,255,.5); }
+    .center-box { position: absolute; left: 116px; top: 116px; width: 168px; height: 168px; border: 2px solid var(--center-border); border-radius: 16px; background: var(--center-bg); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+    .seat-score { position: absolute; left: 116px; top: 256px; width: 168px; display: flex; justify-content: center; align-items: center; gap: 6px; color: var(--center-sub); font-size: 12px; font-weight: 800; }
+    .seat-score .w { color: var(--center-text); font-weight: 900; }
+    .seat-score .pt { font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+    .turn-edge { position: absolute; left: 140px; top: 278px; width: 120px; height: 4px; border-radius: 99px; background: var(--turn); box-shadow: 0 0 12px var(--turn); }
+    .stick { position: absolute; left: 160px; top: 288px; width: 80px; height: 6px; border-radius: 99px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.4); display: none; }
+    .stick::after { position: absolute; top: 1px; left: 37px; width: 4px; height: 4px; border-radius: 50%; background: #d33a2c; content: ""; }
+    .riichi .stick { display: block; }
+    .riichi .pond { top: 298px; }
+    .center-info { position: absolute; left: 146px; top: 146px; width: 108px; height: 108px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; text-align: center; }
+    .round { color: var(--center-text); font-size: 20px; font-weight: 900; letter-spacing: .02em; }
+    .round-sub { color: var(--center-sub); font-size: 10.5px; font-weight: 800; }
+    .dora-row { display: flex; gap: 2px; }
+    .wall-left { color: var(--center-text); font-size: 11px; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+    .stage[data-theme="classic"] .round, .stage[data-theme="classic"] .wall-left, .stage[data-theme="classic"] .seat-score .pt { font-family: "Consolas", "DS-Digital", monospace; text-shadow: 0 0 8px rgba(255,106,61,.65); }
+    .stage[data-theme="classic"] .seat-score .pt { color: #ff6a3d; }
+    .stage[data-theme="neon"] .center-box { border-radius: 50%; box-shadow: 0 0 0 6px rgba(124,92,255,.12), 0 0 40px rgba(124,92,255,.45); }
+    .stage[data-theme="neon"] .round { text-shadow: 0 0 12px rgba(103,232,249,.8); }
+    .stage[data-theme="paper"] .center-box { border-radius: 14px; box-shadow: 0 8px 24px rgba(80,60,20,.12); }
+    .stage[data-theme="paper"] .tile { box-shadow: 0 var(--tile-depth) 0 var(--tile-side), 0 3px 8px rgba(80,60,20,.12); }
+    .stage[data-theme="paper"] .tile.back { box-shadow: 0 2px 0 #5f8aa5; }
+
+    /* ── 명패 ── */
+    .plate { position: absolute; display: flex; align-items: center; gap: 10px; min-width: 196px; padding: 8px 12px 8px 8px; border: 1px solid var(--plate-border); border-radius: 14px; background: var(--plate-bg); box-shadow: 0 8px 20px rgba(0,0,0,.25); }
+    .plate.p-top { top: 14px; left: 196px; }
+    .plate.p-left { top: 112px; left: 22px; }
+    .plate.p-right { top: 112px; right: 22px; flex-direction: row-reverse; text-align: right; padding: 8px 8px 8px 12px; }
+    .plate.p-me { top: 644px; left: 18px; }
+    .plate.turn { border-color: var(--turn); box-shadow: 0 0 0 2px var(--turn), 0 0 24px color-mix(in srgb, var(--turn) 45%, transparent); }
+    .avatar { position: relative; display: grid; width: 42px; height: 42px; flex: 0 0 auto; place-items: center; border-radius: 12px; font-size: 19px; font-weight: 900; color: #fff; }
+    .av-me { background: linear-gradient(145deg, #f2b84b, #c9781e); }
+    .av-friend { background: linear-gradient(145deg, #60a5fa, #2563eb); }
+    .av-ai1 { background: linear-gradient(145deg, #f87171, #b91c1c); }
+    .av-ai2 { background: linear-gradient(145deg, #e5e7eb, #9ca3af); color: #1f2937; }
+    .av-ai3 { background: linear-gradient(145deg, #4b5563, #111827); }
+    .avatar .wind { position: absolute; right: -6px; bottom: -6px; display: grid; width: 20px; height: 20px; place-items: center; border: 2px solid var(--plate-bg); border-radius: 50%; background: var(--accent); color: #1a1405; font-family: "Noto Serif KR", "Batang", serif; font-size: 11px; font-weight: 900; }
+    .plate .name { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 900; }
+    .p-right .name { flex-direction: row-reverse; }
+    .plate .sub { margin-top: 2px; color: var(--ui-muted); font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .badge { padding: 1px 6px; border-radius: 99px; font-size: 9.5px; font-weight: 900; letter-spacing: .04em; }
+    .badge.ai { background: rgba(148,163,184,.25); color: var(--ui-muted); border: 1px solid rgba(148,163,184,.4); }
+    .badge.human { background: #2563eb; color: #fff; }
+    .badge.me { background: var(--accent); color: #1a1405; }
+    .badge.riichi { background: #e2574c; color: #fff; }
+    .dot-online { display: inline-block; width: 7px; height: 7px; margin-right: 3px; border-radius: 50%; background: #34d399; box-shadow: 0 0 6px #34d399; }
+    .timer { position: relative; display: grid; width: 34px; height: 34px; margin-left: auto; place-items: center; border-radius: 50%; background: conic-gradient(var(--turn) 68%, rgba(255,255,255,.12) 0); font-size: 11px; font-weight: 900; }
+    .timer::before { position: absolute; inset: 4px; border-radius: 50%; background: var(--plate-bg); content: ""; }
+    .stage[data-theme="paper"] .timer::before { background: #fff; }
+    .timer span { position: relative; }
+    .thinking { color: var(--ui-muted); font-size: 11px; font-style: italic; }
+
+    /* 네온 시안은 명패를 크게 카드화 */
+    .stage[data-theme="neon"] .plate { min-width: 214px; border-radius: 18px; backdrop-filter: blur(6px); }
+    .stage[data-theme="neon"] .avatar { width: 48px; height: 48px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(255,255,255,.18), 0 0 18px rgba(124,92,255,.5); }
+    .stage[data-theme="classic"] .plate { border-radius: 6px; }
+    .stage[data-theme="classic"] .avatar { border-radius: 6px; }
+    .stage[data-theme="paper"] .badge.ai { background: #f1ede4; color: #7b7365; border-color: #e3dccd; }
+
+    /* ── 액션 ── */
+    .actions { position: absolute; right: 24px; top: 572px; display: flex; gap: 8px; }
+    .act { min-width: 84px; padding: 10px 16px; border: 2px solid var(--btn-border); border-radius: 12px; background: var(--btn-bg); color: var(--btn-text); font-size: 16px; font-weight: 900; letter-spacing: .02em; box-shadow: 0 6px 16px rgba(0,0,0,.3); }
+    .act small { display: block; margin-top: 1px; font-size: 10px; font-weight: 700; opacity: .85; }
+    .act.ghost { border: 1px solid var(--plate-border); background: var(--btn2-bg); color: var(--btn2-text); box-shadow: none; }
+    .act.pulse { animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent-2) 30%, transparent), 0 6px 16px rgba(0,0,0,.3); } }
+    .stage[data-theme="neon"] .plate.p-me { min-width: 0; width: 196px; }
+    .stage[data-theme="neon"] .act { border-radius: 16px; box-shadow: 0 0 22px rgba(244,114,182,.45); }
+    .stage[data-theme="classic"] .act { border-radius: 6px; font-family: "Noto Serif KR", "Batang", serif; }
+    .call-timer { position: absolute; right: 24px; top: 628px; width: 260px; height: 5px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.15); }
+    .call-timer i { display: block; width: 62%; height: 100%; background: var(--accent-2); }
+
+    .strip { position: absolute; left: 222px; top: 578px; display: flex; align-items: center; gap: 10px; max-width: 640px; padding: 9px 14px; border: 1px solid var(--plate-border); border-radius: 12px; background: var(--plate-bg); font-size: 13px; font-weight: 700; box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+    .strip b { color: var(--accent-2); }
+    .strip .k { padding: 2px 7px; border-radius: 6px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 900; }
+    .stage[data-theme="classic"] .strip .k { color: #1a1405; }
+    .strip .mini-tiles { display: flex; gap: 2px; }
+
+    /* 입문탁 도우미 패널 */
+    .legend { position: absolute; right: 92px; top: 440px; width: 196px; padding: 10px 12px; border: 1px solid var(--plate-border); border-radius: 12px; background: var(--plate-bg); color: var(--ui-muted); font-size: 11.5px; line-height: 1.7; }
+    .legend b { color: var(--ui-text); }
+
+    /* ── 결과 오버레이 ── */
+    .overlay { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: rgba(0,0,0,.55); backdrop-filter: blur(4px); }
+    .stage[data-theme="paper"] .overlay { background: rgba(246,241,231,.75); }
+    .result { width: 800px; padding: 26px 32px 28px; border: 1px solid var(--plate-border); border-radius: 22px; background: var(--plate-bg); box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+    .stage[data-theme="classic"] .result { border: 2px solid var(--accent); border-radius: 8px; background: linear-gradient(180deg, #102a1c, #08160f); }
+    .stage[data-theme="neon"] .result { background: linear-gradient(160deg, rgba(36,24,90,.96), rgba(10,8,30,.96)); box-shadow: 0 0 60px rgba(124,92,255,.5); }
+    .res-head { display: flex; align-items: baseline; gap: 14px; }
+    .res-head h2 { color: var(--accent-2); font-size: 46px; font-weight: 900; letter-spacing: .04em; }
+    .stage[data-theme="neon"] .res-head h2 { background: linear-gradient(90deg, #f472b6, #22d3ee); -webkit-background-clip: text; color: transparent; }
+    .stage[data-theme="classic"] .res-head h2 { color: var(--accent); font-family: "Noto Serif KR", "Batang", serif; }
+    .res-head span { color: var(--ui-muted); font-weight: 800; }
+    .res-hand { display: flex; align-items: flex-end; gap: 3px; margin: 18px 0 14px; }
+    .res-hand .win { margin-left: 14px; box-shadow: 0 var(--tile-depth) 0 var(--tile-side), 0 0 0 3px var(--highlight), 0 0 22px var(--highlight); }
+    .res-body { display: grid; grid-template-columns: 1fr 1.15fr; gap: 26px; }
+    .res-dora { display: flex; gap: 18px; margin-bottom: 12px; color: var(--ui-muted); font-size: 12px; font-weight: 800; }
+    .res-dora div { display: flex; align-items: center; gap: 6px; }
+    .yaku { display: grid; grid-template-columns: 1fr auto; gap: 6px 18px; font-size: 16px; font-weight: 800; }
+    .yaku span:nth-child(even) { color: var(--accent); text-align: right; }
+    .total { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--plate-border); font-size: 26px; font-weight: 900; }
+    .total small { display: block; color: var(--ui-muted); font-size: 13px; font-weight: 700; }
+    .deltas { display: grid; gap: 8px; }
+    .delta { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--plate-border); border-radius: 10px; font-weight: 800; font-size: 14px; }
+    .delta .avatar { width: 30px; height: 30px; border-radius: 8px; font-size: 14px; }
+    .delta .v { margin-left: auto; font-variant-numeric: tabular-nums; }
+    .delta .plus { color: #34d399; } .delta .minus { color: #f87171; }
+    .stage[data-theme="paper"] .delta .plus { color: #2f7d6d; } .stage[data-theme="paper"] .delta .minus { color: #d33a2c; }
+    .res-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+
+    /* ── 방 설정 화면 ── */
+    .setup { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 320px; gap: 28px; padding: 46px 56px; }
+    .setup h2 { font-size: 30px; font-weight: 900; letter-spacing: -.02em; }
+    .setup h2 small { margin-left: 10px; color: var(--ui-muted); font-size: 14px; font-weight: 700; }
+    .presets { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+    .preset { padding: 16px 18px; border: 2px solid var(--plate-border); border-radius: 16px; background: var(--plate-bg); text-align: left; color: var(--ui-text); }
+    .preset.on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+    .preset b { display: block; font-size: 18px; font-weight: 900; }
+    .preset span { color: var(--ui-muted); font-size: 12.5px; font-weight: 700; }
+    .preset .icons { margin: 0 0 8px; font-size: 22px; letter-spacing: 4px; }
+    .seat-map { position: relative; height: 380px; margin-top: 22px; }
+    .mini-table { position: absolute; left: 50%; top: 50%; display: grid; width: 150px; height: 150px; place-items: center; transform: translate(-50%, -50%) rotate(45deg); border: 2px solid var(--center-border); border-radius: 18px; background: var(--center-bg); }
+    .mini-table span { transform: rotate(-45deg); color: var(--center-text); font-size: 15px; font-weight: 900; text-align: center; line-height: 1.4; }
+    .seat { position: absolute; display: flex; width: 236px; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--plate-border); border-radius: 14px; background: var(--plate-bg); }
+    .seat.s-b { left: 50%; bottom: 0; transform: translateX(-50%); }
+    .seat.s-t { left: 50%; top: 0; transform: translateX(-50%); }
+    .seat.s-l { left: 0; top: 50%; transform: translateY(-50%); }
+    .seat.s-r { right: 0; top: 50%; transform: translateY(-50%); }
+    .seat .sname { font-weight: 900; font-size: 14px; }
+    .seat .ssub { color: var(--ui-muted); font-size: 11.5px; font-weight: 700; }
+    .diff { display: flex; gap: 3px; margin-top: 4px; }
+    .diff i { padding: 1px 6px; border: 1px solid var(--plate-border); border-radius: 99px; color: var(--ui-muted); font-size: 10px; font-style: normal; font-weight: 800; }
+    .diff i.on { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .stage[data-theme="classic"] .diff i.on { color: #1a1405; }
+    .rules { display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 1px solid var(--plate-border); border-radius: 18px; background: var(--plate-bg); }
+    .rules h3 { margin-bottom: 4px; font-size: 16px; font-weight: 900; }
+    .rule { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px dashed var(--plate-border); font-size: 13.5px; font-weight: 700; }
+    .rule em { color: var(--accent); font-style: normal; font-weight: 900; }
+    .toggle { width: 38px; height: 22px; padding: 3px; border-radius: 99px; background: var(--accent); }
+    .toggle::after { display: block; width: 16px; height: 16px; margin-left: 16px; border-radius: 50%; background: #fff; content: ""; }
+    .toggle.off { background: rgba(148,163,184,.4); }
+    .toggle.off::after { margin-left: 0; }
+    .start { margin-top: auto; padding: 16px; border: 2px solid var(--btn-border); border-radius: 14px; background: var(--btn-bg); color: var(--btn-text); font-size: 20px; font-weight: 900; }
+    .start small { display: block; font-size: 12px; font-weight: 700; opacity: .85; }
+
+    /* ── 하단 비교 ── */
+    .compare { width: min(1240px, 100%); margin: 26px auto 60px; padding: 0 20px; }
+    .compare h2 { margin-bottom: 12px; font-size: 1.1rem; }
+    .compare table { width: 100%; border-collapse: collapse; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; font-size: .84rem; }
+    .compare th, .compare td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; line-height: 1.55; }
+    .compare th { background: #17162a; color: var(--gold); font-weight: 900; }
+    .compare td:first-child { color: var(--muted); font-weight: 800; white-space: nowrap; }
+    .notes { margin-top: 16px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: #12111d; color: #d4d0e2; font-size: .84rem; line-height: 1.8; }
+    .notes b { color: var(--gold); }
+
+    @media (max-width: 760px) {
+      .proto-bar { position: static; padding: 10px 12px; }
+      .proto-title { width: 100%; flex-wrap: wrap; gap: 4px 8px; }
+      .proto-title b, .proto-title a { white-space: nowrap; }
+      .ctrl { flex-wrap: wrap; }
+      .seg { flex-wrap: wrap; }
+      .fit, .concept-note, .compare { padding: 0 10px; }
+      .concept-note { grid-template-columns: 1fr; }
+      .compare { overflow-x: auto; }
+      .compare table { min-width: 680px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="proto-bar">
+    <div class="proto-title"><a href="index.html">← 미니게임천국</a><b>마작</b> 디자인 시안 V1 <span class="proto-badge">INTERACTIVE MOCKUP</span></div>
+    <div class="ctrl"><span>시안</span><div class="seg" id="seg-theme">
+      <button data-v="classic">A 클래식 자동탁</button><button data-v="neon">B 네온 라운지</button><button data-v="paper">C 입문 한지탁</button>
+    </div></div>
+    <div class="ctrl"><span>인원</span><div class="seg" id="seg-mode">
+      <button data-v="solo">나 + AI 3</button><button data-v="duo">나·친구 + AI 2</button>
+    </div></div>
+    <div class="ctrl"><span>화면</span><div class="seg" id="seg-screen">
+      <button data-v="setup">방 설정</button><button data-v="play">내 차례</button><button data-v="riichi">리치 선택</button><button data-v="call">퐁 호출</button><button data-v="result">화료 결과</button>
+    </div></div>
+  </div>
+
+  <div class="concept-note" id="note"></div>
+
+  <div class="fit"><div class="fit-inner" id="fit"><div class="stage" id="stage"></div></div></div>
+
+  <section class="compare">
+    <h2>시안 비교</h2>
+    <table>
+      <tr><th></th><th>A 클래식 자동탁</th><th>B 네온 라운지</th><th>C 입문 한지탁</th></tr>
+      <tr><td>무드</td><td>녹색 펠트 · 나무 테두리 · 상아 패. 실제 일본 자동탁과 LED 점수판</td><td>심야 온라인 대전. 보라·시안 글로우, 원형 HUD, 큰 플레이어 카드</td><td>밝은 미색 화면, 평면 패, 높은 대비. 처음 하는 친구도 읽기 쉬움</td></tr>
+      <tr><td>강점</td><td>맞고와 같은 '테이블 게임' 결이라 미니게임천국 안에서 이질감이 적음</td><td>런처의 어두운 톤과 연결, 리치·화료 연출이 가장 화려함</td><td>한글 패 이름, 대기패·안전패 도우미로 룰 장벽을 낮춤</td></tr>
+      <tr><td>약점</td><td>화려함이 덜하고 정보 안내가 적어 초보에겐 불친절</td><td>장시간 대국 시 눈 피로, 패 자체 가독성은 A·C보다 약간 낮음</td><td>마작 특유의 '분위기'는 가장 약함</td></tr>
+      <tr><td>추천 대상</td><td>마작을 아는 사람끼리</td><td>연출·이펙트 중시</td><td>친구에게 마작을 가르치며 할 때</td></tr>
+    </table>
+    <div class="notes">
+      <b>공통 가정</b> — 4인 리치마작(일본식) 136장 · 적도라 · 자리 4개를 사람 1~2명 + AI 2~3명으로 채움. 2인 모드에서는 두 사람을 마주 보는 자리(동·서)에 앉히고 AI를 사이에 둠.<br>
+      <b>섞어서 선택 가능</b> — 예: A의 테이블 + C의 도우미(한글 캡션·대기패 안내)를 옵션 토글로 제공.<br>
+      <b>결정이 필요한 것</b> — ① 룰: 리치마작 vs 한국식(국마) vs 중국식 ② 대국 길이: 동풍전/반장전 ③ 시안 방향.
+    </div>
+  </section>
+
+<script>
+(() => {
+  const KN = ['一','二','三','四','伍','六','七','八','九'];
+  const HONOR = { 1: ['東','k'], 2: ['南','k'], 3: ['西','k'], 4: ['北','k'], 5: ['白','b'], 6: ['發','g'], 7: ['中','r'] };
+  const KO = { m: '만', p: '통', s: '삭' };
+  const KO_HONOR = { 1: '동', 2: '남', 3: '서', 4: '북', 5: '백', 6: '발', 7: '중' };
+
+  const PIN = {
+    1: [[15,20,10,'r']],
+    2: [[15,10.5,6,'g'],[15,29.5,6,'b']],
+    3: [[8,9,5,'b'],[15,20,5,'r'],[22,31,5,'g']],
+    4: [[9,11,5,'b'],[21,11,5,'g'],[9,29,5,'g'],[21,29,5,'b']],
+    5: [[8.5,9.5,4.6,'b'],[21.5,9.5,4.6,'g'],[15,20,4.6,'r'],[8.5,30.5,4.6,'g'],[21.5,30.5,4.6,'b']],
+    6: [[10,8,4.4,'g'],[20,8,4.4,'g'],[10,21,4.4,'r'],[20,21,4.4,'r'],[10,32,4.4,'r'],[20,32,4.4,'r']],
+    7: [[7,5.5,3.8,'g'],[15,9,3.8,'g'],[23,12.5,3.8,'g'],[10,23,3.8,'r'],[20,23,3.8,'r'],[10,33,3.8,'r'],[20,33,3.8,'r']],
+    8: [[10,6,3.8,'b'],[20,6,3.8,'b'],[10,15.3,3.8,'b'],[20,15.3,3.8,'b'],[10,24.7,3.8,'b'],[20,24.7,3.8,'b'],[10,34,3.8,'b'],[20,34,3.8,'b']],
+    9: [[7,8,3.9,'b'],[15,8,3.9,'b'],[23,8,3.9,'b'],[7,20,3.9,'r'],[15,20,3.9,'r'],[23,20,3.9,'r'],[7,32,3.9,'g'],[15,32,3.9,'g'],[23,32,3.9,'g']],
+  };
+  const SOU = {
+    2: [[15,10.5],[15,29.5]],
+    3: [[15,10.5],[10,29.5],[20,29.5]],
+    4: [[10,10.5],[20,10.5],[10,29.5],[20,29.5]],
+    5: [[8,10.5],[22,10.5],[15,20,'r'],[8,29.5],[22,29.5]],
+    6: [[8,10.5],[15,10.5],[22,10.5],[8,29.5],[15,29.5],[22,29.5]],
+    7: [[15,7,'r',8.5],[8,20,0,8.5],[15,20,0,8.5],[22,20,0,8.5],[8,33,0,8.5],[15,33,0,8.5],[22,33,0,8.5]],
+    8: [[6,10.5,0,10,0],[12,10.5,0,10,18],[18,10.5,0,10,-18],[24,10.5,0,10,0],[6,29.5,0,10,0],[12,29.5,0,10,-18],[18,29.5,0,10,18],[24,29.5,0,10,0]],
+    9: [[8,7,0,8.5],[15,7,'r',8.5],[22,7,0,8.5],[8,20,0,8.5],[15,20,'r',8.5],[22,20,0,8.5],[8,33,0,8.5],[15,33,'r',8.5],[22,33,0,8.5]],
+  };
+
+  function face(t) {
+    const n = +t[0], s = t[1];
+    const aka = n === 0, v = aka ? 5 : n;
+    if (s === 'z') {
+      const [ch, c] = HONOR[n];
+      if (n === 5) return '<rect x="6.5" y="7" width="17" height="26" rx="2" fill="none" class="s-b" stroke-width="2"/><rect x="9.5" y="10" width="11" height="20" rx="1" fill="none" class="s-b" stroke-width=".8"/>';
+      return `<text x="15" y="20.5" font-size="21" class="kanji f-${c}">${ch}</text>`;
+    }
+    if (s === 'm') return `<text x="15" y="12" font-size="13" class="kanji f-${aka ? 'r' : 'k'}">${KN[v-1]}</text><text x="15" y="29" font-size="15" class="kanji f-r">萬</text>`;
+    if (s === 'p') return PIN[v].map(([x,y,r,c]) => { c = aka ? 'r' : c; return `<circle cx="${x}" cy="${y}" r="${r}" class="f-${c}"/><circle cx="${x}" cy="${y}" r="${r*.68}" class="f-face"/><circle cx="${x}" cy="${y}" r="${r*.42}" class="f-${c}"/>`; }).join('');
+    if (s === 's') {
+      if (v === 1) return '<path d="M15 31 L8 38 M15 31 L15 38.5 M15 31 L22 38" class="s-g" stroke-width="2" stroke-linecap="round"/><ellipse cx="15" cy="22" rx="6.5" ry="8.5" class="f-g"/><ellipse cx="15" cy="22" rx="3" ry="5" class="f-face"/><circle cx="15" cy="11" r="4.2" class="f-r"/><path d="M18.5 10 L23 9 L19 12.5 Z" class="f-r"/>';
+      return SOU[v].map(([x,y,c,h,rot]) => {
+        h = h || 10; c = aka ? 'r' : (c || 'g');
+        const tr = rot ? ` transform="rotate(${rot} ${x} ${y})"` : '';
+        return `<g${tr}><rect x="${x-2.3}" y="${y-h/2}" width="4.6" height="${h}" rx="2.2" class="f-${c}"/><rect x="${x-2.6}" y="${y-.7}" width="5.2" height="1.4" rx=".7" class="f-${c}"/><line x1="${x}" y1="${y-h/2+1.5}" x2="${x}" y2="${y+h/2-1.5}" stroke="#fff" stroke-opacity=".45" stroke-width=".8"/></g>`;
+      }).join('');
+    }
+    return '';
+  }
+  const koName = t => t[1] === 'z' ? KO_HONOR[t[0]] : `${t[0] === '0' ? 5 : t[0]}${KO[t[1]]}`;
+  const tile = (t, size, extra = '', inner = '') => `<div class="tile ${size} ${extra}"><svg viewBox="0 0 30 40">${face(t)}</svg>${inner}</div>`;
+  const back = (size, extra = '') => `<div class="tile back ${size} ${extra}"></div>`;
+  const sideTile = (t, size, cls = '') => `<div class="rot ${cls}">${tile(t, size)}</div>`;
+
+  /* ── 대국 데이터 ── */
+  const HAND = ['1m','2m','3m','0p','6p','7p','3s','4s','5s','6s','7s','1z','1z'];
+  const DRAWN = '2p';
+  const PONDS = {
+    0: ['9m','4z','1p','8m','5z'],
+    1: ['9p','3z','2s','7m','1s'],
+    2: ['4z','9s','1m','R3p','8p'],
+    3: ['5z','1m','9s','4m','1z'],
+  };
+  const SEATS = {
+    solo: [
+      { key: 'me', name: '나', av: 'av-me', ch: '나', wind: '東', type: 'me', score: 25000 },
+      { key: 'r', name: '주작', av: 'av-ai1', ch: '雀', wind: '南', type: 'ai', diff: '보통', score: 25000 },
+      { key: 't', name: '백호', av: 'av-ai2', ch: '虎', wind: '西', type: 'ai', diff: '어려움', score: 24000, riichi: true },
+      { key: 'l', name: '현무', av: 'av-ai3', ch: '武', wind: '北', type: 'ai', diff: '보통', score: 25000 },
+    ],
+    duo: [
+      { key: 'me', name: '나', av: 'av-me', ch: '나', wind: '東', type: 'me', score: 25000 },
+      { key: 'r', name: '주작', av: 'av-ai1', ch: '雀', wind: '南', type: 'ai', diff: '보통', score: 25000 },
+      { key: 't', name: '도윤', av: 'av-friend', ch: '도', wind: '西', type: 'human', score: 24000, riichi: true },
+      { key: 'l', name: '현무', av: 'av-ai3', ch: '武', wind: '北', type: 'ai', diff: '보통', score: 25000 },
+    ],
+  };
+
+  const NOTES = {
+    classic: ['A · 클래식 자동탁', '녹색 펠트와 나무 테두리, 상아색 패와 초록 패 뒷면. 중앙에는 실제 일본 자동탁처럼 LED 점수판을 두어 "진짜 마작판 앞에 앉은" 감각을 줍니다.', ['맞고와 같은 테이블 결', '중앙 LED 점수·국 표시', '각진 명패 · 붉은 옻칠 버튼', '정보 안내 최소']],
+    neon: ['B · 네온 라운지', '런처의 어두운 톤과 이어지는 심야 온라인 대전 무드. 원형 HUD, 큰 원형 아바타 카드, 글로우 액션 버튼으로 리치·화료 순간의 연출을 강조합니다.', ['원형 중앙 HUD', '큰 플레이어 카드', '그라데이션 알약 버튼', '연출 강화형']],
+    paper: ['C · 입문 한지탁', '밝은 미색 바탕에 평면 패. 손패 아래 한글 패 이름, 상단에 대기패 안내, 리치한 상대 기준 안전패(현물) 표시까지 넣어 마작을 처음 하는 친구도 함께할 수 있게 했습니다.', ['한글 패 이름 캡션', '대기패·남은 장수 안내', '리치 상대 안전패 표시', '가독성 우선']],
+  };
+
+  const state = { theme: 'classic', mode: 'solo', screen: 'play' };
+  const params = new URLSearchParams(location.search);
+  if (params.get('concept') in NOTES) state.theme = params.get('concept');
+  if (['solo','duo'].includes(params.get('mode'))) state.mode = params.get('mode');
+  if (['setup','play','riichi','call','result'].includes(params.get('screen'))) state.screen = params.get('screen');
+
+  function plate(seat, pos, isTurn) {
+    let badge = seat.type === 'me' ? '<span class="badge me">YOU</span>' : seat.type === 'human' ? '<span class="badge human">친구</span>' : '<span class="badge ai">AI</span>';
+    if (seat.riichi) badge += '<span class="badge riichi">리치</span>';
+    let sub = `${seat.score.toLocaleString()}점`;
+    if (seat.type === 'ai') sub += ` · ${seat.diff}`;
+    if (seat.type === 'human') sub = `<span class="dot-online"></span>접속 중 · ${sub}`;
+    const timer = isTurn && seat.type === 'me' ? '<div class="timer"><span>12</span></div>' : '';
+    return `<div class="plate p-${pos}${isTurn ? ' turn' : ''}"><div class="avatar ${seat.av}">${seat.ch}<span class="wind">${seat.wind}</span></div><div><div class="name">${seat.name}${badge}</div><div class="sub">${sub}</div></div>${timer}</div>`;
+  }
+
+  function pondHtml(list, seatIdx, calledLast) {
+    return list.map((t, i) => {
+      const isLast = i === list.length - 1;
+      if (t[0] === 'R') return sideTile(t.slice(1), 't-pond');
+      let cls = '';
+      if (isLast && calledLast) cls = 'called';
+      return tile(t, 't-pond', cls);
+    }).join('');
+  }
+
+  function renderPlay() {
+    const { theme, mode, screen } = state;
+    const seats = SEATS[mode];
+    const paper = theme === 'paper';
+    const call = screen === 'call', riichi = screen === 'riichi';
+    const turnIdx = call ? 3 : 0;
+    let html = '';
+
+    /* 상대 손패 */
+    html += `<div class="top-hand">${Array.from({ length: 13 }, () => back('t-top')).join('')}</div>`;
+    html += `<div class="side-hand left">${Array.from({ length: 13 }, () => back('t-side', 'side')).join('')}</div>`;
+    html += `<div class="side-hand right">${Array.from({ length: 10 }, () => back('t-side', 'side')).join('')}<div class="meld-col">${sideTile('7z','t-meld','meld')}${sideTile('7z','t-meld','meld')}${sideTile('7z','t-meld','meld')}</div></div>`;
+
+    /* 중앙 보드 */
+    html += '<div class="board"><div class="center-box"></div>';
+    seats.forEach((s, i) => {
+      const pond = PONDS[i];
+      html += `<div class="layer s${i}${s.riichi ? ' riichi' : ''}">`;
+      html += `<div class="seat-score"><span class="w">${s.wind}</span><span class="pt">${s.score.toLocaleString()}</span></div>`;
+      if (i === turnIdx) html += '<div class="turn-edge"></div>';
+      html += '<div class="stick"></div>';
+      html += `<div class="pond">${pondHtml(pond, i, call && i === 3)}</div></div>`;
+    });
+    const roundLabel = paper ? '동장 1국' : '東 1局';
+    html += `<div class="center-info"><div class="round">${roundLabel}</div><div class="round-sub">0본장 · 공탁 1</div><div class="dora-row">${tile('4s','t-mini')}${back('t-mini')}${back('t-mini')}${back('t-mini')}${back('t-mini')}</div><div class="wall-left">${paper ? '남은 패 ' : '残 '}${call ? 50 : 49}</div></div>`;
+    html += '</div>';
+
+    /* 명패 */
+    html += plate(seats[2], 'top', false);
+    html += plate(seats[3], 'left', call);
+    html += plate(seats[1], 'right', false);
+    html += plate(seats[0], 'me', !call);
+
+    /* 내 손패 */
+    const safe = new Set(['1m']);
+    html += '<div class="my-hand">';
+    HAND.forEach(t => {
+      let cls = '', inner = '';
+      if (riichi) cls = 'dim';
+      if (call && t === '1z') cls = 'pair';
+      if (paper) {
+        inner += `<span class="cap">${koName(t)}</span>`;
+        if (safe.has(t) && !call) inner += '<span class="tag safe">안전</span>';
+      }
+      html += tile(t, 't-hand', cls, inner);
+    });
+    if (!call) {
+      let inner = paper ? `<span class="cap">${koName(DRAWN)}</span>` : '';
+      if (paper && !riichi) inner += '<span class="tag warn">버릴 패</span>';
+      html += tile(DRAWN, 't-hand', `drawn${riichi || paper ? ' lift' : ''}`, inner);
+    }
+    html += '</div>';
+
+    /* 안내 스트립 · 액션 */
+    const mt = ts => `<span class="mini-tiles">${ts.map(t => tile(t, 't-mini')).join('')}</span>`;
+    if (call) {
+      const who = seats[3];
+      html += `<div class="strip"><span class="k">퐁 가능</span>${who.name}(${who.wind})가 ${mt(['1z'])} 를 버렸습니다${paper ? ' · <b>동(東)은 내 자리풍+장풍이라 퐁하면 역 2판</b>' : ''}</div>`;
+      html += '<div class="actions"><button class="act pulse">퐁<small>東 東 東</small></button><button class="act ghost">스킵</button></div><div class="call-timer"><i></i></div>';
+    } else if (riichi) {
+      html += `<div class="strip"><span class="k">리치</span><b>2통</b>을 버리면 대기 ${mt(['5s','8s'])} <span>${paper ? '5삭·8삭 · 남은 5장 · 양면 대기' : '남은 5장'}</span></div>`;
+      html += '<div class="actions"><button class="act pulse">리치 확정<small>1,000점 공탁</small></button><button class="act ghost">취소</button></div>';
+    } else {
+      if (paper) html += `<div class="strip"><span class="k">도우미</span>텐파이까지 0향청 · <b>2통</b> 버리면 리치 가능 · 대기 ${mt(['5s','8s'])} 남은 5장</div>`;
+      html += '<div class="actions"><button class="act pulse">리치</button><button class="act ghost">버리기</button></div>';
+    }
+    if (paper && !call) html += `<div class="legend"><b>${seats[2].name}</b>님이 리치 중<br><span class="tag safe" style="position:static;display:inline-block;margin-right:4px;transform:none">안전</span> 리치한 사람이 이미 버린 패 (현물) — 론 당하지 않음</div>`;
+
+    if (screen === 'result') html += renderResult(seats);
+    return html;
+  }
+
+  function renderResult(seats) {
+    const finalHand = ['1m','2m','3m','0p','6p','7p','3s','4s','5s','6s','7s','1z','1z'];
+    const deltas = [[seats[0], 37700, 12700], [seats[1], 21100, -3900], [seats[2], 20100, -3900], [seats[3], 21100, -3900]];
+    return `<div class="overlay"><div class="result">
+      <div class="res-head"><h2>쯔모</h2><span>나 (동가 · 친) 화료</span></div>
+      <div class="res-hand">${finalHand.map(t => tile(t, 't-res')).join('')}${tile('8s', 't-res', 'win')}</div>
+      <div class="res-body"><div>
+        <div class="res-dora"><div>도라 ${tile('4s','t-mini')}</div><div>우라도라 ${tile('2z','t-mini')}</div></div>
+        <div class="yaku"><span>리치</span><span>1판</span><span>멘젠쯔모</span><span>1판</span><span>도라 (5삭)</span><span>1판</span><span>적도라 (적5통)</span><span>1판</span></div>
+        <div class="total">4판 30부 · 3,900 올<small>합계 11,700점 + 공탁 2,000점</small></div>
+      </div><div class="deltas">${deltas.map(([s, total, d]) => `<div class="delta"><div class="avatar ${s.av}">${s.ch}</div>${s.name}${s.type === 'ai' ? ' <span class="badge ai">AI</span>' : s.type === 'human' ? ' <span class="badge human">친구</span>' : ''}<span class="v">${total.toLocaleString()} <span class="${d > 0 ? 'plus' : 'minus'}">(${d > 0 ? '+' : ''}${d.toLocaleString()})</span></span></div>`).join('')}
+        <div class="res-actions"><button class="act ghost">점수표</button><button class="act">다음 국 →</button></div>
+      </div></div>
+    </div></div>`;
+  }
+
+  function renderSetup() {
+    const { mode } = state;
+    const seats = SEATS[mode];
+    const seatCard = (s, pos) => {
+      let sub, extra = '';
+      if (s.type === 'me') sub = '방장 · 준비 완료';
+      else if (s.type === 'human') sub = '<span class="dot-online"></span>친구 · 준비 완료';
+      else { sub = 'AI 플레이어'; extra = `<div class="diff">${['쉬움','보통','어려움'].map(d => `<i class="${d === s.diff ? 'on' : ''}">${d}</i>`).join('')}</div>`; }
+      return `<div class="seat s-${pos}"><div class="avatar ${s.av}">${s.ch}<span class="wind">${s.wind}</span></div><div><div class="sname">${{東:'동',南:'남',西:'서',北:'북'}[s.wind]}가 · ${s.name}</div><div class="ssub">${sub}</div>${extra}</div></div>`;
+    };
+    return `<div class="setup"><div>
+      <h2>마작 방 설정<small>4인 리치마작</small></h2>
+      <div class="presets">
+        <button class="preset${mode === 'solo' ? ' on' : ''}" data-mode="solo"><div class="icons">🙂🤖🤖🤖</div><b>혼자 + AI 3명</b><span>바로 시작 · 친구를 기다리지 않음</span></button>
+        <button class="preset${mode === 'duo' ? ' on' : ''}" data-mode="duo"><div class="icons">🙂🙂🤖🤖</div><b>친구와 + AI 2명</b><span>두 사람은 마주 보는 자리에 배치</span></button>
+      </div>
+      <div class="seat-map"><div class="mini-table"><span>東 1局<br><small style="font-size:11px">자리 배치</small></span></div>
+        ${seatCard(seats[0], 'b')}${seatCard(seats[1], 'r')}${seatCard(seats[2], 't')}${seatCard(seats[3], 'l')}
+      </div>
+    </div>
+    <div class="rules"><h3>규칙</h3>
+      <div class="rule">대국 길이 <em>반장전</em></div>
+      <div class="rule">시작 점수 <em>25,000</em></div>
+      <div class="rule">적도라 (5만·5통·5삭) <div class="toggle"></div></div>
+      <div class="rule">쿠이탕 (울고 탕야오) <div class="toggle"></div></div>
+      <div class="rule">한글 패 이름 표시 <div class="toggle${state.theme === 'paper' ? '' : ' off'}"></div></div>
+      <div class="rule">대기패·안전패 도우미 <div class="toggle${state.theme === 'paper' ? '' : ' off'}"></div></div>
+      <div class="rule">생각 시간 <em>15초 + 여유 20초</em></div>
+      <button class="start">대국 시작<small>${mode === 'solo' ? 'AI 3명 준비 완료' : '도윤님 준비 완료 · AI 2명'}</small></button>
+    </div></div>`;
+  }
+
+  const stage = document.getElementById('stage');
+  const fitEl = document.getElementById('fit');
+  function fit() {
+    const s = Math.min(1, fitEl.clientWidth / 1200);
+    stage.style.transform = `scale(${s})`;
+    fitEl.style.height = `${760 * s + (s < 1 ? 0 : 20)}px`;
+    stage.style.left = s < 1 ? '0' : `${(fitEl.clientWidth - 1200) / 2}px`;
+  }
+
+  function render() {
+    stage.dataset.theme = state.theme;
+    stage.innerHTML = state.screen === 'setup' ? renderSetup() : renderPlay();
+    const [title, desc, tags] = NOTES[state.theme];
+    document.getElementById('note').innerHTML = `<h1>${title}</h1><p>${desc}</p><ul>${tags.map(t => `<li>${t}</li>`).join('')}</ul>`;
+    for (const [id, key] of [['seg-theme','theme'],['seg-mode','mode'],['seg-screen','screen']]) {
+      document.querySelectorAll(`#${id} button`).forEach(b => b.classList.toggle('on', b.dataset.v === state[key]));
+    }
+    stage.querySelectorAll('.preset').forEach(b => b.addEventListener('click', () => { state.mode = b.dataset.mode; render(); }));
+    const q = new URLSearchParams({ concept: state.theme, mode: state.mode, screen: state.screen });
+    history.replaceState(null, '', `?${q}`);
+    fit();
+  }
+
+  for (const [id, key] of [['seg-theme','theme'],['seg-mode','mode'],['seg-screen','screen']]) {
+    document.getElementById(id).addEventListener('click', e => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      state[key] = b.dataset.v;
+      render();
+    });
+  }
+  window.addEventListener('resize', fit);
+  render();
+})();
+</script>
+</body>
+</html>
