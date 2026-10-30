@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마작 - 게스트 "다시 하기" 대기 UI 시안 V1 | 미니게임천국</title>
+  <!-- 실제 게임과 같은 CSS(minigame-paradise/mahjong/public 복사본) -->
+  <link rel="stylesheet" href="assets/mahjong/style.css">
+  <style>
+    .proto-bar { position: sticky; top: 0; z-index: 50; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 10px 20px; border-bottom: 1px solid var(--line); background: rgba(10,10,18,.94); backdrop-filter: blur(8px); }
+    .proto-title { margin-right: auto; font-weight: 900; }
+    .proto-title b { color: var(--gold); }
+    .ctrl { display: flex; align-items: center; gap: 6px; }
+    .ctrl > span { color: var(--muted); font-size: .7rem; font-weight: 800; letter-spacing: .06em; }
+    .seg { display: flex; padding: 3px; border: 1px solid var(--line); border-radius: 10px; background: #14131f; }
+    .seg button { padding: 6px 12px; border: 0; border-radius: 7px; background: transparent; color: #bdb9cf; font-size: .8rem; font-weight: 800; }
+    .seg button.on { background: var(--gold); color: #1d1608; }
+    .seg button:not(.on):hover { background: #222033; }
+    .note { width: min(1240px, 100%); margin: 14px auto 0; padding: 0 20px; }
+    .note h1 { font-size: 1.25rem; letter-spacing: -.03em; }
+    .note p { margin-top: 6px; color: var(--muted); font-size: .86rem; line-height: 1.6; }
+    .note .pro { color: #8fd6a8; } .note .con { color: #ff9a76; }
+    .note ul { margin: 6px 0 0 18px; color: var(--muted); font-size: .84rem; line-height: 1.65; }
+    .view { position: relative; width: 1200px; height: 760px; margin: 22px auto 40px; transform-origin: 50% 0; }
+    .view .stage { position: absolute; inset: 0; }
+
+    /* 시안 전용: 방 뒤에 깔린 흐린 식탁 */
+    .ghost-board { position: absolute; inset: 0; opacity: .35; filter: blur(3px); background:
+      radial-gradient(circle at 50% 46%, rgba(0,0,0,.55) 0 120px, transparent 121px); }
+    .res .result { width: 640px; }
+    .res-actions { gap: 12px; }
+    .res-actions.col { flex-direction: column; align-items: stretch; gap: 10px; }
+    .row { display: flex; align-items: center; gap: 12px; }
+    .row.between { justify-content: space-between; }
+    .grow { flex: 1; }
+
+    /* 현재/대기 버튼 */
+    .act.wait { background: rgba(0,0,0,.35); border: 2px dashed rgba(233,196,106,.55); color: var(--accent); box-shadow: none; cursor: default; min-width: 210px; filter: none; }
+    .act.wait:hover, .act.wait:disabled { filter: none; opacity: 1; }
+    .dots span { display: inline-block; animation: blink 1.2s infinite; }
+    .dots span:nth-child(2) { animation-delay: .2s; } .dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+    .act.exit { min-width: 0; padding: 10px 14px; font-size: 14px; }
+    .cap { color: var(--ui-muted); font-size: 12px; font-weight: 700; line-height: 1.5; }
+    .cap b { color: var(--accent); }
+
+    /* B: 대기 배너 */
+    .banner { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid var(--plate-border); border-radius: 6px; background: rgba(233,196,106,.08); font-size: 15px; font-weight: 800; }
+    .banner .spin { width: 18px; height: 18px; border: 3px solid rgba(233,196,106,.3); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .linkbtn { border: 0; background: none; color: var(--ui-muted); font-size: 13px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; padding: 6px 2px; }
+    .linkbtn:hover { color: #fff; }
+    .confirm { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; background: rgba(0,0,0,.55); border-radius: 8px; }
+    .confirm .box { width: 420px; padding: 20px 22px; border: 2px solid var(--accent); border-radius: 8px; background: #0b1f15; text-align: center; }
+    .confirm h3 { font-size: 20px; font-weight: 900; color: var(--accent); }
+    .confirm p { margin: 8px 0 16px; color: var(--ui-muted); font-size: 13px; font-weight: 700; line-height: 1.6; }
+    .confirm .row { justify-content: center; }
+    .result { position: relative; }
+
+    /* C: 준비 */
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { display: flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid var(--plate-border); border-radius: 99px; font-size: 12px; font-weight: 800; color: var(--ui-muted); }
+    .chip.ok { border-color: #34d399; color: #34d399; background: rgba(52,211,153,.1); }
+    .chip.me { border-color: var(--accent); }
+    .act.ready { background: linear-gradient(180deg, #2f9a6a, #1d6b47); border-color: #8fd6a8; }
+    .act:disabled.ready { opacity: .6; }
+    .sub { color: var(--ui-muted); font-size: 12px; font-weight: 700; }
+
+    .tag-line { margin: 0 auto 8px; width: 1200px; display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: .8rem; font-weight: 800; }
+    .tag-line .pill { padding: 3px 9px; border-radius: 99px; background: #1b1830; border: 1px solid #5a5274; color: #cfc6ef; }
+  </style>
+</head>
+<body>
+  <div class="proto-bar">
+    <div class="proto-title">마작 · <b>게스트 "다시 하기" 대기 UI</b> 시안 V1</div>
+    <div class="ctrl"><span>시안</span>
+      <div class="seg" id="seg-v">
+        <button data-v="cur" class="on">현재</button>
+        <button data-v="a">A 자리 고정</button>
+        <button data-v="b">B 대기 배너+확인</button>
+        <button data-v="c">C 준비 버튼</button>
+      </div>
+    </div>
+    <div class="ctrl"><span>시점</span>
+      <div class="seg" id="seg-r"><button data-r="guest" class="on">게스트</button><button data-r="host">방장</button></div>
+    </div>
+  </div>
+
+  <div class="note" id="note"></div>
+  <div class="view" id="view"><div class="stage" id="stage"></div></div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+let V = 'cur', R = 'guest';
+let ready = false;      // C: 게스트 준비 여부
+let confirmOpen = false; // B: 나가기 확인
+
+const NOTES = {
+  cur: `<h1>현재 — 게스트에게 버튼이 "게임 선택" 하나뿐</h1>
+    <p>"방장이 다시 시작할 수 있어요"는 버튼이 아닌 작은 글씨라 눈에 안 들어온다. 보이는 유일한 버튼을 "다음으로 넘어가는 버튼"으로 착각해 눌러서 홈으로 나가 버린다.</p>`,
+  a: `<h1>A. 자리 고정 — 방장과 같은 자리에 "방장 대기 중" 버튼을 둔다</h1>
+    <ul><li class="pro">방장 화면과 버튼 배치가 같아서 "여기가 다시 하기 자리, 지금은 내가 누를 수 없다"가 한눈에 보인다.</li>
+    <li class="pro">"나가기"는 작고 어두운 버튼으로 낮춰 우연히 누를 확률을 줄인다. 문구도 "게임 선택" → "홈으로 나가기"로 바꿔 결과를 예상하게 한다.</li>
+    <li class="pro">클라이언트 문구·스타일만 바꾸면 돼서 가장 싸다(서버 변경 없음).</li>
+    <li class="con">그래도 한 번에 눌러서 나가는 건 막지 못한다(확인 단계 없음).</li></ul>`,
+  b: `<h1>B. 대기 배너 + 나가기 확인 — 상태를 크게 말하고, 나가기는 한 번 더 묻는다</h1>
+    <ul><li class="pro">"○○님이 다시 시작하길 기다리는 중"이 주인공이라 지금 할 일이 없다는 게 명확하다.</li>
+    <li class="pro">"나가기"를 누르면 확인 창이 떠서 실수로 나가는 일을 막는다. 기본 강조는 "계속 기다리기"다.</li>
+    <li class="pro">클라이언트만 변경(서버 변경 없음). A보다 오해 방지가 확실하다.</li>
+    <li class="con">정말 나가려는 사람은 클릭이 한 번 더 늘어난다.</li></ul>
+    <p>이 화면에서 "나가기"를 눌러 보세요.</p>`,
+  c: `<h1>C. 준비 버튼 — 게스트도 누를 "다시 하기" 버튼이 생긴다</h1>
+    <ul><li class="pro">게스트가 누를 수 있는 주 버튼("다시 하기 준비")이 있으니 "게임 선택"에 손이 갈 이유가 줄어든다.</li>
+    <li class="pro">방장은 누가 준비됐는지 보고 시작할 수 있다. 친구가 아직 결과를 읽고 있는지도 알 수 있다.</li>
+    <li class="con">서버에 준비 메시지·상태가 추가돼야 한다(프로토콜 변경 + 테스트). 방장이 준비 안 된 사람이 있어도 시작할 수 있게 할지 정해야 한다.</li></ul>
+    <p>게스트 시점에서 "다시 하기 준비"를 눌러 보고, 시점을 방장으로 바꿔 비교해 보세요.</p>`,
+};
+
+const rows = [
+  [1, '민수', '#2f6fb0', 35900, '+10,900', true, false],
+  [2, '현무', '#6b7280', 31200, '+6,200', false, false],
+  [3, '게스트(나)', '#d98a1f', 24800, '-200', false, true],
+  [4, '주작', '#6b7280', 8100, '-16,900', false, false],
+];
+const rank = rows.map(([no, name, col, pts, d, first, me]) => `
+  <div class="rank-row${first ? ' first' : ''}"><span class="no">${no}</span>
+    <div class="avatar" style="background:${col}">${name[0]}</div>${name}${me ? ' <span class="badge me">YOU</span>' : ''}
+    <span class="pts">${pts.toLocaleString()}</span><span class="d" style="color:${d[0] === '+' ? '#34d399' : '#f87171'}">${d}</span></div>`).join('');
+
+function actions() {
+  const host = R === 'host';
+  if (V === 'cur') {
+    return host
+      ? `<button class="act ghost">게임 선택</button><button class="act">다시 하기</button>`
+      : `<button class="act ghost">게임 선택</button><span>방장이 다시 시작할 수 있어요</span>`;
+  }
+  if (V === 'a') {
+    return host
+      ? `<div class="row between" style="width:100%"><button class="act ghost exit">홈으로 나가기</button><button class="act">다시 하기</button></div>`
+      : `<div class="row between" style="width:100%"><button class="act ghost exit" style="opacity:.75">홈으로 나가기</button>
+          <div style="text-align:right"><button class="act wait" disabled>방장 대기 중<span class="dots"><span>.</span><span>.</span><span>.</span></span></button>
+          <div class="cap" style="margin-top:6px">방장이 누르면 <b>같은 자리</b>로 방 설정에 돌아가요</div></div></div>`;
+  }
+  if (V === 'b') {
+    return host
+      ? `<div class="row between" style="width:100%"><button class="linkbtn">홈으로 나가기</button><button class="act">다시 하기</button></div>`
+      : `<div class="res-actions col" style="width:100%;margin:0">
+          <div class="banner"><div class="spin"></div><div class="grow">민수님이 <b style="color:var(--accent)">다시 시작</b>하길 기다리는 중이에요
+            <div class="cap">시작하면 자동으로 방 설정 화면으로 돌아가요. 이 화면은 그대로 두면 돼요.</div></div></div>
+          <div class="row between"><button class="linkbtn" data-do="ask">홈으로 나가기</button><span class="cap">결과를 천천히 보셔도 돼요</span></div></div>`;
+  }
+  // C
+  if (host) {
+    return `<div class="res-actions col" style="width:100%;margin:0">
+      <div class="row between"><div class="chips"><span class="chip ok">민수(방장) ✓</span><span class="chip ${ready ? 'ok' : ''}">${ready ? '게스트 준비 완료 ✓' : '게스트 아직…'}</span></div>
+      <span class="sub">${ready ? '모두 준비됐어요' : '게스트가 결과를 보는 중일 수 있어요'}</span></div>
+      <div class="row between"><button class="linkbtn">홈으로 나가기</button><button class="act">${ready ? '다시 하기' : '그래도 다시 하기'}</button></div></div>`;
+  }
+  return `<div class="res-actions col" style="width:100%;margin:0">
+      <div class="row between"><div class="chips"><span class="chip ok">민수(방장) ✓</span><span class="chip me ${ready ? 'ok' : ''}">나 ${ready ? '준비 완료 ✓' : '아직…'}</span></div>
+      <span class="sub">${ready ? '방장이 시작하면 바로 넘어가요' : '준비하면 방장에게 보여요'}</span></div>
+      <div class="row between"><button class="linkbtn">홈으로 나가기</button>
+      ${ready ? `<button class="act ghost" data-do="unready">준비 취소</button>` : `<button class="act ready" data-do="ready">다시 하기 준비</button>`}</div></div>`;
+}
+
+function render() {
+  $('#note').innerHTML = NOTES[V];
+  const conf = confirmOpen && V === 'b' && R === 'guest' ? `
+    <div class="confirm"><div class="box"><h3>홈으로 나갈까요?</h3>
+      <p>나가면 이 방의 <b style="color:var(--accent)">다시 하기</b>에 참여할 수 없어요.<br>방장이 시작할 때까지 기다리면 같은 자리에서 이어서 할 수 있어요.</p>
+      <div class="row"><button class="act" data-do="stay">계속 기다리기</button><button class="act ghost" data-do="close">나가기</button></div></div></div>` : '';
+  $('#stage').innerHTML = `<div class="ghost-board"></div><div class="overlay res"><div class="result">
+    <div class="res-head"><h2>대국 종료</h2><span>정해진 국을 모두 마쳤어요.</span></div>
+    <div class="rank-list">${rank}</div>
+    <div class="res-actions">${actions()}</div>${conf}</div></div>`;
+  document.querySelectorAll('#seg-v button').forEach((b) => b.classList.toggle('on', b.dataset.v === V));
+  document.querySelectorAll('#seg-r button').forEach((b) => b.classList.toggle('on', b.dataset.r === R));
+}
+function fit() {
+  const s = Math.min(1, (innerWidth - 40) / 1200);
+  const v = $('#view');
+  v.style.transform = `scale(${s})`;
+  v.style.marginBottom = `${40 - 760 * (1 - s)}px`;
+}
+document.addEventListener('click', (e) => {
+  const sv = e.target.closest('#seg-v button'); if (sv) { V = sv.dataset.v; confirmOpen = false; render(); return; }
+  const sr = e.target.closest('#seg-r button'); if (sr) { R = sr.dataset.r; confirmOpen = false; render(); return; }
+  const d = e.target.closest('[data-do]')?.dataset.do;
+  if (d === 'ask') confirmOpen = true;
+  else if (d === 'stay' || d === 'close') confirmOpen = false;
+  else if (d === 'ready') ready = true;
+  else if (d === 'unready') ready = false;
+  else return;
+  render();
+});
+addEventListener('resize', fit);
+const q = new URLSearchParams(location.search);
+if (q.get('v')) V = q.get('v'); if (q.get('r')) R = q.get('r'); if (q.get('ask')) confirmOpen = true; if (q.get('ready')) ready = true;
+render(); fit();
+</script>
+</body>
+</html>
